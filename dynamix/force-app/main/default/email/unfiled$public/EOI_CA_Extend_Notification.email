@@ -1,0 +1,11 @@
+Hi S&M Head,<br/>
+<br/>
+
+{EOI_CA} details for {projectName}:-<br/>
+
+Launch Period Start Date :- {startDate}<br/>
+Launch Period End Date :-  {endDate}<br/>
+Minimum Amount :- {amount}<br/>
+Link:- <a href="{Link}">{Link}</a><br/><br/>
+
+Take necessary action on  an extension or closure confirmation of Launch  Period End Date.

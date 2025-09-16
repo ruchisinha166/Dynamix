@@ -1,0 +1,19 @@
+.flexi-box{
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+}
+.hold{
+    --sds-c-badge-color-background: #FFBF00;
+    --sds-c-badge-text-color: #FFFFFF;
+}
+.blocked{
+    --sds-c-badge-color-background: rgb(255, 0,0);
+}
+.sold{
+    --sds-c-badge-color-background:#FF8C00;
+    --sds-c-badge-text-color: #FFFFFF;
+}

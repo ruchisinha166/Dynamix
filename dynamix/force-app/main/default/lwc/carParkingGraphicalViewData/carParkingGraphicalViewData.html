@@ -1,0 +1,41 @@
+<template>
+    <template if:true={propertyGraph}>
+        <article class="slds-card slds-card_boundary slds-m-top_large flexi-box">
+            <div class="slds-card__header slds-grid slds-page-header" style="padding-bottom: .75rem;">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-apps" title="Car Parking Graphical View">
+                            <lightning-icon icon-name="standard:apps"></lightning-icon>
+                            <span class="slds-assistive-text">account</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate"
+                                title="Car Parking Graphical View">
+                                <span>Car Parking Graphical View</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner flexi-box">
+                <lightning-tabset class="flexi-box">
+                    <template for:each={propertyGraph.towers} for:item="tower">
+                        <lightning-tab key={tower.name} label={tower.name} class="flexi-box">
+                            <c-car-Parking-inventory-grid tower={tower}>
+                            </c-car-Parking-inventory-grid>
+                        </lightning-tab>
+                    </template>
+                </lightning-tabset>
+            </div>
+            <footer class="slds-card__footer">
+                <span class="slds-badge slds-theme_success">Available</span>
+                <span class="slds-badge sold">Pre Allotted</span>
+                <span class="slds-badge blocked">Allotted</span>
+                <span class="slds-badge hold">Allotted In Progress</span>
+                
+            </footer>
+        </article>
+    </template>
+</template>

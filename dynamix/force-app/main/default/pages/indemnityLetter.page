@@ -1,0 +1,128 @@
+<apex:page standardController="Booking__c" extensions="indemnityLetterExtension" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style>
+                @page
+                {
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                div.nextPage 
+                {
+                margin-top: 120px;
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body {
+                font-family: Helvetica, sans-serif;
+                }
+            </style>
+        </head>
+        <apex:pageBlock >
+            <body style="margin-top: 20px;font-size: 11px;font-family: Helvetica, sans-serif;"> 
+                <div class="footer">
+                    <p style="font-family: Helvetica, sans-serif;font-size:8px;text-align: center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+                </div>
+                
+                <div style ="text-align: center;font-family: Helvetica, sans-serif;"><b><u>DECLARATION CUM INDEMNITY</u></b></div>
+                
+                <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 50px;margin-left: 5%;margin-right: 5%;" width="100%">
+                    <div style= "font-family: Helvetica, sans-serif;font-size: 11px;"><p style= "font-family: Helvetica, sans-serif;font-size: 11px;"><b>To,<br/>
+                        {!booking.Project_Name__r.Builder_Organization__r.name},<br/>
+                        {!booking.Project_Name__r.Builder_Organization__r.Street__c},<br/>
+                        {!booking.Project_Name__r.Builder_Organization__r.city__c}, {!booking.Project_Name__r.Builder_Organization__r.State__c} - {!booking.Project_Name__r.Builder_Organization__r.PIN_Code__c}.</b></p></div>
+                    
+                    
+                    <table syle= "font-family: Helvetica, sans-serif;font-size: 11px; width:100%;margin-top: 25px;">
+                        <tr> 
+                            <!--  <td style="vertical-align:top;">Re:</td>  -->
+                            <td style="vertical-align:top;text-align:justify;"> Re: Keeping in abeyance the execution and registration of Agreement to Sell in respect of Apartment
+                                No. <b>{!properties.name}</b> on the <b>{!properties.Floor__c}<sup>{!floorSub}</sup></b> floor together with 1 open/covered parking space <b> (“collectively referred to as 
+                                the said Flat”)</b> in project known as {!booking.Project_Name__r.name} {!if(LOWER(booking.Tower_Name__r.Name) == 'na',"",booking.Tower_Name__r.Name)} <b>(“the said Project”)</b> being
+                                constructed on undivided and indivisible piece and parcel of land in Layout of your larger 
+                                property lying, being and situated at <b>{!booking.Project_Name__r.City__c}, {!booking.Project_Name__r.state__c} {!booking.Project_Name__r.Postal_code__c}</b> (“said Land”).</td>
+                        </tr>
+                    </table>
+                    <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;">
+                        <p>Dear Sir/s,<br/></p>
+                        <p>I/We, {!booking.Primary_Applicant__r.name}, aged
+                            {!LOWER(booking.Primary_Applicant__r.age__c)} years&nbsp;<apex:outputText rendered="{!coApplicantName <> null}">and {!coApplicantName}</apex:outputText>Indian
+                            Inhabitant/NRI 
+                            holding Aadhar Card No {!booking.Primary_Applicant__r.Aadhar_No__pc}<apex:outputText rendered="{!coApplicantAdr <> null}"> &amp; {!coApplicantAdr} </apex:outputText> and PAN No. {!booking.Primary_Applicant__r.PAN_No__pc} 
+                            <apex:outputText rendered="{!coApplicantPan <> null}">  &amp;
+                                {!coApplicantPan} </apex:outputText> having my /our permanent/registered address 
+                            as {!booking.Primary_Applicant__r.PersonMailingStreet}, {!booking.Primary_Applicant__r.PersonMailingCity}, {!booking.Primary_Applicant__r.PersonMailingState}, {!booking.Primary_Applicant__r.PersonMailingCountry} [hereinafter referred to as “OBLIGOR”]
+                            do hereby on solemn affirmation state and declare as under:<br/><br/></p>
+                        
+                        <ol type="1" style="text-align:justify;font-family: Helvetica, sans-serif;font-size:11px;">
+                            <li class="marginBottom">
+                                <p>I/We refer to my/our application form dated <b><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!booking.Booking_Date__c}" /> </apex:outputText></b> (hereinafter referred to as "said Application") whereunder, inter alia, I/We have agreed to and expressed my/our intention to purchase the said Apartment referred above from you upon the Sale Consideration and on the terms and conditions more particularly set out herein.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p>I/We are aware that payment of instalments towards the Sale Consideration for said Apartment is fundamental and essential term and in order to comply with the same, it is essential on our part to exercise our statutory right to insist on you to first sign and execute the Agreement to Sell so that you can demand and accept further payments from me/us beyond 10% of the agreed consideration. In order to exercise such statutory right, it is also incumbent on us to pay applicable stamp duty and pay registration fees.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p> I/We have been accordingly provided by you the standard agreement to sell, a copy whereof is annexed hereto and initiated on 1<sup>st</sup> page thereof by me/us in token of our having been so provided along with all other documents as stated therein and as required in statutes and in confirmation of our having gone through and understood each and every terms and conditions thereof and accepted the same by way of our informed consent thereto including for any general covenant for exercise of your future rights as reserved thereunder [the said Agreement to Sell].</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p> I/We confirm that I/We are ready and willing to execute/register the Agreement to Sell on payment of the applicable stamp duty and registration charges. However, I/We due to my/our personal difficulty or indecision and financial reasons do not wish to exercise our statutory right to execute said Agreement to Sell and desire to avoid any financial burden at this stage or financial loss in case we desire to cancel our booking and withdraw from purchase of the said Apartment as applied for.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p>  Notwithstanding the discretion and option so exercised due to my/our own sweet will, I/we have volunteered to and undertake that my/our waiver of my/our right to insist on execution and registration of said Agreement for Sell at this stage and my/our deferring the same though asked/advised by you, shall not and cannot thereby deprive you from your rights to receive further payments towards Sale Consideration of said Apartment and such recourse adopted by me/us shall not enable me/us to delay or defer my/our obligation to make payments as and when due and payable to you in terms of our application and schedule of instalments agreed upon with you which shall be duly paid in manner and time as set out in <b>Annexure 1</b> hereto.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p>  I/We confirm that I/We am/are aware of the fact that in view of our not executing/registering the Agreement to Sell though so advised by you, I/We shall not be entertained by RERA authority as Purchaser of the said Apartment as per recent decision/s in such case and may not be able to claim specific performance or other reliefs including statutory protection and that we have, knowing all such consequences decided to waive our statutory right as aforesaid. However, I/we undertake that before claiming possession of the said Apartment and/or transfer of our rights to purchase the same, we shall be liable to and undertake to first pay applicable stamp duty, sign and register said Agreement to Sell in the same format without any dispute or demur. I/we also declare and admit that notwithstanding said Agreement to Sell not executed, in case we fail to make payments to you in manner and in time as specified in <b>Annexure 1</b> hereto, you are and shall remain entitled to claim interest or cancel the Allotment for said Apartment to me/us and the terms and conditions and consequences thereof shall be binding on me/us.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p>  I/We confirm that I/we have waived my/our statutory right as aforesaid and will not make any claim to the contrary nor press any charge to the contrary against you as the Owner/the Promoter of any nature including for non-execution of the said Agreement to Sell and/or accepting payment to be made by me/us though same would be in excess of 10% of Sale Consideration of said Apartment. Further I/We confirm that I/we are and will remain solely responsible for any consequences from my/our actions/decision as aforesaid and would keep, you as the Owner/the Promoter, your directors, officials and agentsetc [hereinafter referred to as “OBLIGEE”], against whose advice we have taken decision as above, and doth hereby keep you jointly and severally, duly indemnified, saved, defended and harmless against any proceedings, claims, costs, penalty or any liability in this regards.</p>
+                            </li>
+                            <li class="marginBottom">
+                                <p> I/we am aware that based on this Declaration and Indemnity and induced thereby, you have not cancelled and are permitted to continue with Allotment/Reservation and considered my/our request and will, relying on the same be sending us the demand notice to us/me from time to time and accepting payment/s from time to time based on my/our covenants and undertaking and indemnity which shall also constitute as evidence of my/our previous statement on oath.</p>
+                            </li>
+                        </ol>
+                        <p style="margin-top: 50px;">IN WITNESS WHEREOF I/WE THE OBLIGOR HAS/HAVE SUBSCRIBED BY SIGNATURE HEREINBELOW.</p>
+                        
+                        <table style="font-family: Helvetica, sans-serif;font-size: 11px;">
+                            <tr><td style="text-align:left;">Solemnly affirmed, signed &amp; delivered by</td><td style="text-align:right">]</td></tr>
+                            <tr><td style="text-align:left;">the withinnamed "OBLIGOR" </td><td style="text-align:right">]</td></tr>
+                            <tr><td style="text-align:left;"> On the ____ day of ___________<apex:outputText value="{0,date,yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText></td><td style="text-align:right">]</td></tr>
+                        </table> 
+                        
+                        
+                    </div>
+                    <div width="100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 25px;text-align: right;">
+                        <p>[PHOTOGRAPH &amp; SIGNATURE OF OBLIGOR]</p>
+                    </div>
+                    <div width="100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 50px;text-align: right;">
+                        <p>Identified by me and signed before me,</p>
+                    </div>
+                    <div width="100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 50px;text-align: right;">
+                        <p>NOTARY, MAHARASHTRA STATE</p>
+                    </div>
+                </div>
+            </body>
+        </apex:pageBlock>
+    </html>
+</apex:page>

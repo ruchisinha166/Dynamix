@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Possession_In__c</fullName>
+    <label>Possession In</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ready to Move In</fullName>
+                <default>false</default>
+                <label>Ready to Move In</label>
+            </value>
+            <value>
+                <fullName>Less than 1 Year</fullName>
+                <default>false</default>
+                <label>Less than 1 Year</label>
+            </value>
+            <value>
+                <fullName>1-2 Years</fullName>
+                <default>false</default>
+                <label>1-2 Years</label>
+            </value>
+            <value>
+                <fullName>2-3 years</fullName>
+                <default>false</default>
+                <label>2-3 years</label>
+            </value>
+            <value>
+                <fullName>3-4 years</fullName>
+                <default>false</default>
+                <label>3-4 years</label>
+            </value>
+            <value>
+                <fullName>Any</fullName>
+                <default>false</default>
+                <label>Any</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

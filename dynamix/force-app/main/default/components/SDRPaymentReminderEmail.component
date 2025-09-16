@@ -1,0 +1,72 @@
+<apex:component controller="SDRPaymentReminderVFCompContrl" access="global">
+    <apex:attribute name="PayMId" type="Id" description="Booking id of the record" assignTo="{!bookingId}"/>
+    
+    <html>
+        <head>
+            <style>
+                
+                @page
+                {
+                margin-top: 20%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+            </style>
+            <body>
+                
+                <center><apex:image url="{!ProjectHeader}" width="710" height="130" /></center>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    Dear {!bookingList[0].Primary_Applicant__r.Name}, 
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    We are writing to you with respect to the allotment of your apartment {!bookingList[0].Property_Name__c} in {!bookingList[0].Project_Name__r.Name}. This email is a gentle reminder for the payment of your Stamp Duty and Registration Fees of your RERA Agreement for Sale.
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    In case you have already paid the Stamp Duty, kindly communicate the details of the same to your assigned relationship manager, so that we can proceed to schedule the Registration of your RERA Agreement for Sale.
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    It is imperative that we complete these steps within the stipulated time to ensure you retain the title of your apartment.
+                    
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    In case of any doubts or difficulties, please feel free to reach out to us.
+                    <br/><br/>Best regards.
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    Yours faithfully,<br/><br/>
+                    {!project.Builder_Organization__r.name}
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    PS: Please ignore the above if the same has been submitted/paid.
+                </p>
+                <center><apex:image url="{!ProjectFooter}" width="700" height="50" /></center>
+                
+            </body>
+        </head>
+    </html>
+    
+</apex:component>

@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} This is your Digital Application Form link for Booking Id {{{Booking__c.Name}}} {{{Booking__c.Record_Link__c}}} {{{Booking__c.Record_Link__c}}} -Dynamix Group
+</body></html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingGuestRules>
+        <fullName>CIF_Form</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CIF Form</label>
+        <sharedTo>
+            <guestUser>OpportunityForm</guestUser>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>#</value>
+        </criteriaItems>
+        <includeHVUOwnedRecords>false</includeHVUOwnedRecords>
+    </sharingGuestRules>
+    <sharingOwnerRules>
+        <fullName>Post_Sales_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Post Sales Sharing</label>
+        <sharedTo>
+            <role>Sales_Head_Divum</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Project_Head</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Project_Head</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Project Head</label>
+        <sharedTo>
+            <role>Post_Sales_Head</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Project_Head</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

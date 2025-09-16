@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pan_Details_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(IsPersonAccount,NOT(ISBLANK(PAN_Details__c)),
+!REGEX(PAN_Details__c, &quot;[A-Z]{5}[0-9]{4}[A-Z]{1}&quot;))</errorConditionFormula>
+    <errorDisplayField>PAN_Details__c</errorDisplayField>
+    <errorMessage>PAN number format should XXXXX0000X.</errorMessage>
+</ValidationRule>

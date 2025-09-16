@@ -1,0 +1,28 @@
+Dear Sir/Madam,<br>
+<br>
+Greetings from Dynamix Group!<br>
+<br>
+Please find the attached Stamp Duty and Registration letter for your reference.<br>
+<br>
+Regarding the Registration of the Agreement For Sale, kindly verify the below details for the Agreement:
+<br>
+<br>
+Name & Address Confirmation:<br>
+<br>
+{!Name of the 1st Applicant}<br><br>
+{!Pan Card Number of the 1st Applicant}<br><br>
+{!PAssport}<br><br>
+{!OCICard}<br><br>
+Address: {!Address}<br><br>
+
+Additionally, please email self-attested copies of the PAN card and Aadhar card of all applicants.
+<br>
+<br>
+Please feel free to call the undersigned for any clarifications.
+<br>
+<br>
+Disclaimer: In case of no response within 3 days, the above details will be considered verified.<br><br>
+Best Regards,<br>
+{!RMName}<br>
+Mob: {!RMPhone}<br>
+Email: {!RMEmail}<br>

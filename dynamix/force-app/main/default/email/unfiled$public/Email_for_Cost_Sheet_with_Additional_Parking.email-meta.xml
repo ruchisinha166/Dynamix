@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is template for the email that will be sent to Customer when Cost Sheet with Additional Parking is generated</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Email for Cost Sheet with Additional Parking</name>
+    <style>none</style>
+    <subject>Updated Cost Sheet</subject>
+    <textOnly>Dear Sir/Madam,
+
+Please find attached the updated cost sheet for your flat {FlatNumber} at {ProjectName}.
+Note: If you notice any discrepancies, please contact us within three days of receiving this email. After this period, we will consider the cost sheet final.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

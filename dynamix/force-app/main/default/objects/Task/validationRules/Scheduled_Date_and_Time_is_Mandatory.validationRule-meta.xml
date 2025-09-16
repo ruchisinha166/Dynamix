@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scheduled_Date_and_Time_is_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISPICKVAL( Call_Sub_status__c , &apos;SVS&apos;) , ISBLANK(  Date_and_Time_of_Site_Visit__c ) )</errorConditionFormula>
+    <errorDisplayField>Date_and_Time_of_Site_Visit__c</errorDisplayField>
+    <errorMessage>Site visit scheduled Date and Time is mandatory</errorMessage>
+</ValidationRule>

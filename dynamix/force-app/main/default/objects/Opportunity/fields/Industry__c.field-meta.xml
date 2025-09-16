@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Industry__c</fullName>
+    <label>Industry</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Architecture and Construction</fullName>
+                <default>false</default>
+                <label>Architecture and Construction</label>
+            </value>
+            <value>
+                <fullName>Education and Training</fullName>
+                <default>false</default>
+                <label>Education and Training</label>
+            </value>
+            <value>
+                <fullName>BSFI Banking services</fullName>
+                <default>false</default>
+                <label>BSFI Banking services</label>
+            </value>
+            <value>
+                <fullName>Sales &amp; Marketing</fullName>
+                <default>false</default>
+                <label>Sales &amp; Marketing</label>
+            </value>
+            <value>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <label>Services</label>
+            </value>
+            <value>
+                <fullName>Healthcare and Pharma</fullName>
+                <default>false</default>
+                <label>Healthcare and Pharma</label>
+            </value>
+            <value>
+                <fullName>HORECA</fullName>
+                <default>false</default>
+                <label>HORECA</label>
+            </value>
+            <value>
+                <fullName>Govt</fullName>
+                <default>false</default>
+                <label>Govt</label>
+            </value>
+            <value>
+                <fullName>Tourism</fullName>
+                <default>false</default>
+                <label>Tourism</label>
+            </value>
+            <value>
+                <fullName>FMCG</fullName>
+                <default>false</default>
+                <label>FMCG</label>
+            </value>
+            <value>
+                <fullName>FMCD</fullName>
+                <default>false</default>
+                <label>FMCD</label>
+            </value>
+            <value>
+                <fullName>Defense</fullName>
+                <default>false</default>
+                <label>Defense</label>
+            </value>
+            <value>
+                <fullName>Automobile</fullName>
+                <default>false</default>
+                <label>Automobile</label>
+            </value>
+            <value>
+                <fullName>Doctor</fullName>
+                <default>false</default>
+                <label>Doctor</label>
+            </value>
+            <value>
+                <fullName>Law</fullName>
+                <default>false</default>
+                <label>Law</label>
+            </value>
+            <value>
+                <fullName>IT / ITES</fullName>
+                <default>false</default>
+                <label>IT / ITES</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Government and Public Administration</fullName>
+                <default>false</default>
+                <label>Government and Public Administration</label>
+            </value>
+            <value>
+                <fullName>Finance</fullName>
+                <default>false</default>
+                <label>Finance</label>
+            </value>
+            <value>
+                <fullName>Corrections and Security Manufacturing</fullName>
+                <default>false</default>
+                <label>Corrections and Security Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Business Management and Administration</fullName>
+                <default>false</default>
+                <label>Business Management and Administration</label>
+            </value>
+            <value>
+                <fullName>Information Technology</fullName>
+                <default>false</default>
+                <label>Information Technology</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Hotel Restaurant</fullName>
+                <default>false</default>
+                <label>Hotel Restaurant</label>
+            </value>
+            <value>
+                <fullName>Areo space defence</fullName>
+                <default>false</default>
+                <label>Areo space defence</label>
+            </value>
+            <value>
+                <fullName>Media</fullName>
+                <default>false</default>
+                <label>Media</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Hospitality and Tourism</fullName>
+                <default>false</default>
+                <label>Hospitality and Tourism</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Draft Agreement Task Escalation CRM</name>
+    <style>none</style>
+    <subject>Draft Agreement Task Escalation</subject>
+    <textOnly>Dear Sir,
+
+The Draft AFS for {!Unit} in {!Project} has not been shared with the client. Please inform RM to share the Draft AFS with the client</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

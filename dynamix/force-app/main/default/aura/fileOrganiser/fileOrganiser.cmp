@@ -1,0 +1,9 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable" access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="validRefresh" type="Boolean" default="true" />
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <aura:handler event="force:refreshView" action="{!c.refreshView}" />
+    <lightning:messageChannel type="Refresh__c" aura:id="refresh" onMessage="{!c.handleRefresh}" />
+
+    <c:fileOrganiserLWC recordId="{!v.recordId}" onupload="{!c.upload}"></c:fileOrganiserLWC>
+</aura:component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI/CA Payment Rejected email to customer</name>
+    <style>none</style>
+    <subject>{projectName} | Payment rejection | {EOI/CA}</subject>
+    <textOnly>Dear {customername},
+
+{EOI/CA} payment of {amount} has been rejected for {projectName} with below remarks.
+
+Rejection Remarks:-  {remarks}
+In case of any queries or assistance required, please contact us on {rmNumber}.
+
+Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

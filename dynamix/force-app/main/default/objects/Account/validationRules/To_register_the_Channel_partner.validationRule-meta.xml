@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>To_register_the_Channel_partner</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(CP_Empanelment_Stages__c, &quot;Registered&quot;) &amp;&amp;
+(
+  
+  ISBLANK(CP_Name__c) ||
+  ISBLANK(RERA_Number__c)||
+  ISBLANK(Name) || 
+  ISBLANK( Email__c) || 
+  ISBLANK( Phone)||
+  ISBLANK( Rera_Expiry_Date__c ) || 
+ ISNULL( Rera_Expiry_Date__c ) ||
+ Rera_Certificate_Upload__c != true  )</errorConditionFormula>
+    <errorMessage>Please enter mandatory fields to change the Status to Registered.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Welcome Call Task Rejected SM</name>
+    <style>none</style>
+    <subject>Welcome Call Task Rejected</subject>
+    <textOnly>Dear {!SMName},
+
+The following details were marked incorrect for {!Unit} in {!Project} in the Welcome Call checklist.
+{!checkListDetails}
+
+Thank you,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

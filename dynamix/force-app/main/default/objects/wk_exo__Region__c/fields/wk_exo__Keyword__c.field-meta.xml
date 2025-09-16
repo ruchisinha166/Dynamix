@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>wk_exo__Keyword__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>It be should be same as in the Exotel Switch case applet keyword</inlineHelpText>
+    <label>Keyword</label>
+    <length>25</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

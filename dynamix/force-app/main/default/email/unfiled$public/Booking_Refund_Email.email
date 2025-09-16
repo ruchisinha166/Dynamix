@@ -1,0 +1,8 @@
+Hi,<br><br>
+
+The refund for {!Booking__c.Name} of {!Booking__c.Primary_Applicant_Name_Formulla__c} for {!Booking__c.Project_Name_Formulla__c} has been processed and is ready for payment.<br><br>
+
+Please click on the link for more details: <a href="{!Booking__c.Link}">{!Booking__c.Link}</a><br><br>
+
+Regards,
+Dynamix Group

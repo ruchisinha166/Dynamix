@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} The refund cheque against the cancellation for the Booking ID {{{Booking__c.Name}}} is ready. Please get in touch with {{{Booking__c.Booking_Owner_Name__c}}} at {{{Booking__c.Booking_Owner_Email__c}}} Dynamix Group
+</body></html>

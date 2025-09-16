@@ -1,0 +1,9 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Payment_Milestones__c.Primary_Applicant_Name__c}}}<br />
+Pursuant to our various communications and final notice dated {{{Payment_Milestones__c.Third_Payment_Email_Reminder_Date__c}}} that was emailed to you, on your email address registered with us, pertaining to the Apartment No. {{{Payment_Milestones__c.Property_Name__c}}} at {{{Payment_Milestones__c.Project_Name__c}}} (MahaRERA No. {{{Payment_Milestones__c.RERA_Number__c}}}), you have failed and neglected to abide by the terms and conditions of the Application Form/ Agreement for Sale and all writings pursuant thereto. Therefore and in accordance with which, we hereby regret to inform you that we are left with no choice but to terminate the application/ allotment of the captioned Apartment in accordance with the Application Form / Agreement for Sale (as the case may be). A copy of the Termination Notice dated {{{Payment_Milestones__c.forth_Payment_Email_Reminder_Date__c}}} has been emailed to you on your registered email address.<br />
+<br />
+&nbsp;<br />
+<br />
+In case you have any queries whatsoever or need any assistance in relation to the termination of the application/ allotment of the captioned Apartment, please feel free to get in touch with your relationship manager on {{{Payment_Milestones__c.Project_Phone__c}}} or over email at {{{Payment_Milestones__c.Project_Email__c}}}.</body></html>

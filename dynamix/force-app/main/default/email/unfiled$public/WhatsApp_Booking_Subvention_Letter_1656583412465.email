@@ -1,0 +1,8 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+We have sent you the subvention letter for your Booking ID&nbsp;{{{Booking__c.Name}}} on your email. We request you to confirm the subvention letter by countersigning it.<br />
+For any queries contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}
+</body></html>

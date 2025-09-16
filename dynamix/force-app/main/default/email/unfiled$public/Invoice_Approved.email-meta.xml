@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Invoice Approved</name>
+    <style>none</style>
+    <subject>Invoice Approved</subject>
+    <textOnly>Dear {!Site},
+
+The brokerage invoice of {!CP} for Booking {!Unit} against the {!Unit} in {!Project} has been submitted to accounts for the payment.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

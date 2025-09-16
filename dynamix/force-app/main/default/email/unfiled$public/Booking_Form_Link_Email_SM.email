@@ -1,0 +1,8 @@
+Dear {!SM}, 
+ </br></br>
+Please Check Booking Form for Booking: {!Booking__c.Name}</br>
+ </br>
+Booking Form Link - <a href=" {!bookingFormLink}">  {!bookingFormLink}</a>
+</br></br>
+Thank you, </br>
+Dynamix

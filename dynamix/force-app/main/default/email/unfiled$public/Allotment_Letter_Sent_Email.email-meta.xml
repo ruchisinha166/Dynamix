@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Allotment Letter Sent Email</name>
+    <style>none</style>
+    <subject>Booking - Allotment Letter Sent</subject>
+    <textOnly>Dear {!Booking__c.Owner.Name},  
+
+The Allotment letter for Booking: {!Booking__c.Name} of Project: {!projectName} has been sent to the client.   
+
+Thank you, 
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

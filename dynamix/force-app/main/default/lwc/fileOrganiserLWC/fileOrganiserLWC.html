@@ -1,0 +1,47 @@
+<template>
+    <div class="outer-box slds-card_boundary">
+        <div class="slds-grid slds-wrap">
+            <c-file-organiser-header style="width:100%" onretrieve={refreshFiles} onsearch={search} has-files={hasFiles}
+                ongroupby={displayGroupBy} onupload={handleUpload}>
+            </c-file-organiser-header>
+            <template if:true={showGroup}>
+                <div style="padding: 1rem 1rem 0 1rem; width:100%">
+                    <lightning-card title="Select Fields to Group" class="has-top-magnet">
+                        <div slot="actions">
+                            <lightning-button-group>
+                                <lightning-button variant="Neutral" label="Update" title="Primary action"
+                                    onclick={updateGroup}>
+                                </lightning-button>
+                                <lightning-button variant="Neutral" label="Cancel" title="Primary action"
+                                    onclick={cancelGroup}>
+                                </lightning-button>
+                            </lightning-button-group>
+                        </div>
+                        <div>
+                            <lightning-dual-listbox name="GroupBy" source-label="Available" selected-label="Selected"
+                                variant="label-hidden" value={groupByValues} options={groupByOptions}
+                                onchange={handleGrpByChange}>
+                            </lightning-dual-listbox>
+                        </div>
+                    </lightning-card>
+                </div>
+            </template>
+        </div>
+        <div if:false={isLoaded} class="slds-is-relative">
+            <lightning-spinner alternative-text="Loading..." variant="brand">
+            </lightning-spinner>
+        </div>
+        <div style="overflow: auto;">
+            <template if:true={hasFiles}>
+                <c-datatable-group columns={columns} rows={rows}></c-datatable-group>
+            </template>
+            <template if:false={hasFiles}>
+                <div class="slds-illustration slds-illustration_small slds-card slds-has-top-magnet">
+                    <div class="slds-text-longform">
+                        <p class="slds-text-body_regular">No Files!!! Click Refresh or Upload a new File</p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

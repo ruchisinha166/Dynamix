@@ -1,0 +1,11 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+This is a final communication to you for any changes if needed in your Draft Agreement For Sale for Booking Id {{{Booking__c.Name}}}<br />
+Please confirm your details within 24 hours, else the current details would be taken as approved by you.<br />
+For any changes reach out to your Relationship Manager.<br />
+For any further queries contact {{{Booking__c.Booking_Owner_Email__c}}}<br />
+Thank You.
+</body></html>

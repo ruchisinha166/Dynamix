@@ -1,0 +1,35 @@
+<template>
+    <td>
+        {pricePlanComponent.Project_Add_On_Charges__r.Name}
+    </td>
+    <td>
+        <c-input-picklist-field label="GST Treatment" value={pricePlanComponent.GST_Treatment__c}
+            object-api-name="Pricing_Plan_Components__c" field-api-name="GST_Treatment__c" variant="label-hidden"
+            onpicklistchange={handlePicklistValue} required>
+        </c-input-picklist-field>
+    </td>
+    <td>
+        <lightning-input type="number" value={pricePlanComponent.Price_Lumpsum__c} disabled={isVariableCharge}
+            formatter="currency" step="any" variant="label-hidden" data-element="Price_Lumpsum__c"
+            onchange={handlePriceInput}>
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input type="number" value={pricePlanComponent.Price_per_SQFT__c} disabled={isVariableCharge}
+            formatter="currency" step="any" variant="label-hidden" data-element="Price_per_SQFT__c"
+            onchange={handlePriceInput}>
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input type="number" disabled={isFixedCharge} value={pricePlanComponent.Price_age__c}
+            formatter="percent-fixed" step="any" variant="label-hidden" data-element="Price_age__c"
+            onchange={handlePriceInput}>
+        </lightning-input>
+    </td>
+    <td>
+        <c-input-picklist-field label="Component Type" value={pricePlanComponent.Component_Type__c}
+            object-api-name="Pricing_Plan_Components__c" field-api-name="Component_Type__c" variant="label-hidden"
+            onpicklistchange={handlePicklistValue1} required>
+        </c-input-picklist-field>
+    </td>
+</template>

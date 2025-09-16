@@ -1,0 +1,28 @@
+<template>
+    <td>
+        <lightning-input value={paymentMilestone.Name} variant="label-hidden" data-element="Name" onchange={handleInput}
+        disabled="true">
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input value={paymentMilestone.Amount__c} variant="label-hidden" data-element="Amount__c" onchange={handleInput}
+        disabled="true">
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input value={paymentMilestone.GST_Calculated__c} variant="label-hidden" data-element="GST_Calculated__c" onchange={handleInput}
+            disabled="true">
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input value={paymentMilestone.Discount__c} variant="label-hidden" data-element="Discount__c" onchange={handleInput}
+            >
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-input value={paymentMilestone.Total_Amount_incl_Tax__c} variant="label-hidden" data-element="Total_Amount_incl_Tax__c" onchange={handleInput}
+        disabled="true">
+        </lightning-input>
+    </td>
+
+</template>

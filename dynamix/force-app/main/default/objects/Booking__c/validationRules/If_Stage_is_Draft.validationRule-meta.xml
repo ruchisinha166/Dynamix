@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_Stage_is_Draft</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL( Stage__c , &quot;Draft&quot;), $Profile.Name  &lt;&gt; &quot;System Administrator&quot;,
+	OR(
+		ISPICKVAL( PRIORVALUE(Stage__c ) , &quot;Booked&quot;),
+		ISPICKVAL( PRIORVALUE(Stage__c ) , &quot;Sanction&quot;),
+		ISPICKVAL( PRIORVALUE(Stage__c ) , &quot;Registration&quot;),
+		ISPICKVAL( PRIORVALUE(Stage__c ) , &quot;Possession/Handover&quot;)
+	  )
+)</errorConditionFormula>
+    <errorMessage>You cannot go back to previous stage, please contact your Admin for further details.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>OC Receival Certificate Email</name>
+    <style>none</style>
+    <subject>Received the Occupancy Certificate for {projectName}</subject>
+    <textOnly>Hi {customername},
+
+We have happy to inform you that we have received the Occupancy Certificate for {projectName}!
+
+We look forward to welcoming you to your home soon!
+
+Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

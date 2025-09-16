@@ -1,0 +1,44 @@
+<template>
+    <div class="slds-p-bottom_x-large slds-scrollable" style="max-height:300px">
+        <table class="slds-table slds-table_bordered slds-table_col-bordered" style="border-collapse: collapse;">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th style="width:12.25rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Price Details Name" class="slds-truncate">Price Details Name</span>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Amount" class="slds-truncate">Amount</span>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="GST Amount" class="slds-truncate">GST Amount</span>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Discount" class="slds-truncate">Discount</span>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Total Amount (incl Tax)" class="slds-truncate">Total Amount (incl Tax)</span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template if:true={paymentMilestones}>
+                    <template for:each={paymentMilestones} for:item="paymentMilestone" for:index="index">
+                        <c-manage-discount-row key={paymentMilestones.Id} data-index={index} ondelete={deleteRow}
+                            payment-plan-milestone={paymentMilestone} index={index} onmilestonechange={handleChange}>
+                        </c-manage-discount-row>
+                    </template>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</template>

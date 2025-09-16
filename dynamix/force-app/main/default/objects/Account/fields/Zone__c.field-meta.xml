@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone__c</fullName>
+    <label>Zone</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>KDMC</fullName>
+                <default>false</default>
+                <label>KDMC</label>
+            </value>
+            <value>
+                <fullName>NAVI MUMBAI</fullName>
+                <default>false</default>
+                <label>NAVI MUMBAI</label>
+            </value>
+            <value>
+                <fullName>PUNE</fullName>
+                <default>false</default>
+                <label>PUNE</label>
+            </value>
+            <value>
+                <fullName>THANE</fullName>
+                <default>false</default>
+                <label>THANE</label>
+            </value>
+            <value>
+                <fullName>CENTRAL MUMBAI</fullName>
+                <default>false</default>
+                <label>CENTRAL MUMBAI</label>
+            </value>
+            <value>
+                <fullName>WESTERN MUMBAI</fullName>
+                <default>false</default>
+                <label>WESTERN MUMBAI</label>
+            </value>
+            <value>
+                <fullName>SOUTH MUMBAI</fullName>
+                <default>false</default>
+                <label>SOUTH MUMBAI</label>
+            </value>
+            <value>
+                <fullName>ULHASNAGAR</fullName>
+                <default>false</default>
+                <label>ULHASNAGAR</label>
+            </value>
+            <value>
+                <fullName>ULHASNAGAR and BEYOND</fullName>
+                <default>false</default>
+                <label>ULHASNAGAR and BEYOND</label>
+            </value>
+            <value>
+                <fullName>CHEMBUR</fullName>
+                <default>false</default>
+                <label>CHEMBUR</label>
+            </value>
+            <value>
+                <fullName>MIRA ROAD</fullName>
+                <default>false</default>
+                <label>MIRA ROAD</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

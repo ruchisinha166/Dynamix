@@ -1,0 +1,118 @@
+<apex:page controller="SDRControllerClass" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0" action="{!SDRControllerClass1}">
+    <html>
+       <head>
+            <style type="text/css">
+                body, p {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                }
+                
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                /*body { font-family: Times; }*/
+                
+            </style>
+        </head>
+        <body> 
+            <div width = "100%" class="header" style="margin-top: 20px;margin-left: 10px;">
+                <center><apex:image url="{!ProjectHeader}" width="100%" height="20%" /></center>
+            </div>
+            <p style="margin-top:30px;margin-bottom:15px;font-family: Helvetica, sans-serif;">Dear Sir/Ma'am,</p>
+            <p style="margin-top:30px;margin-bottom:15px;font-family: Helvetica, sans-serif;">Greetings from Dynamix Group!</p>
+            <p style="margin-top:30px;margin-bottom:15px;font-family: Helvetica, sans-serif;">Please find attached the Stamp Duty and Registration Calculation towards the Flat No. {!bookObj.Unit_Number__c} at {!ProjectName}</p>
+            <table style="border:1px solid black;border-collapse:collapse;padding:4px;width:100%">
+                <tr style="border:1px solid black;;padding:4px;font-family: Helvetica, sans-serif;">
+                    <!-- <td colspan="2" style="border:1px solid black;"><b>DYNAMIX CONTRACTORS &#38; BUILDERS PRIVATE LIMITED</b></td>-->
+                    <td colspan="2" style="border:1px solid black;"><b>{!project.Builder_Organization__r.name}</b></td>
+                </tr>
+                <tr style="border:1px solid black;padding:4px;font-family: Helvetica, sans-serif;">
+                    <td colspan="2" style="border:1px solid black;">{!ProjectName}</td>
+                </tr>
+                <tr style="border:1px solid black;padding:4px;font-family: Helvetica, sans-serif;">
+                    <td colspan="2" style="border:1px solid black;">Flat No. {!bookObj.Unit_Number__c}&nbsp;</td>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="border:1px solid black;width:40%;font-family: Helvetica, sans-serif;"><b>Agreement Value</b></td>
+                    <td style="border:1px solid black;width:25%;text-align:right;font-family: Helvetica, sans-serif;"><b>
+                        <apex:outputText value="INR. {0, number, ###,##0.00}">
+                            <!--apex:param value="{!bookObj.Agreement_Value__c}" /-->
+                              <apex:param value="{!AgreementValue}" />
+                        </apex:outputText>
+                        </b></td>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="border:1px solid black;width:40%;font-family: Helvetica, sans-serif;">Stamp Duty @ {!stampDutyPer} % *</td>
+                    <td style="border:1px solid black;width:25%;text-align:right;font-family: Helvetica, sans-serif;">
+                        <apex:outputText value="INR. {0, number, ###,##0.00}">
+                            <!--apex:param value="{!Stamp}" /-->
+                             <apex:param value="{!StampDutyRoundOffValue}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="border:1px solid black;width:40%;font-family: Helvetica, sans-serif;">Registration Fees</td>
+                    <td style="border:1px solid black;width:25%;text-align:right;font-family: Helvetica, sans-serif;">
+                        <apex:outputText value="INR. {0, number, ###,##0.00}">
+                            <!--apex:param value="{!bookObj.Registration_Charges__c}" /-->
+                             <apex:param value="{!registraionChargedRoundOffValue}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="border:1px solid black;width:40%;font-family: Helvetica, sans-serif;"><b>Total (Stamp Duty + Registration Fees)</b></td>
+                    <td style="border:1px solid black;width:25%;text-align:right;font-family: Helvetica, sans-serif;"><b>
+                        <apex:outputText value="INR. {0, number, ###,##0.00}">
+                            <!--apex:param value="{!Total}" /-->
+                             <apex:param value="{!totalRoundOffValue}" />
+                        </apex:outputText>
+                        </b></td>
+                </tr>
+            </table>
+            <div style="margin-top:10px;margin-bottom:10px;font-family: Helvetica, sans-serif;">
+                <b>Note: Stamp duty is calculated on Agreement value or current Index value whichever is higher.</b>
+            </div>
+            <p style="margin-top:20px;margin-bottom:10px;font-family: Helvetica, sans-serif;"><b>We would request you to make RTGS payment of the Stamp Duty charges &#38; Registration Fees on:</b></p>
+            <br/>
+            <p>
+                <!-- Bank Name : STATE BANK OF INDIA,<br/>
+Branch Name : RANI SATI MARG,MALAD EAST<br/>
+A/c No.35723285859<br/>
+A/c Name : AARUSH CONSULTANCY SERVICES<br/>
+IFSC Code : SBIN0017688<br/>
+Account Type : CURRENT ACCOUNT</p> -->
+                
+                Bank Name : &nbsp;{!sdrAgentRcd.Bank_Name__c}<br/>
+                Branch Name : &nbsp;{!sdrAgentRcd.Branch_Name__c}<br/>
+                A/c No. : &nbsp;{!sdrAgentRcd.Account_No__c}<br/>
+                A/c Name : &nbsp;{!sdrAgentRcd.Account_Name__c}<br/>
+                IFSC Code : &nbsp;{!sdrAgentRcd.IFSC_Code__c}<br/>
+                Account Type : &nbsp;{!sdrAgentRcd.Account_Type__c}</p>
+            <br/>
+            <!--p style="margin-top:15px;margin-bottom:15px">Please feel free to call the undersigned for any clarifications.</p-->
+            <div class="footer" width = "100%" >
+                <apex:image url="{!ProjectFooter}" width="700" height="50" />
+            </div>
+        </body>
+    </html>
+</apex:page>

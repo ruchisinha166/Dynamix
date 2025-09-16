@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Project__c$Name</field>
+    </columns>
+    <columns>
+        <field>Project__c.Pricing_Plans__r$Name</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Project__c$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Astrum</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Project With Pricing Plant</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Projects_with_Pricing_Plans_with_Pricing_Plan_Components__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Project__c$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Project__c.Pricing_Plans__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

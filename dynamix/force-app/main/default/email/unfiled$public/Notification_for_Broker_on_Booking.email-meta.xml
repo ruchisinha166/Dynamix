@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Notification for Broker on Booking</name>
+    <style>none</style>
+    <subject>Notification for booking</subject>
+    <textOnly>Dear {!Contact.FirstName} {!Contact.LastName},
+
+Congratulations!
+
+We thank you for your efforts and invaluable contribution to project {!Project__c.Name} (MahaRERA Number: {!Project__c.RERA_Number__c}). Your client has chosen to embark on the journey of becoming a homeowner at  {!Project__c.Name} with us and this is in no small part thanks to you and your hard work. It indeed has been great pleasure working with you and we look forward to continued success with you in the future.
+
+In case your client or you have any queries whatsoever or need any assistance, please feel free to get in touch with us  on {!Project__c.Project_Phone__c} at  {!Project__c.Location__c}, {!Project__c.Sublocation__c}, {!Project__c.State__c}, {!Project__c.City__c}, {!Project__c.Postal_Code__c}    or over email at {!Project__c.Project_Email__c}.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancellation_Sub_Reason__c</fullName>
+    <label>Cancellation Sub Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Job Loss</fullName>
+                <default>false</default>
+                <label>Job Loss</label>
+            </value>
+            <value>
+                <fullName>Financial Loss</fullName>
+                <default>false</default>
+                <label>Financial Loss</label>
+            </value>
+            <value>
+                <fullName>Job Transfer</fullName>
+                <default>false</default>
+                <label>Job Transfer</label>
+            </value>
+            <value>
+                <fullName>COVID-19</fullName>
+                <default>false</default>
+                <label>COVID-19</label>
+            </value>
+            <value>
+                <fullName>COVID Job Loss</fullName>
+                <default>false</default>
+                <label>COVID Job Loss</label>
+            </value>
+            <value>
+                <fullName>Non Payment</fullName>
+                <default>false</default>
+                <label>Non Payment</label>
+            </value>
+            <value>
+                <fullName>Unit Transfer</fullName>
+                <default>false</default>
+                <label>Unit Transfer</label>
+            </value>
+            <value>
+                <fullName>Job Less</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Job Less</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

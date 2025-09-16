@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NOTICE_TYPE__c</fullName>
+    <label>NOTICE_TYPE</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Demand Cum PreCancellation</fullName>
+                <default>false</default>
+                <label>Demand Cum PreCancellation</label>
+            </value>
+            <value>
+                <fullName>Demand Notice</fullName>
+                <default>false</default>
+                <label>Demand Notice</label>
+            </value>
+            <value>
+                <fullName>Impact Area Change</fullName>
+                <default>false</default>
+                <label>Impact Area Change</label>
+            </value>
+            <value>
+                <fullName>Multi Installment</fullName>
+                <default>false</default>
+                <label>Multi Installment</label>
+            </value>
+            <value>
+                <fullName>Possession Letter</fullName>
+                <default>false</default>
+                <label>Possession Letter</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

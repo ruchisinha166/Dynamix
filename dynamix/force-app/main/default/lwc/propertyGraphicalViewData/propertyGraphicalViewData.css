@@ -1,0 +1,29 @@
+.flexi-box{
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+}
+.hold{
+    --sds-c-badge-color-background: rgb(128,0,128);
+    --sds-c-badge-text-color: #FFFFFF;
+}
+.blocked{
+    --sds-c-badge-color-background: rgb(255, 183, 93);
+}
+.sold{
+    --sds-c-badge-color-background: rgb(135, 5, 0);
+    --sds-c-badge-text-color: #FFFFFF;
+}
+.refuge{
+    --sds-c-badge-color-background: rgb(255,192,203);
+}
+.blockeds{
+    --sds-c-badge-color-background: rgb(36, 30, 51);
+    --sds-c-badge-text-color: #FFFFFF;
+}
+.CA{
+    background-color:  #FFBF00;
+}

@@ -1,0 +1,13 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Broker_Payment__c.Channel_Partner_Name__c}}}<br />
+Your invoice {{{Broker_Payment__c.Invoice_no__c}}} for Booking Id {{{Broker_Payment__c.Booking__c}}} has been submitted successfully for payment. We will inform you once the payment is completed<br />
+For queries contact {{{Broker_Payment__c.Broker_Payment_Owner_Email__c}}}<br />
+Thank you.<br />
+<br />
+&nbsp;
+<pre>&nbsp;</pre>
+
+</body></html>

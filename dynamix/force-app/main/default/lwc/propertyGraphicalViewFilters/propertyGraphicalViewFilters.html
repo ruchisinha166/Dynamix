@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-publisher" style="margin: 2px;">
+        <lightning-pill-container items={propertyFilters} onitemremove={handleFilterRemove} is-collapsible="true"
+            is-expanded="true" class="slds-publisher__input" style="padding-left: 0px;">
+        </lightning-pill-container>
+        <div class="slds-publisher__actions slds-grid slds-grid_align-spread">
+            <lightning-button-icon-stateful icon-name="utility:filterList" selected={toggleFilter}
+                onclick={handleFilter} alternative-text="Filter"></lightning-button-icon-stateful>
+        </div>
+    </div>
+</template>

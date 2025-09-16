@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remove_permission_for_editing_the_record</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (not(isnew()), 
+     $UserRole.Name  &lt;&gt; &quot;SFDC Admin&quot;, 
+ $User.Id &lt;&gt; OwnerId ,
+$UserRole.Name  &lt;&gt; &quot;Team Leader&quot;,PRIORVALUE(Round_Robin__c) == true
+)</errorConditionFormula>
+    <errorMessage>Oops...you don&apos;t have the necessary privileges to edit this record. See your administrator for help.</errorMessage>
+</ValidationRule>

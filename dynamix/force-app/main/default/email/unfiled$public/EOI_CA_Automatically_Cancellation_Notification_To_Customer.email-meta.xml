@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI/CA Automatically Cancellation Notification To Customer</name>
+    <style>none</style>
+    <subject>EOI/CA for {projectName} has been cancelled automatically</subject>
+    <textOnly>Dear {customerName},
+
+Your {EOI/CA} for {projectName} has been cancelled automatically as it failed to meet the business requirements set by Dynamix Group.
+
+In case of any queries or assistance required, please contact us on {projectNumber}.
+
+Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

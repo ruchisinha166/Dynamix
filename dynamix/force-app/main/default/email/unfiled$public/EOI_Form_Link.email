@@ -1,0 +1,10 @@
+Dear {customerName},<br><br>
+
+
+The Application form for the <b> {EOICANumber}</b> in <b>{Project}</b> is given below.<br>
+Kindly submit the completed EOI Application Form  at the earliest.<br>
+
+Link to EOI Application form:  <a href="{!Link}">{!Link}</a><br><br>
+
+Regards,<br>
+Dynamix Group

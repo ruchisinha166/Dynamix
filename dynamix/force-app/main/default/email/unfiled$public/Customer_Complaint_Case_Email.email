@@ -1,0 +1,7 @@
+Hi {!CRMHeadUserName}, </br></br>
+
+Customer Complaint Case: {!CaseNumber} has been assigned to {!newCaseOwner}.</br>
+ </br>
+
+Thank you, </br>
+Dynamix

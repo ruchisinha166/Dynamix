@@ -1,0 +1,8 @@
+<template>
+    <c-property-graphical-view-cell flat-number={floor.name} class="pgv-cell" disabled></c-property-graphical-view-cell>
+    <template for:each={floor.properties} for:item="property">
+        <c-property-graphical-view-cell property={property} flat-number={property.name} key={property.name}
+            filtered={property.filtered} class="pgv-cell">
+        </c-property-graphical-view-cell>
+    </template>
+</template>

@@ -1,0 +1,26 @@
+<apex:page standardController="Booking__c" renderAs="pdf" >
+    
+    <html>
+        <body style="">
+            <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                <tr>
+                    <td>
+                        <p>Subject line of email: Welcome to _________ (Project), ________ (Location) finest development! Introducing you to your Relationship Manager.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Dear Mr./Ms./M/s. ________,</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>It gives us immense pleasure to welcome you at -------------(project name), our flagship development!
+                           The project you have chosen to be part of will undoubtedly be ------ (location) finest and we at ---------------- (Promoter company) will leave no stone unturned in ensuring that we deliver your dream home to you as soon as possible.</p>
+                    </td>
+                </tr>
+            </table>
+        </body>
+    </html>
+    
+</apex:page>

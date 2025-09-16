@@ -1,0 +1,8 @@
+<center><img src="{!Project__c.Project_Header__c}" width="730" height="170"></center><br/><br/><br/>
+Dear {!Contact.FirstName} {!Contact.LastName},
+<br/><br/>
+Thank you for taking the time to visit project {!Project__c.Name} (MahaRERA Number: 
+ {!Project__c.RERA_Number__c}) along with your esteemed client. It gave us immense pleasure to have hosted you. We are thankful to you for all your effort and your continued faith in us. We look forward to a long and successful association with you, and to doing business together soon!
+<br/><br/>
+In case your clients or you have any queries whatsoever with respect to ({!Project__c.Name}) or need any further assistance, please feel free to get in touch with us on {!Project__c.Project_Phone__c} at  {!Project__c.Location__c}, {!Project__c.Sublocation__c}, {!Project__c.State__c}, {!Project__c.City__c}, {!Project__c.Postal_Code__c}    or over email at {!Project__c.Project_Email__c}.<br/><br/><br/>
+<center><img src="{!Project__c.Project_Footer__c}"  width="700" height="50"></center>

@@ -1,0 +1,178 @@
+<apex:page standardController="Booking__c" renderAs="pdf" extensions="FlatCancelationNoteExtenstion" applyHtmlTag="true" showHeader="false">
+    <html>
+       <style>
+           table
+           {
+                font-family:Calibri (Body);
+           }
+       </style>
+       <body>
+           
+          <table Width="100%" border="1" cellspacing="0" cellpadding="2">
+           <tr>
+               <td colspan="4"  bgcolor="#800000" style="font-size:20px;text-align:center;color:white;" ><b>Flat Cancellation Note</b></td>
+           </tr>
+                <tr>
+                    <td style="width:30%;">Customer Name</td>
+                    <td style="width:70%;" colspan="3">{!booking.Primary_Applicant__r.Name}</td>
+                </tr>
+                <tr>
+                    <td style="width:30%;">Building And Flat No.</td>
+                    <td style="width:70%;" colspan="3">{!Booking__c.Tower_Name__r.Name}<b>-</b>{!Booking__c.Project_Name__r.Name}</td>
+                </tr>
+                <tr>
+                    <td style="width:30%;" >Booking Date</td>
+                    <td style="width:70%;" colspan="3">
+                    <apex:outputText value="{0,date,dd/MM//yyyy}"> 
+                        <apex:param value="{!booking.Booking_Date__c}" />
+                    </apex:outputText></td>
+                </tr>
+                <tr>
+                     <td style="width:30%;">Flat Cost</td>
+                    <td style="width:70%;" colspan="3"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!booking.Agreement_Value__c}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                     <td style="width:30%;">GST Amount</td>
+                    <td style="width:70%;" colspan="3"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!booking.GST__c}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                     <td style="width:30%;">Scheme</td>
+                    <td style="width:70%;" colspan="3">{!Scheme}</td>
+                </tr>
+                <tr>
+                    <td style="width:30%;">Flat Registration Status</td>
+                    <td style="width:70%;" colspan="3" >{!booking.Registration_Status__c}</td>
+                </tr>
+                <tr>
+                     <td style="width:30%;"> Flat Registration Details</td>
+                     <td colspan="3">
+                 {!Booking__c.Registration_Number__c}&nbsp;&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Booking__c.Registration_Date__c}" />
+                    </apex:outputText> </td>
+               </tr>
+                <tr>
+                    <td style="width:30%;">Stamp Duty Status</td>
+                    <td style="width:70%;" colspan="3">{!booking.Stamp_Duty_Status__c}</td>
+                </tr>
+                 <tr>
+                    <td style="width:100%; height:20px;" colspan="4"></td>
+                 </tr>
+            </table> 
+           <!--table 2-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="2">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Amount Received</i></b></td>
+                </tr> 
+                 <tr>
+                    <th style="width:25%;"></th>
+                    <th style="width:25%;">Flat Cost</th>
+                    <th style="width:25%;">GST</th>
+                    <th style="width:25%;">Stamp Duty</th>
+                </tr>
+                <tr>
+                    <td>OCR Received</td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!OCRReceived_FlatCost}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!OCRReceived_GST}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!OCRReceived_StampDuty}"/></apex:outputText></td>
+                </tr>
+               <tr>
+                    <td>Bank Disbursement Received </td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!BankDisbursementReceived_FlatCost}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!BankDisbursementReceived_GST}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!BankDisbursementReceived_StampDuty}"/></apex:outputText></td>
+                </tr>
+               <tr>
+                    <td>Total Received</td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalReceived}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalReceivedGST}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!SDRAmount}"/></apex:outputText></td>
+                </tr>
+                 <tr>
+                    <td>Forfeiture Amount</td>
+                    <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.cancellation_fees__c}"/></apex:outputText></td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+               <tr>
+                    <td>Refund Amount</td>
+                    <td><apex:outputText value="{0, number, ##,###.##}"> 
+                    <apex:param value="{!Booking__c.Refund_Amount__c}"/> 
+​                    </apex:outputText></td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Forfeiture Amount Waiver Approved By</td>
+                    <td colspan="3"></td>
+                   
+                </tr>
+               
+           </table>
+           <br/>
+           <!--table 3-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="2"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Cancellation Reason</i></b></td>
+                </tr> 
+                 <tr style="hight:30%;">
+                    <td style="height:20px;">{!Booking__c.Cancellation_Reasons__c}</td>
+                </tr>
+           </table> <br/>
+           <!--table 4-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Checked By</i></b></td>
+                </tr>
+                 <tr>
+                    <th style="width:25%;"></th>
+                    <th style="width:25%;">Name</th>
+                    <th style="width:25%;">Date</th>
+                    <th style="width:25%;">Signature</th>
+                </tr>
+                <tr>
+                    <td><b>Prepared By</b></td>
+                    <td>{!$User.FirstName} {!$User.LastName}</td>
+                    <td></td>
+                    <td></td>
+                </tr> 
+                <tr>
+                    <td><b>Sales Manager</b></td>
+                    <td>{!booking.Sales_Manager__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Sales Head Name </b></td>
+                    <td>{!projectHead}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td><b>Project Head Name</b></td>
+                    <td>{!SalseHead}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td><b>Post sales head Name</b></td>
+                    <td>{!postSalseHead}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Accounts Team</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+           </table>
+           
+           <p>
+               Remarks:&nbsp;
+           </p>
+        </body>
+    </html>
+</apex:page>

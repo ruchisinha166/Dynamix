@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Project Offer Rejected</name>
+    <style>none</style>
+    <subject>Project Offer Rejected</subject>
+    <textOnly>Hi S&amp;M Head User,
+
+The booking offer created for {!Project} has been rejected.
+Reason for Rejection: Please Enter reason for rejection.
+Please submit the revised Booking Offer to proceed.
+
+Thank You,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

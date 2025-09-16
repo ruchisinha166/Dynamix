@@ -1,0 +1,122 @@
+<template>
+    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right slds-hidden slds-m-left_small"
+        aria-hidden="false">
+        <div class="slds-panel__header">
+            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Property Details">Property
+                Details</h2>
+            <lightning-button-icon icon-name="utility:close" variant="border-filled" alternative-text="Collapse Info"
+                title="Collapse Info" onclick={handleClose}></lightning-button-icon>
+        </div>
+        <div class="slds-panel__body" style="display: flex; flex:1; overflow:auto;">
+            <template if:true={property}>
+                <div class="slds-form" style="width: 100%;">
+                    <c-form-read-only-element label="Unit No." value={property.name}></c-form-read-only-element>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="Configuration" value={property.unitType}>
+                            </c-form-read-only-element>
+                        </div>
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="Preferred Location" value={property.preferredLocation}>
+                            </c-form-read-only-element>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="Total Area" value={property.totalArea}></c-form-read-only-element>
+                        </div>
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="Status" value={property.status}></c-form-read-only-element>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="Utility Area" value={property.UtilityArea}></c-form-read-only-element>
+                        </div>
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="RERA Carpet Area" value={property.RERACarpetArea}></c-form-read-only-element>
+                        </div>
+                        
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="No of Car Parking Slots" value={property.noOfCarParking}></c-form-read-only-element>
+                        </div>
+                          <div class="slds-form__item" style="min-width: 80px;">
+                            <c-form-read-only-element label="No of Bike Parking Slots" value={property.noOfbikeParking}></c-form-read-only-element>
+                        </div>
+                        
+                    </div>
+                    <template if:true={showPricingDetails}>
+                        <fieldset class="slds-form-element slds-form-element_compound slds-form-element_address">
+                            <legend class="slds-form-element__legend slds-form-element__label">PRICE DETAILS</legend>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Basic Price" value={property.basicPrice}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                </div>
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="PLC" value={property.pLC}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </template>
+                    <template if:true={showBookingDetails}>
+                        <fieldset class="slds-form-element slds-form-element_compound slds-form-element_address">
+                            <legend class="slds-form-element__legend slds-form-element__label">BOOKING DETAILS</legend>
+                            <div class="slds-form-element__control">
+                           
+                                 <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Booking Number" value={property.bookingNumber}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Sales Manager" value={property.salesManager}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Booked By" value={property.bookedBy}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Sales Manager" value={property.salesManager}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                </div>
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" style="min-width: 80px;">
+                                        <c-form-read-only-element label="Booking Date" value={property.bookingDate}>
+                                        </c-form-read-only-element>
+                                    </div>
+                                    <template if:true={showBookingUrl}>
+                                        <div class="slds-form__item" style="min-width: 80px;">
+                                            <div
+                                                class="slds-form-element slds-form-element_stacked slds-form-element_readonly">
+                                                <span class="slds-form-element__label">Booking</span>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-button variant="brand" label="Visit Booking"
+                                                        title="Click here for booking" onclick={openBooking}>
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            <!--/div-->
+                        </fieldset>
+                    </template>
+                </div>
+            </template>
+        </div>
+        <footer class="slds-modal__footer">
+            <lightning-button variant="brand" label={buttonName} title={buttonName} onclick={handleShortList}
+                class="slds-m-left_x-small" disabled={isShortListDisabled}></lightning-button>
+        </footer>
+    </div>
+    <div class="slds-hide">{showPropertyInfo}</div>
+</template>

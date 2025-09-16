@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>COMMON BATHROOM</fullName>
+        <default>false</default>
+        <label>COMMON BATHROOM</label>
+    </customValue>
+    <customValue>
+        <fullName>KITCHEN</fullName>
+        <default>false</default>
+        <label>KITCHEN</label>
+    </customValue>
+    <customValue>
+        <fullName>LIVING ROOM</fullName>
+        <default>false</default>
+        <label>LIVING ROOM</label>
+    </customValue>
+    <customValue>
+        <fullName>MASTER BATHROOM</fullName>
+        <default>false</default>
+        <label>MASTER BATHROOM</label>
+    </customValue>
+    <customValue>
+        <fullName>MASTER BED ROOM</fullName>
+        <default>false</default>
+        <label>MASTER BED ROOM</label>
+    </customValue>
+    <masterLabel>Area</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

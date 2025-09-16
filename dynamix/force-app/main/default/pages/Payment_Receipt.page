@@ -1,0 +1,166 @@
+<apex:page standardController="Payment__c" extensions="PaymentReceiptController"   readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style type="text/css">
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 15%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                }
+                body {
+                font-family: Helvetica, sans-serif;
+                font-size:11px;
+                }
+            </style>
+        </head>
+        <br/>
+        <br/>
+        <body style="font-family: Helvetica, sans-serif;font-size:11px;">
+            <div class="footer">
+                <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectFooter}" width="700" height="50" />
+                <p style="font-family: Helvetica, sans-serif;font-size:8px;text-align: center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+            </div>
+            
+            <div width = "100%" class="header" style="margin-top: 20px;margin-left: 10px;">
+                <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" width="700" height="145" />
+            </div>
+            
+            <div>
+                <p  style="font-family: Helvetica, sans-serif;font-size:11px;text-align:center;">
+                    <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c == 'SAP Credit Note'), true, false)}">
+                        <b>CREDIT NOTE RECEIPT</b>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c != 'SAP Credit Note'), true, false)}">
+                        <b>RECEIPT</b>
+                    </apex:outputPanel>
+                    
+                </p>
+                <table width = "100%" style="border: 0px solid black;">
+                    <tr>
+                        <td width = "50%" style="font-family: Helvetica, sans-serif;font-size:11px;text-align: left;">Receipt No.: {!pay.Receipt_No_Hidden__c}</td>
+                        <td width = "50%" style="font-family: Helvetica, sans-serif;font-size:11px;text-align: right;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pay.Payment_Date__c}" /> </apex:outputText> </td>
+                    </tr>
+                </table>
+                <table width = "100%" style="margin-top: 30px;border-collapse: collapse">
+                    <tr style="margin-top: 20px;">
+                        <td width = "100%" colspan= "2" style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;colspan= 2;"><b>Received with thanks from:- {!booking.Primary_Applicant__r.Name}{!coapplicantNames}</b></td>
+                    </tr>
+                </table> 
+                <table width = "100%" style="margin-top: 30px;border-collapse: collapse">
+                    <tr>
+                        <td  width = "40%"  style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;padding: 20px;">Amount (in words)</td>
+                        <td  width = "60%"  style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;padding: 20px;">{!ammountInWords}</td>
+                    </tr>
+                </table>
+                <table width = "100%" style="font-family: Helvetica, sans-serif;font-size:11px;margin-top: 20px;border-collapse: collapse">
+                    <tr>
+                        <td width = "40%" rowspan="2"  style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;padding: 15px;">Property Details</td>
+                        <td width = "60%" colspan= "2" style="font-family: Helvetica, sans-serif;font-size:11px;text-align: center;border:1px solid black;padding: 15px;">Project : {!project.Name}</td>
+                    </tr>
+                    <tr>
+                        
+                        <td width = "30%"  style="font-family: Helvetica, sans-serif;font-size:11px;text-align: center;border:1px solid black;padding: 15px;">Tower : {!booking.Tower_Name__r.Name}</td>
+                        <td width = "70%"  style="font-family: Helvetica, sans-serif;font-size:11px;text-align: center;border:1px solid black;padding: 15px;">Apartment No : {!properties.Name}</td>
+                    </tr>
+                </table>
+                <table width = "100%" style="margin-top: 20px;border-collapse: collapse">
+                    <tr>
+                        <td width = "40%" style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;padding: 15px;"><b>Towards</b></td>
+                        <td width = "60%" style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;padding: 15px;"><b>{!pay.Payment_Category__c}</b></td>
+                    </tr>
+                </table>
+                <div style="font-family: Helvetica, sans-serif;font-size:11px;">Instruments Encashable</div>
+                <table width = "100%" style="font-family: Helvetica, sans-serif;font-size:11px;text-align: center;margin-top: 25px;border-collapse: collapse;padding: 15px;">
+                    <tr style="border: 1px solid black;">
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">Instrument No.</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">Date</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">Drawn On</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">Amount</td>
+                    </tr>
+                    <tr style="border: 1px solid black;">
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">{!pay.Cheque_Transaction_Number__c}</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;"><apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pay.Payment_Date__c}" /> </apex:outputText></td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">
+                            <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c == 'Cheque'), true, false)}">
+                                <center>{!pay.BankName__r.Name}</center>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c == 'NEFT/ RTGS/ IMPS'), true, false)}">
+                                <center>NEFT/RTGS/IMPS</center>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c == 'Credit/Debit Cards'), true, false)}">
+                                <center>Credit/Debit Card</center>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Type__c == 'SAP Credit Note'), true, false)}">
+                                <center>Credit Note</center>
+                            </apex:outputPanel>
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">{!pay.Amount__c}</td>
+                    </tr>
+                    <tr style="border: 1px solid black;">
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">&nbsp;</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">&nbsp;</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">Net Amount</td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;border:1px solid black;">{!pay.Amount__c}</td>
+                    </tr>
+                </table>
+                <table width = "100%" style="text-align:right;margin-top: 30px;">
+                    <tr>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;"><b>{!project.Builder_Organization__r.Name}</b></td>
+                    </tr>
+                </table>
+                <table width = "100%" style="text-align:right;margin-top: 50px;">
+                    <tr>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;"><apex:outputText value="{!if(pay.Payment_Type__c = 'Cheque','*Receipt validity subject to realisation of above mentioned instruments.','')}" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top:25px;">
+                <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Category__c == 'Possession/Handover(Other) Charge'), true, false)}">
+                    <center><b>{!project.Possession_Other_Charges_Narration__c}</b></center>
+                </apex:outputPanel>
+            </div>
+            <div style="margin-top:30px;">
+                <apex:outputPanel layout="none" rendered="{!IF((pay.Payment_Category__c == 'Security and Share Money'), true, false)}">
+                    <center><b>{!project.Security_and_Share_Money_Narration__c}</b></center>
+                </apex:outputPanel>
+            </div>
+            <div style="margin-top:35px;">
+                
+                <center><b>NOTE: THIS IS SYSTEM GENERATED DOCUMENT AND DOES NOT REQUIRE STAMP AND SIGNATURE.</b></center>
+            </div>
+            <!--  <div style="text-align:center;max-width:100%;height:auto;">
+<apex:outputpanel >
+<apex:image url="/sfc/servlet.shepherd/version/download/{!conVersionObject}" rendered="{!IF(conVersionObject != '',true,false)}"/>
+</apex:outputpanel>
+</div> -->
+            
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Semail.Subject" recipientType="Contact" relatedToType="Payment__c">
+                <messaging:htmlEmailBody >
+                  <c:GeneratePaymentNotification PayMId="{!relatedTo.Id}" />
+                </messaging:htmlEmailBody>
+</messaging:emailTemplate>

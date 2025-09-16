@@ -1,0 +1,9 @@
+Dear {customerName},<br/><br/>
+
+Flat is not yet booked for {EOI_CA_Number} for  {projectName}. Please do the booking within 7 days otherwise
+it will  automatically cancelled.<br/><br/>
+
+In case of any queries or assistance required, please contact us on {projectNumber}.<br/><br/>
+
+Regards,<br/>
+Dynamix Group

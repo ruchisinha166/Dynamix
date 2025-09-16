@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Please_select_SDR_Agent</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( Welcome_Email_Checker__c =True, ISBLANK( SDR_Agent__c ), ISPICKVAL( Stamp_Duty_Status__c , &apos;Customer&apos;), Indemnity_Form__c = False)</errorConditionFormula>
+    <errorDisplayField>SDR_Agent__c</errorDisplayField>
+    <errorMessage>Please select SDR Agent</errorMessage>
+</ValidationRule>

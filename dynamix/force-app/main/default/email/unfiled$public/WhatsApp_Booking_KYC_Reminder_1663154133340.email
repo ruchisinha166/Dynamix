@@ -1,0 +1,7 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Booking__c.Primary_Applicant_Name_Formulla__c}}},<br />
+Please share the KYC documents at the earliest to complete the booking formalities for {{{Booking__c.Project_Name_Formulla__c}}} in {{{Booking__c.Name}}}.
+</body></html>

@@ -1,0 +1,488 @@
+<apex:page readOnly="advanced_pdf" docType="html-5.0" standardController="Booking__c" extensions="AllotmentController" renderAs="advanced_pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"  cache="false"  standardStylesheets="false">
+    <html>  
+        <head>  
+            
+            <style type="text/css">
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 20%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                 body {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                }
+               
+                ol.lowerRoman
+                {
+                list-style-type: lower-roman;
+                }
+                ol.upperAlpha {
+                list-style-type: upper-alpha;
+                }
+                li
+                {
+                line-height: normal;
+                margin: 10px;
+                }
+                .tableBorder th
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                 .tableBorder td
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                .textalign
+                {
+                text-align:center;
+                background-color:#D0D0D0;
+                }
+                .breakAvoid tr
+                { page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                 .breakAvoid th
+                { page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                 .breakAvoid td
+                { page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                
+                .tableCenter {
+                
+                margin: auto;
+                width: 80%;
+                }
+                
+               
+            </style>
+        </head>
+        <body>
+            <div class="footer">
+                
+                
+                <p style="text-align:center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+                
+            </div>
+            <div width = "100%" class="header"  style="margin-top: 20px;margin-left: 10px;">
+                <apex:outputText rendered="{!showHeader}" >
+                    <p style="text-align:center">
+                        ON THE LETTER HEAD OF THE PROMOTER 
+                    </p>
+                    <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" rendered="{!showHeader}"  width="700" height="140" />
+                </apex:outputText>
+            </div>
+            <div style="page-break-after: always;">
+                
+                
+                <div style ="font-size: 16px;font-family: Optima;text-align: center;"><b>ALLOTMENT LETTER</b></div>
+                
+                <div  style = "font-family: Optima;font-size: 11px;margin-top: 70px;margin-left: 0%;margin-right: 0%;" width="100%">
+                    
+                    <table width = "100%" style="font-size: 11px;font-family: Optima;margin-top: 20px;border-collapse: collapse">
+                        <tr>
+                        <td></td>
+                         <td style="text-align: right;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText></td></tr>
+                        <tr><td><b>To,</b></td>
+                           </tr>
+                        <!--   <tr><td><b>{!Booking__c.Primary_Applicant__r.Name}</b></td></tr> -->
+                        <tr><td><b>{!accountObject.salutation} {!Booking__c.Primary_Applicant__r.Name}</b></td></tr>
+                        <tr><td><b>{!coapplicantNames}</b></td></tr>
+                        <tr>
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingStreet=='',false,true)}">
+                                
+                                <td style="font-size: 11px;font-family: Optima;" ><b>{!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},</b></td>
+                            </apex:outputText>
+                        </tr>
+                        <tr>
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingState=='',false,true)}">
+                                <td><b>{!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},</b></td>
+                            </apex:outputText>
+                        </tr>
+                        
+                        <tr>
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingCountry=='',false,true)}">
+                                <td><b> {!accountObject.PersonMailingCountry}</b></td>
+                            </apex:outputText>
+                        </tr>
+                        <tr>
+                            <td><b>Headphone: {!Booking__c.Primary_Applicant__r.PersonMobilePhone}</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>Email: {!Booking__c.Primary_Applicant__r.PersonEmail}</b></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table>
+                        <tr>
+                            <td>Re:</td>
+                            <td>Your application for allotment of an apartment in the Real Estate Project known as {!project.name} 
+                        registered with Maharashtra Real Estate Regulatory Authority (“MahaRERA”) under 
+                        Registration No. {!project.RERA_Number__c} (“Project”).  </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                        Dear Madam/ Sir, 
+                    </p>
+                    <ol class ="upperAlpha">
+                        <li><b>Allotment of the Apartment: </b><br/>
+                            We are pleased to inform you that your application vide Application Form dated  <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                            <apex:param value="{!Booking__c.Related_Opportunity__r.Booking_Form_Submitted_by_Customer_Date__c}" />
+                            </apex:outputText>
+                            
+                            ("Application Form") (a copy of which is annexed hereto at Annexure '1') has been 
+                            accepted and accordingly, you are hereby allotted a residential premise bearing No.
+                            {!propertyRecord.Name} admeasuring {!propertyRecord.RERA_Carpet_Area__c} square metres of RERA carpet area (equivalent to {!propertyRecord.Approved_Area__c}  square feet)
+                            as per the 'Approved Typical Plan' (which has been inspected and perused by you) or
+                            admeasuring {!propertyRecord.Proposed_Area_c_in_sqmtr__c} square meters RERA carpet area (equivalent to {!propertyRecord.Proposed_Area__c} square feet) as 
+                            per the 'Proposed Typical Plan' (which has been inspected and perused by you) and
+                            comprising of {!propertyRecord.Flat_Type__c} Bedroom/s + 1 Hall + 1 Kitchen (“Apartment”) on the on the  {!propertyRecord.Floor__c}<sup>{!floor} </sup> floor of
+                            the Project (defined above), having MahaRERA Registration No. {!project.RERA_Number__c}, to be 
+                            constructed/ developed on land bearing CTS No. [●] of Village {!project.City__c}, District and 
+                            Taluka {!project.Sublocation__c}, within the limits of [●]. <br/>
+                        </li>
+                        <li>
+                            <b>Allotment of Parking Space(s): </b><br/>Further, we are pleased to inform you that, 
+                            in accordance with the Application Form, you are hereby allotted {!noOfCarParking} car parking space(s)
+                            and/or {!noOf2WheelerParking} two-wheeler parking space(s) in either the basements/ ground floor/ Stilt levels
+                            or on one of the podium floor levels ("Parking Space/s”) in the Project.<br/>
+                        </li>
+                        <li>
+                            <b>Receipt of part Sale Consideration: </b><br/>We confirm to have received from you an amount
+                            of INR {!booking.Total_Received_Amount_Excluding_GST__c} (Indian Rupees {!bookingTotalReceivedAmountinWords} only), being 
+                            <apex:outputText value="{0, number, 00.00}">
+                                
+                                <apex:param value="{!agreementReceivedPercentage}" />
+                                
+                            </apex:outputText>% of the Sale Consideration (defined below) of 
+                            the Apartment as booking amount/ advance payment on
+                            <!--apex:outputpanel rendered="{!AND(paymentList.size > 0,paymentList[0] > 0)}"-->
+
+                            <apex:outputPanel rendered="{!AND(paymentList[0].Payment_Date__c != '', paymentList[0].Payment_Date__c != null)}">
+                               
+                                <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentList[0].Payment_Date__c}" /></apex:outputText>
+                            </apex:outputPanel> 
+                            <!--/apex:outputpanel-->
+                            through 
+                            <!--apex:outputpanel rendered="{!AND(paymentList.size > 0,paymentList[0] > 0)}"-->
+                            <apex:outputPanel rendered="{!AND(paymentList[0].Payment_Type__c != '', paymentList[0].Payment_Type__c != null)}">
+                                {!paymentList[0].Payment_Type__c}
+                            </apex:outputPanel>
+                            <!--/apex:outputpanel--><br/> </li>
+                        <li>
+                            The aforesaid allotment has been made based upon and relying on your assurance and confirmation
+                            inter alia that you shall (i) execute and deliver further documents as may be required by us,
+                            from time to time, and (ii) comply with your obligations (including but not limited to your 
+                            payment obligations) in a timely manner, from time to time, without any delay, default, demur,
+                            breach, failure etc. of any nature whatsoever and for any reason whatsoever. </li>
+                        <li>
+                            The aforesaid allotment is subject to the terms and conditions stipulated in the Application Form,
+                            this Allotment Letter and the Agreement for Sale to be executed between us. Principle terms and 
+                            conditions of the allotment as are captured in the Application Form are hereby reiterated below,
+                            and you shall be bound by all the terms and conditions stipulated in the Application Form:<br/>
+                            <ol>
+                                
+                                <li>The Apartment has been allotted against a total sale consideration of INR {!booking.Agreement_Value__c}/- (Indian Rupees {!bookingAgreementValueiwords} only)
+                                    (“Sale Consideration”) and the same is exclusive of goods &amp; service tax (state  &amp; central) (“GST”), 
+                                    Other Charges (as stated in the ‘Payment Schedule’ annexed to the Application Form), applicable stamp duty,
+                                    registration cost/ fee/ charges, printing/ scanning charges etc. which shall be borne and paid by you over
+                                    and above the Sale Consideration. In case of delay in making any payments, you shall be liable to pay interest 
+                                    at the rate which shall be the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent),
+                                    which shall be paid in accordance with the Application Form and/or the Agreement for Sale to be executed between us,
+                                    as the case may be.</li>
+                                <li>
+                                    The Parking Space/s is / are allotted without any additional consideration; however, you shall be liable to pay
+                                    the applicable fee, charges, etc. for the upkeep, maintenance, and servicing of the same. This conditional entitlement 
+                                    in respect of the Parking Space/s cannot be transferred/ assigned/ sold/ licensed etc. dehors or independent of the
+                                    Apartment, and only the owners/ residents of the Apartment shall be entitled to use the Parking Space/s in the manner
+                                    permissible under, statutory regulations, the applicable society bye-laws, and general best practices, and not otherwise. 
+                                </li>
+                                <li>
+                                    <b>Disclosures of Information: </b><br/>
+                                    As requested by you, we have shared the following documents, information and access to you, which you have perused 
+                                    and studied in detail and are fully satisfied with the same: 
+                                    <ol class="lowerRoman">
+                                        
+                                        <li>
+                                            All approved and proposed sanctioned plans, layout plans and specifications in respect of the Project 
+                                            and the Premises, including the ones displayed at the Project site and uploaded on MahaRERA’s website i.e.
+                                            <a href="https://maharera.mahaonline.gov.in/#" target="_blank">https://maharera.mahaonline.gov.in/#</a>;
+                                        </li>
+                                        <li>
+                                            The stage-wise time schedule for completing the Project, including the provisions for civic infrastructure 
+                                            like water, sanitation and electricity is as stated in Annexure ‘A’ attached herewith; and  
+                                        </li>
+                                        <li>
+                                            Such other documents and information in respect of the Project as requested by you, from time to time.</li>
+                                    </ol>
+                                </li>
+                                <li><b>Encumbrances:  </b><br/>The Project is absolutely free from all financial encumbrances.</li>
+                                <li>
+                                    <b>Further payments: </b><br/>
+                                    Further payments towards Sale Consideration of the Apartment shall be made by you in the manner and at the 
+                                    times as well as on the terms and conditions as more specifically enumerated/ stated in the Application 
+                                    Form/ agreement for sale to be entered into between ourselves and yourselves. </li>
+                                
+                                <li>
+                                    <b>Possession: </b><br/>
+                                    Possession of the Premises will be offered to you on or before [●] and/or such other extended date
+                                    as may be permitted by MahaRERA (“Proposed Possession Date”), provided the Sale Consideration, the
+                                    Other Charges and such other amounts, charges, fee, taxes, contributions, reimbursements, penalties,
+                                    interests etc. are paid by you in a timely manner without any delay, default, demur, breach, failure etc.
+                                    of any nature whatsoever and for any reason whatsoever. The Proposed Possession Date may also be extended
+                                    for any reason beyond our control, which shall include, but not be limited to the following:
+                                    <ol class="lowerRoman">
+                                        <li>
+                                            War, flood, drought, fire, cyclone, earthquake, civil commotion and/or any act of God;<br/>  
+                                        </li>
+                                        <li>
+                                            Any notice, order, rule, circular, notification of the Government and/or other public 
+                                            or competent authority/ court which has an impact on the development of the Project. <br/>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <b>Cancellation of allotment: </b><br/>
+                                    In the event you wish to cancel/ withdraw/ terminate the allotment made hereunder, 
+                                    you will be required to serve us an advance/ prior written cancellation/ withdrawal/
+                                    termination notice (“Allottee’s Termination Notice”) of at-least 30 (thirty) days.
+                                    From the date of the Allottee’s Termination Notice, the applicable amounts as stated in the 
+                                    table below shall automatically stand forfeited by you in our favour from the amounts received by us, 
+                                    and the balance amounts, if any, will be returned to you, without any interest, within 45 (forty-five) 
+                                    days from the date of receipt of (a) the Allottee’s Termination Notice, and (b) such other documents, 
+                                    letters, writings, no-claim/ no-objection letters/ certificates etc. as may be required/ demanded by us, 
+                                    failing which the aforesaid balance amounts shall be returned along with simple interest at the rate which 
+                                    shall be the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent): 
+                                    <br/>
+                                    <br/>
+                                    <div class="tableCenter"><table class="tableBorder breakAvoid" style ="border:1px solid black;width:100%;border-collapse: collapse; page-break-inside: avoid">
+                                        
+                                        <tr>
+                                            <th class="textalign">Sr. No.</th>
+                                            <th class="textalign">If the Allottee’s<br/> Termination<br/>  Notice is received: </th>
+                                            <th class="textalign">Forfeited Amount/ Amount <br/>to be deducted: </th>
+                                        </tr>
+                                        <tr>
+                                             <td>(i)</td>
+                                            <td>Within 15 days from this Allotment Letter: </td>
+                                           
+                                            <td>Nil </td></tr>
+                                        <tr>
+                                             <td>(ii)</td>
+                                            <td>Within 16 days to 30 days from this Allotment Letter: </td>
+                                           
+                                            <td>1% of the Sale Consideration </td></tr>
+                                        <tr>
+                                             <td>(iii)</td>
+                                            <td>Within 31 days to 60 days from this Allotment Letter: </td>
+                                           
+                                            <td>1.5% of the Sale Consideration </td></tr>
+                                         <tr>
+                                             <td>(iv)</td>
+                                            <td>After 61 days from this Allotment Letter: </td>
+                                            
+                                            <td>2% of the Sale Consideration </td></tr>
+                                    </table>
+                                    </div><br/><br/>
+                                    In addition to the above forfeited amounts, we shall also have the right and authority to deduct 
+                                    amounts towards any Pre-EMI interest (in case you have opted for a subvention/ deferred payment
+                                    scheme or if we have made any payments of such Pre-EMI interest to or on your behalf, in any manner
+                                    whatsoever) and the applicable taxes thereon as well as any brokerage expenses (or part thereof)
+                                    which we may have paid to any Real Estate Agent or marketing expenses incurred in connection with
+                                    the Allotment of the Apartment contained herein.<br/>
+                                    We reserve the right and authority to enhance the amounts/ percentage to be forfeited/ deducted in the 
+                                    event any further loss, damage and/or inconvenience etc. is caused to us.<br/>
+                                </li>
+                                <li>
+                                    In the event there is any breach by you of the terms and conditions stipulated in Application Form, 
+                                    this Allotment Letter and/or AFS to be executed between us and/or in the event of any delay/
+                                    default/ breach in complying with your payment obligations (including but not limited to GST 
+                                    and/or any other taxes, charges, statutory dues, contributions, reimbursements, penalties, fines etc.)
+                                    in accordance with the Payment Schedule provided in the Application Form, then all such outstanding 
+                                    amounts shall be payable by you along with interest at the rate which shall be the State Bank of India’s 
+                                    Highest Marginal Cost of Lending Rate plus 2% (two per cent), to be calculated from the date(s) 
+                                    such amount(s) were due until such date the entire amounts along with interest are paid in full
+                                    by you to us. Your liability to pay the above interest is without prejudice to our right and 
+                                    authority to terminate the Application Form and this Allotment Letter by serving a termination 
+                                    notice (“Promoter’s Termination Notice”), in which case, your liability to pay the above interest 
+                                    shall continue and we shall have the further right and authority (at our sole and exclusive discretion) 
+                                    to forthwith terminate the Application Form and this Allotment Letter, and upon such termination, 
+                                    we shall deduct the following amounts from the amounts received by us from you - (i) 10% of the Sale 
+                                    Consideration towards as and by way of agreed genuine pre-estimate of liquidated damages; (ii) all the 
+                                    applicable taxes (including GST) and interest thereon on account of your delay in paying the same to us, 
+                                    along with interest at the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent)
+                                    on such GST and interest; (iii) all fee, costs and charges for any legal services as may be availed by us;
+                                    and (iv) for applicable amounts for any further loss, damage and/or inconvenience as may be caused to us, 
+                                    if applicable. The balance amounts, if any, after making the above deductions, will be returned to you, 
+                                    without any interest, within 45 (Forty five) days from (a) the date of your acceptance of the Promoter’s
+                                    Termination Notice, and (b) your executing and delivering to us such other documents, letters, writings,
+                                    no-claim/ no-objection letters/ certificates etc. as may be required/ demanded by us. In the event the
+                                    aforesaid balance amount is not refunded within the aforesaid timelines, then the same shall be returned
+                                    by us along with simple interest at the rate which shall be the State Bank of India’s Highest Marginal 
+                                    Cost of Lending Rate plus 2% (two per cent). </li>
+                                <li>
+                                    <b>Other payments: </b><br/>
+                                    You shall make the payment of GST, stamp duty, registration charges, printing/ scanning charges, 
+                                    other charges (as mentioned in the ‘Payment Schedule’ annexed to the Application Form), as applicable 
+                                    and such other payments as more specifically mentioned in the Application Form/ agreement for sale,
+                                    the proforma of the same has been shared with you. 
+                                </li>
+                                <li><b>Proforma of the agreement for sale and binding effect: </b><br/>
+                                    The proforma/ format of the Agreement for Sale to be executed between us has been shared with
+                                    you and the same can be reviewed on the MahaRERA’s website. It is clarified that mere sharing
+                                    of the aforesaid proforma/ format does not create any binding obligation, liability and/or 
+                                    commitment on us. The terms and conditions with respect to the allotment of the Premises as
+                                    recorded in the Application Form and this Allotment Letter shall stand superseded by the
+                                    ‘Agreement for Sale’ to be executed between us.  </li>
+                                <li><b><ul>
+                                    Execution and registration of the agreement for sale: 
+                                    </ul></b><br/>
+                                    <ol>
+                                        
+                                        <li>
+                                            You shall execute the agreement for sale and appear for registration of the same before the 
+                                            concerned Sub-Registrar within a period of 2 months from the date of issuance of this 
+                                            letter or within such period as may be communicated to you. The said period of 2 months
+                                            can be further extended on our mutual understanding. </li>
+                                        <li>
+                                            f you fail to execute the agreement for sale and appear for registration of the same
+                                            before the concerned Sub-Registrar within the stipulated period 2 months from the date
+                                            of issuance of this letter or within such period as may be communicated to you, we 
+                                            shall be entitled to serve upon you a notice calling upon you to execute the agreement 
+                                            for sale and appear for registration of the same within 15 (fifteen) days, which if not 
+                                            complied, we shall be entitled to cancel this allotment letter and further we shall be 
+                                            entitled to forfeit a sum amounting to 2% of the cost of the Apartment along with amounts
+                                            towards any Pre-EMI interest (in case you have opted for a subvention/ deferred payment 
+                                            scheme or if we have made any payments of such Pre-EMI interest to or on your behalf,
+                                            in any manner whatsoever) and the applicable taxes thereon as well as any brokerage expenses
+                                            (or part thereof) which we may have paid to any Real Estate Agent or marketing expenses 
+                                            incurred in connection with the Allotment of the Apartment contained herein and the balance
+                                            amount if any due and payable shall be refunded without interest within 45 (forty five) 
+                                            days from the date of expiry of the notice period. 
+                                        </li>
+                                        <li>
+                                            In the event the balance amount due and payable referred in clause (b) above is not 
+                                            refunded within 45 (forty five) days from the date of expiry of the notice period, 
+                                            you shall be entitled to receive the balance amount, if any, with interest calculated
+                                            at the rate which shall be the State Bank of India highest Marginal Cost of Lending Rate
+                                            plus two percent. 
+                                        </li>
+                                    </ol></li>
+                                
+                                <li><b><ul>
+                                    Validity of allotment letter: 
+                                    </ul></b><br/>
+                                    This allotment letter shall not be construed to limit your rights and interest upon execution and
+                                    registration of the agreement for sale between ourselves and yourselves. Cancellation of 
+                                    allotment of the said unit thereafter, shall be covered by the terms and conditions of the said 
+                                    registered document.   
+                                    
+                                </li>
+                                <li>
+                                    <b><ul>
+                                        Headings: 
+                                        </ul></b><br/>Headings are inserted for convenience only and shall not affect the construction of
+                                    the various Clauses of this allotment letter. </li>
+                            </ol>
+                            
+                        </li>                
+                        
+                        
+                        
+                        <li>
+                            We reserve the right to make further alteration, modification, amendments to the terms and conditions 
+                            stipulated in the Application Form and this Allotment Letter, as may be permitted by MahaRERA, from time to time.  </li>
+                        
+                        
+                    </ol> 
+                    <p>
+                        
+                        For any further assistance or support, you may kindly contact our Customer Relations Team on <b>{!bookingOwner.MobilePhone}</b> or 
+                        alternatively email us at <b>{!booking.Booking_Owner_Email__c}</b>. <br/><br/>
+                        Your truly,<br/><br/>
+                        <!-- {!booking.Booking_Owner_Name__c}-->
+                        <br/><br/><br/><br/>
+                    </p>
+                    <div style ="width: 60%; float:right;page-break-after: always;">
+                        <h5>
+                            ALLOTTEE’S CONFIRMATION AND ACKNOWLEDGEMENT: 
+                        </h5>
+                        <p>
+                            I/We, the Allottee(s) herein, hereby acknowledge having received this Allotment 
+                            Letter and confirm that I/we have carefully read and understood the contents hereof
+                            and the Application Form and accordingly, I/we hereby unconditionally and irrevocably 
+                            agree and accept the terms and conditions stipulated herein and the Application Form. 
+                        </p>
+                        <p style ="text-align:right">
+                            {!accountObject.salutation} {!Booking__c.Primary_Applicant__r.Name}
+                        </p>
+                    </div>
+                </div>
+                  </div>
+                <!----------------------------------- Page Break -------------------------------------->
+                <div>
+                    <center><h5>
+                        Annexure – A 
+                    </h5>
+                        </center>
+                    <p>
+                        Stage wise time schedule of completion of the project 
+                    </p>
+                    <table class="tableBorder" style ="border:1px solid black;width:100%;border-collapse: collapse;">
+                        
+                        <tr>
+                            <th >Sr. No.</th>
+                            <th>Stages </th>
+                            <th>Date of Completion </th>
+                        </tr>
+                        <apex:repeat var="paymentMilestone" value="{!paymentMilestoneList}">
+                            <tr>
+                                <td>{!paymentMilestone.Sequence_No__c}.</td>
+                                <td>{!paymentMilestone.NAME}</td>
+                                <td>On or before&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentMilestone.Due_Date__c}" /></apex:outputText>  of Completion.</td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                    <br/>
+                    <p>
+                        *Note: The Date of Completion referred hereinabove shall be the date of completion of the Project,
+                        as reflected on MahaRERA website, from time to time. 
+                    </p>
+                    
+                </div>
+          
+            </body>
+        </html>
+    </apex:page>

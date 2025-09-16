@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity.Booking__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Unit_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Project__c</field>
+    </columns>
+    <currency>INR</currency>
+    <description>to track new bookings added in the system months to month</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Booking__r$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Cancellation Initiated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity$Project__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Avanya tower B</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of Last 12 month bookings_Avanya B</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_with_Opportunities__c</reportType>
+    <roleHierarchyFilter>Director</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity.Booking__r$Booking_Date__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

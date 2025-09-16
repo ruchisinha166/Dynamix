@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Booking Cancellation Initiated Email</name>
+    <style>none</style>
+    <subject>Booking Cancellation Initiated</subject>
+    <textOnly>Hi,  
+
+Booking Cancellation has been Initiated for Booking: {!Booking__c.Name}  
+
+Thank you,  
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

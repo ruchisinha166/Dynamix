@@ -1,0 +1,12 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">&nbsp;Dear&nbsp;{{{Opportunity.Sales_Manager__c}}} ,<br />
+<br />
+Your source change request for {{{Opportunity.Name}}} from&nbsp;{{{Opportunity.Project__c}}} has been changed<br />
+from&nbsp;{{{Opportunity.Walk_in_Source__c}}} to&nbsp;{{{Opportunity.Old_Source__c}}}.<br />
+<br />
+Regards,<br />
+Dynamix</body>
+</html>

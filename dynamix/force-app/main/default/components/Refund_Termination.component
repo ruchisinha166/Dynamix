@@ -1,0 +1,193 @@
+<apex:component controller="RefundNoteClass" access="global">
+  <apex:attribute name="PayMId" type="Id" description="account id of the case" assignTo="{!PMId}"/>
+  
+  <html>
+    <head>
+       <style>
+               @page
+                {
+                margin-top: 20%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+          
+           .float-container {
+            border: 3px solid #fff;
+            padding: 20px;
+            }
+
+            .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            }  
+             .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            } 
+            </style>
+        
+       
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        td{
+        text-align: left;
+        width:20%;
+        
+        }
+            .marginBottom{
+            margin-bottom: 10px;
+            }
+            .marginTop{
+            margin-top: 10px;
+            }
+            body {
+              font-family: Helvetica, sans-serif;
+              font-size: 11px;
+            }
+        </style>
+        
+    </head>
+    <body>
+   <center>
+       <apex:image url="{!ProjectHeader}" width="730" height="170" />
+       </center>  
+     <div style="padding-left:30px;">
+            <span style="font-family:Helvetica, sans-serif;font-size: 11px;">
+            <span style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:left;">
+            To
+            <span style="float:right;">
+            Date: <apex:outputText style="text-align: right;" value="{0,date,dd/MM/yyyy}"> 
+            <apex:param value="{!TODAY()}" /></apex:outputText>
+            </span>
+            </span>
+            <br/>
+                {!booking.Primary_Applicant__r.Name}<br/>
+                {!accountObject.PersonMailingStreet},{!accountObject.PersonMailingCity},<br/>
+                {!accountObject.PersonMailingState} ,{!accountObject.PersonMailingPostalCode},{!accountObject.PersonMailingCountry}<br/>
+                {!accountObject.Phone}<br/>
+                
+            </span>
+        </div>
+          
+           <div  style="margin-left : 10px;font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">
+           <center><b><u>Sub: Refund of balance amounts pertaining to Application/ Allotment in respect of said Apartment.</u></b><br/><br/></center>
+           </div>
+           
+            <div style="font-family:Helvetica, sans-serif;font-size: 11px;padding-left:30px;">        
+                <table style="padding-left:30px;font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;border-style: none;width:98%;">
+                    <tr  style="font-family:Helvetica, sans-serif;font-size: 11px;padding-left:30px;">
+                        <td style="font-family:Helvetica, sans-serif;font-size: 11px;border-style: none;text-align: justify;width:2%;vertical-align:top;">
+                            <b>
+                                Re:
+                            </b>
+                        </td>
+                    <td style="font-family:Helvetica, sans-serif;font-size: 11px;border-style: none;text-align: justify;width:98%;">
+                     Our Termination Notice dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">&nbsp;<apex:param value="{!booking.Cancel_or_Termination_date__c}" /></apex:outputText>&nbsp; in respect of Flat no.{!sPropertyobj.Unit__r.name}  on the {!sPropertyobj.Unit__r.Floor__c} floor in
+         {!booking.Project_Name__r.Name} Project (“said Apartment”), situated at  {!project.Sublocation__c}, {!project.Location__c}, {!project.City__c}-{!project.Postal_Code__c}. 
+     </td>
+                </tr>
+                
+            </table>
+        </div>
+    
+    <br/>
+    <p style="padding-left:30px; font-family:Helvetica, sans-serif;font-size: 11px;">
+    Dear {!accountObject.Salutation} {!booking.Primary_Applicant__r.Name},</p>
+     
+    <ol type="1" style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">
+        <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+            We refer to our termination vide Letter/ Email dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Cancel_or_Termination_date__c}" /></apex:outputText>  (“Termination Notice”),
+         terminating the application/ allotment of the captioned
+            Apartment as you have failed and neglected to abide by the terms and conditions of the dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText>  (“Form”)/ 
+            Agreement for Sale dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText>  registered vide No {!booking.Registration_Number__c} (“Agreement”) and all writings pursuant thereto.
+        </li>
+        <apex:outputPanel rendered="{!if(paymentModeCheck == true,true,false)}">
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+             We hereby refund you the balance amounts (in accordance with but not limited to clause 8.5 of the Form and/or clause 8(v) of the Agreement,
+             as the case may be) paid by you, being Rs. <apex:outputText value="{0, number, #,###.##}"><apex:param value="{!payment.Amount__c}"/></apex:outputText> (Rupees {!AmountInWords} only) vide cheque No.
+              {!payment.Cheque_Transaction_Number__c } dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!payment.Date__c}" /></apex:outputText>, drawn on {!payment.BankName__r.name} Bank, {!payment.Branch_Name__c} Branch. The said 
+             cheque No. {!payment.Cheque_Transaction_Number__c } is enclosed herewith.
+        </li>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!if(paymentModeCheck == false,true,false)}">
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+            We have transferred/ refunded you the balance amounts (in accordance with but not limited to clause 8.5 of the Form 
+            and/or clause 8(v) of the Agreement, as the case may be) paid by you, being Rs.<apex:outputText value="{0, number, #,###.##}"><apex:param value="{!payment.Amount__c}"/></apex:outputText> 
+             (Rupees {!AmountInWords} only) vide RTGS/ NEFT,
+            as a mode of payment having UTR No./ Reference No. {!payment.Cheque_Transaction_Number__c }  dated <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!payment.Payment_Date__c}" /></apex:outputText> to Bank Account No. {!project.Builder_Organization__r.Bank_Account_Number__c}.
+        </li>
+        </apex:outputPanel>
+        
+        
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+            We further inform you that as per the Termination Notice dated &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!TODAY()}" /></apex:outputText>  in respect of the said Apartment, you have ceased 
+            to have any right, title, interest, claim or demand of any nature whatsoever either against the Promoter or in the 
+            said Apartment or any part thereof or the Project and we are fully entitled to deal with the said Apartment as we may 
+            in our sole absolute and unfettered discretion deem fit and proper, without any further recourse to you.
+        </li>
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+           We request you to confirm the receipt of the aforesaid and to confirm that you have no objection whatsoever in respect of the 
+           Form/ Agreement and the contents hereof by countersigning this letter
+        </li>
+    </ol>   
+        <p style="font-family:Helvetica, sans-serif;font-size: 11px;padding-left:30px;font-family:Helvetica, sans-serif;font-size:11px;">
+        Yours faithfully,
+        <br/>
+        For {!project.Builder_Organization__r.name}
+       
+        </p>
+        <p style="padding-left:30px;margin-right : 5px;text-align: right;font-family:Helvetica, sans-serif;font-size:11px;">
+        I/ We received
+        <br/>
+         {!coAppName} 
+        </p>
+         <p style="padding-left:30px;margin-right : 5px;font-family:Helvetica, sans-serif;font-size:11px;">
+         <apex:outputPanel rendered="{!if(paymentModeCheck == true,true,false)}">
+        Encl: Cheque No. {!payment.Cheque_Transaction_Number__c }.
+         </apex:outputPanel>
+         </p>
+      
+      <center>
+        <apex:image url="{!ProjectFooter}" width="700" height="50"  />
+        </center>
+      </body>  
+</html>
+</apex:component>

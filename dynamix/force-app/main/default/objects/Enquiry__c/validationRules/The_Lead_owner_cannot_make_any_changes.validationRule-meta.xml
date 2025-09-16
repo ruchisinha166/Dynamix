@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_Lead_owner_cannot_make_any_changes</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(ISPICKVAL(PRIORVALUE(Stage__c), &quot;Lost&quot;)&amp;&amp;($User.Id = OwnerId)&amp;&amp; PRIORVALUE(Round_Robin__c) == true &amp;&amp; Duplicate_Lead__c ==false,TRUE, FALSE)</errorConditionFormula>
+    <errorMessage>The Enquiry owner cannot make any changes to the enquiry details because this enquiry is marked as Lost.</errorMessage>
+</ValidationRule>

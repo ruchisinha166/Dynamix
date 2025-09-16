@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_Payment_is_0_and_Stage_is_Booked</fullName>
+    <active>true</active>
+    <errorConditionFormula>Total_Amount_Received__c = 0.00 &amp;&amp;  ISPICKVAL( Stage__c , &quot;Booked&quot;) &amp;&amp;  ISPICKVAL( PRIORVALUE( Stage__c ) , &quot;Draft&quot;)</errorConditionFormula>
+    <errorMessage>Cannot mark the stage as Booked: Some payment amount should be added.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Area_in_sqft__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(Project_Area_UOM__c),
+&apos;Sq.Meter&apos;,Project_Area__c*10.764,
+&apos;Acres&apos;,43560*Project_Area__c,
+&apos;Guntha&apos;, 1089*Project_Area__c,
+&apos;Bigha&apos;,17452.0069808*Project_Area__c,
+&apos;Sq. Yards&apos;,9*Project_Area__c,
+&apos;Hectares&apos;,107639*Project_Area__c,
+Project_Area__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Project Area (in sqft.)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

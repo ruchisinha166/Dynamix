@@ -1,0 +1,997 @@
+<apex:page controller="CostSheetController"  readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0" action="{!CostSheetController1}">
+    <html>
+        <head>
+            <style type="text/css">
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                
+                .float-container {
+                border: 3px solid #fff;
+                padding: 20px;
+                }
+                
+                .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                }  
+                .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                } 
+            </style>
+            <style type="text/css" media="print">
+                <apex:outputPanel layout="none" rendered="{!IF(visiblityVer == false, true, false)}">
+                    .watermark {
+                    background-repeat: repeat;
+                    background-image: url("{!URLFOR($Resource.sendforApproval)}");
+                    }
+                    
+                </apex:outputPanel>
+            </style>
+        </head>
+        <body class="watermark">
+            
+            <div class="footer">
+                <apex:image url="{!ProjectFooter}" width="700" height="50" />
+                <p style="font-family: Helvetica, sans-serif;font-size:8px;text-align: center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+            </div>
+            
+            
+            <div width = "100%" class="header" style="margin-top: 20px;margin-left: 10px;">
+                <apex:image url="{!ProjectHeader}" width="700" height="140" />
+            </div>
+            <table width = "100%">
+                <tr><td  width = "50%"><div align="left" width="50%" style="text-align:left;font-family: Helvetica, sans-serif;font-size:11px;">
+                    <b>Cost Sheet No. : </b>{!costSheetNo}</div></td>
+                    <td width = "50%"><div align="right" style="font-family: Helvetica, sans-serif;text-align:Right;font-size:11px;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Today()}" /></apex:outputText>
+                        </div> </td>
+                </tr>
+                
+            </table> 
+            <div>
+                <br/><br/><h1 style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;"><u>Pro Forma Quotation and Payment Schedule for Apartment No. {!suggestedProperty.Unit__r.Name} 
+                
+                in {!suggestedProperty.Unit__r.Project__r.Name} </u></h1>
+                
+                <h1 style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;"><u> Apartment Particulars</u></h1> 
+                
+                
+                
+                <table border="1" cellspacing="0" cellpadding="2" style="width:100%;font-family: Helvetica, sans-serif;">
+                    <tr >
+                        <th style="font-family: Helvetica, sans-serif;width:10%;font-size:11px;">
+                            <b><center>Sr. No.</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;width:50%;font-size:11px;">
+                            <b><center>Field</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;width:40%;font-size:11px;" colspan="2">
+                            <b><center>Particulars</center></b>
+                        </th>
+                        
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            1.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Project Name
+                        </td>
+                        <td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!suggestedProperty.Unit__r.Project__r.Name} </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            2.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Tower Number (if applicable)
+                        </td>
+                        <td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!suggestedProperty.Unit__r.Tower__r.Tower_Number__c}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            3.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Floor Number
+                        </td>
+                        <td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!suggestedProperty.Unit__r.Floor__c}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            4.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Apartment Number
+                        </td>
+                        <td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!suggestedProperty.Unit__r.Name}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                        </td>
+                        
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;width:20%;">
+                            <b><center>Sq. Mts.</center></b> </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;width:20%;">
+                            <b><center> Sq. Ft. </center></b>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            5.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Carpet Area as per RERA
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!propertyObj.RERA_Carpet_Area_in_sqmtr__c}</td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number, ###,###,###,###.00}">
+                            <apex:param value="{!propertyObj.RERA_Carpet_Area__c}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            6.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Utility Area
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp; {!propertyObj.Utility_Area_in_sqmtr__c}
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number,0.00}">
+                            <apex:param value="{!utility}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            7.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Area of Enclosed Balcony (if applicable)
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp; {!propertyObj.Enclosed_Balcony_in_sqmtr__c}
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number,0.00}">
+                            <apex:param value="{!enclosedbalcony}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            8.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Deck Area
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp; {!propertyObj.Deck_Carpet_Area_c_in_sqmtr__c}
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number,0.00}">
+                            <apex:param value="{!deckarea}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+<td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px">
+7.
+</td>
+<td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+Deck Area
+</td>
+<td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+&nbsp;{!propertyObj.Deck_Carpet_Area__c}
+</td>
+</tr>-->
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            9.
+                        </td>
+                        <apex:outputPanel layout="none" rendered="{!IF(CONTAINS(opp.Project__r.Name,'Astrum'), true, false)}">
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                Total Carpet Area as per RERA plus Deck Area (if applicable)
+                            </td>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!IF(CONTAINS(opp.Project__r.Name,'Astrum'), false, true)}">
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                Total Carpet Area as per RERA plus area of Enclosed Balcony (if applicable)
+                            </td>
+                        </apex:outputPanel>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp; {!totalSqM}  </td>
+                        <td  style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number, ###,###,###,###.00}">
+                            <apex:param value="{!totalSqf}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+<td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px">
+10.
+</td>
+<td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+Number of Large Car Parking Space(s)
+</td>
+<td colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+&nbsp;{!largeParking}
+</td>
+</tr>
+<tr>
+<td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;" >
+11.
+</td>
+<td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+Number of Small Car Parking Space(s)
+</td>
+<td  colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+&nbsp;{!smallParking}
+</td>
+</tr>-->
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;" >
+                            10.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Number of Car Parking Space(s)
+                        </td>
+                        <td  colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!carParking}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            11.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Number of Two Wheeler Parking Space(s)
+                        </td>
+                        <td  colspan="2" style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;{!twowheelerParking}
+                        </td>
+                    </tr>
+                </table>
+                <h1 style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;"><u> Apartment Consideration Commercials</u></h1>   
+                
+                <table border="1" cellspacing="0" cellpadding="2" style="width:100%;font-family: Helvetica, sans-serif;">
+                    <tr >
+                        <th style="font-family: Helvetica, sans-serif;width:10%;font-size:11px;">
+                            <b><center>Sr. No.</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;width:50%;font-size:11px;">
+                            <b><center>Cost Head</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;width:40%;font-size:11px;">
+                            <b><center>Amount (INR)</center></b>
+                        </th>
+                        
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            12.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Allotment Premium/ Sale Consideration for Apartment along with car / two wheeler parking space(s) 
+                            as mentioned herein
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp;<apex:outputText value="{0, number, ###,##0}">
+                            <apex:param value="{!totlaAgeement}" />
+                            </apex:outputText>  </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                            13.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            Stamp Duty at <apex:outputText value="{0, number, ###,##0}">
+                            <apex:param value="{!stampPer}" />
+                            </apex:outputText>% of Allotment Premium/ Sale Consideration
+                            
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            &nbsp; <apex:outputText value="{0, number, ###,##0}">
+                            <apex:param value="{!stampDuty}" />
+                            </apex:outputText></td>
+                    </tr>
+                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                        <tr>
+                            <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;">
+                                14.
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                GST at {!GST}% as on date
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                &nbsp;
+                                <apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!GstAmount}" />
+                                </apex:outputText></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;">
+                                15.
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                Registration Charges
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                &nbsp;<apex:outputText value="{0, number, ###,##0}">
+                                <apex:param value="{!registrationCharge}" />
+                                </apex:outputText></td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;">
+                                16.
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                <b> Sub-Total of Allotment Premium/ Sale Consideration plus Stamp Duty
+                                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">, GST 
+                                    </apex:outputPanel> and Registration Charges as on date (12 + 13 + 14 + 15)</b>
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                <b>&nbsp;<apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!TotalCost}" />
+                                    </apex:outputText> </b>   </td>
+                        </tr>
+                        
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == false, true, false)}">
+                        
+                        <tr>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;">
+                                14.
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                Registration Charges
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                &nbsp;<apex:outputText value="{0, number, ###,##0}">
+                                <apex:param value="{!registrationCharge}" />
+                                </apex:outputText></td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;">
+                                15.
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                <b> Sub-Total of Allotment Premium/ Sale Consideration plus Stamp Duty
+                                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">, GST 
+                                    </apex:outputPanel>
+                                    and Registration Charges as on date (11 + 12 + 13 )</b>
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                <b>&nbsp;<apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!TotalCost}" />
+                                    </apex:outputText> </b>   </td>
+                        </tr>
+                        
+                    </apex:outputPanel>
+                </table>
+                
+                <div style="page-break-after: always;"></div>
+                <h1 style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;"><u> Other Charges to be paid at Possession</u></h1>   
+                
+                
+                <table border="1" cellspacing="0" cellpadding="2" style="width:100%;font-family: Helvetica, sans-serif;">
+                    <tr >
+                        <th style="font-size:11px;font-family: Helvetica, sans-serif;width:10%;">
+                            <b><center>Sr. No.</center></b>
+                        </th>
+                        <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;">
+                            <b><center>Cost Head</center></b>
+                        </th>
+                        <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;">
+                            <b><center>Amount (INR)</center></b>
+                        </th>
+                        
+                    </tr>
+                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                        <apex:variable var="count" value="{!17}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == false, true, false)}">
+                        <apex:variable var="count" value="{!16}" />
+                    </apex:outputPanel>
+                    
+                    <apex:repeat var="p" value="{!charges}">
+                        
+                        <tr>
+                            <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;" >
+                                {!count}. <apex:variable var="count" value="{!count+1}" />
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                                <apex:outputText value="{!p.Name}"/>
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                                <apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!p.Price_Lumpsum__c}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>  
+                    </apex:repeat> 
+                    <!--<apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">-->
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;" >
+                            {!count}. <apex:variable var="count" value="{!count+1}" />
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            <b>Applicable GST on the other charges as on date </b>
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            <b> <apex:outputText value="{0, number, ###,##0}">
+                                <apex:param value="{!otherChargeGST}" />
+                                </apex:outputText>
+                            </b>
+                        </td>
+                    </tr>
+                    <!--</apex:outputPanel>-->
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:center;" >
+                            {!count}. <apex:variable var="count" value="{!count+1}" />
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:left; font-size:11px;">
+                            <b>Sub-Total of Other Charges <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                                plus currently
+                                applicable GST  there on </apex:outputPanel> ({!totalcount}) </b>
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;text-align:center; font-size:11px">
+                            <b> <apex:outputText value="{0, number, ###,##0}">
+                                <apex:param value="{!TotalCharges}" />
+                                </apex:outputText>
+                            </b>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <h1 style="font-family: Helvetica, sans-serif;text-align:center;font-size:11px;"><u>Notes</u></h1>  
+                <table style="font-size:11px;font-family: Helvetica, sans-serif;">
+                    <tr>
+                        <td valign="top" style="font-size:11px;font-family: Helvetica, sans-serif;text-align:left;width:5%; ">
+                            a.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            Allotment Premium/ Sale Consideration includes allotment of car park(s) and/or two wheeler park(s),
+                            as mentioned hereinabove, club house membership and infrastructure charges.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            b.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            **Utility connection charges include water, electricity and gas connection charges.
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            c.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            1% TDS (or TDS as applicable which shall be duly intimated by the Company to you from time to time) 
+                            to be paid online by the customer and the certificate for the same should be submitted in order to get credit for the same.
+                            The TDS amount deducted must be paid into the requisite government tax account on or before the 7<sup>th</sup> of every subsequent month
+                            of each payment made.
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            d.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The Stamp Duty amount mentioned above is approximate and the actual stamp duty shall be calculated on the basis of the market value of the apartment at the time of execution of the agreement for sale, or the sale consideration, whichever is more. As per Government directives under circular dated 14.01.2021 bearing No. TPS-1820/SR-27/CR-80/20/UD-13, the Stamp Duty charges will be borne by the Owner / Developer.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            e.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The GST percent and amount mentioned above is approximate and is calculated on the basis
+                            of the extant laws and prevailing regulations. The actual GST shall be calculated on the basis of the guidelines
+                            and norms as applicable at the time of execution of the Agreement for Sale. The same shall be borne by the 
+                            Applicant only.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            f.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            Kindly issue the payment towards the Allotment Premium/ Sale Consideration and Other Charges, in favour of:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:95%;padding-bottom: 7px;">
+                            Beneficiary: {!builderOrg.Account_Name__c}<br/>    
+                            Bank Name: {!builderOrg.Bank_Name__c} <br/>    
+                            Account Number: {!builderOrg.Bank_Account_Number__c}<br/>    
+                            IFSC Code: {!builderOrg.IFSC_Code__c}<br/>    
+                            Branch Address: {!builderOrg.Branch_Address__c}<br/>  
+                        </td>  
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            g.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            All Apartment instalments must be paid along with 
+                            applicable GST via a separate cheque/ RTGS/ NEFT, in favour of:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:95%;padding-bottom: 7px;">
+                            Beneficiary: {!builderOrg.GST_Account_Name__c}<br/> 
+                            Bank Name: {!builderOrg.GST_Bank_Name__c}<br/> 
+                            Account Number: {!builderOrg.GST_Bank_Account_Number__c}<br/> 
+                            IFSC Code: {!builderOrg.GST_IFSC_Code__c}<br/> 
+                            Branch Address: {!builderOrg.GST_Branch_Address__c}<br/> 
+                        </td>  
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            h.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            Other charges are to be paid at the time of the offer for possession of the said Apartment.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            i.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            Execution and Registration of the Agreement for Sale is mandatory
+                            for the Applicant upon or before payment of 10% of the Allotment Premium/ Sale
+                            Consideration, as recorded herein.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            j.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The internal walls, plaster, flooring, windows / facade, doors, sanitary fittings,
+                            lift wells, lobbies, staircases, entrance lobbies, general development, etc may be initiated and completed 
+                            at any time during the construction cycle and {!builderOrg.Name}  shall raise instalment demands 
+                            thereof at that time, which may be simultaneous with other instalment demands. The Allottee agrees and 
+                            undertakes to make payments of these demands as and when demanded and shall not dispute / object or challenge 
+                            such demands in any nature whatsoever.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            k.
+                        </td>
+                        <!--td style="display: {!IF((opp.Project__r.Name == 'Astrum')||(opp.Project__r.Name == 'Divum')||(opp.Project__r.Name == 'Parkwoods D5')||(opp.Project__r.Name == 'Avanya Tower A')||(opp.Project__r.Name == 'Avanya Tower B')||(opp.Project__r.Name == 'Avanya Tower C'), 'none', 'block')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+* The Security Maintenance Deposit shall be dealt with in accordance with the terms of 
+the Agreement for Sale / Application Form, as the case may be.
+</td>
+<td style="display: {!IF((opp.Project__r.Name == 'Astrum')||(opp.Project__r.Name == 'Divum'), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;font-weight:700;">
+Security Maintenance Deposit (SMD) shall be handed over to the Society of Allottees upon hand over to the Society / Federation, as the case may be. SMD will be recovered at Rs15 per sq. ft of RERA carpet area for 18 months, at the time of possession, and shall be subject to the provisions as contained in the Agreement for Sale and shall be over and above the costs mentioned herein.
+</td>
+<td style="display: {!IF((opp.Project__r.Name == 'Parkwoods D5'), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;font-weight:700;">
+Security Maintenance Deposit (SMD) shall be handed over to the Society of Allottees upon hand over to the Society / Federation, as the case may be. SMD will be recovered at Rs.10 per sq. ft of RERA carpet area for 24 months, at the time of possession and shall be subject to the provisions as contained in the Agreement for Sale and shall be over and above the costs mentioned herein.
+</td>
+<td style="display: {!IF((opp.Project__r.Name == 'Avanya Tower A')||(opp.Project__r.Name == 'Avanya Tower B')||(opp.Project__r.Name == 'Avanya Tower C'), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;font-weight:700;">
+Security Maintenance Deposit (SMD) shall be handed over to the Society of Allottees upon hand over to the Society / Federation, as the case may be. SMD will be recovered at Rs15 per sq. ft of RERA carpet area for 18 months, at the time of possesion and shall be subject to the provisions as contained in the Agreement for Sale and shall be over and above the costs mentioned herein.
+</td-->
+                        <td>                          
+                            Security Maintenance Deposit (SMD) shall be handed over to the Society of Allottees upon hand over to the Society / Federation, as the case may be. SMD will be recovered at Rs{!suggestedProperty.Unit__r.Project__r.Per_Sq_ft_for_the_SMD__c} per sq. ft of RERA carpet area for {!suggestedProperty.Unit__r.Project__r.No_of_the_Months__c} months, at the time of possesion and shall be subject to the provisions as contained in the Agreement for Sale and shall be over and above the costs mentioned herein.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            l.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The notes / terms and conditions as contained in this Cost Sheet are by no means
+                            exhaustive and the transaction contemplated herein shall be governed by the Application Form, Letter 
+                            of Confirmation of Allotment and Agreement for Sale, as the case may be.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            m.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The Applicant shall be liable to execute the Application Form and /or execute
+                            and register the Agreement for Sale within the time period stipulated in the payment schedule (annexed hereto),
+                            and in case the same is not completed by the Applicant, the transaction contemplated herein shall stand automatically cancelled.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:left;width:5%; ">
+                            n.
+                        </td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;">
+                            The Project has been registered with MahaRERA under No. {!projectobj.RERA_Number__c}.
+                        </td>
+                    </tr>
+                </table>
+                
+                
+                
+                
+                
+            </div>
+            <br/>
+            <br/>
+            
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <table style="font-size:11px;width:100%;font-family: Helvetica, sans-serif;">
+                    <tr>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;" align="left">Signature of Sales Manager
+                            <br/><br/><br/>{!suggestedProperty.Opportunity__r.Owner.Name}</td>
+                        <td style="font-size:11px;font-family: Helvetica, sans-serif;" align="right">Signature of Applicant
+                            <br/><br/><br/>{!cc.salutation}{!suggestedProperty.Opportunity__r.Account.Name}</td>
+                        
+                    </tr>
+                </table>
+            </div>
+            <div style="page-break-after: always;"></div>
+            
+            <div>
+                <apex:variable var="rowcount" value="{!1}" />
+                <center style="font-family: Helvetica, sans-serif;font-size:11px;"><u><b>Payment Schedule for Your Apartment Number {!suggestedProperty.Unit__r.Name} In {!suggestedProperty.Unit__r.Project__r.Name}</b></u></center>
+                <!--center style="font-family: Helvetica, sans-serif;font-size:11px;"><u><b>Payment Schedule for Your Apartment Number {!suggestedProperty.Unit__r.Name} In {!suggestedProperty.Unit__r.Project__r.Name} {!if(LOWER(suggestedProperty.Unit__r.Tower__r.Name) == 'na',"",suggestedProperty.Unit__r.Tower__r.Name)}</b></u></center-->
+                
+                <br/><br/>
+                <table border="1" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; font-size:11px">
+                    <tr >
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Sr. No.</center></b>
+                        </th>
+                        
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Milestone</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Due Date</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Percent (%) Due</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Amount Due (INR)</center></b>
+                        </th>
+                        <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                            <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <b><center>GST (INR)</center></b>
+                            </th>
+                        </apex:outputPanel>
+                    </tr>
+                    <apex:variable var="payment" value="{!0}" />
+                    
+                    <apex:repeat value="{!paymentPlans}" var="paymentPlan" rows="33">
+                        
+                        <tr>
+                            <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:right;"> {!rowcount}.</td> 
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">{!paymentPlan.Name}</td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <apex:outputPanel layout="none" rendered="{!IF((paymentPlan.Days_after_Booking__c != null), true, false)}">
+                                    <center><apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!Today()+paymentPlan.Days_after_Booking__c}" /></apex:outputText></center>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!IF((paymentPlan.Days_after_Booking__c == null), true, false)}">
+                                    <center>
+                                        <apex:outputText value="CLP"/>
+                                    </center>
+                                </apex:outputPanel>
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <center>
+                                    <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                        <apex:param value="{!paymentPlan.Milestone_age__c}" />
+                                    </apex:outputText>%
+                                </center>    
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <center>
+                                    <apex:outputText value="{0, number, ###,##0}">
+                                        <apex:param value="{!flatCost*paymentPlan.Milestone_age__c/100}" />
+                                    </apex:outputText>
+                                </center>
+                            </td>
+                            <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                                <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                    <center>
+                                        
+                                        <apex:outputText value="{0, number, ###,##0}">
+                                            <apex:param value="{!GstAmount*paymentPlan.Milestone_age__c/100}" />
+                                        </apex:outputText>
+                                    </center>    
+                                </td>
+                            </apex:outputPanel>
+                        </tr>
+                        <apex:variable var="rowcount" value="{!rowcount+1}" />
+                    </apex:repeat>
+                    
+                    <apex:outputPanel rendered="{!IF(rowcount < 34,true,false)}"> 
+                        
+                        <table border="1" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; font-size:11px">
+                               <!--apex:outputPanel rendered="{!IF(carParkValue >0,true,false)}"> 
+                                   <tr>
+                                       <td width="6.9%" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:right;"> {!rowcount}. <apex:variable var="rowcount" value="{!rowcount+1}" /></td>
+                                       <td width="45%" style="font-family: Helvetica, sans-serif;font-size:11px;"><b>Car/Bike Parking Charges</b></td>
+                                       <td width="11%">  </td>
+                                       <td width="14%" style="font-family: Helvetica, sans-serif;font-size:11px;"><center>0%</center></td>
+                                       <td width="15%" style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                           <center>
+                                               <apex:outputText value="{0, number, ###,##0}">
+                                                   <apex:param value="{!carParkValue}" />
+                                               </apex:outputText>
+                                           </center>
+                                       </td>
+                                        <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                        <center>
+                                            <apex:outputText value="{0, number, ###,##0}">
+                                                <apex:param value="{!GstAmount}" />
+                                            </apex:outputText>
+                                        </center>
+                                    </td>
+
+                                   </tr>
+                            </apex:outputPanel-->
+                           
+                            <tr>
+                                <td width="6.9%" style="font-family: Helvetica, sans-serif;font-size:11px;text-align:right;"> {!rowcount}. <apex:variable var="rowcount" value="{!rowcount+1}" /></td>
+                                <td width="45%" style="font-family: Helvetica, sans-serif;font-size:11px;"><b>Total Sale Consideration for the Apartment</b></td>
+                                <td width="11%">  </td>
+                                <td width="14%" style="font-family: Helvetica, sans-serif;font-size:11px;"><center>100%</center></td>
+                                <td width="15%" style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                    <center>
+                                        <apex:outputText value="{0, number, ###,##0}">
+                                            <apex:param value="{!FlatCost}" />
+                                        </apex:outputText>
+                                    </center>
+                                </td>
+                                <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                                    <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                        <center>
+                                            <apex:outputText value="{0, number, ###,##0}">
+                                                <apex:param value="{!GstAmount}" />
+                                            </apex:outputText>
+                                        </center>
+                                    </td>
+                                    
+                                </apex:outputPanel>
+                            </tr>
+                            <tr style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:right;"> {!rowcount}. <apex:variable var="rowcount" value="{!rowcount+1}" /></td>
+                                
+                                <td style="font-family: Helvetica, sans-serif;font-size:11px;"> Other Charges (payable upon offer for possession)</td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                    <center>
+                                        <apex:outputText value="{0, number, ###,##0}">
+                                            <apex:param value="{!TotalCharges}" />
+                                        </apex:outputText>
+                                    </center>               
+                                </td>
+                                <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                                    <td></td>
+                                </apex:outputPanel>
+                            </tr> 
+                        </table>
+                        <!--div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="font-size:11px;width:100%;font-family: Helvetica, sans-serif;">
+                                <tr>
+                                    <td style="font-size:11px;width:50%;font-family: Helvetica, sans-serif;" align="left">Signature of Sales Manager
+                                        <br/><br/><br/>{!suggestedProperty.Opportunity__r.Owner.Name}</td>
+                                    <td style="font-size:11px;width:50%;font-family: Helvetica, sans-serif;" align="right">Signature of Applicant
+                                        <br/><br/><br/>{!cc.salutation}{!suggestedProperty.Opportunity__r.Account.Name}</td>
+                                    
+                                </tr>
+                            </table>
+                        </div-->
+                        
+                    </apex:outputPanel> 
+                </table>
+            </div>
+            
+            
+            <!--Second Table start-->
+            <div style="display:{!IF(rowcount == 34, 'block','none')}">
+                <div style="page-break-after:always;"/> 
+                <center style="font-family: Helvetica, sans-serif;font-size:11px;"><u><b>Payment Schedule for Your Apartment Number {!suggestedProperty.Unit__r.Name} In {!suggestedProperty.Unit__r.Project__r.Name}</b></u></center>
+                <!--center style="font-family: Helvetica, sans-serif;font-size:11px;"><u><b>Payment Schedule for Your Apartment Number {!suggestedProperty.Unit__r.Name} In {!suggestedProperty.Unit__r.Project__r.Name} {!if(LOWER(suggestedProperty.Unit__r.Tower__r.Name) == 'na',"",suggestedProperty.Unit__r.Tower__r.Name)}</b></u></center-->
+                <br/><br/>
+                <table border="1" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; font-size:11px">
+                    <tr >
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Sr No</center></b>
+                        </th>
+                        
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Milestone</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Due Date</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Percent (%) Due</center></b>
+                        </th>
+                        <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <b><center>Amount Due (INR)</center></b>
+                        </th>
+                        <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                            <th style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <b><center>GST (INR)</center></b>
+                            </th>
+                        </apex:outputPanel>
+                    </tr>
+                    <apex:repeat value="{!paymentPlans}" var="paymentPlan" first="33">
+                        
+                        <tr>
+                            <td style="font-size:11px;font-family: Helvetica, sans-serif;text-align:right;"> {!rowcount}.</td>
+                            
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">{!paymentPlan.Name}</td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <apex:outputPanel layout="none" rendered="{!IF((paymentPlan.Days_after_Booking__c != null), true, false)}">
+                                    <center><apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!Today()+paymentPlan.Days_after_Booking__c}" /></apex:outputText></center>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!IF((paymentPlan.Days_after_Booking__c == null), true, false)}">
+                                    <center>
+                                        <apex:outputText value="CLP"/>
+                                    </center>
+                                </apex:outputPanel>
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <center>
+                                    <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                        <apex:param value="{!paymentPlan.Milestone_age__c}" />
+                                    </apex:outputText>%
+                                </center>    
+                            </td>
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <center>
+                                    <apex:outputText value="{0, number, ###,##0}">
+                                        <apex:param value="{!flatCost*paymentPlan.Milestone_age__c/100}" />
+                                    </apex:outputText>
+                                </center>
+                            </td>
+                            <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                                <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                    <center>
+                                        
+                                        <apex:outputText value="{0, number, ###,##0}">
+                                            <apex:param value="{!GstAmount*paymentPlan.Milestone_age__c/100}" />
+                                        </apex:outputText>
+                                    </center>    
+                                </td>
+                            </apex:outputPanel>
+                        </tr>
+                        <apex:variable var="rowcount" value="{!rowcount+1}" />
+                    </apex:repeat>
+                    
+                    
+                    <tr style="font-family: Helvetica, sans-serif;font-size:11px;">
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:right;"> {!rowcount}. <apex:variable var="rowcount" value="{!rowcount+1}" /></td>
+                        
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;"><b>Total Sale Consideration for the Apartment</b></td>
+                        <td></td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;"><center>100%</center></td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <center>
+                                <apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!FlatCost}" />
+                                </apex:outputText>
+                            </center>
+                        </td>
+                        <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                            <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                                <center>
+                                    <apex:outputText value="{0, number, ###,##0}">
+                                        <apex:param value="{!GstAmount}" />
+                                    </apex:outputText>
+                                </center>
+                            </td>
+                        </apex:outputPanel>
+                    </tr>
+                    <tr style="font-family: Helvetica, sans-serif;font-size:11px;">
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;text-align:right;"> {!rowcount}. <apex:variable var="rowcount" value="{!rowcount+1}" /></td>
+                        
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;"> Other Charges (payable upon offer for possession)</td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-family: Helvetica, sans-serif;font-size:11px;">
+                            <center>
+                                <apex:outputText value="{0, number, ###,##0}">
+                                    <apex:param value="{!TotalCharges}" />
+                                </apex:outputText>
+                            </center>               
+                        </td>
+                        <apex:outputPanel layout="none" rendered="{!IF(opp.Project__r.GST_Applicable__c == true, true, false)}">
+                            <td></td>
+                        </apex:outputPanel>
+                    </tr>
+                </table>
+                <div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <!--<table style="font-size:11px;width:100%;font-family: Helvetica, sans-serif;">
+                        <tr>
+                            <td style="font-size:11px;width:50%;font-family: Helvetica, sans-serif;" align="left">Signature of Sales Manager
+                                <br/><br/><br/>{!suggestedProperty.Opportunity__r.Owner.Name}</td>
+                            <td style="font-size:11px;width:50%;font-family: Helvetica, sans-serif;" align="right">Signature of Applicant
+                                <br/><br/><br/>{!cc.salutation}{!suggestedProperty.Opportunity__r.Account.Name}</td>
+                            
+                        </tr>
+                    </table>-->
+                </div>
+            </div>
+            <!--second table End-->
+            <div>
+                <br/>
+                <br/>
+                <center><b>This is a system generated COST SHEET and does not require stamp and signature.</b></center>
+            </div>
+            
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,87 @@
+<template>
+    <template if:false={areDetailsVisible}>
+<table >
+    <tbody><tr >
+        <th th style="width:10%">
+            Sales Manager:
+          </th>
+        <td style="width:22%;display:inline-block; float:left;">
+            
+<c-Sales-Managerowner label="Sales Manager" selected-icon-name="standard:User" object-label="User"
+object-api-name="User" field-api-name="Name" other-field-api-name="Phone" role = "Sales Manager"
+onvalueselected={handleValueSelectedOnSalesManager} sourcing-manager-id={recordInfo} sourcing-manager-name={salesManagerName} make-it-read-only={secondarySalesManagerName}>
+</c-Sales-Managerowner>
+           
+</td>
+<!--td data-label="Spec File" style="Width:50%">
+<template if:true={areDetailsVisible}>
+<button type="button"
+                                class="slds-input_faux slds-combobox__input slds-combobox__input-value"
+                                aria-labelledby="combobox-label-id-34 combobox-id-5-selected-value"
+                                id="combobox-id-5-selected-value" aria-controls="listbox-id-5" aria-expanded="false"
+                                aria-haspopup="listbox" >
+                                <span class="slds-truncate" id="combobox-value-id-19" >{salesManagerName}</span>
+                            </button>
+</template></td>
+
+<td data-label="Spec File" style="Width:50%">
+<template if:true={areDetailsVisible}>
+<c-Sales-Managerowner label="Secondary Sales Manager" selected-icon-name="standard:User" object-label="User"
+object-api-name="User" field-api-name="Name" other-field-api-name="Phone"  
+onvalueselected={handleValueSelectedOnSecondarySalesManager} sourcing-manager-id={secondarySalesManagerId} sourcing-manager-name={secondarySalesManagerName} >
+</c-Sales-Managerowner>
+</template>
+</td-->
+</tr>
+    </tbody>
+</table>
+    </template>
+
+<template if:true={areDetailsVisible}>
+    <table >
+    <tbody>
+<tr>
+   <th th style="width:10%">
+            Sales Manager:
+          </th>
+<td  style="width:40%;display:inline-block; float:left">
+
+
+<div tabindex="0" class="slds-combobox_container slds-has-selection">
+                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                            role="none" >
+                            <span
+                                class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                                title="Account">
+                                <lightning-icon icon-name={selectedIconName} alternative-text={selectedIconName}
+                                    size="x-small"></lightning-icon>
+                            </span>
+                            <button type="button"
+                                class="slds-input_faux slds-combobox__input slds-combobox__input-value"
+                                aria-labelledby="combobox-label-id-34 combobox-id-5-selected-value"
+                                id="combobox-id-5-selected-value" aria-controls="listbox-id-5" aria-expanded="false"
+                                aria-haspopup="listbox" >
+                                <span class="slds-truncate" id="combobox-value-id-19" >{salesManagerName}</span>
+                            </button>
+                        </div>
+                    </div>
+</div>
+
+</td>
+<th th style="width:10%">
+            Secondary Manager:
+          </th>
+<td data-label="Spec File" style="width:50%;display:inline-block; float:left">
+
+<c-Sales-Managerowner label="Secondary Sales Manager" selected-icon-name="standard:User" object-label="User"
+object-api-name="User" field-api-name="Name" other-field-api-name="Phone"  role ="Sales Manager"
+onvalueselected={handleValueSelectedOnSecondarySalesManager} sourcing-manager-id={secondarySalesManagerId} sourcing-manager-name={secondarySalesManagerName} >
+</c-Sales-Managerowner>
+
+</td>
+</tr>
+</tbody>
+</table>
+</template>
+</template>

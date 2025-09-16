@@ -1,0 +1,53 @@
+<template>
+    <td style="text-align: center;">
+        {paymentMilestone.Sequence_No__c}
+    </td>
+    <td>
+        <lightning-input value={paymentMilestone.Name} variant="label-hidden" data-element="Name" onchange={handleInput}
+            disabled={isReadOnly}>
+        </lightning-input>
+    </td>
+    <td>
+        <c-input-picklist-field label="Milestone Type" value={paymentMilestone.Milestone_Activation__c}
+            object-api-name="Payment_Plan_Milestones__c" field-api-name="Milestone_Activation__c" variant="label-hidden"
+            onpicklistchange={handlePicklistValue} required disabled={isReadOnly}>
+        </c-input-picklist-field>
+    </td>
+    <td>
+        <template if:true={isBookingBased}>
+            <lightning-input type="date" value={paymentMilestone.Milestone_Activation_Date__c} disabled={isReadOnly}
+                step="any" variant="label-hidden" data-element="Milestone_Activation_Date__c" onchange={handleInput}>
+            </lightning-input>
+        </template>
+        <template if:true={isProjectProgressBased}>
+            <c-lookup record-id={paymentMilestone.Project_Progress__c} config={entityConfig} onchange={handleChange}
+                disabled={isReadOnly}>
+            </c-lookup>
+        </template>
+    </td>
+    <td>
+        <lightning-input type="number" value={paymentMilestone.Milestone_Amount1__c} formatter="currency" step=".01"
+            variant="label-hidden" data-element="Milestone_Amount1__c" onchange={handleInput} required
+            disabled={isReadOnly}>
+        </lightning-input>
+    </td>
+    <td>
+        
+        <lightning-input type="number" value={paymentMilestone.GST_Amount1__c} formatter="currency" step=".01"
+            variant="label-hidden" data-element="GST_Amount1__c" onchange={handleInput} required
+            disabled={isReadOnly}>
+        </lightning-input>
+    </td>
+    <td>
+        
+        <lightning-input type="number" value={paymentMilestone.Total_Interest_Amount__c} formatter="currency" step=".01"
+            variant="label-hidden" data-element="Total_Interest_Amount__c" onchange={handleInput} required
+            disabled={isReadOnly}>
+        </lightning-input>
+    </td>
+   <!-- <td>
+        <lightning-button-icon icon-name="utility:delete" data-id={indx} alternative-text="Delete"
+            class="slds-m-left_xx-small" onclick={removeRow} title="Delete" disabled={isReadOnly}>
+        </lightning-button-icon>
+    </td>-->
+</template>

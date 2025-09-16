@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Sanction_Letter_Uploded</fullName>
+    <active>true</active>
+    <errorConditionFormula>Sanction_Letter__c = false &amp;&amp; ISPICKVAL(Sanction_Status__c, &quot;Sanctioned&quot;)</errorConditionFormula>
+    <errorMessage>You can not Change the Status Sanctioned, please attach the Sanction Letter.</errorMessage>
+</ValidationRule>

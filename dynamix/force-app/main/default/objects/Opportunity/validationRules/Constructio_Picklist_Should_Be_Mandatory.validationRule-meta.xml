@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Constructio_Picklist_Should_Be_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISBLANK( TEXT( Construction_Status_checkbox__c) ), NOT(ISBLANK( TEXT( Construction_Status_sm__c )) ))</errorConditionFormula>
+    <errorDisplayField>Construction_Status_sm__c</errorDisplayField>
+    <errorMessage>Construction Status Match should be mandatory while selecting Budget.</errorMessage>
+</ValidationRule>

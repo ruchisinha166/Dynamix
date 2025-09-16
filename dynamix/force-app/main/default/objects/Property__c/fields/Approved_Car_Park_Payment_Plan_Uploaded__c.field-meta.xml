@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Car_Park_Payment_Plan_Uploaded__c</fullName>
+    <defaultValue>false</defaultValue>
+    <label>Approved Car Park Payment Plan Uploaded</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

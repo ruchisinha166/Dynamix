@@ -1,0 +1,83 @@
+<template>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+        <span class="slds-assistive-text">error</span>
+        <lightning-icon class="slds-m-right_x-small" icon-name="utility:error" size="x-small" variant="inverse">
+        </lightning-icon>
+        <h2>Please ensure all fields are filled.
+        </h2>
+    </div>
+    <lightning-card title="Pricing Plan" icon-name="custom:custom63">
+        <div class="slds-box">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3" style="width:500px">
+                    <lightning-input label="Pricing Plan Name" name="Pricing Plan" type="text" onchange={planNameChange}
+                    variant="label-inline" value={planName}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3" style="width:400px">
+                    <lightning-input type="date" variant="label-inline" name="ValidFrom" label="Valid From:" value={validFromDate}
+                    onchange={validFromChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3" style="width:400px">
+                    <lightning-input type="date" variant="label-inline" name="ValidTo" label="Valid To:" value={validToDate}
+                    onchange={validToChange}>
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+        <div class="slds-m-horizontal_x-large">
+            <table class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_col-bordered"
+                style="border-collapse: collapse;">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="Name" class="slds-truncate">Name</span>
+                            </a>
+                        </th>
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="GST Treatment" class="slds-truncate">GST Treatment</span>
+                            </a>
+                        </th>
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="GST Treatment" class="slds-truncate">Amount (Lumpsum)</span>
+                            </a>
+                        </th>
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="GST Treatment" class="slds-truncate">Amount (Per SQFT)</span>
+                            </a>
+                        </th>
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="GST Treatment" class="slds-truncate">Amount (%) </span>
+                            </a>
+                        </th>
+                        <th style="width:3.25rem">
+                            <a class="slds-th__action slds-text-link_reset">
+                                <span title="GST Treatment" class="slds-truncate">Component Type</span>
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={pricingPlanList} for:item="pricingPlanComponent">
+                        <c-pricing-plan-component-row price-plan-component={pricingPlanComponent}
+                            key={pricingPlanComponent.Id} onpriceplanchange={handleChange}>
+                        </c-pricing-plan-component-row>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+        <footer slot="footer">
+            <lightning-button class="slds-button" disabled={disableSave} variant="brand" type="submit" label="Save"
+                onclick={handleSave} value="save">
+            </lightning-button>
+            <lightning-button class="slds-button" type="cancel" label="Cancel" onclick={handleExit}>
+            </lightning-button>
+        </footer>
+    </lightning-card>
+</template>

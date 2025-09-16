@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity.Booking__r$Project_Name__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Source__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Sourcing_Manager__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Primary_Applicant__c</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Booking__r$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,Draft,Booked,Registration,Possession/Handover,Snag/Desnag by Client,Cancellation Initiated</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Booking__r$Sales_Manager__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SM Wise Bookings V2</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_with_Opportunities__c</reportType>
+    <roleHierarchyFilter>SFDC_Admin</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

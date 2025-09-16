@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Note__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Credit Note</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Credit_Note__c.Booking__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Booking__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Credit_Note__c</referenceTo>
+    <relationshipLabel>Payments</relationshipLabel>
+    <relationshipName>Payments</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

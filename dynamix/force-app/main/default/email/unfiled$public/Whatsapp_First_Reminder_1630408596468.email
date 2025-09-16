@@ -1,0 +1,10 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Payment_Milestones__c.Primary_Applicant_Name__c}}}<br />
+<br />
+We had raised a demand vide Demand Letter dated {{{Payment_Milestones__c.Milestone_Activation_Date__c}}}, pertaining to the Apartment No. {{{Payment_Milestones__c.Property_Name__c}}} at {{{Payment_Milestones__c.Project_Name__c}}} (MahaRERA No. {{{Payment_Milestones__c.RERA_Number__c}}}) as per the schedule contained in the Application Form / Agreement for Sale (as the case may be). A copy of the same had been sent to you on your registered email address on {{{Payment_Milestones__c.Primary_Applicant_Email__c}}}. However, the payment due as contained in the Demand Letter has not yet been received by us. &nbsp;<br />
+<br />
+We hereby request / remind you to please make the payments within 7 days from the date of this communication, so as to ensure that you are not liable to pay an interest and / or penalty charges (as are more particularly contained in the Application Form / Agreement for Sale (as the case may be) on the amounts due.<br />
+<br />
+In case you have any queries whatsoever or need any assistance in relation to the demand letter, please feel free to get in touch with your relationship manager on {{{Payment_Milestones__c.Project_Phone__c}}} or over email at {{{Payment_Milestones__c.Project_Email__c}}}.</body></html>

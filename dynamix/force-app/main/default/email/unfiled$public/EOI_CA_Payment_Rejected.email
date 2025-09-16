@@ -1,0 +1,5 @@
+Hi,<br/><br/>
+<b>{EOI/CA}</b> payment of <b>{amount}</b> has been rejected against <b>{customername}</b> for <b>{projectName}</b>  with below remarks.<br/>
+<br/>
+<b>Rejection Remarks:- </b> {remarks}<br/>
+<b>Link:-</b> <a href="{Link}">{Link}</a>

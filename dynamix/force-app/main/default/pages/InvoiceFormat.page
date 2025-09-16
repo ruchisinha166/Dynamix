@@ -1,0 +1,279 @@
+<apex:page standardController="Booking__c" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" 
+           standardStylesheets="false" sidebar="false" showHeader="false" extensions="InvoicePDFGenration" cache="false"
+           renderAs="advanced_pdf" docType="html-5.0">
+    
+    
+    <html>
+        <head>
+            <style type="text/css">
+                table, th, td {
+                border: 1px solid black;
+                }
+                body {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                }
+            </style>
+            <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                
+                .float-container {
+                border: 3px solid #fff;
+                padding: 20px;
+                }
+                
+                .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                }  
+                .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                } 
+            </style>
+        </head>
+        <body>
+            <b style="font-family:Helvetica, sans-serif;font-size: 11px;"><center>DEMAND LETTER</center></b>
+            <br/>
+            <br/>
+            <div class="footer">
+                <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectFooter}" width="700" height="50" />
+                <p style="font-family: Helvetica, sans-serif;font-size:8px;text-align: center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>  
+            </div>
+            
+            <div width = "100%" class="header" style="margin-top: 20px;margin-left: 10px;">
+                <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" width="700" height="140" />
+            </div>
+            <div  style="display: flex; width: 50%; margin-left : 5px;font-family:Helvetica, sans-serif;font-size: 11px;">
+                
+                <table Width="100%" border="1" cellspacing="0" cellpadding="5" style="text-align: center;font-family:Helvetica, sans-serif;font-size: 11px;">
+                    
+                    <tr>
+                        <td style="width:30%; padding-bottom:10px;">Invoice Date</td>
+                        <td style="width:70%;" colspan="3">
+                            <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                <apex:param value="{!invoiceDate}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Invoice Sr. No.</td>
+                        <td style="width:70%;" colspan="3">{!InvoiceID}</td>
+                    </tr>
+                    <tr>
+                        <td>GST No.</td>
+                        <td style="width:70%;" colspan="3">{!project.Builder_Organization__r.GST_No__c}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;">SAC Code</td>
+                        <td style="width:70%;" colspan="3">995411</td>
+                    </tr>
+                    <tr>
+                        <td>Unit No.</td>
+                        <td style="width:70%;" colspan="3">
+                            {!properties.name}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Floor</td>
+                        <td style="width:70%;" colspan="3">
+                            {!properties.Floor__c}  
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <b>Customer Name: {!booking.Primary_Applicant__r.Name}</b><br/>
+                <b>Co Applicant: {!coAppName}</b><br/>
+                Address: {!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},<br/>
+                {!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},<br/>
+                {!accountObject.PersonMailingCountry}<br/>
+                Mob No.: {!accountObject.PersonMobilePhone}<br/>
+                
+            </div>
+            <br/>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;">
+                Dear Sir / Madam,</p>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;">
+                We are pleased to inform you that following amounts are due and payable against the above mentioned Apartment.
+            </p>
+            
+            <table Width="98%" border="1" cellspacing="0" cellpadding="5" style=" font-family:Helvetica, sans-serif;font-size: 11px;">
+                
+                <tr>
+                    <td style="width:10%;text-align: center;">A.</td>
+                    <td style="width:70%;">Agreement Value/ Sale Consideration</td>
+                    <td style="width:20%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.Agreement_Value__c}"/></apex:outputText>/-</td>
+                    
+                </tr>
+                <tr>
+                    <td style="width:10%;text-align: center;">B.</td>
+                    <!--  <td style="width:50%;">Milestone Amount</td>-->
+                    <td style="width:70%;">
+                        <apex:repeat value="{!milestoneNamesList}" var="milestone" >
+                            <div>
+                                <span style="width:75%">
+                                    <apex:outputText value="{!milestone.Name}"/> 
+                                </span>  
+                                <span style="width:20%;float:right;">
+                                    <apex:outputText value="Rs.{0, number, #,###}/-" rendered="{!milestoneNamesList.size>1}" ><apex:param value="{!milestone.Remaining_Amount__c}"/></apex:outputText>
+                                </span>
+                            </div>
+                        </apex:repeat>
+                        
+                    </td>
+                    <td style="width:20%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!TotalOutstanding}"/></apex:outputText>/-</td>
+                </tr>
+                <tr>
+                    <td style="width:10%;text-align: center;">C.</td>
+                    <td style="width:70%;">TDS (1% on B)</td>
+                    <td style="width:20%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!TDS}"/></apex:outputText>/-</td>
+                </tr>
+                <tr>
+                    <td style="width:10%;text-align: center;">D.</td>
+                    <td style="width:70%;">Amount Due (B-C)</td>
+                    <td style="width:20%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!AmountDue}"/></apex:outputText>/-</td>
+                </tr>
+                <tr>
+                    <td style="width:10%;text-align: center;">E.</td>
+                    <td style="display: {!IF((project.Name != 'Parkwoods D5'), 'block', 'none')};">Amount Due Towards CGST
+                        <apex:outputText rendered="{!project.GST_Applicable__c == false}" > ( NA ) </apex:outputText>
+                        <apex:outputText rendered="{!project.GST_Applicable__c == true}" > (2.5% of B)</apex:outputText> 
+                    </td>
+                    <td style="display: {!IF((project.Name == 'Parkwoods D5'), 'block', 'none')};">Amount Due Towards CGST
+                        <apex:outputText rendered="{!project.GST_Applicable__c == false}" > ( NA ) </apex:outputText>
+                        <apex:outputText rendered="{!project.GST_Applicable__c == true}" > (0.5% of B)</apex:outputText> 
+                    </td>
+                    <td style="width:20%;">Rs.<apex:outputText rendered="{!project.GST_Applicable__c == true}" value="{0, number, #,###}"><apex:param value="{!CGST}"/></apex:outputText><apex:outputText rendered="{!project.GST_Applicable__c == false}"> NA</apex:outputText> /-</td>
+                </tr>
+                <tr>
+                    <td style="width:10%;text-align: center;">F.</td>
+                    <td style="display: {!IF((project.Name != 'Parkwoods D5'), 'block', 'none')};">Amount Due Towards SGST 
+                        <apex:outputText rendered="{!project.GST_Applicable__c == false}" > ( NA ) </apex:outputText>
+                        <apex:outputText rendered="{!project.GST_Applicable__c == true}" > 
+                            (2.5% of B) 
+                        </apex:outputText>
+                        
+                    </td>
+                    <td style="display: {!IF((project.Name == 'Parkwoods D5'), 'block', 'none')};">Amount Due Towards SGST 
+                        <apex:outputText rendered="{!project.GST_Applicable__c == false}" > ( NA ) </apex:outputText>
+                        <apex:outputText rendered="{!project.GST_Applicable__c == true}" > 
+                            (0.5% of B) 
+                        </apex:outputText>
+                        
+                    </td>
+                    <td style="width:20%;">Rs.<apex:outputText rendered="{!project.GST_Applicable__c == true}" value="{0, number, #,###}"><apex:param value="{!SGST}"/></apex:outputText><apex:outputText rendered="{!project.GST_Applicable__c == false}"> NA</apex:outputText> /-</td>
+                </tr>
+            </table>
+            <p>In accordance with the terms of the Application Form dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                <apex:param value="{!booking.Booking_Date__c}" />
+                </apex:outputText><apex:outputText rendered="{!if(booking.Agreement_Sent_to_Agent_Date__c != null,true,false)}">/ Agreement for Sale dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                <apex:param value="{!booking.Agreement_Sent_to_Agent_Date__c}" />
+                </apex:outputText> (as the case may be),</apex:outputText> we request you to kindly make the aforesaid payments in the following manner:</p>
+            
+            <!--  rendered="{!project.GST_Applicable__c == true}"  -->
+            <apex:outputText rendered="{!project.GST_Applicable__c == true}">
+                <ol type="1" style="margin-left : 14px;font-family:Helvetica, sans-serif;font-size: 11px;">
+                    <li style="margin-Bottom: 8px;">
+                        <p><b>Milestone amount towards the part payment of the Sale Consideration Amount: Rs. <apex:outputText value="{0, number, #,###}"><apex:param value="{!ROUND(AmountDue,0)}"/></apex:outputText>/- ({!AmountDueInWords} Rupees only).</b><br/>
+                            (Account Holder: {!project.Builder_Organization__r.Account_Name__c}, Bank name: {!project.Builder_Organization__r.Bank_Name__c},
+                            Account No. {!project.Builder_Organization__r.Bank_Account_Number__c}, IFSC code {!project.Builder_Organization__r.IFSC_Code__c}).
+                        </p>
+                    </li>
+                    
+                    <li start="2" style="margin-Bottom: 8px;">
+                        <b>GST Amount: Rs. <apex:outputText value="{0, number, #,###}"><apex:param value="{!ROUND(TotalOutstandingGST,0)}"/></apex:outputText>/- ({!TotalOutstandingGSTInWords} Rupees only).</b><br/>
+                        (Account Holder: {!project.Builder_Organization__r.GST_Account_Name__c}, Bank name: {!project.Builder_Organization__r.GST_Bank_Name__c}, 
+                        Account No. {!project.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC code {!project.Builder_Organization__r.GST_IFSC_Code__c}).
+                    </li>
+                    
+                    <li style="margin-Bottom: 8px;">
+                        <b>TDS Amount: Rs. <apex:outputText value="{0, number, #,###}"><apex:param value="{!ROUND(TDS,0)}"/></apex:outputText>/- ({!TDSInWords} Rupees Only).</b><br/>
+                        (To be paid online. Details mentioned on the 2<sup>nd</sup> page of the letter).
+                    </li>
+                </ol>
+            </apex:outputText>
+            
+            <apex:outputText rendered="{!project.GST_Applicable__c == false}">
+                <ol type="1" style="margin-left : 14px;font-family:Helvetica, sans-serif;font-size: 11px;">
+                    <li style="margin-Bottom: 8px;">
+                        <p><b>Milestone amount towards the part payment of the Sale Consideration Amount: Rs. <apex:outputText value="{0, number, #,###}"><apex:param value="{!ROUND(AmountDue,0)}"/></apex:outputText>/- ({!AmountDueInWords} Rupees only).</b><br/>
+                            (Account Holder: {!project.Builder_Organization__r.Account_Name__c}, Bank name: {!project.Builder_Organization__r.Bank_Name__c},
+                            Account No. {!project.Builder_Organization__r.Bank_Account_Number__c}, IFSC code {!project.Builder_Organization__r.IFSC_Code__c}).
+                        </p>
+                    </li>
+                    <li style="margin-Bottom: 8px;">
+                        <b>TDS Amount: Rs. <apex:outputText value="{0, number, #,###}"><apex:param value="{!ROUND(TDS,0)}"/></apex:outputText>/- ({!TDSInWords} Rupees Only).</b><br/>
+                        (To be paid online. Details mentioned on the 2<sup>nd</sup> page of the letter).
+                    </li>
+                </ol>
+            </apex:outputText>
+            
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;page-break-after: auto;">
+                Kindly make payment of the aforesaid amount made within 7 working days of this Demand Letter.
+            </p>
+            <div>
+                <br/>
+                <br/>                
+            </div>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">Yours faithfully,</p>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">{!project.Builder_Organization__r.Name} </p>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">
+                Note: Please mention name and Apartment details behind the cheque. If fund transfers are through NEFT/RTGS, please send us the transaction details by email on the same day.</p>
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;"><b>GST No.: {!project.Builder_Organization__r.GST_No__c}</b>  &nbsp;&nbsp;<b>PAN No.: {!project.Builder_Organization__r.PAN_No__c}</b> </p>
+            
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">Also you are requested to deduct 1% TDS and deposit the 
+                same with the department and provide us (a) Form 26QB along with original 
+                tax payment challan within 30 days from the date making payment of the respective installment (b) Form 16B from the date of 30 days from the
+                date of making payment of the respective instalment and (c) the original tax deduction at source certificate and provided that the details/amount
+                mentioned in the certificate tallies with the details of Form 26 AS (Tax credit) hosted on the Income Tax Department website.
+            </p>
+            
+            <p style="font-family:Helvetica, sans-serif;font-size: 11px;">Please note that our PAN No. is {!project.Builder_Organization__r.PAN_No__c}</p>
+            
+            <p style="font-family:Helvetica, sans-serif;font-size:11px;">
+                Contact person: {!booking.Owner.Name}<br/>
+                Email: {!project.Project_Email__c}<br/>
+                Mobile No.: {!booking.Owner.phone} <br/>
+                Phone: {!user.mobilephone }
+            </p>
+             <div style="margin-top:225px;">
+                <center><b>NOTE: THIS IS A SYSTEM GENERATED DOCUMENT, DOES NOT REQUIRE STAMP AND SIGNATURE.</b></center>
+            </div>
+
+        </body>
+    </html>
+</apex:page>

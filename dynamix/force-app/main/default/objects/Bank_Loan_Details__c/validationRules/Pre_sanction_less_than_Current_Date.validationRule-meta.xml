@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pre_sanction_less_than_Current_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>Pre_Sanction_Date__c &gt; Today()</errorConditionFormula>
+    <errorDisplayField>Pre_Sanction_Date__c</errorDisplayField>
+    <errorMessage>Pre-sanction date should be less than the Current date.</errorMessage>
+</ValidationRule>

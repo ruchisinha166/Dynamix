@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EOI_End_Date_Should_be_greater_SD</fullName>
+    <active>true</active>
+    <errorConditionFormula>Launch_EOI_Period_s_Start_Date__c &gt; Launch_EOI_Period_s_End_Date__c</errorConditionFormula>
+    <errorDisplayField>Launch_EOI_Period_s_End_Date__c</errorDisplayField>
+    <errorMessage>Launch EOI Period End Date Should be greater than Launch EOI Period Start Date.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>if_Booked_check_for_Applicant_Address</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL( Stage__c ,&apos;Booked&apos;),OR(
+ISBLANK( Primary_Applicant__r.PersonContact.PAN_No__c ),
+Primary_Applicant__r.PersonContact.PAN_Card_Uploaded__c = false))</errorConditionFormula>
+    <errorMessage>KYC details are missing.</errorMessage>
+</ValidationRule>

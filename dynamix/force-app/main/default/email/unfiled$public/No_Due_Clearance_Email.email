@@ -1,0 +1,11 @@
+Dear {!Booking__c.OwnerFullName}<br><br>
+
+This is to inform you that no due clearance has been approved for Unit: {!Booking__c.Unit_Number__c}, Project: {!Booking__c.Project_Name_Formulla__c}.<br><br>
+
+We request you to please generate the possession letter.<br><br>
+
+Regards,<br>
+
+Dynamix FI team<br><br>
+
+******************************************************************

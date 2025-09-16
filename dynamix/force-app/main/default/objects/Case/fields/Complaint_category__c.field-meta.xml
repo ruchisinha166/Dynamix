@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Complaint_category__c</fullName>
+    <label>Complaint Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payments</fullName>
+                <default>false</default>
+                <label>Payments</label>
+            </value>
+            <value>
+                <fullName>Damage/Repair</fullName>
+                <default>false</default>
+                <label>Damage/Repair</label>
+            </value>
+            <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_Cost_Received_Approved__c</fullName>
+    <label>Unit Cost Received( Approved)</label>
+    <summarizedField>Payment_Milestones__c.Unit_Cost__c</summarizedField>
+    <summaryFilterItems>
+        <field>Payment_Milestones__c.Milestone_Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Payment_Milestones__c.Booking__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

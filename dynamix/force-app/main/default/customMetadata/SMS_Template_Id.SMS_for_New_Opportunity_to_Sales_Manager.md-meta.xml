@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SMS for New Opportunity to Sales Manager</label>
+    <protected>false</protected>
+    <values>
+        <field>External_Template_Id__c</field>
+        <value xsi:type="xsd:string">1307169469867344531</value>
+    </values>
+    <values>
+        <field>SMS_Template__c</field>
+        <value xsi:type="xsd:string">A new opportunity {{accountName}} has been assigned to you for the {{projectName}}
+Click to know more {{opportunityLink}}
+DYNAMX</value>
+    </values>
+    <values>
+        <field>Salesforce_Template_Id__c</field>
+        <value xsi:type="xsd:string">00XFf000000EC6AMAW</value>
+    </values>
+</CustomMetadata>

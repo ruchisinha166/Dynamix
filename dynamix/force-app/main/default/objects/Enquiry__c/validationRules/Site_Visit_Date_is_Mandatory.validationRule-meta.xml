@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site_Visit_Date_is_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISPICKVAL (Stage__c, &quot;Site Visit Done&quot;), ISNULL( Site_Visit_Done_Date__c )  )</errorConditionFormula>
+    <errorMessage>Cannot Update a Enquiry as &apos;Site Visit Done&apos; without a Site Visit Done date.</errorMessage>
+</ValidationRule>

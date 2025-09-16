@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_SubSource_Change_if_CampaignIsActive</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( IsActive  &amp;&amp;  ISCHANGED(  Sub_Source__c ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Sub_Source__c</errorDisplayField>
+    <errorMessage>Sub-Source Cannot be updated for an active Campaign.</errorMessage>
+</ValidationRule>

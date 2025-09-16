@@ -1,0 +1,33 @@
+<apex:page standardController="Booking__c" extensions="ROCControllerClass" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <body> 
+            <p style="text-align:right">Date : <b>{!TodayDate}</b></p>
+            <p>To,<br/>
+                The Manager<br/>
+                {!projectObj.Funding_Partner_Name__c},<br/>
+                Lower Parel<br/>
+            </p>
+            <p>Dear Sir,</p>
+            <p>Sub :- Request for NOC with respect to transfer of Flat No {!bookObj.Unit_Number__c} on Floor {!proObj.Floor__c} in the building known as {!bookObj.Tower_Name__r.Name} in our project {!projectObj.Name} situated at {!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.State__c} {!projectObj.Postal_Code__c}.</p>
+            <p>This has reference to the Loan amount of Rs.60.00 Crore Sanctioned Letter dated 31st May,2021
+                We have mortgaged the property Project {!projectObj.Name} situated on CTS No. 845 pt (new CTS no. 610/1A/1(pt)). of Village Malad, Taluka Borivali, Malad (E), Mumbai, Maharashtra- 400097.
+                We pleased to inform you that we have finalized a deal of the above unit,the details which are as under</p>
+            <p style="border:1px solid black;padding:4px">
+                Unit no:- {!bookObj.Unit_Number__c}  <br/>
+                Unit Type:- {!oppoObj.Unit_Type__c}   <br/>
+                Floor No.:- {!proObj.Floor__c}   <br/>
+                Carpet Area :- {!proObj.RERA_Carpet_Area_in_sqmtr__c} Sqft.    <br/>
+                Name of Purchaser:- {!bookObj.Primary_Applicant_Name_Formulla__c}   <br/>
+                Current Address of Purchaser : {!primaryAppliObj.PersonMailingStreet}, {!primaryAppliObj.PersonMailingCity}, {!primaryAppliObj.PersonMailingState}, {!primaryAppliObj.PersonMailingCountry} {!primaryAppliObj.PersonMailingPostalCode}   <br/>
+                Cell No.:- {!primaryAppliObj.PersonMobilePhone}   <br/>
+                Total Sale Consideration :- {!bookObj.Agreement_Value__c}   <br/>
+                Financer Name:- {!BankLoanObj.Home_LoanInstitution__r.Name}   <br/>
+            </p>
+            <p>We hereby request you to grant NOC for Entering in to an agreement for sale in respect of the above flat .</p>
+            <p>Thanking You,   <br/>
+                Yours faithfully ,</p>  
+            <p>{!builderOrgObj.Name}</p>
+        </body>
+    </html>
+</apex:page>

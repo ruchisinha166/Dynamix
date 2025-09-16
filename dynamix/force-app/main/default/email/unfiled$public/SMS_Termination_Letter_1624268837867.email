@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi <span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><span lang="EN-IN" style="font-family:Optima">{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}</span></span></span></span> We regret to inform you that we are terminating your Application/Allotment for your Booking ID {{{Booking__c.Name}}} over non-payment. Please check your email for more details DYNAMX
+</body></html>

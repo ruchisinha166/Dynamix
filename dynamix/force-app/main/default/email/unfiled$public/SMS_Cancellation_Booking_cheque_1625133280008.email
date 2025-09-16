@@ -1,0 +1,11 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Recipient.Name}}}<br />
+<br />
+In accordance with your request for Cancellation pertaining to the application/ allotment of the Apartment No. {{{Payment__c.Apartment_No__c}}} at {{{Payment__c.Project_Name__c}}}, registered with MahaRERA under identification No. {{{Payment__c.MahaRERA__c}}}, dated {{{Payment__c.Registation_Date__c}}}, we have refunded your monies, if any, to your registered Bank Account, details whereof have been emailed to you on your Email address registered with us.<br />
+<br />
+In case of any queries, please feel free to get in touch with your relationship manager on {{{Payment__c.Booking_Owner_Name__c}}} or over email at {{{Payment__c.Project_Email__c}}}.<br />
+<br />
+<br />
+&nbsp;</body></html>

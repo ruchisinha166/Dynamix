@@ -1,0 +1,154 @@
+<apex:page standardController="Property__c"  extensions="SnagListDocVfpController" readOnly="advanced_pdf" docType="html-5.0"  renderAs="advanced_pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"  cache="false"  standardStylesheets="false">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" />
+    <html>
+        <head>
+            
+            <style>
+                table, tr,th,td {
+                table-layout: fixed;
+                width: 100%; 
+                
+                border:1px solid black;
+                text-align:center;
+                page-break-inside: avoid;
+                border-collapse: collapse;
+                
+                }
+                .fontFamily{
+                font-family:Calibri;
+                font-size:14px;
+                }
+                body
+                {
+                font-family:Calibri;
+                font-size:14px;
+                }
+                
+                .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #ccc;
+                border: 1px solid #000;
+                box-sizing: border-box;
+                display: none;
+                }
+                
+                /* Style for the checkmark when checkbox is checked */
+                .checkbox:checked + .checkmark {
+                display: block;
+                }
+                
+            </style>
+        </head>
+        <body  class="fontFamily">            
+            <apex:form id="frm">
+                <apex:pageBlock >
+                    <div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+                        <center> <apex:image url="{!ProjectHeader}"  width="70%" height="140" /></center>
+                    </div>
+                    
+                    
+                    <div style="background-color:#005F9E;padding-top:5px;font-size:18px;padding-bottom:5px;color:white;text-align:Center">
+                        <apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">   <b>PRE-OC UNIT INSPECTION CHECKLIST</b> 
+                            
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">   <b>POST OC UNIT INSPECTION CHECKLIST</b> 
+                            
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }">   <b>CUSTOMER UNIT INSPECTION CHECKLIST</b> 
+                            
+                        </apex:pageBlock>
+                    </div>
+                    <!--div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+<center> <apex:image url="{!ProjectHeader}"  width="70%" height="140" /></center>
+</div-->
+                    <apex:variable var="rowcount" value="{!1}" />
+                    <table>
+                        <caption style ="background-color:#D5D8DC;padding:5px;">
+                            <b>  {!propertyList[0].Project__r.Name}: POSSESSION  HANDOVER CHECKLIST  Date: <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                <apex:param value="{!NOW()}" />
+                                </apex:outputText></b></caption>
+                        
+                        <tr>
+                            <th colspan="2">
+                                {!propertyList[0].Tower__r.Name} - {!propertyList[0].Flat_Type__c}
+                            </th>
+                            <th>
+                                FLAT NO.: {!propertyList[0].Name}
+                            </th>
+                            <th colspan="2">
+                                CUSTOMER NAME: {!CustomerName}
+                            </th>
+                            
+                        </tr> 
+                        <apex:repeat id="myRepeatHeader" value="{!areaList}" var="key">         
+                            <apex:variable var="count" value="{!1}"/> 
+                            <apex:repeat id="SnagDetails" value="{!mapArea[key]}" var="snag">
+                                <tr>
+                                    <apex:outputPanel layout="none" rendered="{!count==1}">
+                                        <td rowspan="{!(areaCountMap[key])}">{!rowcount}. </td>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!count==1}">
+                                        <td rowspan="{!(areaCountMap[key])}"><apex:outputText value="{!snag.area}"/></td>
+                                    </apex:outputPanel>
+                                    <td><apex:outputText value="{!snag.question}"/></td>
+                                    <td style="text-align: center" width="4%"> 
+                                        <apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">
+                                            <apex:outputText rendered="{! If(snag.preOcCheckBox == true ,true,false) }"><img src="/img/checkbox_checked.gif"/></apex:outputText>
+                                            <apex:outputText rendered="{! If(snag.preOcCheckBox == false ,true,false) }"> <img src="/img/checkbox_unchecked.gif"/></apex:outputText>
+                                        </apex:pageBlock>
+                                        <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">
+                                            <apex:outputText rendered="{! If(snag.postOcCheckBox == true ,true,false) }"><img src="/img/checkbox_checked.gif"/></apex:outputText>
+                                            <apex:outputText rendered="{! If(snag.postOcCheckBox == false ,true,false) }"> <img src="/img/checkbox_unchecked.gif"/></apex:outputText>
+                                        </apex:pageBlock>
+                                        <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                                            <apex:outputText rendered="{! If(snag.customerCheckBox == true ,true,false) }"><img src="/img/checkbox_checked.gif"/></apex:outputText>
+                                            <apex:outputText rendered="{! If(snag.customerCheckBox == false ,true,false) }"> <img src="/img/checkbox_unchecked.gif"/></apex:outputText>
+                                        </apex:pageBlock>
+                                    </td>
+                                    <td><apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">
+                                        <apex:outputText style="width:98.5%" value="{!snag.Remarks}"/>
+                                        </apex:pageBlock>
+                                        <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">
+                                            <apex:outputText style="width:98.5%" value="{!snag.postOcremarks}"/>
+                                        </apex:pageBlock>
+                                        <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                                            <apex:outputText style="width:98.5%" value="{!snag.customerRemarks}"/>
+                                        </apex:pageBlock>
+                                    </td>
+                                    
+                                    
+                                    <apex:variable var="count" value="{!count+1}"/>
+                                    
+                                </tr>
+                            </apex:repeat>
+                            <apex:variable var="rowcount" value="{!rowcount+1}" />
+                        </apex:repeat> 
+                        
+                        <tr Style="padding:15px;">
+                            <th colspan="5" Style="padding:15px;">
+                            </th></tr>
+                        <tr>
+                            <th colspan="2" style="text-align:left;padding-bottom:15px;">
+                                ELETRIC METER NUMBER: {!propertyList[0].Electric_Meter_Number__c}
+                            </th>
+                            <th style="text-align:left;padding-bottom:15px;">
+                                Installed: {!propertyList[0].Electric_Meter_Installed__c}
+                            </th>
+                            <th colspan="2" style="text-align:left;padding-bottom:15px;">
+                                ELETRIC METER READING:  {!propertyList[0].Electric_Meter_Reading__c}
+                            </th>
+                        </tr>
+                        
+                    </table>
+                    
+                    
+                    
+                </apex:pageBlock>
+            </apex:form>
+        </body>
+    </html>
+</apex:page>

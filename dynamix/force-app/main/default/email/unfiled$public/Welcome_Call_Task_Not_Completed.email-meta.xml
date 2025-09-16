@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Welcome Call Task Not Completed</name>
+    <style>none</style>
+    <subject>Welcome Call Task Not Completed</subject>
+    <textOnly>Dear Beena,
+
+The discrepancies were resolved for {!Unit} in {!Project}, but the Welcome Call task is not completed. Please inform {!RM} to complete the Welcome Call task.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

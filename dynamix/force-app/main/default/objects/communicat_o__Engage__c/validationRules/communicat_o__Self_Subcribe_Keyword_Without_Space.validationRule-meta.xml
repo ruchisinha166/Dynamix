@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>communicat_o__Self_Subcribe_Keyword_Without_Space</fullName>
+    <active>true</active>
+    <description>Error occurs when space is there between two words.</description>
+    <errorConditionFormula>CONTAINS( communicat_o__Self_Subscribe_Keyword__c ,&apos; &apos;)</errorConditionFormula>
+    <errorDisplayField>communicat_o__Self_Subscribe_Keyword__c</errorDisplayField>
+    <errorMessage>Enter correct format</errorMessage>
+</ValidationRule>

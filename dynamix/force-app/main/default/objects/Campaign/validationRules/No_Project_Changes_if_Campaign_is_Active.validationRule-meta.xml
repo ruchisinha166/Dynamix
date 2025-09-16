@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Project_Changes_if_Campaign_is_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( IsActive &amp;&amp; ISCHANGED(  Project__c ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Project__c</errorDisplayField>
+    <errorMessage>Project cannot be changed for an active Campaign.</errorMessage>
+</ValidationRule>

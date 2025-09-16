@@ -1,0 +1,10 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;"><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><span lang="EN-IN" style="font-family:Optima">Dear&nbsp; {{{Recipient.Name}}}<br />
+<br />
+We have emailed the demand letter to you on&nbsp; {{{Payment_Milestones__c.Milestone_Activation_Date__c}}}, on your registered email address, for&nbsp; {{{Payment_Milestones__c.Property_Name__c}}}&nbsp;&nbsp;at&nbsp; {{{Payment_Milestones__c.Project_Name__c}}},&nbsp;&nbsp;<span style="color:black">(MahaRERA No.&nbsp; {{{Payment_Milestones__c.RERA_Number__c}}}).However, the payment due as contained therein has not yet been received by us.</span></span></span></span></span><br />
+<span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><span lang="EN-IN" style="font-family:Optima">We hereby request/ remind you toplease make the payment within 7 days, from the date of this communication, to avoid paying interest and / or penalty charges. Please refer to your email for furtherdetails. </span></span></span></span><br />
+<span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif"><span lang="EN-IN" style="font-family:Optima">In case you have any queries, please feel free to get in touch with your relationship manager on&nbsp; {{{Payment_Milestones__c.Relationship_Manager__c}}}&nbsp; or over email at&nbsp; {{{Payment_Milestones__c.Project_Email__c}}}@dynamixgroup.co.in.</span></span></span></span><br />
+<br />
+&nbsp;</body></html>

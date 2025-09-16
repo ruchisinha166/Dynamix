@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preferred_Address_for_all_Corresppondenc__c</fullName>
+    <label>Preferred Address for all Corresppondenc</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Permanent</fullName>
+                <default>false</default>
+                <label>Permanent</label>
+            </value>
+            <value>
+                <fullName>Mailing</fullName>
+                <default>false</default>
+                <label>Mailing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

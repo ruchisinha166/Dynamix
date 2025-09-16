@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+Your Digital Application Form has been submitted successfully<br />
+Congratulations on your Booking!<br />
+<br />
+For queries contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}
+</body></html>

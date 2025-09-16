@@ -1,0 +1,155 @@
+<apex:page standardController="Booking__c" extensions="LetterPendingCommonAmenitiesController" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 20%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body {
+                font-family: Optima;
+                font-size: 11px;
+                }
+            </style>    
+        </head>
+        <body>
+            
+            <div class="footer">
+                
+                <apex:outputText rendered="{!showFooter}">
+                    <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectFooter}"  width="700" height="50" /> 
+                    <!--  <p style="font-family: Helvetica, sans-serif;font-size:8px;text-align: center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>-->
+                </apex:outputText>
+            </div>
+            <div width = "100%" class="header"  style="margin-top: 20px;margin-left: 10px;">
+                <apex:outputText rendered="{!showHeader}" >
+                    <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}"
+                                rendered="{!showHeader}"  width="700" height="140" />
+                </apex:outputText>
+            </div>
+            <!--apex:outputText rendered="{!IF(OR(CONTAINS(booking.Project_Name__r.Name,'Astrum'),CONTAINS(booking.Project_Name__r.Name, 'Divum'), CONTAINS(booking.Project_Name__r.Name,'Parkwoods'),CONTAINS(booking.Project_Name__r.Name,'Avanya Tower')) , 'true', 'false')}"-->
+            
+            <div style="font-family: Helvetica, sans-serif;font-size:11px;width:95%;padding-bottom: 7px;">
+                <table width = "100%" style="font-size: 11px;font-family: Optima;margin-top: 20px;border-collapse: collapse">
+                    <tr><td style="text-align: left;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!TODAY()}" /></apex:outputText></td></tr>
+                    <tr>
+                        <td></td></tr>
+                    <tr><td><b>To,</b></td></tr>
+                    <!--   <tr><td><b>{!Booking__c.Primary_Applicant__r.Name}</b></td></tr> -->
+                    <tr><td><b>{!project.Builder_Organization__r.name}</b></td></tr>
+                    <tr>
+                        <apex:outputText rendered="{!if(project.Builder_Organization__r.Street__c=='',false,true)}">
+                            
+                            <td style="font-size: 11px;font-family: Optima;" ><b>{!project.Builder_Organization__r.Street__c}, {!project.Builder_Organization__r.City__c},</b></td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <apex:outputText rendered="{!if(project.Builder_Organization__r.State__c != '',true,false)}">
+                            <td><b>{!project.Builder_Organization__r.State__c} - {!project.Builder_Organization__r.State__c},</b></td>
+                        </apex:outputText>
+                    </tr>
+                    
+                    <tr>
+                        <apex:outputText rendered="{!if(project.Builder_Organization__r.Country__c != '',true,false)}">
+                            <td><b> {!project.Builder_Organization__r.Country__c}</b></td>
+                        </apex:outputText>
+                    </tr>
+                    
+                </table>
+                
+                <p>
+                    
+                    Dear Sir,</p>
+                
+                
+                <div style = "font-size: 11px;font-family: Optima;margin-top: 10px;text-align:justify;">
+                    
+                    I/ We hereby confirm that I/ we have received possession of Apartment No. {!booking.Unit_Number__c}
+                    admeasuring {!propertyRecord.Approved_Area__c}  square feet RERA carpet area ("Apartment"), on the {!propertyRecord.Floor__c}<sup>{!floor} </sup> 
+                    floor of Wing/ Building/ Tower <apex:outputText rendered="{!IF(propertyRecord.Tower__r.Name != '', true, false)}" > {!propertyRecord.Tower__r.Name}</apex:outputText> ("Building") 
+                    in the Real Estate Project known 
+                    as {!project.Name} ("Project") TOGETHER WITH the entitlement to use {!noOfCarParking} car 
+                    parking space(s) bearing No(s).<b><apex:outputText rendered="{!if(booking.Car_Parking_Number_1__c != '',true,false)}"> {!booking.Car_Parking_Number_1__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_1__c == '' || booking.Car_Parking_Number_1__c == null,true,false)}">N/A</apex:outputText></b>
+                    in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_1__c != '',true,false)}">{!booking.Car_Parking_Number_1_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_1_Type__c == '' || booking.Car_Parking_Number_1_Type__c == null || booking.Car_Parking_Number_1_Type__c == Null,true,false)}">N/A</apex:outputText></b>
+                    
+                    <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_2__c != '' && booking.Car_Parking_Number_3__c != '',true,false)}">, {!booking.Car_Parking_Number_2__c}
+                        in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_2_Type__c != '',true,false)}">{!booking.Car_Parking_Number_2_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_2_Type__c == '' || booking.Car_Parking_Number_2_Type__c == null || booking.Car_Parking_Number_2_Type__c == Null,true,false)}">N/A</apex:outputText>
+                        </b>
+                        </apex:outputText>
+                    </b>
+                    <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_2__c != '' && (booking.Car_Parking_Number_3__c == ''|| booking.Car_Parking_Number_3__c == null ||booking.Car_Parking_Number_3__c == Null),true,false)}"> &amp; {!booking.Car_Parking_Number_2__c}
+                        in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_2_Type__c != '',true,false)}">{!booking.Car_Parking_Number_2_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_2_Type__c == '' || booking.Car_Parking_Number_2_Type__c == null || booking.Car_Parking_Number_2_Type__c == Null,true,false)}">N/A</apex:outputText></b>
+                        </apex:outputText></b>
+                    <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_3__c != '' &&  (booking.Car_Parking_Number_4__c == ''|| booking.Car_Parking_Number_4__c == null ||booking.Car_Parking_Number_4__c == Null) ,true,false)}"> &amp; {!booking.Car_Parking_Number_3__c}
+                        in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_3_Type__c != '',true,false)}">{!booking.Car_Parking_Number_3_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_3_Type__c == '' || booking.Car_Parking_Number_3_Type__c == null || booking.Car_Parking_Number_3_Type__c == Null,true,false)}">N/A</apex:outputText></b>
+                        </apex:outputText></b>
+                    
+                    <apex:outputText rendered="{!if(booking.Car_Parking_Number_3__c != '' && booking.Car_Parking_Number_4__c != '',true,false)}">,<b>{!booking.Car_Parking_Number_3__c}
+                        in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_3_Type__c != '',true,false)}">{!booking.Car_Parking_Number_3_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_3_Type__c == '' || booking.Car_Parking_Number_3_Type__c == null || booking.Car_Parking_Number_3_Type__c == Null,true,false)}">N/A</apex:outputText></b>
+                        </b></apex:outputText>
+                    <apex:outputText rendered="{!if(booking.Car_Parking_Number_4__c != '',true,false)}">  &amp; <b>{!booking.Car_Parking_Number_4__c}
+                        in/ on the   <b><apex:outputText rendered="{!if(booking.Car_Parking_Number_4_Type__c != '',true,false)}">{!booking.Car_Parking_Number_4_Type__c}</apex:outputText><apex:outputText rendered="{!if(booking.Car_Parking_Number_4_Type__c == '' || booking.Car_Parking_Number_4_Type__c == null || booking.Car_Parking_Number_4_Type__c == Null,true,false)}">N/A</apex:outputText></b>
+                        </b></apex:outputText> of the Project [“Parking Space(s)”]. It is further confirmed that possession of the Apartment along 
+                    with the Parking Space(s) were received and accepted by me/ us after being fully satisfied that (i)
+                    the same were in accordance with the sanctioned plans and that the agreed specifications, and (ii) 
+                    all amenities, furniture, fittings and fixtures in the Apartment are as per the agreed terms, without 
+                    any defect of any nature whatsoever. 
+                </div>
+                <div style = "font-size: 11px;font-family: Optima;margin-top: 20px">
+                    <p>
+                        I/ We am/ are aware that the other common amenities/ club house/ recreational amenities etc. 
+                        as agreed to be provided by you are for the benefit and use of the entire larger layout 
+                        (including the Project) and that the same shall be completed and provided by you to the various 
+                        buildings/ projects in the larger layout in due course. 
+                    </p>
+                </div>
+                
+                <div style = "font-size: 11px;font-family: Optima;margin-top: 20px"><p>
+                    I/ We have no claim, demand and/or dispute etcetera against you in respect of the Apartment, 
+                    the Building, the Project and/or the aforesaid common amenities/ club house/ recreational amenities etc.</p>
+                </div>
+                <p>
+                    
+                    Yours truly,<br/> 
+                    
+                    
+                    {!booking.Primary_Applicant__r.Name}  <apex:outputText rendered="{!IF(coAppName != '', true, false)}" > &amp; {!coAppName}</apex:outputText></p>
+                <div>
+                    <br/><br/><b>
+                    {!booking.Primary_Applicant__r.Business_Account_Signatory_Name__c}  </b>
+                        <br/>
+                        {!booking.Primary_Applicant__r.Business_Account_Signatory_Designation__c} 
+                    <br/>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

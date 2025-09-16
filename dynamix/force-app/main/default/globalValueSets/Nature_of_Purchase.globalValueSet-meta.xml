@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>End Use</fullName>
+        <default>false</default>
+        <label>End Use</label>
+    </customValue>
+    <customValue>
+        <fullName>Investment</fullName>
+        <default>false</default>
+        <label>Investment</label>
+    </customValue>
+    <masterLabel>Nature of Purchase</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

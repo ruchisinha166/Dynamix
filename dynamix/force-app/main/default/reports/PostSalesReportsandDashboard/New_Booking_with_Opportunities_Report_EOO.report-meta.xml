@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Unit_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Registration_Status__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Stamp_Duty_Challan_No__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Stamp_Duty_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Registration_Number__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Registration_Date__c</field>
+    </columns>
+    <currency>INR</currency>
+    <description>to track the registration details</description>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$Project__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Parkwoods D5</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>New Booking with Opportunities Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_with_Opportunities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Opportunity.Booking__r$Booking_Date__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

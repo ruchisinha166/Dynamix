@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cannot_update_record_once_Site_Visit_Don</fullName>
+    <active>true</active>
+    <description>cannot update record once Site Visit Done.</description>
+    <errorConditionFormula>AND(ISPICKVAL(PRIORVALUE(Stage__c),&quot;Site Visit Done&quot;),not(isnew()))</errorConditionFormula>
+    <errorMessage>You cannot update Enquiry once Site Visit Done.</errorMessage>
+</ValidationRule>

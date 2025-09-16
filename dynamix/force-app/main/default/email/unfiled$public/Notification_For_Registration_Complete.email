@@ -1,0 +1,8 @@
+Dear  {!Contact.FirstName} {!Contact.LastName} <br/> <br/>
+
+Thank you for registering with us. You are proud owner of  {!Booking__c.Tower_Name__c} – {!Booking__c.Property_Name__c} at {!Booking__c.Project_Name__c}, We Thank You for your continued patronage towards Dynamix  Group. <br/> <br/>
+
+For any queries call , Whats app NO.  or email at {!Booking__c.Project_Email__c} <br/> <br/>
+
+Warm Regards,</br>
+Dynamix Group

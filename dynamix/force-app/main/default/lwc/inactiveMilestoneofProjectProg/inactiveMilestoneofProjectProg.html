@@ -1,0 +1,19 @@
+<template>
+
+    <div>
+        <div class="slds-scrollable" style="max-height:280px;">
+            <template if:true={milestoneList}>
+                <lightning-datatable data={milestoneList} columns={columns} key-field="Id">
+                </lightning-datatable>
+            </template>
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+        <footer class="slds-modal__footer" style="position: fixed; width: 100%; left:0;">
+           <!-- <button class="slds-button slds-button_neutral" onclick={closeAction} aria-label="Cancel and close">Cancel</button>-->
+            <button class="slds-button slds-button_brand" onclick={getSelectedRec}>Generate</button>
+        </footer>
+    </div>
+
+</template>

@@ -1,0 +1,231 @@
+<apex:page standardController="Booking__c" renderAs="pdf" extensions="AgreementChecklist">
+  <html>
+    <head>
+        <style>
+        table,td {
+        border-style: solid;border-width: 0.7px 0.7px;
+          border-collapse: collapse;
+          font-family:Arial, Helvetica, sans-serif;
+        }
+        td{
+        border-style: solid;border-width: 0.7px 0.7px;
+        border-collapse: collapse;
+        font-family: Arial, Helvetica, sans-serif;
+       
+        }
+        
+      </style>
+    </head>
+    <body style="">
+        <table style="border-style: solid;border-width: 0.7px 0.7px;width:700px;border-collapse: collapse;width:100%;font-family:sans-serif;font-size: 14px;">
+            <thead style="background-color: #800000;color: #fff;font-size: 24px;font-family:sans-serif">
+                <tr style="border-top:1px solid black; border-bottom:1px solid black">
+                    <th colspan="6">Agreement Check List</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;padding:6px;padding-left:4px;font-size:13px;">Customer Name</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!booking.Primary_Applicant__r.Name}</td>
+                </tr>
+                <tr style="border-top:1px solid black; border-bottom:1px solid black">
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;" >Building And Flat No</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!booking.Tower_Name__r.Name} {!properties.Name}</td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Booking Date</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">
+                    <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                        <apex:param value="{!booking.Booking_Date__c}" />
+                    </apex:outputText></td>
+                    
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Flat Cost</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!booking.Agreement_Value__c}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;" colspan="2">GST</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!booking.GST__c}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Scheme</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!property[0].Payment_Plan__r.Name}</td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">TDS Letter</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!TDSChalanNumber}</td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">POA Applicable</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!booking.POA__c}</td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Customer Family KYC</td>
+                    <td colspan="6" style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!booking.Primary_Applicant__r.Name},{!accountObject.Aadhar_No__pc},{!accountObject.PAN_No__c}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <!-- Loan Deatails -->
+        <table style="border-style: solid;border-width: 0.7px 0.7px;width:700px;border-collapse: collapse;width:100%;font-family:sans-serif;font-size: 14px;">
+            <thead style="background-color: #800000;color: #fff;font-size: 15px;text-align : left;font-style: italic;font-family:sans-serif">
+                <tr>
+                    <th colspan="2">Loan Details</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Home Loan</td>
+                    
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;"><apex:outputPanel rendered="{!bankloaddetails.size>0}">{!bankloaddetails[0].Home_LoanInstitution__r.Name }</apex:outputPanel></td>
+                     
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Loan Sanction Amount</td>
+                   
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;"> <apex:outputPanel rendered="{!bankloaddetails.size>0}"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!bankloaddetails[0].Sanction_Amount__c}"/></apex:outputText> </apex:outputPanel></td>
+                   
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">OCR Amount</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!OCRAmount}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Parallel Funding Approval</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:450px;">{!ParallelFundingApproval }</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <br/>
+        
+        <!-- Amount Balance Details  -->
+        <table style="border-style: solid;border-width: 0.7px 0.7px;width:700px;border-collapse: collapse;width:100%;font-family:sans-serif;font-size: 14px;">
+            <thead style="background-color: #800000;color: #fff;font-size: 15px;text-align : left;font-style: italic;font-family:sans-serif">
+                <tr>
+                    <th colspan="3">Balance Amount Details</th>
+                    
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td style="text-align : right;border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">&nbsp;</td>
+                    <td style="text-align : right;border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Flat Due Amount</b></td>
+                    <td style="text-align : right;border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>GST Due Amount</b></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Total Billed</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalBilled}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalbilledGST}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">Total Received</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalReceived}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalReceivedGST}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Total Outstanding</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalOutstanding}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalOutstandingGST}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>PDC Amount</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!PDCAmount}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!PDCGSTAmount}"/></apex:outputText></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Amount to be collected from Customer</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!AmountcollectfromCustomer}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!AmountcollectfromCustomerGST}"/></apex:outputText></td>
+                </tr>
+                
+                
+            </tbody>
+        </table>
+        
+        <br/>
+        
+        <!-- SDR Details   -->
+        <table style="border-style: solid;border-width: 0.7px 0.7px;width:700px;border-collapse: collapse;width:100%;font-family:sans-serif;font-size: 14px;">
+            <thead style="background-color: #800000;color: #fff;font-size: 15px;text-align : left;font-style: italic;font-family:sans-serif">
+                <tr>
+                    <th colspan="3">SDR Details</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>SDR Amount</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>SDR Cleared Date</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Transaction Details</b></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!SDRAmount}"/></apex:outputText></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!SDRClearedDate}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!StampDutyTrxNumber}</td>
+                </tr>
+                
+                
+            </tbody>
+        </table>
+        
+        <br/>
+        <!--Checked By!-->
+        <table style="border-style: solid;border-width: 0.7px 0.7px;width:700px;border-collapse: collapse;width:100%;font-family:sans-serif;font-size: 14px;padding: 20px;">
+            <thead>
+                <tr>
+                    <th colspan="4" style="background-color: #800000;color: #fff;font-size: 15px;text-align : left;font-style: italic;font-family:sans-serif">Checked By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;">&nbsp;</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Name</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Date</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;font-size:13px;padding:3px;padding-left:4px;"><b>Signature</b></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Prepared By</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!$User.FirstName} {!$User.LastName}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Sales Manager</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!booking.Sales_Manager__r.Name}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Approved By (Sales AGM)</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!booking.Project_Name__r.Project_Head__r.Name}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Approved By (Sales Head)</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!booking.Project_Name__r.Sales_Head__r.Name}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Verified &amp; Approved by CRM Head</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;">{!booking.Project_Name__r.Post_Sales_Head__r.Name}</td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"><b>Accounts Team</b></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                    <td style="border-style: solid;border-width: 0.7px 0.7px;border-collapse: collapse;font-family: Arial, Helvetica, sans-serif;width:250px;"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        
+        
+        <p style="font-size: 15px;text-align : left;font-style: italic;font-family:sans-serif"><b>Remarks:</b></p>
+        
+    </body>
+  
+</html>
+</apex:page>

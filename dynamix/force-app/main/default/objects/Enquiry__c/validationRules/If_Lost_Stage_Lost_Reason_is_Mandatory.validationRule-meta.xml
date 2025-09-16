@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_Lost_Stage_Lost_Reason_is_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISPICKVAL (Stage__c, &quot;Lost&quot;), ISBLANK (TEXT( Lost_Reasons__c) ) )</errorConditionFormula>
+    <errorDisplayField>Lost_Reasons__c</errorDisplayField>
+    <errorMessage>Cannot Update a Enquiry as &apos;lost&apos; without a reason tagged in the Lost Reasons.</errorMessage>
+</ValidationRule>

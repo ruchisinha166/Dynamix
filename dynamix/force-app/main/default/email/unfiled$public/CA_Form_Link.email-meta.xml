@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>CA Form Link</name>
+    <style>none</style>
+    <subject>CA Digital form |  {Project}</subject>
+    <textOnly>Dear {customerName},
+
+The Application form for the Confirmed Allocation {EOICANumber} for {UnitNumber} in {Project} is given below.
+Kindly submit the completed CA Application Form  at the earliest.
+Link to CA Application form: {!Link}
+
+Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

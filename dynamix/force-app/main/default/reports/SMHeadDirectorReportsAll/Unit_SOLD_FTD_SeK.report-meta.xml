@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Stage__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Booking_Date__c</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Booking__r$Booking_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>TODAY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Booking__r$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready,Cancellation Initiated,Terminated</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity$Project__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Unit SOLD  FTD</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_with_Opportunities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity.Booking__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

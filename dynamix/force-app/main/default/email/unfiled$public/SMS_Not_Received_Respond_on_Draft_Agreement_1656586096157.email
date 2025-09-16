@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} Kindly inform us any proposed changes in Draft Agreement For Sale for Booking Id {{{Booking__c.Name}}} within the next 24 hours, or we shall assume that you have approved the draft sent. Dynamix Group</body>
+</html>

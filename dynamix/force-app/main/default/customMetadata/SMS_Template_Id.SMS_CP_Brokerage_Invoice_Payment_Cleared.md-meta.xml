@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SMS CP Brokerage Invoice Payment Cleared</label>
+    <protected>false</protected>
+    <values>
+        <field>External_Template_Id__c</field>
+        <value xsi:type="xsd:string">1307168726433071706</value>
+    </values>
+    <values>
+        <field>SMS_Template__c</field>
+        <value xsi:type="xsd:string">Hi {{{Broker_Payment__c.Channel_Partner_Name__c}}} Your payment against the invoice {{{Broker_Payment__c.Invoice_no__c}}} for the Booking Id {{{Broker_Payment__c.Booking__c}}} has been credited to your account! Thank you for your time and effort. For queries contact {{{Broker_Payment__c.Broker_Payment_Owner_Email__c}}} Dynamix Group</value>
+    </values>
+    <values>
+        <field>Salesforce_Template_Id__c</field>
+        <value xsi:type="xsd:string">00XC5000000M2itMAC</value>
+    </values>
+</CustomMetadata>

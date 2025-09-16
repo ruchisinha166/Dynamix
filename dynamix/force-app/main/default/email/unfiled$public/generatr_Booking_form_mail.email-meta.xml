@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>generatr Booking form mail</name>
+    <style>none</style>
+    <subject>Booking Form for {!Project}, {!Unit}</subject>
+    <textOnly>Dear {!SM},
+
+It gives us immense pleasure to welcome you at {!Project}, our flagship development!
+
+We congratulate you on your latest purchase! We are excited to be a part of your journey towards your dream home.
+
+We would like to take this opportunity to share with you a copy of your booking form for your reference.
+
+In case of concerns, please feel free to contact {!Opportunity.OwnerId} on {!Opportunity.OwnerId}. {!Opportunity.OwnerId} can also be reached on {!Opportunity.OwnerId}.
+
+We once again thank you for choosing {!Project} as the destination for your dream home!
+
+Warm Regards,
+{!Booking__c.Project_Name__c.Builder_Organization__c.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

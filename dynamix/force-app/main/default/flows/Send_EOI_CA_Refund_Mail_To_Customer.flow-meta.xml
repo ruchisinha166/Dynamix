@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_EOI_CA_Refund_Email_to_SM</name>
+        <label>Send EOI/CA Refund Email to SM</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <actionName>EOI_CARefundEmail</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>fromAddress</name>
+            <value>
+                <elementReference>Get_Organization_Wide_Address.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>opportunityIds</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>EOI_CARefundEmail</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Refund_Processed_Mail_To_Customer</name>
+        <label>Send Refund Processed Mail To Customer</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Send_EOI_CA_Refund_Email_to_SM</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Account.PersonEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>Get_Organization_Wide_Address.Address</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>emailSubject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>emailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>relatedRecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>logEmailOnSend</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <interviewLabel>Send EOI/CA Refund Mail To Customer {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Send EOI/CA Refund Mail To Customer</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Organization_Wide_Address</name>
+        <label>Get Organization Wide Address</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Send_Refund_Processed_Mail_To_Customer</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Address</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Project__r.Project_Email__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrgWideEmailAddress</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Organization_Wide_Address</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>EOI_Refund_Payment_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Processed</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>emailBody</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Dear {!$Record.Account.FirstName} {!$Record.Account.LastName},
+
+The refund for your &apos;{!$Record.EOI_CA__c}&apos;  {!$Record.EOI_CA_Number__c} has been processed.
+
+Please contact the Dynamix team to collect the payment.
+
+Regards,
+Dynamix Group</text>
+    </textTemplates>
+    <textTemplates>
+        <name>emailSubject</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Your {!$Record.EOI_CA__c} refund amount has been processed.</text>
+    </textTemplates>
+</Flow>

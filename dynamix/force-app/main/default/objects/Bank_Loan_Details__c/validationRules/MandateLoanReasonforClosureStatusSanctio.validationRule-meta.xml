@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MandateLoanReasonforClosureStatusSanctio</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(
+   OR(ISBLANK( Loan_Reason_for_Closure__c ) ,
+      ISNULL(Loan_Reason_for_Closure__c ) 
+   ),
+   NOT(ISBLANK( Loan_Closed_Date__c ))
+)</errorConditionFormula>
+    <errorDisplayField>Loan_Reason_for_Closure__c</errorDisplayField>
+    <errorMessage>Enter Value In  Loan Reason for Closure Field.</errorMessage>
+</ValidationRule>

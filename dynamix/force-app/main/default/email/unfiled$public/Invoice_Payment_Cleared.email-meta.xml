@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Invoice Payment Cleared</name>
+    <style>none</style>
+    <subject>Invoice Payment Cleared</subject>
+    <textOnly>Dear {!CP},
+
+Payment of INR {Payment} amount has been made from towards your invoice {!InvoiceNum}.
+
+Thank you so much for your support in {!Project}.
+
+It is a pleasure working with you and we look forward to our growing association.
+
+Thank You,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

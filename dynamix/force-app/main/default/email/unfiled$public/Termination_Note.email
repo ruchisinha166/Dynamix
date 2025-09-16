@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Termination Note" recipientType="Contact"  relatedToType="Payment_Milestones__c">
+
+        
+        <messaging:htmlEmailBody >
+                  <c:TerminationNote PayMId="{!relatedTo.Id}"  />
+        </messaging:htmlEmailBody>
+
+
+</messaging:emailTemplate>

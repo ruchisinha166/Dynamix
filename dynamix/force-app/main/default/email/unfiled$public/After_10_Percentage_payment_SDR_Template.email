@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="SDR Reminder" recipientType="Contact" relatedToType="Booking__c">
+                <messaging:htmlEmailBody >
+                  <c:BatchPymtRmndrAftr10Per PayMId="{!relatedTo.Id}"  />
+                </messaging:htmlEmailBody>
+</messaging:emailTemplate>

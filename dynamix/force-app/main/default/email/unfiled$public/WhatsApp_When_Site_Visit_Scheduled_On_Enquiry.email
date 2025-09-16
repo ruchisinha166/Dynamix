@@ -1,0 +1,5 @@
+Hi,
+Your Site Visit has been scheduled for {{Enquiry__c.Site_Visit_Scheduled_Date__c}} at {{Enquiry__c.Site_Visit_Scheduled_Time__c}}, at {{Enquiry__c.ProjectName__c}}
+Directions: {{MeetingLocation}}
+In case you are in need of any assistance, please call us on {{contactNumber}}
+Dynamix Group

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>SDR Letter Pending</name>
+    <style>none</style>
+    <subject>SDR Letter Not Shared To Customer</subject>
+    <textOnly>Dear Beena,
+
+The SDR letter for {!Unit} in {!Project} is pending to be sent to the customer since 3 days. Please request {!RM} to send the SDR letter at the earliest.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

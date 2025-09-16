@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} We have reminded you to make payment against your demand. Due to non-payment, you are now liable to pay a sum of demand plus interest. Kindly make your payment ASAP to avoid further interest and cost. Dynamix Group</body>
+</html>

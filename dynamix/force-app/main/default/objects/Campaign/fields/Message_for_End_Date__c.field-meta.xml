@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Message_for_End_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( EndDate  ==   Prior_End_Date__c , 
+ TEXT(EndDate), 
+ &apos;End Date has been Updated from &apos; + TEXT(Prior_End_Date__c) + &apos; to &apos; + TEXT(EndDate)
+)</formula>
+    <label>Message for End Date</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

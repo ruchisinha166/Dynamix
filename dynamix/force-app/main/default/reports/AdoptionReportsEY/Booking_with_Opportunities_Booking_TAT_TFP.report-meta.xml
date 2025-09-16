@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CDF1</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <title>1st January 2023 Onwards</title>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Opportunity.Booking__r$Primary_Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Project__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Booking__r$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Booking_Form_Submitted_by_Customer_Date__c</field>
+    </columns>
+    <currency>INR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>CASE(
+  FLOOR(Opportunity.Booking_Form_Submitted_by_Customer_Date__c - Booking__c.CreatedDate),
+  0, &quot;0-2 Days&quot;,
+  1, &quot;0-2 Days&quot;,
+  2, &quot;0-2 Days&quot;,
+  3, &quot;3-5 Days&quot;,
+  4, &quot;3-5 Days&quot;,
+  5, &quot;3-5 Days&quot;,
+  6, &quot;6-10 Days&quot;,
+  7, &quot;6-10 Days&quot;,
+  8, &quot;6-10 Days&quot;,
+  9, &quot;6-10 Days&quot;,
+  10, &quot;6-10 Days&quot;,
+  &quot;More than 10 Days&quot;
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>TAT</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.Booking__r$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Cancellation Initiated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Booking Rec. Creation to Form Submission</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_with_Opportunities__c</reportType>
+    <roleHierarchyFilter>Director</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURY</interval>
+    </timeFrameFilter>
+</Report>

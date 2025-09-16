@@ -1,0 +1,7 @@
+"Dear {!Booking__c.OwnerFullName},
+<br/><br/>
+The client has cleared 10% payment for {!Booking__c.Unit_Number__c} in {!Booking__c.Project_Name_Formulla__c}, please initiate the registration process and share the draft AFS with the client.
+<br/><br/>
+Thankyou.
+<br/>
+Dynamix

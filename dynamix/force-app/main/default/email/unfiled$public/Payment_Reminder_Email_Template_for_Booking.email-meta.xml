@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Payment Reminder Email Template for Booking</name>
+    <style>none</style>
+    <subject>Payment Reminder Email</subject>
+    <textOnly>Dear Sir/Madam,
+
+I hope this finds you well.
+
+I am writing to you in relation to the Allotment of your Apartment at {!Booking__c.Project_Name_Formulla__c}. This email is a gentle reminder for the payment of Stamp Duty and the execution and registration of your RERA Agreement for Sale. In case you have paid Stamp Duty already, please do let me know when we can schedule the execution and registration of your RERA Agreement for Sale.
+
+It is imperative that we complete this process as soon as possible, so as to perfect your title to the Apartment. In case you have any questions whatsoever with respect to this process, please do not hesitate to contact me.
+
+Best regards,</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

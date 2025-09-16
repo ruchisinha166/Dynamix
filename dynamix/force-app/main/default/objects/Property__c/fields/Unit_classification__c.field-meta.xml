@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_classification__c</fullName>
+    <label>Unit classification</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>STANDARD</fullName>
+                <default>false</default>
+                <label>STANDARD</label>
+            </value>
+            <value>
+                <fullName>LUXURY</fullName>
+                <default>false</default>
+                <label>LUXURY</label>
+            </value>
+            <value>
+                <fullName>REFUGE</fullName>
+                <default>false</default>
+                <label>REFUGE</label>
+            </value>
+            <value>
+                <fullName>SHOP</fullName>
+                <default>false</default>
+                <label>SHOP</label>
+            </value>
+            <value>
+                <fullName>OTHER</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+            <value>
+                <fullName>OFFICE</fullName>
+                <default>false</default>
+                <label>OFFICE</label>
+            </value>
+            <value>
+                <fullName>FIRE CHECK</fullName>
+                <default>false</default>
+                <label>FIRE CHECK</label>
+            </value>
+            <value>
+                <fullName>SKY DECK</fullName>
+                <default>false</default>
+                <label>SKY DECK</label>
+            </value>
+            <value>
+                <fullName>ENTRANCE LOBBY</fullName>
+                <default>false</default>
+                <label>ENTRANCE LOBBY</label>
+            </value>
+            <value>
+                <fullName>SOCIETY OFFICE</fullName>
+                <default>false</default>
+                <label>SOCIETY OFFICE</label>
+            </value>
+            <value>
+                <fullName>METER ROOM</fullName>
+                <default>false</default>
+                <label>METER ROOM</label>
+            </value>
+            <value>
+                <fullName>LOBBY</fullName>
+                <default>false</default>
+                <label>LOBBY</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

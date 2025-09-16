@@ -1,0 +1,270 @@
+<apex:page standardController="Project__c"  extensions="OpportunityFormController" docType="html-5.0" showHeader="false" applyBodyTag="false" applyHtmlTag="false"  standardStylesheets="false">
+    
+    <html>
+        <head>   
+            <style type="text/css">
+                .fontFamily{
+                font-family:Calibri;
+                font-size:14px;
+                }
+                .required:after {
+                content:" *";
+                color: red;
+                }
+
+            </style>    
+            <script type="text/javascript">
+            window.reload();
+            </script>
+             
+        </head> 
+        <body onload="onloadf()" class="fontFamily">            
+            <apex:form id="frm">
+                <apex:pageBlock >
+                    <div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+                       <!-- <apex:outputText rendered="{!showHeader}" >-->
+                        <center> <apex:image url="{!ProjectHeader}"  rendered="{!showHeader}"  width="70%" height="140" /></center>
+                        <!-- </apex:outputText>-->
+                      </div>
+                    <div style="background-color:#005F9E;padding-top:5px;font-size:18px;padding-bottom:5px;color:white;text-align:center">
+                        <b>Customer Information Form</b> 
+                    </div>
+                    <!--  Section 1 -->
+                    <apex:pageBlock >
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Personal Information</b> 
+                        </div>
+                    <div>
+                      <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="required"> Full Name</div>
+                                <div style="width:7%;display:inline-block;"> 
+                                    <!-- <apex:input type="text" value="{!primaryAccountSalutation}" title="Title" html-placeholder="Title"/>-->
+                                    <apex:selectList size="1" value="{!primaryAccountSalutation}"> 
+                                        <apex:selectOptions value="{!primaryAccountSalutationOption}"/>                          
+                                    </apex:selectList>                         
+                                </div>
+                          <div style="width:15%;display:inline-block;"> 
+                              <apex:input type="text" value="{!primaryAccountFirstName}" title="First Name" html-placeholder="First Name" />
+                          </div>
+                          <div style="width:15%;display:inline-block;"> 
+                              <apex:input type="text" value="{!primaryAccountMiddleName}" title="Middle Name" html-placeholder="Middle Name" />
+                          </div>
+                          <div style="width:15%;display:inline-block;"> 
+                              <apex:input type="text" value="{!primaryAccountLastName}" title="Last Name" html-placeholder="Last Name"/>
+                          </div>
+                                
+                            </div>
+                    <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"  class="required">
+                                    Nationality
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccNationality}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccNationalityOptions}"/>  
+                                        <apex:actionSupport event="onchange" action="{!onChangePrimaryAccNationality}" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                         <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"  class="required">
+                                    Marital Status
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccMaitalStatusAdd}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccMaitalStatusAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>-->
+                    
+                    <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                        <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">Customer Mobile Number
+                        </div>
+                         <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccCountryCodeAdd}"  id="countryCode"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccCountryCodeAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                        <div style="display:inline-block;"> 
+                            <apex:input type="text" value="{!primaryAccountMobileNo}" html-oninput="checkPrimaryAccountMobileNoStr();" id="primaryAccountMobileNo"/>
+                            <apex:actionSupport event="onchange" reRender="err1" status="status"/>
+                        </div>
+                        <div style="display:inline-block;color:red;" id="err1"></div>
+                    </div>
+                    
+                   <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                        <div style="width:25%;display:inline-block;">
+                            Channel Partner Mobile Number
+                        </div>
+                        <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccCountryCodeAdd}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccCountryCodeAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                        <div style="display:inline-block;"> 
+                            <apex:input type="text" value="{!primaryAccountChannelPartnerMobileNumber}" html-oninput="checkPrimaryAccountOrgPhoneStr();" id="primaryAccountChannelPartnerMobileNumber"/>
+                            <apex:actionSupport event="onchange" reRender="primaryAccountChannelPartnerMobileNumberError" status="status"/>
+                        </div>
+                        <div style="display:inline-block;color:red;" id="primaryAccountChannelPartnerMobileNumberError"></div>
+                    </div>-->
+                  <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" >Email</div>
+                                
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="email" value="{!primaryAccountEmail}" html-oninput="checkPrimaryAccountEmailStr();" id="primaryAccountEmail"/>
+                                    <apex:actionSupport event="onchange" reRender="err3" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err3"></div>
+                                
+                            </div>
+                    </div>
+                    </apex:pageBlock>
+                   
+                  
+                    <div align="center" style="display: {!IF(submittedBy == 'customer', 'block', 'none')};padding-top:10px;padding-bottom:10px;" draggable="false" >
+                        
+                        <apex:commandButton id="submitBtn1"  value="NEXT"  action="{!submitFirstForm}" onclick="return bookingForm_Validation();" style="padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >
+                            
+                        </apex:commandButton>
+                    </div>
+                     <apex:outputPanel id="msgSection">
+                       
+                        <div style="border:1px solid black;background:#F5F5D6;">
+                            <div style="padding-left:5px;">
+                                <apex:pageMessages escape="false" />
+                            </div>  
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:pageBlock>
+            </apex:form>
+        </body>  
+        <script type="text/javascript">
+        function checkPrimaryAccountMobileNoStr(){
+            var phone=document.querySelector("[id$='primaryAccountMobileNo']").value;
+             var countryCode=document.querySelector("[id$='countryCode']").value;
+            var letters = /^[A-Za-z]+$/;
+            console.log('countryCode'+countryCode);
+            if((phone.length!=10 || isNaN(phone)) && countryCode == '+91'){
+                console.log('countryCode'+countryCode);
+                document.getElementById("err1").innerHTML="Number must be 10 digits long & cannot contain Letters.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err1").innerHTML=""; 
+            }
+        }
+        
+        function checkPrimaryAccountOrgPhoneStr(){
+            var priAccOrgPhone=document.querySelector("[id$='primaryAccountChannelPartnerMobileNumber']").value;
+            //var letters = /^[A-Za-z]+$/;
+            if(isNaN(priAccOrgPhone)){
+                document.getElementById("primaryAccountChannelPartnerMobileNumberError").innerHTML="Channel Partner phone number can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("primaryAccountChannelPartnerMobileNumberError").innerHTML=""; 
+            }
+            
+        }
+        
+        
+         function sendOtp(){
+            document.querySelector("[id$='getOtpBtn']").value = 'Resend OTP';
+            document.querySelector("[id$='getOtpBtn']").disabled = true;
+            document.querySelector("[id$='verifyBtn']").disabled = false;
+            document.querySelector("[id$='verifyBtn']").enable = true;
+            //   button.disabled=true;
+            //  setTimeout(function(){document.getElementById("[id$='getOtpBtn']").disabled = false;},5000);
+            
+            document.querySelector("[id$='otpTimer']").style.display = 'block';
+            var timerOn = true;
+            timer(300,true);
+            return true;    
+        }
+        function timer(remaining,timerOn) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            document.getElementById('timer').innerHTML = m + ':' + s;
+            remaining -= 1;
+            
+            if(remaining >= 0 && timerOn) {
+                setTimeout(function() {
+                    if(remaining==0){
+                        timer(remaining,false);
+                    }
+                    else{
+                        timer(remaining,true);
+                    }
+                }, 1000);
+                return;
+            }
+            
+            if(!timerOn) {
+                // Do validate stuff here
+                document.querySelector("[id$='getOtpBtn']").enable = true;
+                document.querySelector("[id$='getOtpBtn']").disabled = false;
+                document.querySelector("[id$='verifyBtn']").disabled = true;
+                return;
+            }
+            
+        }
+        function verifyFun(){
+            
+        }
+        function onloadf(){
+            var vbtn=  document.querySelector("[id$='verifyBtn']").disabled = true;
+            document.querySelector("[id$='submitBtn']").disabled = true;
+            document.querySelector("[id$='otpTimer']").style.display = 'none';
+            var chbValue= document.querySelector("[id$='termsandCondiCheckbox']").checked;
+            const button = document.querySelector("[id$='getOtpBtn']");
+            var inPutBox = document.querySelector("[id$='OtpInp']");
+            if(chbValue==true){
+                button.disabled=false;
+                button.enable=true;
+                inPutBox.disabled = false;
+                inPutBox.enable = true;
+                vbtn.disabled = false;
+                vbtn.enable = true;
+            }
+            else{
+                button.disabled=true;
+                button.enable=false;
+                inPutBox.disabled=true;
+                inPutBox.enable=false;
+                vbtn.disabled=true;
+                vbtn.enable=false;
+            }            
+        }
+        function checkPrimaryAccountPostCodeStr(){
+            var priAccPostCode=document.querySelector("[id$='primaryAccountPostCode']").value;
+            if(isNaN(priAccPostCode)){
+                document.getElementById("priAccPostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("priAccPostCodeErr").innerHTML=""; 
+            }      
+        } 
+        
+         function checkPrimaryAccountEmailStr(){
+            var email=document.querySelector("[id$='primaryAccountEmail']").value;
+            var atpos=email.indexOf("@");
+            var dotpos=email.lastIndexOf(".");
+            if(atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length){
+                document.getElementById("err3").innerHTML="Invalid Email.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err3").innerHTML=""; 
+            }
+        }
+   
+
+
+        </script>
+    </html>
+    
+</apex:page>

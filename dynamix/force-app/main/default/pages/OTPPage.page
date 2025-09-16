@@ -1,0 +1,147 @@
+<apex:page standardController="Project__c"  extensions="OpportunityFormController" docType="html-5.0" showHeader="false" applyBodyTag="false" applyHtmlTag="false"  standardStylesheets="false">
+    <html>
+        <body onload="onloadf()" class="fontFamily">            
+            <apex:form id="frm">
+                <apex:pageBlock >
+                    <div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+                        <center><apex:image url="{!ProjectHeader}"  rendered="{!showHeader}"  width="70%" height="140" /></center>
+                    </div>
+                     <apex:outputPanel id="bottomSection">
+                    <div align="center"  draggable="false" style="display: {!IF(submittedBy == 'customer', 'block', 'none')};padding-top:10px;padding-bottom:10px;">
+                        <apex:actionRegion >
+                            <apex:commandButton rerender="none" onclick="sendOtp()" value="{!otpBtnValue}" id="getOtpBtn" oncomplete="CallWebService_JS();"  action="{!sendOtpM}" style="margin-right:20px;padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >    
+                            </apex:commandButton> 
+                            <apex:actionFunction action="{!callOut}" name="CallWebService_JS" status="Status2" reRender="none"/>
+                            <apex:commandButton onclick="verifyFun()" value="Verify" reRender="bottomSection,msgSection" id="verifyBtn" action="{!verifyOtp}" style="margin-right:20px;padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >    
+                            </apex:commandButton>
+                            <apex:commandButton onclick="verifyFun()" value="Disable OTP" reRender="bottomSection,msgSection" id="disableBtn" action="{!disableOtp}" style="margin-right:20px;padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >    
+                            </apex:commandButton>
+                            <apex:input value="{!otpCode}" style="margin-right:100px;" id="OtpInp" type="text" /> 
+                            <apex:inputhidden id="CountOtp" value="{!CountOtp}" />
+                        </apex:actionRegion>
+                        <div style="font-weight:700;" id="otpTimer">Time left &nbsp; <span id="timer"></span></div>
+                        <!--  </apex:outputPanel>--->
+                         <div style="margin-top:20px;text-align:center;color:red;font-size:16px;" >
+                                <apex:outputText value="{!errorMsg}"></apex:outputText>
+                            </div>
+                            <div style="margin-top:20px;text-align:center;color:green;font-size:16px;" >
+                                <apex:outputText value="{!sucessMsg}"></apex:outputText>
+                            </div>
+                    </div>
+                    </apex:outputPanel>
+                    <div style="margin-top:3px;font-size:14px;">
+                        <apex:inputCheckbox value="{!isAgreeWithTermsConditions}" label="Unregistered CP">
+                            <apex:actionSupport event="onchange" action="{!isAgreeWithTermsConditions}"  reRender="none"/>
+                        </apex:inputCheckbox>
+                        
+                        <div style="display:inline-block;vertical-align:top;">
+                            I agree and authorize Team Dynamix to contact me. This will override the registry with DNC/NDNC.
+                        </div>
+                    </div>
+                    <apex:outputPanel id="msgSection">
+                        
+                        <div style="border:1px solid black;background:#F5F5D6;">
+                            <div style="padding-left:5px;">
+                                <apex:pageMessages escape="false" />
+                            </div>  
+                           
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:pageBlock>
+            </apex:form>
+            
+            
+        </body>
+        <script type="text/javascript">
+        function sendOtp(){
+            
+            document.querySelector("[id$='getOtpBtn']").value = 'Resend OTP';
+            var CountOtp = document.querySelector("[id$='CountOtp']").value;
+            CountOtp++;
+            document.querySelector("[id$='CountOtp']").value = CountOtp;
+            console.log('CountOtp'+CountOtp);
+            if(CountOtp == 3)
+            {
+                document.querySelector("[id$='disableBtn']").disabled = false;
+                document.querySelector("[id$='getOtpBtn']").disabled = true;
+            }
+            
+            
+            document.querySelector("[id$='verifyBtn']").disabled = false;
+            document.querySelector("[id$='verifyBtn']").enable = true;
+            //   button.disabled=true;
+            //  setTimeout(function(){document.getElementById("[id$='getOtpBtn']").disabled = false;},5000);
+            
+            document.querySelector("[id$='otpTimer']").style.display = 'block';
+            var timerOn = true;
+            timer(60,true);
+            return true;    
+        }
+        function timer(remaining,timerOn) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            document.getElementById('timer').innerHTML = m + ':' + s;
+            remaining -= 1;
+            
+            if(remaining >= 0 && timerOn) {
+                setTimeout(function() {
+                    if(remaining==0){
+                        timer(remaining,false);
+                    }
+                    else{
+                        timer(remaining,true);
+                    }
+                }, 1000);
+                return;
+            }
+            
+            if(!timerOn) {
+                // Do validate stuff here
+                document.querySelector("[id$='getOtpBtn']").enable = true;
+                document.querySelector("[id$='getOtpBtn']").disabled = false;
+                document.querySelector("[id$='verifyBtn']").disabled = true;
+                
+                return;
+            }
+            
+        }
+        function verifyFun(){
+        }
+        function onloadf(){
+            var vbtn=  document.querySelector("[id$='verifyBtn']").disabled = true;
+            var disablebtn=  document.querySelector("[id$='disableBtn']").disabled = true;
+            document.querySelector("[id$='submitBtn']").disabled = true;
+            document.querySelector("[id$='otpTimer']").style.display = 'none';
+            var chbValue= document.querySelector("[id$='termsandCondiCheckbox']").checked;
+            const button = document.querySelector("[id$='getOtpBtn']");
+            var inPutBox = document.querySelector("[id$='OtpInp']");
+            var CountOtp = document.querySelector("[id$='CountOtp']").value;
+            if(chbValue==true){
+                button.disabled=false;
+                button.enable=true;
+                inPutBox.disabled = false;
+                inPutBox.enable = true;
+                vbtn.disabled = false;
+                vbtn.enable = true;
+            }
+            /*else if(CountOtp ==3)
+            {
+                document.querySelector("[id$='verifyBtn']").disabled = true;
+            }*/
+            else{
+                button.disabled=true;
+                button.enable=false;
+                inPutBox.disabled=true;
+                inPutBox.enable=false;
+                vbtn.disabled=true;
+                vbtn.enable=false;
+            }            
+        }
+        
+        </script>
+    </html>
+</apex:page>

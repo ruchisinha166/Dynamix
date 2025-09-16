@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+This is your Digital Application Form link for Booking Id {{{Booking__c.Name}}}<br />
+{{{Booking__c.Record_Link__c}}}<br />
+Kindly fill in the details and read the terms and conditions carefully before submitting the Booking Form. You can also view the annexures pertaining to your apartment. For assistance reach out to the Sales Manager.<br />
+Thank you
+</body></html>

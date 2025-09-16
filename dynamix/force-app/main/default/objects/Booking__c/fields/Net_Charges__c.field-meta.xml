@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Net_Charges__c</fullName>
+    <label>Net Charges</label>
+    <summarizedField>Price_Details__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Price_Details__c.Charge_Group__c</field>
+        <operation>equals</operation>
+        <value>Others</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Price_Details__c.Name</field>
+        <operation>notEqual</operation>
+        <value>Share money</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Price_Details__c.Name</field>
+        <operation>notEqual</operation>
+        <value>Security maintenance deposit</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Price_Details__c.Name</field>
+        <operation>notEqual</operation>
+        <value>Share Money</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Price_Details__c.Booking__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

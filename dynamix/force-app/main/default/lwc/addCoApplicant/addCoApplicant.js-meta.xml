@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <apiVersion>50.0</apiVersion>
+    
+    <isExposed>true</isExposed>
+    
+    <masterLabel>Add CoApplicant</masterLabel>
+    
+    <description>Add CoApplicant</description>
+    
+    <targets>
+        
+        <target>lightning__FlowScreen</target>
+        
+    </targets>
+    
+    <targetConfigs>
+        
+        <targetConfig targets="lightning__FlowScreen">
+            
+            <property name="bookingId" type="String" label="Booking Id" description="Id of Payment Plan"/>
+            
+            <property name="planJSON" type="String" label="Plan Details" description="Details of Custom Plan"/>
+            
+            <property name="applicants" type="@salesforce/schema/Co_Applicant__c[]" label="Applicants" description="List of Co Applicants"/>
+            
+            <property name="newApplicants" type="@salesforce/schema/Co_Applicant__c[]" label="Applicants" description="List of New Co Applicants" role="outputOnly"/>
+            
+            <property name="delApplicants" type="@salesforce/schema/Co_Applicant__c[]" label="Applicants" description="List of Delete Co Applicants" role="outputOnly"/>
+            
+            <property name="updateApplicants" type="@salesforce/schema/Co_Applicant__c[]" label="Applicants" description="List of Update Co Applicants" role="outputOnly"/>
+            
+        </targetConfig>
+        
+    </targetConfigs>
+    
+</LightningComponentBundle>

@@ -1,0 +1,24 @@
+<template>
+    <td>
+        <c-lookup record-id={coApplicant.Account__c} config={entityConfig} onchange={handleChange}>
+        </c-lookup>
+    </td>
+    <td>
+        <c-input-picklist-field label="Role" value={coApplicant.Role__c} object-api-name="Co_Applicant__c"
+            field-api-name="Role__c" disabled="true" variant="label-hidden" onpicklistchange={handlePicklistValue}
+            required>
+        </c-input-picklist-field>
+    </td>
+    <!--<td>
+        <lightning-input type="number" value={coApplicant.Ownership__c} formatter="percent-fixed" step="any"
+            variant="label-hidden" data-element="Ownership__c" onchange={handleInput} required>
+        </lightning-input>
+    </td>-->
+    <td>
+        <lightning-button variant="brand" label="Set As Primary" title="Set As Primary" onclick={handleClick}
+            class="slds-m-left_x-small" disabled={isPrimary}></lightning-button>
+        <lightning-button-icon icon-name="utility:delete" data-id={indx} alternative-text="Delete"
+            class="slds-m-left_xx-small" onclick={removeRow} title="Delete">
+        </lightning-button-icon>
+    </td>
+</template>

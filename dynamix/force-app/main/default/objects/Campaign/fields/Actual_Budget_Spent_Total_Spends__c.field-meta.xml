@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_Budget_Spent_Total_Spends__c</fullName>
+    <label>Actual Budget Spent (Total Spends)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Currency</type>
+</CustomField>

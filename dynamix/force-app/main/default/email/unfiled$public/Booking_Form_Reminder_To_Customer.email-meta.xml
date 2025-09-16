@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Booking Form Reminder To Customer</name>
+    <style>none</style>
+    <subject>Booking Form Not Submitted</subject>
+    <textOnly>Hi,
+
+You are just a step away to complete the booking of your dream home. Please fill in the Application Form to proceed with the booking formalities.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

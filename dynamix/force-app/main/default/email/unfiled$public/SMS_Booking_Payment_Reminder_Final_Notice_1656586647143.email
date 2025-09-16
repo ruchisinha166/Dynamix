@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} Please make payment within 7 days against the outstanding dues for your Booking ID {{{Booking__c.Name}}} to avoid termination of your Application Form/ Agreement for Sale. Dynamix Group</body>
+</html>

@@ -1,0 +1,5 @@
+<template>
+    <template iterator:row={groupedRows}>
+        <c-datatable-cols key={row.value} row={row.value}></c-datatable-cols>
+    </template>
+</template>

@@ -1,0 +1,9 @@
+Hi {!Name}<br><br>
+
+Your TDS has been Approved against the Booking No: {!Booking}
+<br>
+Please find Attached the TDS Receipt with this mail.
+<br><br>
+
+Thanks & Regards<br>
+Dynamix

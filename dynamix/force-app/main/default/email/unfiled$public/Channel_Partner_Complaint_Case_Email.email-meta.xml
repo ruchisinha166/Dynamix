@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Channel Partner Complaint Case Email</name>
+    <style>none</style>
+    <subject>Case - Channel Partner Complaint</subject>
+    <textOnly>Hi {!CRMHeadUserName},  
+
+Channel Partner Case: {!CaseNumber} has been assigned to {!newCaseOwner}.  
+
+Thank you,  
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

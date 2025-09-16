@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nationality__c</fullName>
+    <label>Nationality</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Indian</fullName>
+                <default>false</default>
+                <label>Indian</label>
+            </value>
+            <value>
+                <fullName>Non-Resident Indian</fullName>
+                <default>false</default>
+                <label>Non-Resident Indian</label>
+            </value>
+            <value>
+                <fullName>Foreign National of Indian Origin</fullName>
+                <default>false</default>
+                <label>Foreign National of Indian Origin</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

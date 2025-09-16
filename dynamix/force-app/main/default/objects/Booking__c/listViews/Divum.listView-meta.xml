@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Divum</fullName>
+    <columns>NAME</columns>
+    <columns>Agreement_Value__c</columns>
+    <columns>Project_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Name__c</field>
+        <operation>contains</operation>
+        <value>Divum</value>
+    </filters>
+    <label>Divum</label>
+</ListView>

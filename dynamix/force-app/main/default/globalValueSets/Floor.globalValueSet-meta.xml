@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>1 - 5 Floor</fullName>
+        <default>false</default>
+        <label>1 - 5 Floor</label>
+    </customValue>
+    <customValue>
+        <fullName>6-10 Floor</fullName>
+        <default>false</default>
+        <label>6-10 Floor</label>
+    </customValue>
+    <masterLabel>Floor</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

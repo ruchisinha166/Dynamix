@@ -1,0 +1,67 @@
+<template>
+    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" role="combobox">
+        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+            <template if:false={hasRecord}>
+                <input type="text" class="slds-input slds-combobox__input slds-is-open" autocomplete="off"
+                    role="textbox" placeholder={placeholder} onfocus={handleFocus} onblur={handleBlur}
+                    oninput={handleChange} disabled={disabled} />
+                <lightning-icon icon-name="utility:search" size="x-small"
+                    class="slds-input__icon slds-input__icon_right">
+                </lightning-icon>
+            </template>
+            <template if:true={hasRecord}>
+               
+                <div class="slds-pill_container">
+                     <template if:false={disabled}>
+                    <lightning-pill label={record.display}  onremove={handleRemovePill}>
+                        <lightning-icon icon-name={record.iconName} alternative-text={record.label} >
+                        </lightning-icon>
+                    </lightning-pill>
+                     </template>
+                      <template if:true={disabled}>
+                          <div style ="border:1px solid #c9c9c9;border-radius:  0.25rem;background-color:#f3f3f3;color:rgb(68, 68, 68);">
+                         <span style="inline-block;margin:3px;">  <lightning-icon icon-name={record.iconName} alternative-text={record.label} size="x-small" >
+                        </lightning-icon></span><span style="inline-block;margin:3px;"> <lightning-formatted-text value={record.display}  ></lightning-formatted-text></span>
+                          </div>
+                     </template>
+                </div>
+            </template>
+        </div>
+        <div class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                <template for:each={records} for:item="record">
+                    <li key={record.Id} onclick={handleClick} data-id={record.Id} data-index={record.index}
+                        role="presentation" class="slds-listbox__item" data-name={record.Name}
+                        onmousedown={handleMousedown}>
+                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                            role="option">
+                            <span class="slds-media__figure slds-listbox__option-icon">
+                                <lightning-icon icon-name={record.iconName} alternative-text={record.label}
+                                    size="small">
+                                </lightning-icon>
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-truncate">{record.display}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+                <template if:true={createRecord}>
+                    <li onclick={createRecordFunc} onmousedown={handleMousedown} role="presentation"
+                        class="slds-listbox__item">
+                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                            role="option">
+                            <span class="slds-media__figure slds-listbox__option-icon">
+                                <lightning-icon icon-name="utility:add" size="x-small"></lightning-icon>
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">New
+                                    {label}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+</template>

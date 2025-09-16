@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Reply to Cancellation Notice" recipientType="Contact" relatedToType="Booking__c">
+
+        
+        <messaging:htmlEmailBody >
+                  <c:ReplyCancellationNotice PayMId="{!relatedTo.Id}"  />
+        </messaging:htmlEmailBody>
+
+
+</messaging:emailTemplate>

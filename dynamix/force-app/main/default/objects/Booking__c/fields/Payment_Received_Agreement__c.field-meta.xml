@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Received_Agreement__c</fullName>
+    <label>Payment Received (Agreement)</label>
+    <summarizedField>Payment__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Category__c</field>
+        <operation>equals</operation>
+        <value>Unit Cost</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Refund_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Debit</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Payment__c.Booking__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

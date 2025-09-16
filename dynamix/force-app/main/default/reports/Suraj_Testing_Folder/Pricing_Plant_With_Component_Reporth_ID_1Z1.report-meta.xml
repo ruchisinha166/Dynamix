@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Project__c.Pricing_Plans__r$Name</field>
+    </columns>
+    <columns>
+        <field>Project__c.Pricing_Plans__r$Id</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Project__c$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Avanya Tower B</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Pricing Plant With Component Reporth ID</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Pricing_Plant_With_Component__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Project__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

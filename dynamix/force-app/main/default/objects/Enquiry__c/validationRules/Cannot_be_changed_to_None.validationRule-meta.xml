@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_be_changed_to_None</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(   NOT(ISNULL( PRIORVALUE( Category__c ) ))  ,  ISPICKVAL( Category__c , &apos;&apos;)  )</errorConditionFormula>
+    <errorDisplayField>Category__c</errorDisplayField>
+    <errorMessage>Cannot be modified</errorMessage>
+</ValidationRule>

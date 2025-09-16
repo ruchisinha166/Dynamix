@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage__c</fullName>
+    <label>Stage</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Enquiry</fullName>
+                <default>true</default>
+                <label>New Enquiry</label>
+            </value>
+            <value>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+                <label>Contacted</label>
+            </value>
+            <value>
+                <fullName>Interested</fullName>
+                <default>false</default>
+                <label>Interested</label>
+            </value>
+            <value>
+                <fullName>Site Visit Scheduled</fullName>
+                <default>false</default>
+                <label>Site Visit Scheduled</label>
+            </value>
+            <value>
+                <fullName>Site Visit Done</fullName>
+                <default>false</default>
+                <label>Site Visit Done</label>
+            </value>
+            <value>
+                <fullName>Junk</fullName>
+                <default>false</default>
+                <label>Junk</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <label>Lost</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <label>Type</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Connected Call</fullName>
+                <default>false</default>
+                <label>Connected Call</label>
+            </value>
+            <value>
+                <fullName>Walk-In</fullName>
+                <default>false</default>
+                <label>Walk-In</label>
+            </value>
+            <value>
+                <fullName>Unique-Revisits</fullName>
+                <default>false</default>
+                <label>Unique-Revisits</label>
+            </value>
+            <value>
+                <fullName>Bookings</fullName>
+                <default>false</default>
+                <label>Bookings</label>
+            </value>
+            <value>
+                <fullName>Unique Inbound</fullName>
+                <default>false</default>
+                <label>Unique Inbound</label>
+            </value>
+            <value>
+                <fullName>Unique Outbound</fullName>
+                <default>false</default>
+                <label>Unique Outbound</label>
+            </value>
+            <value>
+                <fullName>Customer Walk In(CP)</fullName>
+                <default>false</default>
+                <label>Customer Walk In(CP)</label>
+            </value>
+            <value>
+                <fullName>CP Visits</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CP Visits</label>
+            </value>
+            <value>
+                <fullName>Event</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Event</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

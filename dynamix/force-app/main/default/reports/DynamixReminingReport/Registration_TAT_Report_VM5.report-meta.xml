@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumnGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>Booking__c$Project_Name__c</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>CDF1</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Booking__c$Primary_Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Name</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Unit_Number__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Registration_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Registration_Status__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$Subject</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$Status</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$CompletedDateTime</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>Booking__c$Registration_TAT_Report__c</field>
+    </columns>
+    <currency>INR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF( Booking__c.Registration_TAT_Report__c &lt;16, &quot;0-15 Days&quot;,
+IF(Booking__c.Registration_TAT_Report__c &lt;31, &quot;16-30 Days&quot;,
+IF(Booking__c.Registration_TAT_Report__c &lt;61, &quot;31-60 Days&quot;,
+IF(Booking__c.Registration_TAT_Report__c &lt;91, &quot;61-90 Days&quot;,
+IF(Booking__c.Registration_TAT_Report__c &gt;90, &quot;&gt; 90 Days&quot;,
+&quot;Not Completed Yet&quot;
+)))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>TAT</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Booking__c.Activities$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SDR Letter for the Booking</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c.Activities$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Completed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Registration_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Completed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Booking__c$Project_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Registration TAT Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_With_Tasks_Report_Type__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

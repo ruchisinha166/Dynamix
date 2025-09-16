@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Loan_Details__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Primary Loan Details</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Bank_Loan_Details__c.Booking__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Id</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Bank_Loan_Details__c.Booking__c</field>
+            <operation>equals</operation>
+            <valueField>Bank_Loan_Details__c.Booking__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Bank_Loan_Details__c</referenceTo>
+    <relationshipLabel>Booking</relationshipLabel>
+    <relationshipName>Booking</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

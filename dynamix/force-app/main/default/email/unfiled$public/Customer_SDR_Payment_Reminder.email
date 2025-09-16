@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="SDR Payment Reminder" recipientType="Contact" relatedToType="Booking__c">
+                <messaging:htmlEmailBody >
+                  <c:SDRPaymentReminderEmail PayMId="{!relatedTo.Id}"  />
+                </messaging:htmlEmailBody>
+</messaging:emailTemplate>

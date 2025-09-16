@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Approval_Reason</fullName>
+        <field>Approval_Process__c</field>
+        <literalValue>Sent for custom cost-sheet approval</literalValue>
+        <name>Approval Reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_process_reason</fullName>
+        <field>Approval_Process__c</field>
+        <literalValue>Sent for discount Approval</literalValue>
+        <name>Approval process reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Check_Provided_costsheet</fullName>
+        <field>Cost_Sheet_Provided__c</field>
+        <literalValue>1</literalValue>
+        <name>Check Provided costsheet</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Check_Provided_costsheet2</fullName>
+        <field>Cost_Sheet_Provided__c</field>
+        <literalValue>1</literalValue>
+        <name>Check Provided costsheet2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Field_Update</fullName>
+        <field>Status__c</field>
+        <literalValue>In Progress</literalValue>
+        <name>Field Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lock_Record</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Lock Record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Reject</fullName>
+        <field>Status__c</field>
+        <literalValue>Reject</literalValue>
+        <name>Status Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_Record</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock Record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_Records</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock Record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_the_Record</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock the Record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_the_record_Approval_2</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock the record Approval 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_the_record_for_Approval_1</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock the record for Approval 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_the_record_for_approved</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock the record for approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Unlock_the_records</fullName>
+        <field>Lock_Record__c</field>
+        <literalValue>0</literalValue>
+        <name>Unlock the record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_reason</fullName>
+        <field>Approval_Process__c</field>
+        <literalValue>Sent for discount Approval</literalValue>
+        <name>Update Approval reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Field_Approval_reason</fullName>
+        <field>Approval_Process__c</field>
+        <literalValue>Approval for mark Property In Process</literalValue>
+        <name>Update Field Approval reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>In Progress</literalValue>
+        <name>Update Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_Reject</fullName>
+        <field>Status__c</field>
+        <literalValue>Reject</literalValue>
+        <name>Update Status Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_To_Discount_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Discount Approved</literalValue>
+        <name>Update Status To Discount Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_costsheet_Provided</fullName>
+        <field>Cost_Sheet_Provided__c</field>
+        <literalValue>1</literalValue>
+        <name>Update costsheet Provided</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_status_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Custom Payment Plan Approved</literalValue>
+        <name>Update status_Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_status_To_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Discount Approved</literalValue>
+        <name>Update status To Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_status_To_Reject</fullName>
+        <field>Status__c</field>
+        <literalValue>Reject</literalValue>
+        <name>Update status To Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_status_To_Send_For_Reject</fullName>
+        <field>Status__c</field>
+        <literalValue>Reject</literalValue>
+        <name>Update status To Send For Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Suggested_Proprty</fullName>
+        <field>Status__c</field>
+        <literalValue>Booked</literalValue>
+        <name>update Suggested Proprty</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

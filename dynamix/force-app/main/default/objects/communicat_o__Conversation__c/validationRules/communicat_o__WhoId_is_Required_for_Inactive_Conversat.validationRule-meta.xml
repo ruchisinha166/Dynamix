@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>communicat_o__WhoId_is_Required_for_Inactive_Conversat</fullName>
+    <active>true</active>
+    <description>Agent cannot end a conversation without linking it to an appropriate Customer</description>
+    <errorConditionFormula>communicat_o__Active__c == False &amp;&amp; communicat_o__Who_Id__c == Null</errorConditionFormula>
+    <errorMessage>Link a Customer to End the Conversation</errorMessage>
+</ValidationRule>

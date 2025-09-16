@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Send New Lead SMS To Customer</label>
+    <protected>false</protected>
+    <values>
+        <field>External_Template_Id__c</field>
+        <value xsi:type="xsd:string">1707168596622676869</value>
+    </values>
+    <values>
+        <field>SMS_Template__c</field>
+        <value xsi:type="xsd:string">Hi, Thank you for your interest in {{Enquiry__c.ProjectName__c}}
+Our team will get in touch with you shortly.
+For more information visit {{Enquiry__C.ProjectURL}} Dynamix Group</value>
+    </values>
+    <values>
+        <field>Salesforce_Template_Id__c</field>
+        <value xsi:type="xsd:string">00XFf0000007HU3MAM</value>
+    </values>
+</CustomMetadata>

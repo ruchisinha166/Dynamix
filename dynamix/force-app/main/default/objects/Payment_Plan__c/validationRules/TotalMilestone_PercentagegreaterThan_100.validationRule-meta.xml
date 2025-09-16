@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalMilestone_PercentagegreaterThan_100</fullName>
+    <active>true</active>
+    <errorConditionFormula>Total_Milestone_Percentage__c &gt;100</errorConditionFormula>
+    <errorMessage>Milestone percentage can&apos;t increase 100%</errorMessage>
+</ValidationRule>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_Enter_Spends_if_New_Record</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISNEW() , NOT(ISNULL( Actual_Budget_Spent_Total_Spends__c )) )</errorConditionFormula>
+    <errorDisplayField>Actual_Budget_Spent_Total_Spends__c</errorDisplayField>
+    <errorMessage>As this is a new record, you cannot enter the value of spends!!</errorMessage>
+</ValidationRule>

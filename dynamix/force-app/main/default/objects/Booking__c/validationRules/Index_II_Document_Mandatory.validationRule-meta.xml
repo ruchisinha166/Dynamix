@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Index_II_Document_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( Registration_Status__c , &apos;Completed&apos;) &amp;&amp;  Index_II_Document__c = false</errorConditionFormula>
+    <errorMessage>Please Upload Index II Document</errorMessage>
+</ValidationRule>

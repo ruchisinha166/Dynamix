@@ -1,0 +1,154 @@
+<apex:page standardController="Booking__c" renderAs="pdf" extensions="FileTransferNoteController" applyHtmlTag="true" showHeader="false">
+    <html>
+       <style>
+           table
+           {
+                font-family:Calibri (Body);
+           }
+       </style>
+       <body>
+           
+            <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:20px;text-align:center;color:white;" ><b>Flat Transfer Note</b></td>
+                </tr>
+                <tr>
+                    <td  style="width:30%; padding-bottom:10px;">Customer Name</td>
+                    <td  style="width:70%;" colspan="3">{!Booking.Primary_Applicant__r.Name}</td>
+                </tr>
+               
+                <tr>
+                    <td>Booking Date </td>
+                    <td colspan="3"><apex:outputText value="{0,date,MM/dd/yy}"> 
+                <apex:param value="{!booking.Booking_Date__c}" />
+            </apex:outputText></td>
+                </tr>
+                <tr>
+                    <td>Scheme </td>
+                    <td colspan="3">{!property[0].Payment_Plan__r.Name}</td>
+                </tr>
+                 <tr>
+                    <td>Building &#38; Flat No. </td>
+                    <td colspan="3">{!booking.Tower_Name__r.Name} {!properties.Name}</td>
+                </tr>
+                
+                <tr>
+                    <td style="width:30%;">Flat Cost </td>
+                    <td style="width:40%;">{!booking.Agreement_Value__c}</td>
+                    <td style="width:10%;">GST</td>
+                    <td style="width:20%;">{!booking.GST__c}</td>
+                </tr> 
+                 <tr>
+                    <td>Transfer to : Building &#38; Flat No</td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td style="width:30%;"> New Flat Cost </td>
+                    <td style="width:40%;"></td>
+                    <td style="width:10%;">GST</td>
+                    <td style="width:20%;"></td>
+                </tr> 
+                <tr>
+                    <td>Transfer Reason </td>
+                    <td colspan="3"></td>
+                </tr>
+                
+           </table>
+           <br/>
+           <!--table 2-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Amount Received Details</i></b></td>
+                </tr> 
+                 <tr>
+                    <th style="width:25%;"></th>
+                    <th style="width:25%;">Flat Amount</th>
+                    <th style="width:25%;">GST Amount</th>
+                    <th style="width:25%;">Stamp Duty Amount</th>
+                </tr>
+                <tr>
+                    <td>Total Received </td>
+                    <td>{!FlatTotalAmount}</td>
+                    <td>{!GSTAmount}</td>
+                    <td>{!StampDutyAmount}</td>
+                </tr>
+               
+           </table>
+           <br/>
+           <!--table 3-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="2"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Amount Received Details</i></b></td>
+                </tr> 
+                 <tr>
+                    <td style="width:30%;">Waiver (Yes / No)</td>
+                    <td style="width:70%;"></td>
+                </tr>
+                 <tr>
+                    <td style="width:30%;">Waiver Approved By:</td>
+                    <td style="width:70%;"></td>
+                </tr>
+                 <tr>
+                    <td style="width:30%;">Transfer Charges Amount &#38; Details:</td>
+                    <td style="width:70%;"></td>
+                </tr>
+           </table> <br/>
+           <!--table 4-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Checked By</i></b></td>
+                </tr>
+                 <tr>
+                    <th style="width:25%;"></th>
+                    <th style="width:25%;">Name</th>
+                    <th style="width:25%;">Date</th>
+                    <th style="width:25%;">Signature</th>
+                </tr>
+                <tr>
+                    <td>Prepared By</td>
+                    <td>{!$User.FirstName} {!$User.LastName}</td>
+                    <td></td>
+                    <td></td>
+                </tr> 
+                <tr>
+                    <td>Sales Manager</td>
+                    <td>{!booking.Sales_Manager__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Verified By</td>
+                    <td>{!PostSalesUser.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td>Approved By (CRM) </td>
+                    <td>{!SalesUser.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td>Update in CRM </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Accounts Team </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+           </table>
+           <br/>
+           <p>
+               Remarks:&nbsp;
+           </p>
+        </body>
+    </html>
+</apex:page>

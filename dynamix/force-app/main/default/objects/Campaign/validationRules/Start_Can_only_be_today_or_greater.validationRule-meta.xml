@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_Can_only_be_today_or_greater</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+ ISNEW() &amp;&amp; StartDate &lt; TODAY (),
+ISCHANGED(StartDate) &amp;&amp; StartDate &lt; TODAY () )</errorConditionFormula>
+    <errorDisplayField>StartDate</errorDisplayField>
+    <errorMessage>Start Date Cannot be of Past Date</errorMessage>
+</ValidationRule>

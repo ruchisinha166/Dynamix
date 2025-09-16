@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Welcome Call Task Reopened Template</name>
+    <style>none</style>
+    <subject>Welcome Call Task Reopened</subject>
+    <textOnly>Dear {!RM},
+
+The discrepancy in the following details against Booking Id XX for {!Unit} in {!Project} has been resolved.
+
+1.ABC
+2.XYZ
+
+Kindly re-initiate the Welcome Call to proceed.
+
+Thankyou,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

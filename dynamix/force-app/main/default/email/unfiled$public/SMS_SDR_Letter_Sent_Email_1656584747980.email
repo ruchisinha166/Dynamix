@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} SDR letter for your Booking Id {{{Booking__c.Name}}} at {{{Booking__c.Project_Name_Formulla__c}}} has been shared over email. Please make the SDR payment at the earliest. Thank you. Dynamix Group</body>
+</html>

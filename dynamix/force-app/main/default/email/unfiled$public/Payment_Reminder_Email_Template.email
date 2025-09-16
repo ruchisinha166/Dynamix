@@ -1,0 +1,3 @@
+Dear {!Contact.FirstName} {!Contact.LastName}, <br/><br/>
+
+Your payment is due. Total Amount Received {!Booking__c.Total_Amount_Received__c}  Kindly make the payment by due date to avoid overdue interest. Ignore if paid.

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Multiple channels for a single provider, as if we want to communicate with multiple fb pages etc.</description>
+    <label>Communication Channel</label>
+    <pluralLabel>Communication Channels</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

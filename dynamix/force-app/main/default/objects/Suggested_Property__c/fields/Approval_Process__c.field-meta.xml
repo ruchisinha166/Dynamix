@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Process__c</fullName>
+    <label>Approval Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sent for custom cost-sheet approval</fullName>
+                <default>false</default>
+                <label>Sent for Custom Cost-Sheet Approval</label>
+            </value>
+            <value>
+                <fullName>Approval for mark Property In Process</fullName>
+                <default>false</default>
+                <label>Approval for Mark Property As In Progress</label>
+            </value>
+            <value>
+                <fullName>Sent for discount Approval</fullName>
+                <default>false</default>
+                <label>Sent for Discount Approval</label>
+            </value>
+            <value>
+                <fullName>Approval to mark Property In Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approval to mark Property In Process</label>
+            </value>
+            <value>
+                <fullName>Custom payment plan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Custom payment plan</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

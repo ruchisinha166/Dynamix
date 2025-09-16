@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Allotment Letter Escalation Email</name>
+    <style>none</style>
+    <subject>Escalation : For Send Allotment Letter</subject>
+    <textOnly>Dear {!CRMHeadName},  
+
+The Allotment letter for the following booking records has been not sent to the client since 3 days. Please inform Booking Owner to send the Allotment letter to the client at the earliest.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

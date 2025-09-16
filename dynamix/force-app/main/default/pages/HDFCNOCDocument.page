@@ -1,0 +1,56 @@
+<apex:page standardController="Booking__c" extensions="AllotmentController" renderAs="pdf">
+      <html>
+        <!--<p style="font-size:18px;font-family: Arial, Helvetica, sans-serif;text-align:center;margin-top:.4in"><b>ALLOTMENT LETTER</b></p>-->
+        <div style="font-size:14px;font-family: Arial, Helvetica, sans-serif;padding-left:38px;margin-top:.4in;">
+           <b>DATE &nbsp;: &nbsp;&nbsp;<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText></b> 
+            <br/>
+            
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;"><b>To,</b></p>
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;"><b>Housing Development Finance Corporation Ltd.</b></p>
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-decoration: underline;"><b>Sub: NOC TO CREATE SECURITY</b></p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;"><b>Dear Sirs,</b></p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-align: justify;line-height: 1.6;">
+               This is to confirm that we have sold flat No. <b>{!properties.Name}</b>on <b>{!properties.Floor__c}</b> floor in the <b>building called Type {!booking.Tower_Name__r.Building_Type__c}, Wing {!booking.Tower_Name__r.Tower_Initials__c}, Known as {!booking.Tower_Name__r.Name} </b>situated at <b>{!project.Name}, 
+               Near {!project.Sublocation__c}, {!project.Location__c}, {!project.City__c}, {!project.State__c}</b> to 
+               
+               <apex:repeat value="{!Coapplicant}" var="coapp">
+               <b> {!coapp.Account__r.Name} &amp;  </b>
+               </apex:repeat>
+               
+               for a total consideration of 
+               <b>{!booking.Agreement_Value__c}/- ({!bookingAgreementValueiwords})</b> under an agreement dated 
+               
+               <b><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!booking.Registration_Date__c}" /></apex:outputText></b>.
+               </p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-align: justify;line-height: 1.6;">
+               We confirm that we have obtained necessary permissions/approvals/sanctions for construction of the said building from 
+               all the concerned competent authorities and the construction of the 
+               building as well as of the flat is in accordance with the approved plans. 
+           </p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-align: justify;line-height: 1.6;">
+               We assure you that the said flat as well as the said building and the land appurtenant thereto are not subject to any encumbrance, 
+               charge or liability of any kind whatsoever and that the entire property is free marketable.  
+               We have a clear legal and marketable title to the said property and every part thereof.
+           </p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-align: justify;line-height: 1.6;">
+               We have no objection to your giving a loan to the above buyer/s and his/her/their mortgaging the said flat with you by way of security for repayment, 
+               notwithstanding anything to the contrary contained in the said agreement.
+           </p>
+           
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;text-align: justify;line-height: 1.6;">
+               We also undertake to inform and give proper notice to the co-operative housing society as and when formed, about the flat being so mortgaged.
+           </p>
+           <br/>
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;"><b>For</b></p>
+           <br/><br/><br/>
+           <p style="font-size:14px;font-family: Arial, Helvetica, sans-serif;"><b>Authorized Signatory</b></p>
+           
+        </div>
+       </html>
+        
+</apex:page>

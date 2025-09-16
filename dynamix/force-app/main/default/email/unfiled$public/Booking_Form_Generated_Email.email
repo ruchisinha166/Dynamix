@@ -1,0 +1,8 @@
+Hi {!SM}, </br></br>
+
+
+Booking Form has been generated Successfully for Booking: {!Booking__c.Name}</br>
+ </br>
+
+Thank you, </br>
+Dynamix

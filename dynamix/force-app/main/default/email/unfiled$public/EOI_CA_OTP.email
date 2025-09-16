@@ -1,0 +1,9 @@
+Dear {{customerName}},<br/><br/>
+
+{{OTP}} is OTP for Expression of Interest for the {{projectName}}. <br/>
+Kindly use it to validate you digital  {{EOI_CA_Number}}.<br/><br/>
+
+This OTP is valid for 5 min.<br/><br/>
+
+Regards,<br/>
+Dynamix

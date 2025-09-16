@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validation_on_Days_after_Booking</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL( Milestone_Activation__c, &apos;Booking Date&apos;), ISNULL(Days_after_Booking__c))</errorConditionFormula>
+    <errorDisplayField>Days_after_Booking__c</errorDisplayField>
+    <errorMessage>&apos;Days after Booking&apos; Field is mandatory. [As Milestone Activation is &apos;Booking Date&apos;]</errorMessage>
+</ValidationRule>

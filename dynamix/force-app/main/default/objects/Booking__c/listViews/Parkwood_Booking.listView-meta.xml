@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parkwood_Booking</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Milestones__c</columns>
+    <columns>Agreement_Sent_to_Agent_Date__c</columns>
+    <columns>Agreement_Value__c</columns>
+    <columns>Flat_Type_Non_Critical__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Name__c</field>
+        <operation>contains</operation>
+        <value>Parkwood</value>
+    </filters>
+    <label>Parkwood Booking</label>
+</ListView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Invoice approved but payment not cleared escalation</name>
+    <style>none</style>
+    <subject>Invoice approved but payment not cleared escalation</subject>
+    <textOnly>Dear {!Site},
+
+The brokerage invoice of {!CP} against Booking {!Name} for {!Unit} in {!Project} is pending for payments. Please get in touch with the Accounts Team for the payments.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

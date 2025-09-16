@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_for_lost__c</fullName>
+    <label>Reason for lost</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StageName</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Budget Mismatch</fullName>
+                <default>false</default>
+                <label>Budget Mismatch</label>
+            </value>
+            <value>
+                <fullName>Possession Timeline Mismatch</fullName>
+                <default>false</default>
+                <label>Possession Timeline Mismatch</label>
+            </value>
+            <value>
+                <fullName>Wrong Locality</fullName>
+                <default>false</default>
+                <label>Wrong Locality</label>
+            </value>
+            <value>
+                <fullName>Configuration Mismatch</fullName>
+                <default>false</default>
+                <label>Configuration Mismatch</label>
+            </value>
+            <value>
+                <fullName>Not liked the project</fullName>
+                <default>false</default>
+                <label>Not liked the project</label>
+            </value>
+            <value>
+                <fullName>Finds other project better</fullName>
+                <default>false</default>
+                <label>Finds other project better</label>
+            </value>
+            <value>
+                <fullName>Transfer</fullName>
+                <default>false</default>
+                <label>Transfer</label>
+            </value>
+            <value>
+                <fullName>Configuration</fullName>
+                <default>false</default>
+                <label>Configuration</label>
+            </value>
+            <value>
+                <fullName>Developer Issue</fullName>
+                <default>false</default>
+                <label>Developer Issue</label>
+            </value>
+            <value>
+                <fullName>Apartment Size</fullName>
+                <default>false</default>
+                <label>Apartment Size</label>
+            </value>
+            <value>
+                <fullName>Interested in Resale / Renting property</fullName>
+                <default>false</default>
+                <label>Interested in Resale / Renting property</label>
+            </value>
+            <value>
+                <fullName>Location</fullName>
+                <default>false</default>
+                <label>Location</label>
+            </value>
+            <value>
+                <fullName>Layout</fullName>
+                <default>false</default>
+                <label>Layout</label>
+            </value>
+            <value>
+                <fullName>Interested In Another Project</fullName>
+                <default>false</default>
+                <label>Interested In Another Project</label>
+            </value>
+            <value>
+                <fullName>Possession Timeline</fullName>
+                <default>false</default>
+                <label>Possession Timeline</label>
+            </value>
+            <value>
+                <fullName>Amenities</fullName>
+                <default>false</default>
+                <label>Amenities</label>
+            </value>
+            <value>
+                <fullName>Home Loan Issue</fullName>
+                <default>false</default>
+                <label>Home Loan Issue</label>
+            </value>
+            <value>
+                <fullName>Low Budget</fullName>
+                <default>false</default>
+                <label>Low Budget</label>
+            </value>
+            <value>
+                <fullName>Own contribution Issue</fullName>
+                <default>false</default>
+                <label>Own contribution Issue</label>
+            </value>
+            <value>
+                <fullName>Not interested in Property</fullName>
+                <default>false</default>
+                <label>Not interested in Property</label>
+            </value>
+            <value>
+                <fullName>Will Purchase Later</fullName>
+                <default>false</default>
+                <label>Will Purchase Later</label>
+            </value>
+            <value>
+                <fullName>Plan Dropped / Postponed</fullName>
+                <default>false</default>
+                <label>Plan Dropped / Postponed</label>
+            </value>
+            <value>
+                <fullName>Booked elsewhere</fullName>
+                <default>false</default>
+                <label>Booked elsewhere</label>
+            </value>
+            <value>
+                <fullName>Future Prospect</fullName>
+                <default>false</default>
+                <label>Future Prospect</label>
+            </value>
+            <value>
+                <fullName>Not Contactable / Not Answering</fullName>
+                <default>false</default>
+                <label>Not Contactable / Not Answering</label>
+            </value>
+            <value>
+                <fullName>Not Interested after multiple follow-ups</fullName>
+                <default>false</default>
+                <label>Not Interested after multiple follow-ups</label>
+            </value>
+            <value>
+                <fullName>Vastu Issue</fullName>
+                <default>false</default>
+                <label>Vastu Issue</label>
+            </value>
+            <value>
+                <fullName>Finance Issue</fullName>
+                <default>false</default>
+                <label>Finance Issue</label>
+            </value>
+            <value>
+                <fullName>Auto cancelled due to business reason</fullName>
+                <default>false</default>
+                <label>Auto cancelled due to business reason</label>
+            </value>
+            <value>
+                <fullName>Corona Job Loss</fullName>
+                <default>false</default>
+                <label>Corona Job Loss</label>
+            </value>
+            <value>
+                <fullName>Covid 19</fullName>
+                <default>false</default>
+                <label>Covid 19</label>
+            </value>
+            <value>
+                <fullName>Data Entry Error</fullName>
+                <default>false</default>
+                <label>Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>Financial Loss</fullName>
+                <default>false</default>
+                <label>Financial Loss</label>
+            </value>
+            <value>
+                <fullName>Flat Upgrade</fullName>
+                <default>false</default>
+                <label>Flat Upgrade</label>
+            </value>
+            <value>
+                <fullName>Flat Upgrade Post Regiseration</fullName>
+                <default>false</default>
+                <label>Flat Upgrade Post Regiseration</label>
+            </value>
+            <value>
+                <fullName>Flat Downgrade</fullName>
+                <default>false</default>
+                <label>Flat Downgrade</label>
+            </value>
+            <value>
+                <fullName>Loan Eligibility Issue</fullName>
+                <default>false</default>
+                <label>Loan Eligibility Issue</label>
+            </value>
+            <value>
+                <fullName>Medical Emergency</fullName>
+                <default>false</default>
+                <label>Medical Emergency</label>
+            </value>
+            <value>
+                <fullName>Project Location</fullName>
+                <default>false</default>
+                <label>Project Location</label>
+            </value>
+            <value>
+                <fullName>Personal Issue</fullName>
+                <default>false</default>
+                <label>Personal Issue</label>
+            </value>
+            <value>
+                <fullName>Purchased Property Elsewhere</fullName>
+                <default>false</default>
+                <label>Purchased Property Elsewhere</label>
+            </value>
+            <value>
+                <fullName>Ready Possession</fullName>
+                <default>false</default>
+                <label>Ready Possession</label>
+            </value>
+            <value>
+                <fullName>Bank Information Misguiding</fullName>
+                <default>false</default>
+                <label>Bank Information Misguiding</label>
+            </value>
+            <value>
+                <fullName>No Response</fullName>
+                <default>false</default>
+                <label>No Response</label>
+            </value>
+            <value>
+                <fullName>Job Transfer</fullName>
+                <default>false</default>
+                <label>Job Transfer</label>
+            </value>
+            <value>
+                <fullName>Flat Transfer Before Login</fullName>
+                <default>false</default>
+                <label>Flat Transfer Before Login</label>
+            </value>
+            <value>
+                <fullName>Sale of Flat</fullName>
+                <default>false</default>
+                <label>Sale of Flat</label>
+            </value>
+            <value>
+                <fullName>Dummy Entry</fullName>
+                <default>false</default>
+                <label>Dummy Entry</label>
+            </value>
+            <value>
+                <fullName>Termination</fullName>
+                <default>false</default>
+                <label>Termination</label>
+            </value>
+            <value>
+                <fullName>Unit Transfer</fullName>
+                <default>false</default>
+                <label>Unit Transfer</label>
+            </value>
+            <value>
+                <fullName>Already Purchased</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Already Purchased</label>
+            </value>
+            <value>
+                <fullName>Budget</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Budget</label>
+            </value>
+            <value>
+                <fullName>Choice Inventory not available</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Choice Inventory not available</label>
+            </value>
+            <value>
+                <fullName>Didn&apos;t like the project</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Didn&apos;t like the project</label>
+            </value>
+            <value>
+                <fullName>Misguided by sources</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Misguided by sources</label>
+            </value>
+            <value>
+                <fullName>No Requirement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No Requirement</label>
+            </value>
+            <value>
+                <fullName>Payment Plan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Payment Plan</label>
+            </value>
+            <value>
+                <fullName>Possession date</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Possession date</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Budget Mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Possession Timeline Mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Wrong Locality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Configuration Mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Not liked the project</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <valueName>Finds other project better</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Configuration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Developer Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Apartment Size</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Interested in Resale / Renting property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Location</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Layout</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Interested In Another Project</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Possession Timeline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Amenities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Home Loan Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Low Budget</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Own contribution Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested in Property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Will Purchase Later</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Plan Dropped / Postponed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Booked elsewhere</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Future Prospect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not Contactable / Not Answering</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not Interested after multiple follow-ups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Vastu Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Finance Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Auto cancelled due to business reason</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Corona Job Loss</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Covid 19</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Data Entry Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Financial Loss</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Flat Upgrade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Flat Upgrade Post Regiseration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Flat Downgrade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Loan Eligibility Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Medical Emergency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Project Location</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Personal Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Purchased Property Elsewhere</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Ready Possession</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Bank Information Misguiding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>No Response</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Job Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Flat Transfer Before Login</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Sale of Flat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Dummy Entry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Termination</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Unit Transfer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>W Final Reminder3</label>
+    <protected>false</protected>
+    <values>
+        <field>communicat_o__Argument_Type__c</field>
+        <value xsi:type="xsd:string">Field</value>
+    </values>
+    <values>
+        <field>communicat_o__External_Argument_Reference__c</field>
+        <value xsi:type="xsd:string">agr3</value>
+    </values>
+    <values>
+        <field>communicat_o__Registered_Template__c</field>
+        <value xsi:type="xsd:string">Whatsapp_Final_Reminder</value>
+    </values>
+    <values>
+        <field>communicat_o__Value__c</field>
+        <value xsi:type="xsd:string">{{{Payment_Milestones__c.Project_Phone__c}}}</value>
+    </values>
+</CustomMetadata>

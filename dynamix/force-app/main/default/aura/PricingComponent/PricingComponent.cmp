@@ -1,0 +1,14 @@
+<aura:component
+    implements="force:hasRecordId,force:lightningQuickAction,lightning:actionOverride,lightning:hasPageReference"
+    access="global">
+
+    <aura:attribute name="recordId" type="Id" />
+    <aura:html tag="style">
+        .slds-modal__container
+        {
+        min-width: 90vw;
+        }
+    </aura:html>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <c:pricingPlanComponent recordId="{!v.recordId}" />
+</aura:component>

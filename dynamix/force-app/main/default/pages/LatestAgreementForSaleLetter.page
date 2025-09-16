@@ -1,0 +1,1027 @@
+<apex:page readOnly="advanced_pdf" docType="html-5.0" standardController="Booking__c" extensions="AgreementSale" renderAs="advanced_pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"  cache="false"  standardStylesheets="false">
+    <html>  
+        <head>  
+            
+            <style type="text/css">
+                
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center 
+                {
+                content: element(header);
+                }
+                @bottom-center 
+                {
+                content: element(footer);
+                }
+                @bottom-left 
+                {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body 
+                {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                text-align:justify;
+                }
+                
+                ol.lowerRoman
+                {
+                list-style-type: lower-roman;
+                }
+                ol.upperAlpha {
+                list-style-type: upper-alpha;
+                }
+                li
+                {
+                line-height: normal;
+                margin: 10px;
+                }
+                .tableBorder th
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                .tableBorder td
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                .textalign
+                {
+                text-align:center;
+                }
+                .breakAvoid tr
+                { 
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                .breakAvoid th
+                { 
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                .breakAvoid td
+                {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                
+                .tableCenter 
+                {
+                margin: auto;
+                width: 80%;
+                }
+                .Ending 
+                { 
+                display:block;
+                } 
+                .removeMargin
+                {
+                margin-left:0px;
+                }
+                .lowerRoman ol {
+                counter-reset: list;
+                }
+                .lowerRoman ol > li {
+                list-style: lower-roman;
+                }
+                .lowerRoman  ol > li:before {
+                content: counter(list) ") ";
+                counter-increment: list;
+                }
+            </style>
+        </head>
+        <body>
+            <!----------------------------------------- Footer--------------------------------------------------->
+            <div class="footer">
+                <p style="text-align:center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+            </div>
+            <!----------------------------------------- Header--------------------------------------------------->
+            
+            <!--div  class="header"  style="margin-top: 20px;margin-left: 10px;width:100%">
+<apex:outputText rendered="{!showHeader}" >
+
+<apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" rendered="{!showHeader}"  width="700" height="140" />
+</apex:outputText>
+</div-->
+            <!----------------------------------------- Body--------------------------------------------------->
+            
+            <div class="Ending" style="display: block;">
+                
+                <div style ="font-size: 16px;font-family: Optima;text-align: center;"><b>AGREEMENT FOR SALE </b></div>
+                <!----- For Avanya Tower----------->
+                <p>
+                    This AGREEMENT FOR SALE made and entered into at [●] on this [●] day of [●] in the year [●]  
+                </p>
+                <center>  <p>
+                    BETWEEN 
+                    </p></center> 
+                <p>
+                    <span style="text-transform:uppercase">builderOrg.Name (CIN NO. U70109MH2021PTC355189),  </span><span>a 
+                    Company registered under the Companies Act, 1956 having its registered office at 
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Avanya'), 'true', 'false')}">
+                        115, Floor 11, 
+                        Maker Chamber III, Jamnalal Bajaj Marg, Nariman Point, Mumbai 400 021 and admin office at Dynamix
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Parkwoods'), 'true', 'false')}">
+                        Dynamix
+                    </apex:outputText>
+                    House, Gen. A. K. Vaidya Marg, Goregaon (E), Mumbai – 400 063 (hereinafter referred to as “<b>the Promoter</b>”,
+                    which expression shall, unless it be repugnant to the context or meaning thereof, mean and include its 
+                    successors in title and assigns) of the <b>FIRST PART;</b> </span>
+                </p>
+                <p>
+                    
+                    (1)
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Avanya'), 'true', 'false')}">
+                        [●]  (PAN:[.]) and (2) [●]
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Parkwoods'), 'true', 'false')}">
+                        [.] (PAN:[.]) &amp; [.]
+                    </apex:outputText>
+                    (PAN: [.]) having his/her/their/its address at [●], hereinafter referred to as
+                    “the Allottee(s)”, (which expression shall unless it be repugnant to the context or meaning thereof be deemed 
+                    to mean and include in case of an individual his/her/their/its heirs, executors, administrators and permitted 
+                    assigns and in case of a partnership 
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Avanya'), 'true', 'false')}">
+                        firm/ Limited Liability Partnership (LLP),
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Parkwoods'), 'true', 'false')}">
+                        firm,
+                    </apex:outputText> the partners or partner for the 
+                    time being of the said 
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Avanya'), 'true', 'false')}">
+                        firm/ LLP, 
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF( CONTAINS(booking.Project_Name__r.Name,'Parkwoods'), 'true', 'false')}">
+                        firm,
+                    </apex:outputText>
+                    the survivor or survivors and the heirs, executors and administrators of the
+                    last survivor and in case of an HUF, the members of the HUF from time to time and the last surviving member of
+                    the HUF and the heirs, executors, administrators and permitted assigns of such last surviving member of the
+                    co-parcenery and survivor/s of them and the heirs, executors, administrators and assigns of the last survivor/s
+                    of them and in case of a trust the trustee/s for the time being and from time to time of the trust and the survivor
+                    or survivors and the beneficiary(ies) of them and in case of a body corporate/company its successors and permitted 
+                    assigns) of the <b>SECOND PART</b><br/>
+                    The Promoter and the Allottee(s) are hereinafter collectively referred to as “<b>the Parties</b>”, and individually as a “<b>Party</b>”.
+                </p>
+                <p>
+                    WHEREAS: 
+                    
+                </p>
+                <!--- For Avanya Tower B----->
+                
+                <ol Class ="removeMargin upperAlpha">
+                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                        
+                        <li> 
+                            Aniline Construction Company Private Limited (the ”<b>Erstwhile Promoter</b>”) had registered with
+                            The Real Estate (Regulation and Development) Act, 2016 (“RERA”) under Project 
+                            Registration No. P51800026590, a real estate Project known as “Avanya Tower B” 
+                            situated on all that piece and parcel of land admeasuring an aggregate area of 12,648.80 sq. mts. 
+                            or thereabouts bearing CTS No. 3113 D of Village Dahisar, Taluka Borivali, Mumbai Suburban 
+                            District lying, being and situated at near Check Naka, Dahisar East, Western Express Highway,
+                            Mumbai 400068 (Maharashtra) (“the Larger Land”). The erstwhile Promoter vide an Application for 
+                            Transfer [under section 15 of The Real Estate (Regulation and Development) Act, 2016 (“RERA”)
+                            read with the provisions of the Maharashtra Real Estate (Regulation and Development)
+                            (Registration of real estate projects, Registration of real estate agents, rates of 
+                            interest and disclosures on website) Rules, 2017 (“RERA Rules”)], dated 4th December, 2021,
+                            applied for the transfer of the aforesaid Project to Aniline Properties Private Limited (“the Promoter”).  
+                        </li>  
+                        <li>
+                            Pursuant to the above, MahaRERA issued its Approval dated 6th December, 2021, thereby approving 
+                            transfer of the aforesaid project by the Erstwhile Promoter in favour of the Promoter, and 
+                            in furtherance thereto, the erstwhile Promoter transferred/ conveyed its rights and 
+                            obligations, with respect to the business of the Erstwhile Promoter in the Project 
+                            along with the entire Larger Land (together with all constructions thereon) in favour
+                            of The Promoter herein vide a Deed of Conveyance dated 29th December, 2021, registered 
+                            under Sr. No. BRL-6-20623-2021, on the terms and conditions contained therein. Pursuant 
+                            to the above, the Promoter became the promoter in respect of the aforesaid project.  </li>
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                        
+                        <li> 
+                            Neelkamal Realtors Suburban Private Limited (the “Original Promoter”) had registered with
+                            RERA (defined below), under Project Registration No. P51800003202 a real estate Project 
+                            earlier known as “DB Ozone Mumbai” situated on all that piece and parcel of land admeasuring 
+                            an aggregate area of 12,648.80 sq. mts. or thereabouts bearing CTS No. 3113 D of Village Dahisar, 
+                            Taluka Borivali, Mumbai Suburban District lying, being and situated at near Check Naka, 
+                            Dahisar East, Western Express Highway, Mumbai 400068 (Maharashtra) (“the Larger Land”). 
+                            The Original Promoter vide an Application for Transfer [under section 15 of The Real Estate 
+                            (Regulation and Development) Act, 2016 (“RERA”) read with the provisions of the Maharashtra
+                            Real Estate (Regulation and Development) (Registration of real estate projects, Registration 
+                            of real estate agents, rates of interest and disclosures on website) Rules, 2017 (“RERA Rules”)], 
+                            dated 20th March, 2018, applied for the transfer of the aforesaid project to Aniline Construction 
+                            Company Private Limited (“the Erstwhile Promoter”).  
+                        </li>  
+                        <li>
+                            Pursuant to the above, MahaRERA issued its Approval dated 25th April, 2018, thereby 
+                            approving transfer of the aforesaid project by the Original Promoter in favour of the
+                            Erstwhile Promoter, and in furtherance thereto, the Original Promoter transferred/ conveyed/
+                            sold the Larger Land in favour of the Erstwhile Promoter vide a Deed of Conveyance dated 10th
+                            July, 2018 registered under Sr. No. BRL-6-8372-2018, on the terms and conditions contained 
+                            therein. Pursuant to the above, the Erstwhile Promoter became the promoter in respect of the
+                            aforesaid project, and the Erstwhile Promoter changed the name of the Project from 
+                            “DB Ozone Mumbai” to ‘Avanya Tower A’.  </li>
+                        <li>
+                            Thereafter, the Erstwhile Promoter vide a subsequent Application for Transfer 
+                            [under section 15 of RERA read with the provisions of the RERA Rules], dated 4th December, 2021, 
+                            applied for the transfer of the entire Project to the Promoter herein, which was approved by 
+                            MahaRERA vide its Approval dated 14th December, 2021, and in furtherance thereto, the Erstwhile
+                            Promoter transferred/ conveyed its rights and obligations, with respect to the business of the 
+                            Erstwhile Promoter in the Project along with the entire Larger Land (together with all 
+                            constructions thereon) in favour of the Promoter herein vide a Deed of Conveyance dated 29th 
+                            December, 2021, registered under Sr. No. BRL-6-20623-2021 and various other writings, for the
+                            consideration and on the terms and conditions contained therein. Pursuant to the above, the 
+                            Promoter became the promoter in respect of the Project”. 
+                            
+                            
+                        </li>
+                    </apex:outputText>
+                    <li>
+                        The Promoter herein is therefore seized and possessed of the said Larger Land. The said Larger
+                        Land is shown in “BLACK” colour thick boundary lines on the plan hereto annexed and marked
+                        as Annexure “1” and more particularly described in the First Schedule hereunder written. 
+                        The Proposed layout of the Larger Land is also shown in Annexure “1” hereto. Hereto annexed 
+                        and marked as “Annexure 2” is the Approved layout of the said Larger Land. </li>
+                    <li>
+                        The Larger Land is inclusive of a setback area aggregating to an approximate area of 15.35 square meters
+                        which is shown in “YELLOW” colour wash on the plan hereto annexed and marked as Annexure “1”; and 
+                        relocated RG Reservation being tentative aggregating to an approximate area of 782.70 square meters (Sq. Mtrs.) 
+                        which is shown in “GREEN” colour wash on the plan hereto annexed and marked as Annexure “1”, 
+                        and the MCGM (Municipal Corporation of Greater Mumbai) Plot and Municipal Office Reservation 
+                        (to be developed under the principles of “Accommodation Reservation”) on a parcel of land admeasuring 2199.12 
+                        square meters shown in “PINK” colour dotted line and “PINK” colour wash on the plan annexed hereto and marked 
+                        as Annexure ‘1”; </li>
+                    <li>The Promoter is proposing to construct a residential project on a portion of the Larger 
+                        Land admeasuring approximately 9,651.63 square meters (“Sale Land” shown in purple colour 
+                        wash on the plan at Annexure “1”), in a phased-wise manner, as detailed below :  
+                        <ol class="lowerRoman removeMargin">
+                            
+                            <li>as “AVANYA Tower A” on a portion of the Sale Land admeasuring approximately 469.57 square meters. </li>
+                            <li>as “AVANYA Tower B” on a portion of the Sale Land admeasuring approximately 434.46 square meters.  </li>
+                            <li>as “AVANYA Tower C” on a portion of the Sale Land admeasuring approximately 434.46 square meters.  </li>
+                            <li>as “AVANYA Tower D” on a portion of the Sale Land admeasuring approximately 508.51 square meters.  </li>
+                            <li>Common RG areas on the balance of the Sale Land.</li>
+                        </ol>
+                        <br/>
+                        “<b>project.Name</b>” is hereinafter known as “the AVANYA - Phase II Real Estate Project” &amp;
+                        proposed <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">AVANYA Tower C
+                        </apex:outputText>
+                        <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                            AVANYA Tower B, Tower C
+                        </apex:outputText> &amp; Tower D are hereinafter known as ‘the AVANYA Proposed Phase Projects’.  
+                        The AVANYA – Phase I Real Estate
+                        <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                            Project, AVANYA – Phase II Real Estate Project
+                        </apex:outputText>
+                        
+                        Project and the AVANYA 
+                        Proposed Phase Projects are collectively referred as “Sale Phase” more particularly described 
+                        in the Second Schedule hereunder written and the Sale Land is shown in “PURPLE” colour wash on 
+                        the plan hereto annexed and marked Annexure “1”.  
+                    </li>
+                    <li>The Larger Land is affected by the following : 
+                        <br/>
+                        <ol class="lowerRoman removeMargin">
+                            
+                            <li>RG reservation admeasuring 782.70 sq. mts; </li>
+                            <li>As per Development Control and Promotion Regulations, 2034 (DCPR 2034), part of the said Larger 
+                                Land is partly affected by Commercial Zone with CBD and part affected by Residential Zone which
+                                CBD Reservation maybe developed in a Commercial Building on any portion of the Larger Land.  </li>
+                        </ol>
+                        
+                        The properties described and detailed in Recitals  
+                        <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">D, E &amp; F
+                        </apex:outputText>
+                        <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                            E, F &amp; G
+                        </apex:outputText>
+                        are hereinafter collectively referred to as “the Whole Project”
+                        as shown in the proposed layout at Annexure -1 hereto. 
+                    </li>
+                    <li>The said Larger Land was part of an amalgamated layout as originally approved on 31/12/2010 
+                        vide and revised on 30th April, 2015 and further revised on 29th May, 2018.  </li>
+                    
+                    <li>The Legal Title Report dated 16th February, 2022, issued by DSK Legal certifying the title of the 
+                        said Larger Land which is also annexed and marked as Annexure “3” hereto and the Property Register 
+                        Card of the said Larger Land is annexed hereto as Annexure “4”. </li>
+                    <li>
+                        Subsequently, vide a letter dated February 16, 2022, bearing reference No. 422, the Nagar Bhumapan
+                        Adhikari notified the sub-division of the Larger Land, having CTS No. 3113/D/1 (the Sale Land, defined above)
+                        for residential development (wherein, the Avanya – Phase II Real Estate Project is being developed on part of
+                        the Sale Land), CTS No. 3113/D/2 for Road Set-back, CTS No. 3113/D/3 for P. G. Reservation and CTS No. 3113/D/4 
+                        for Municipal Office, more particularly as mentioned therein. 
+                    </li>
+                    <li>
+                        Details of Encumbrances:- <br/>
+                        TThe Promoter has issued and allotted secured, redeemable, transferable, 
+                        unlisted, interest-bearing non-convertible debentures to Kautilya Real Estate 
+                        Fund (“Debenture Holder”) in accordance with the terms and conditions as more
+                        particularly set out in the Debenture Trust Deed dated 29th December, 2021, 
+                        registered under Serial No. BRL-6-20648-2021 (“<b>DTD</b>”), whereby sole and exclusive 
+                        charge by way of hypothecation and mortgage on the project and all its sold and 
+                        unsold inventory, as applicable is created in favour of IDBI Trusteeship Limited 
+                        (acting as “<b>Debenture Trustee</b>” to the Debenture Holder) along with other security
+                        created in terms of the DTD and the security documents executed as more particularly 
+                        set-out therein. 
+                    </li>
+                    <li>
+                        The proposed building known as ‘Avanya Tower A’ (“Sale Building”) has been registered as a 
+                        ‘real estate project’ (“the Avanya - Phase I Real Estate Project”) with the Real Estate 
+                        Regulatory Authority (“Authority”), under the provisions of Section 5 of RERA read with 
+                        the provisions of the RERA Rules under registration No. P51800003202 and MahaRERA has duly 
+                        issued the Certificate of Registration for the Project and a copy of the same is annexed and 
+                        marked as Annexure “5” hereto. The Promoter shall register future proposed phases with MahaRERA 
+                        on the receipt of the appropriate approvals. </li>
+                    <li>
+                        The Allottee(s) has, prior to the date hereof, examined a copy of the MahaRERA Certificate. 
+                        The Allottee(s) has also examined all documents and information uploaded in respect of the 
+                        Project on the website of the Authority at https://maharera.mahaonline.gov.in as required by 
+                        RERA and the RERA Rules and has understood the documents and information in all respects. 
+                        The Allottee(s) has agreed and confirmed to the development of the Avanya – Phase I Real Estate
+                        Project not limited to the Sale Land and Sale Phase proposed thereon, but including the Larger Land. </li>
+                    <li>
+                        
+                        
+                        The principal and material aspects of the development of the Whole Project are briefly stated below: 
+                        <ol>
+                            
+                            <li> There are 4 (four) wings/Towers of the Sale Phase known as:- 
+                                <ol>
+                                    
+                                    <li>‘Avanya Tower A’ having approved of 2 basements, 1 ground floor/Stilt, 
+                                        3 Podium levels and 37 habitable Upper Floors (excluding terrace);  </li>
+                                    <li>“Avanya Tower B” having approved of 2 basements, 1 ground floor/Stilt, 
+                                        3 Podium levels and 37 habitable Upper Floors (excluding terrace); 
+                                    </li>
+                                    <li>“Avanya Tower C” having approved of approximately 2 basements, 1 ground floor/Stilt, 
+                                        3 Podium levels and 36 habitable Upper Floors (excluding terrace); 
+                                    </li><li>"Avanya Tower D” having approximately 3 basements, 1 ground floor/Stilt,
+                                    3 Podium levels and maximum proposed upto 49 habitable Upper Floors (excluding terrace)
+                                    as per Proposed layout (currently approved as 2 basements, 3 podium levels and 2 
+                                    habitable Upper floor); 
+                                    </li>
+                                </ol></li>
+                        </ol>
+                        
+                        
+                    </li>
+                </ol>
+                
+                <!----Common Text Among all Project---->
+              
+                <!---div>
+<p><b>
+                        NOW THEREFORE, THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY AND BETWEEN THE PARTIES 
+                        HERETO AS FOLLOWS: 
+                        </b>
+                    </p>
+                    <ol>
+                        
+                        <li>The above Recitals shall form an integral part of the operative portion of this Agreement, 
+                            as if the same are set out herein verbatim. The headings given in the operative section of this 
+                            Agreement are only for convenience, and are not intended in derogation of RERA or any other applicable law. </li>
+                        
+                        <li>
+                            The Promoter shall construct the Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project, in accordance with 
+                            the plans, designs and specifications as referred hereinabove, and as would be approved by 
+                            the MCGM from time to time. The Sale Phase, of which the Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project 
+                            is a part, shall have access to the Common Areas, Facilities and Amenities in the Whole Project
+                            and all those Common Areas, Facilities and Amenities, as the case may be, which may be located 
+                            in any of the Towers/ Phases/ Proposed Phases on the Sale Land that may be usable by the
+                            Allottee(s) of the Whole Project and all the Allottee(s) of the Sale Phase, including the 
+                            Allottee(s) of the Sale Building known as ‘{!project.Name}’ in accordance with and set out in 
+                            recital 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                O(iv)
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                M(iv)
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                M(iv)
+                            </apex:outputText>
+                            and are listed in the Third Schedule hereunder written.  
+                            <br/>
+                            <b>PROVIDED THAT</b> the Promoter shall have to obtain prior consent in writing of the 
+                            Allottee(s) in respect of any variations or modifications which may materially and directly
+                            adversely affect the said Apartment of the Allottee(s), except, any alteration or addition 
+                            required by any Government authorities, or, due to change in law, or, any change as contemplated
+                            by any of the disclosures already made to the Allottee(s). The Promoter shall also be entitled
+                            to make such additions and alterations as may be required by the Allottee(s) within the said 
+                            Apartment or as may be required by any other Allottee(s) of the Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate 
+                            Project within his/her/their/its Apartment without the written permission of any other 
+                            Allottee(s) of Apartments in the Project or such minor changes or alterations as may be
+                            necessary due to architectural and structural reasons including such changes as set out 
+                            in Recital
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                N(ix)
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                L(ix)
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                L(ix)
+                            </apex:outputText> and the Allottee(s) accepts the same.  
+                        </li>
+                        <li><p style="text-align:none;margin:0px;">Purchase of the Apartment and Sale Consideration:</p>
+                            <ol class="lowerRoman removeMargin">
+                                <li>
+                                    The Allottee(s) hereby agrees to purchase and acquire from Promoter, and Promoter hereby agrees to sell to 
+                                    the Allottee(s), the residential Apartment No. [●] on the [●] floor admeasuring [●] sq. mts. Carpet Area 
+                                    (as per RERA) as per Approved Typical Plan or admeasuring [●] sq. mts. Carpet Area (as per RERA) as per the
+                                    Proposed Typical Plan along with an utility area admeasuring an approximate area of [●] square meters as per 
+                                    the Approved Typical Plan or [●] square meters as per the Proposed Typical Plan on an exclusive basis 
+                                    (which is attached to the said Apartment and accessible only from the Apartment) i.e. the Apartment in the 
+                                    Sale Building known as ‘{!project.Name}’ of the Avanya – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                    I
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                        II
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                        III
+                                    </apex:outputText> Real Estate Project, as more particularly
+                                    described in the Fourth Schedule and as shown in the currently Approved Typical Floor Plan of the said Apartment 
+                                    is hereto annexed and marked as Annexure “9” and Proposed Typical Floor Plan of the said Apartment  is hereto 
+                                    annexed and marked as Annexure “10” and the Approved and Proposed Typical Unit Plan of the said Apartment is 
+                                    hereto annexed and marked as Annexure “11”,  at and for the total consideration of Rs. ___________/- (Rupees [●] Only) 
+                                    i.e. the Sale Consideration. The Allottee(s) shall also be entitled to [] ([]) No. of covered or conventional or
+                                    mechanical Car Parking Space(s) bearing No(s). [●] admeasuring [●] Sq. Mts. in the Basements/ ground floor/ Stilt levels
+                                    or on one of the podium floor level(s) in the Avanya – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                    I
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                        II
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                        III
+                                    </apex:outputText> Real Estate Project and as specified in the Letter of 
+                                    Confirmation of Allotment in the Avanya – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                    I
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                        II
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                        III
+                                    </apex:outputText> Real Estate Project (hereinafter referred to as “said Allotted Car 
+                                    Parking Space(s)”). The Promoter has allotted the same vide Allotment Letter. The allotment of the said Allotted Car
+                                    Parking Space(s) shall be made in favour of the Allottee(s) in accordance to Recital 
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                        P and CC
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                        N and AA
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                        N and AA
+                                    </apex:outputText> above, without any 
+                                    additional consideration.  [NOTE: Please choose the appropriate option across the document and delete the irrelevant 
+                                    options] </li>
+                                
+                                <li>
+                                    The said Allotted Car Parking Space(s) shall not be used for any purpose other than for parking
+                                    a motor vehicle by the Allottee(s) and the same shall be used in accordance with applicable
+                                    norms and guidelines governing its use. The said Allotted Car Parking Space(s) shall be used
+                                    in the manner as permissible under the Statutory Regulations, along with the various
+                                    approvals, including but not limited to, the CFO NOC, Traffic NOC, and all other applicable
+                                    permissions / regulations. The Allottee(s) indemnifies and keeps indemnified the Promoter
+                                    along with its successor(s) / nominee(s) / assign(s) against any cost and consequence of 
+                                    any nature whatsoever arising out of the Allottee(s)’s use / misuse of the said Allotted Car 
+                                    Parking Space(s) in any manner that is not permitted under the applicable regulations. 
+                                    The said Allotted Car Parking Space(s) Maintenance charges may be decided by the Promoter / 
+                                    Society / Federation/ FMC and shall be payable by the Allottee(s). The said Allotted Car
+                                    Parking Space(s) may be independent or in tandem, as the case may be. The said right of 
+                                    exclusive use of the said Allotted Car Parking Space(s) shall be heritable and transferable 
+                                    only along with the said Apartment. The said Allotted Car Parking Space(s) shall also be 
+                                    treated as a restricted common area in case of non-mechanical parking. The Allottee(s) 
+                                    confirms that he/she/they/it shall not be entitled to transfer the said Allotted Car Parking 
+                                    Space(s) allotted to the Allottee(s) dehors or independent of the said Apartment. 
+                                    The Allottee(s) acknowledges and confirms that the said Allotted Car Parking Space(s) as 
+                                    requested will be reserved for the Allottee(s) only as an exclusive additional amenity in 
+                                    respect of the said Apartment.  
+                                </li>
+                                <li>
+                                    The Allottee(s) shall also be entitled to the internal fittings and fixtures in the said
+                                    Apartment which shall be provided by the Promoter. The list of the said fittings and
+                                    fixtures are as mentioned in Annexure “12”. </li>
+                                <li>
+                                    The RERA payment schedule and the rate were shared with the Allottee(s) for the said
+                                    Apartment and the same has been accepted by the Allottee(s) unconditionally and the 
+                                    Allottee(s) hereby agrees not to raise any objection or protest in respect to the price
+                                    and Payment Schedule at any time for any reason whatsoever.  The existing Payment Schedule
+                                    as applicable and agreed by the Allottee(s), is annexed hereto as Annexure 14. <br/>
+                                    <b>OR</b><br/>
+                                    The Allottee(s) has requested the Promoter to provide a lumpsum price rebate in the total 
+                                    Sale Consideration in exchange for a revised payment schedule for the payment of the total 
+                                    Sale Consideration. The Promoter has agreed to provide such price rebate. Accordingly, the
+                                    Promoter has accepted the Structured Payment Schedule as offered by the Allottee(s) to the
+                                    Promoter in exchange for such lumpsum price rebate and the Allottee(s) has agreed and accepted
+                                    to adhere to the Structured Payment Schedule unconditionally and the Allottee(s) hereby agrees
+                                    not to raise any objection or protest in respect to the price and Structured Payment Schedule
+                                    at any time for any reason whatsoever.  In such cases, the Allottee(s) shall make payment of 
+                                    the installments as per the “Structured Payment Schedule” which is annexed hereto as Annexure - 14. 
+                                </li>
+                                <li>
+                                    The Allottee(s) has paid before execution of this Agreement, a sum of Rs. [●]/- (Rupees [●] Only) 
+                                    towards Allotment Premium<apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                    /Sale Consideration
+                                    </apex:outputText> and this is treated as advance payment and the Allottee(s) hereby agrees 
+                                    to pay to the Promoter, the balance amount of Sale Consideration of Rs. [●]/- (Rupees [●] Only) in 
+                                    the manner and payment installments more particularly mentioned in the Payment Schedule/ Structured 
+                                    Payment Schedule at Annexure “14” hereto. The Promoter and the Allottee(s) have mutually agreed to the 
+                                    installment schedule at Annexure “14” hereto.  </li>
+                                
+                                <li>
+                                    It is clarified that the Allottee(s) shall make payments towards the Sale Consideration (i) by 
+                                    Cheque in favour of “{!builderOrg.Account_Name__c}”. (ii) by Online Transfer to the “Bank Account No. {!builderOrg.Bank_Account_Number__c},
+                                    Beneficiary Name “{!builderOrg.Account_Name__c}”
+                                    maintained with {!builderOrg.Bank_Name__c}, Goregaon East Branch with IFSC Code {!builderOrg.IFSC_Code__c} (“the said Account”). <br/>
+                                    AND<br/>
+                                    All taxes &amp; other charges (GST, Society/ Federation formation charges, Share Application Monies water connection charges, 
+                                    Electric Meter Charges, Electric connection charges, Electrical receiving and sub-station charges, Gas connection charges,
+                                    other utility/service charges, proportionate share of taxes and other charges/levies in respect of the Society/ Federation.) 
+                                    etc. (i) by Cheque in favour of “Aniline Properties Pvt. Ltd. E-Payment Account” (ii) by Online Transfer to the “Bank Account No. {!builderOrg.GST_Bank_Account_Number__c}, 
+                                    Beneficiary Name “Aniline Properties Pvt. Ltd. E-Payment Account” maintained with HDFC Bank, Goregaon East Branch with IFSC Code {!builderOrg.GST_IFSC_Code__c} 
+                                    (“the said GST Account”), as may be applicable in terms hereof. The other charges as mentioned above that shall be levied on the Allottee(s) shall have to be deposited 
+                                    in a separate account by the Allottee(s), the details of which shall be conveyed to the Allottee(s) in the due course
+                                    (“the said Other Charges Account”). </li>
+                                <li>
+                                    The Sale Consideration excludes taxes (consisting of tax paid or payable by way of Value Added Tax,
+                                    Service Tax and all levies, duties and cesses or any other indirect taxes which may be levied,
+                                    in connection with the construction of and carrying out the Project and/or with respect to the 
+                                    Apartments and/or this Agreement). It is clarified that all such taxes, levies, duties, cesses 
+                                    (whether applicable/payable now or which may become applicable/payable in future) including service tax,
+                                    VAT, GST (in case of any change/ further increase in the applicable GST rate/ amount) and all other indirect 
+                                    and direct taxes, duties, cesses, charges and impositions applicable levied by the Central Government and/or
+                                    the State Government and/or any local, public or statutory authorities/bodies on any amount payable under this
+                                    Agreement and/or on the transaction contemplated herein and/or in relation to the said Apartment, shall be borne
+                                    and paid by the Allottee(s) alone and the Promoter shall not be liable to bear or pay the same or any part thereof.    </li>
+                                <li>
+                                    The Sale Consideration is escalation-free, save and except as provided in Clause 3(ix) below and/or escalations/increases due to 
+                                    increase on account of development charges or its applicable rate payable to the competent authority and/or 
+                                    any other increase in charges or new charges which may be levied or imposed by the competent authority Local Bodies / 
+                                    Government from time to time. The Promoter undertakes and agrees that while raising a demand on the Allottee(s) for
+                                    increase in such charges imposed by the competent authorities etc., the Promoter shall enclose the said notification 
+                                    / order / rule / regulation / demand, published / issued in that behalf to that effect along with the demand letter being issued to the Allottee(s).  
+                                </li>
+                                <li>
+                                    The Promoter shall confirm the final carpet area that has been allotted to the Allottee(s) after the construction of the said Sale Building is complete and the Occupation Certificate is granted by the MCGM/ the competent authority, by furnishing details of the changes, if any, in the actual carpet area, subject to a variation cap of +/-3% (three per cent) on the carpet area of the Apartments as per the Proposed Typical Floor Plan. The total Sale Consideration payable on the basis of actual carpet area of the said Apartment shall be recalculated upon confirmation by the Promoter. If there is any reduction in the carpet area (as defined under the RERA Act) of the said Apartment then, the Sale Consideration of the said Apartment shall stand proportionately reduced/ adjusted and the Promoter shall refund the balance/ excess amounts paid by the Allottee(s) within 45 (forty five) days along with annual interest at the Interest Rate (defined below), from the date of such excess amount paid by the Allottee(s), which shall be determined on the basis of the pro-rated amount of the Sale Consideration with respect to such excess payment being deemed to have been paid against the last paid instalment of the Payment Schedule/ Structured Payment Schedule. If there is any increase in the carpet area allotted to Allottee(s), the Promoter shall demand additional amount from the Allottee(s) towards Sale Consideration (plus applicable taxes thereon) so revised, which the Allottee(s) shall pay within 7 (seven) days of such demand.  It is clarified that the payments to be made by the Allottee(s), as the case may be, under this Clause 3(ix), shall be made at the same rate per square meter as per Clause 3(i) above. The Allottee(s) is aware and agrees and confirms to all of the above and that the Promoter shall be entitled to make variations in the amenities and specifications, including but not limited to re-location of water, power, sewage, telephone, internet, fiber optics and other service and utility connection, facilities and underground water tanks, pumps, recreation areas, Clubhouse level and other amenities and their dimensions as deemed fit by the Promoter and permitted / required under the relevant statutory rules and regulations related thereto and the Allottee(s) shall raise no object/ dispute/ claim with respect to the same.  </li>
+                                
+                                <li>
+                                    The Allottee authorizes the Promoter to adjust/appropriate all payments made by him/her/it/them under any head(s) of dues against lawful outstanding, if any, in his/her/their/its name as the Promoter may in their sole discretion deem fit and the Allottee(s) undertakes not to object/demand/direct the Promoter to adjust his/her/their/its payments in any manner. </li>
+                                
+                                <li>
+                                    On a written demand being made by the Promoter upon the Allottee(s) with respect to a payment amount (whether Sale Consideration or any other amount payable in terms of this Agreement), the Allottee(s) shall pay such amount to the Promoter, within 7 (seven) days of the Promoter issuing said written demand, without any delay, demur or default etc. of any nature whatsoever and for any reason whatsoever.  
+                                    
+                                </li>
+                                <li>
+                                    f the Allottee(s) enters into any loan/financing arrangement with any bank/financial institution, such bank/financial institution shall be required to disburse/pay all such amounts due and payable to the Promoter under this Agreement, in the same manner detailed in the Annexure ‘14' (which will not absolve Allottee(s) of its responsibilities under this Agreement).</li>
+                                <li>
+                                    The Promoter shall be entitled to securitise the Sale Consideration and other amounts payable by the Allottee(s) under this Agreement (or any part thereof), in the manner permissible under RERA, in favour of any persons including banks/financial institutions and shall also be entitled to transfer and assign to any persons the right to directly receive the Sale Consideration and other amounts payable by the Allottee(s) under this Agreement or any part thereof. Upon receipt of such intimation from the Promoter, the Allottee(s) shall be required to make payment of the Sale Consideration and other amounts payable in accordance with this Agreement, in the manner as intimated. </li>
+                                <li>The Sale Consideration is only in respect of the said Apartment. The Promoter has neither charged nor recovered any price separately for the said Allotted Car Parking Space(s)/ Clubhouse, limited common areas and the Common Areas, Facilities and Amenities in the Whole Project and all those as may be located in any of the Towers/ Phases/ Proposed Phases situated on the Sale Land (except as specified in this Agreement).  </li>
+                                <li
+                                    >The Allottee(s) shall deduct the applicable tax at source (“TDS”) from each instalment of the Sale Consideration as required under the Income Tax Act, 1961. The deduction of an amount made by the Allottee(s) on account of TDS while making any payment of the Sale Consideration to the Promoter, shall be acknowledged/credited by the Promoter only upon Allottee(s) submitting Form 26QB being Challan-cum-Statement of deduction of tax u/s. 194-IA and the amount of deduction of tax gets reflected in the Promoter’s Form 26AS being the Annual Tax Statement u/s. 203AA of the Promoter.  </li>
+                                <li>The Allottee(s) is aware that the brickwork and flooring, external façade/windows and 
+                                    partition walls, whether internal or external, plumbing works (both external and internal), 
+                                    electrical works (both external and internal) mechanical work (both external and internal), 
+                                    lift work, general finishing works of whatever nature of the said Apartment and of the Sale
+                                    Wing / Sale Building, and vertical transportation works of the Sale Wing / Sale Building may
+                                    be initiated by Promoter at any stage during the construction cycle simultaneously with 
+                                    casting of slabs / commencement or completion of these activities and the Promoter shall 
+                                    raise demands for the installments in respect thereof simultaneously with demands for the 
+                                    installments payable for commencement/completion of slabs / activities. 
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B' || booking.Project_Name__r.Name == 'Avanya Tower C' , 'true', 'false')}">
+                                        The Allottee(s) undertakes to make payment of installments in respect of the same as and when demanded by the Promoter and shall not dispute or challenge the said demands under any circumstances and any reason whatsoever. 
+                                    </apex:outputText>
+                                    
+                                    The Allottee(s) is also aware that the slabs may be cast in a non-sequential manner, depending on the prevailing
+                                    
+                                    conditions governing the development, which sequence shall be in the sole discretion of the Promoter. The Promoter shall raise demands for the installments in respect of the slab as and when such demand falls due, as per the Payment Schedule/ Structured Payment Schedule at Annexure 14, whether the milestone has been achieved sequentially or not. The Allottee(s) undertakes to make payment of installments in respect of the same as and when demanded by the Promoter and shall not dispute or challenge the said demands under any circumstances and any reason whatsoever. 
+                                </li>
+                                <li>It is clarified and the Allottee(s) accords his/her/its/their irrevocable consent that any payment made by the Allottee(s) to the Promoter hereunder shall, notwithstanding any communication to the contrary by the Allottee(s), be appropriated in the manner below:
+                                    <ol>
+                                        
+                                        <li>Firstly, Rs. 1,500/- towards penalty on dishonoured cheque plus applicable GST thereon (if any). It is agreed and understood that the aforesaid penalty does not include the cost of any legal expense (including lawyer’s fee/ charges, court expenses etc.) which will also have to be fully paid/ reimbursed by the Allottee(s) to the Promoter.</li>
+                                        <li>Secondly, towards interest and / or penalty on delayed payments of taxes / statutory dues. 
+                                        </li> 
+                                        <li>
+                                            Secondly, towards interest and / or penalty on delayed payments of taxes / statutory dues. 
+                                        </li>
+                                        <li>Thirdly, towards outstanding taxes / statutory dues. 
+                                        </li>
+                                        <li>
+                                            Fourthly, towards costs and expenses for enforcement of this Agreement and recovery of all the amounts payable by the Allottee(s) as per this Agreement. </li>
+                                        <li>
+                                            Fifthly, towards interest as on date on delayed payments under this Agreement. </li>
+                                        
+                                        <li>
+                                            Sixthly, towards other charges payable by the Allottee(s) in respect of the Apartment. </li>
+                                        <li>
+                                            Finally, towards outstanding Allotment Premium payable by the Allottee(s) in respect of the Apartment. </li></ol>
+                                    No express intimation or communication by the Allottee(s), with regards to appropriation / application of the payments made to the Promoter shall be valid or binding upon the Promoter and all appropriation / application of payments made to the Promoter shall only be in the manner as provided in this Clause. </li>
+                            </ol> <li>
+                        The Promoter hereby agrees to observe, perform and comply with all the terms, conditions, 
+                        stipulations and restrictions if any, which may have been imposed by the MCGM / relevant 
+                        statutory authorities at the time of sanctioning the said plans or thereafter and shall, 
+                        before handing over possession of the Apartments to the Allottee(s), obtain from the MCGM,
+                        the Occupation Certificate or Completion Certificate (as the case may be) in respect of the
+                        said Apartment. </li>
+                        <li>
+                            The disclosures/documents provided by the Promoter to the RERA Authority at the time of 
+                            application for registration as well as from time to time including all information
+                            pertaining to this Project has been read, understood and accepted by the Allottee(s) 
+                            and the Allottee(s) shall not take any objection or make any claim whatsoever relating
+                            to the changes/amendment/revisions which may be carried by the Promoter in this regard 
+                            and having understood such proposed changes to be carried out, the Allottee(s) has decided 
+                            to enter into this commercial transaction for acquiring the said Apartment. All the 
+                            disclosures/documents, information provided to the RERA Authority including which are
+                            available on the MahaRERA website pertaining to the Avanya – Phase  
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project 
+                            and its approvals, FSI, sanctioned and proposed, reservations etc., shall be deemed to
+                            have been disclosed herein and are not repeated herein for the sake of brevity.  
+                            The latest uploaded documents under the respective titles, as can be viewed under the
+                            Document Upload Section of the Project Details, and that may/will be uploaded, time and 
+                            again, however, shall subsequently prevail over the previous/earlier documents that have 
+                            been uploaded from the time of MahaRERA registration of the Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project.  
+                        </li>
+                        <li>
+                            Time is of the essence for the Promoter as well as the Allottee(s). The Promoter shall abide 
+                            by the time schedule for completing the Apartment and handing over the said Apartment to 
+                            the Allottee(s) after receiving the Occupation Certificate in respect thereof and the
+                            Common Areas, Facilities and Amenities in the Whole Project and all those as may be 
+                            located in any of the Towers/ Phases/ Proposed Phases situated on the Sale Land that 
+                            may be usable by the Allottee(s) of the Whole Project and all the Allottee(s) of the 
+                            Sale Phase, including the Allottee(s) of the Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project that  
+                            are listed herein and annexed hereto. Similarly, the Allottee(s) shall make timely payments 
+                            of all installments of the Sale Consideration and other dues payable by him/her/it/them and 
+                            shall meet, comply with and fulfil all its obligations under this Agreement). </li>
+                        
+                        <li><p style="text-align:none;margin:0px;">
+                            
+                            <b>FSI and development potentiality with respect to the Proposed Future and Further Development of the Larger Land/ Avanya – Phase I Real Estate Project:  </b></p>
+                            The Allottee(s) hereby agrees, accepts and confirms that the Promoter intends to develop the 
+                            Avanya – Phase 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                I
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                II
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                III
+                            </apex:outputText>
+                            Real Estate Project on a portion of the Sale Land (by utilization of the
+                            full development potential), as mentioned in Recital 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                N
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                L
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                L
+                            </apex:outputText>
+                            hereto and shall develop the same
+                            in the manner more particularly detailed at Recital 
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                O
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                M
+                            </apex:outputText>
+                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                M
+                            </apex:outputText>
+                            above and as depicted in the
+                            tentative/proposed layout plans and specifications at Annexure “1” hereto constituting
+                            the Proposed Layout Plan and the Proposed Potential and Allottee(s) has agreed to 
+                            purchase the said Apartment based on the unfettered and vested rights of the Promoter 
+                            in this regard, which the Promoter shall be entitled to amend/ modify in its sole 
+                            discretion subject to the provisions contained in the proviso herein). </li>
+                        
+                        <li><p style="text-align:none;margin:0px;">
+                            
+                            <b>Possession Date, Delays and Termination:  </b></p>
+                            <ol>
+                                
+                                <li><apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                    The Promoter was to give possession of the Apartment to the Allottee(s) on or before 31st
+                                    December, 2022, as disclosed in Form B as submitted by the Promoter under RERA. However, 
+                                    vide MahaRERA Order No. 14/2020 dated 18th May, 2020 and MahaRERA Registration Certificate
+                                    dated 18th May, 2020, MahaRERA has suo moto extended the registration Certificate of the 
+                                    Real Estate Project by 6 (six) months due to the Covid-19 Pandemic outbreak in the country 
+                                    and the revised Completion Date of the Real Estate Project was 30th June, 2023. Subsequently,
+                                    MahaRERA vide it’s Order No. 21/2021 dated 6th August, 2021 and MahaRERA Registration 
+                                    Certificate dated 9th September, 2021, has once again, suo moto extended the registration 
+                                    Certificate of the Real Estate Project by an additional 6 (six) months due to the Covid-19 
+                                    Pandemic outbreak in the country. The revised Completion Date of the Real Estate Project now 
+                                    stands to be 30th June, 2024 (“Possession Date”) by which time the Promoter shall give 
+                                    possession of the Apartment to the Allottee(s), provided however, that the Promoter 
+                                    shall be entitled to extension of time for giving delivery of the Apartment on the 
+                                    Possession Date as provided under RERA, including if the completion of the Avanya – 
+                                    Phase I Real Estate Project is delayed on account of any or all of the following factors:-  
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                        The Promoter was to give possession of the Apartment to the Allottee(s) on or before 31st March, 2025 and as disclosed in Form B as submitted by the Promoter under RERA. However vide MahaRERA Order No. 21/2021 dated 6th August, 2020 and MahaRERA Registration Certificate dated 8th September, 2021 MahaRERA has suo moto extended the registration Certificate of the Real Estate Project by 6 (six) months due to the Covid-19 Pandemic outbreak in the country. Accordingly, the revised Completion Date of the Real Estate Project now stands to be 30th September, 2025 (“Possession Date”) by which time the Promoter shall give possession of the Apartment to the Allottee(s),  provided however, that the Promoter shall be entitled to extension of time for giving delivery of the Apartment on the Possession Date as provided under RERA, including if the completion of the Avanya – Phase II Real Estate Project is delayed on account of any or all of the following factors:-  
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                        
+                                        The Promoter shall give possession of the Apartment to the Allottee(s) on or before 31st March, 2026 (“Possession Date”), by which time the Promoter shall give possession of the Apartment to the Allottee(s) and as disclosed in Form B as submitted by the Promoter under RERA,  provided however, that the Promoter shall be entitled to extension of time for giving delivery of the Apartment on the Possession Date as provided under RERA, including if the completion of the Avanya – Phase III Real Estate Project is delayed on account of any or all of the following factors:-  
+                                    </apex:outputText>
+                                    <ol>
+                                        
+                                        <li>
+                                            War, flood, drought, fire, cyclone, earthquake, civil commotion and/or any act of God;  </li>
+                                        
+                                        <li>
+                                            Any notice, order, rule, circular, notification of the Government and/or other public or
+                                            competent authority/court has the effect of impeding the development proposed on the Sale
+                                            Land/ Avanya – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> Real Estate Project in any manner whatsoever; </li></ol>
+                                    It is also clarified that on the account of consequences of the lockdown and on the supply of labour and material on account of the Covid -19 induced pandemic outbreak in the country, the Promoter shall be entitled to further extend the date of possession by such period as the consequences of the pandemic lasts on the construction / Real Estate industry, beyond the Possession Date as mentioned and calculated above and the Allottee(s) consents to the same and shall not object to the same in any manner. The Possession Date shall be automatically adjusted and construed accordingly. It is also clarified that in the event the Promoter obtains the Occupation Certificate in respect of the said Apartment and offers the Allottee(s) to take possession of the said Apartment prior to the Possession Date, then in such a case the Allottee(s) shall be obliged to take possession of the said Apartment and make payment of the outstanding instalments of the Sale Consideration and other amounts and the Allottee(s) agrees that the Promoter shall be entitled to demand the outstanding instalments of the Sale Consideration and other amounts and the Allottee(s) agrees and undertakes to pay the same, without any delay and/or demur. 
+                                </li>
+                                
+                                <li>If the Promoter fails to hand over the said Apartment to the Allottee(s) on the Possession Date (subject to extension for the reasons as stated in Clause 8(i) and such extension as may be granted under RERA), then the Allottee(s) shall be entitled to either of the following:
+                                    ol>
+                                        <li>
+                                            call upon the Promoter by giving a written notice by Courier / E-mail / Registered Post A.D. at the address provided by the Promoter (“Interest Notice”), to pay simple interest at the prevailing rate of State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% thereon (“the Interest Rate”) for every month of delay calculated from the Possession Date till the date of offering to hand over of the possession of the said Apartment by the Promoter to the Allottee(s), on the amount of the Sale Consideration as standing to the credit of the Promoter on the Possession Date. Such interest shall be paid to the Allottee(s) by the Promoter, on the date of such possession. It is clarified and agreed by the Allottee(s) that the payment of interest by the Promoter to the Allottee(s), if any, shall be adjusted from the payment of next installment that would be payable by the Allottee(s) to the Promoter and in case the quantum of interest is greater than the value of the remaining instalments, the difference between the interest payable and the remaining instalments shall be paid by the Promoter to the Allottee(s) upon date of such possession <br/>
+                                            <b>OR</b>
+                                            
+                                            
+                                        </li>
+                                        <li>the Allottee(s) shall be entitled to terminate this Agreement by giving 30 (thirty)
+                                            days written notice to the Promoter by Courier / E-mail / Registered Post A.D. at the 
+                                            address provided by the Promoter (“Allottee(s) Termination Notice”). On the receipt of 
+                                            the Allottee(s) Termination Notice by the Promoter, this Agreement shall stand terminated 
+                                            and cancelled and the Allottee(s) shall immediately cease to have any right, title, share,
+                                            interest, benefit, claim, demand and/or entitlement etc. of any nature whatsoever in the
+                                            Apartment and/or the said Allotted Car Parking Space(s). The Promoter shall process the 
+                                            refund within 45 (forty five) days of receipt of the Allottee(s) Termination Notice 
+                                            (provided the Allottee executes and delivers a Deed of Cancellation within the aforesaid
+                                            45 days). Simultaneous with the execution and registration of the Deed of Cancellation of 
+                                            this Agreement with the Promoter, the Promoter shall refund to the Allottee(s) the amounts
+                                            of the Sale Consideration already received by the Promoter [subject to the deduction of any brokerage 
+                                            expenses, marketing expenses, Pre EMI interest (in case the Allottee(s) has opted for subvention/ deferred
+                                            payment scheme or if the Promoter has made any payments of such Pre-EMI interest to or on behalf of the
+                                            Allottee(s), in any manner whatsoever) incurred by the Promoter and / or applicable taxes / statutory dues /
+                                            interest / penalties as and by way of mutually agreed genuine pre-estimate of liquidated damages for cancellation 
+                                            and the balance remaining amount with the Promoter shall be paid to the Allottee(s) within a period of 45 (forty five) days 
+                                            from the execution and registration of the Deed of Cancellation)] under this Agreement along with simple interest 
+                                            thereon at the Interest Rate to be computed from the date the Promoter received such amount/part thereof of the 
+                                            Sale Consideration till the date such amounts with simple interest at the Interest Rate thereon are duly repaid 
+                                            together with a sum of Rs. 50,000/- (Rupees Fifty Thousand only) towards genuine pre-estimated compensation and
+                                            without any further interest/compensation/ damages or any other amounts by whatsoever name called. In the event
+                                            the Allottee fails to execute and register the Deed of Cancellation within the above period, then the Promoter 
+                                            shall not be liable to pay the Allottee(s) any interest and compensation as envisaged hereinabove and all such
+                                            amounts shall automatically stand forfeited, and despite such forfeiture, the Allottee(s) shall still be liable
+                                            to execute, deliver and register the Deed of Cancellation. The Promoter shall in such an event be liable to only
+                                            refund the Sale Consideration (or part thereof) as received by it from the Allottee(s). In the event, any of the
+                                            applicable taxes/interest/penalties that have been paid by the Allottee(s) to the statutory authorities (which 
+                                            amounts, it is clarified, shall not be refunded by the Promoter to the Allottee(s) under the provisions hereof)
+                                            are refunded by the appropriate Authority to the Promoter on account of such termination then the Promoter shall
+                                            refund the same to the Allottee(s), back to back. On such payment of the Sale Consideration so received (subject
+                                            to deductions stated herein) and simple interest thereon at the Interest Rate, along with INR 50,000/- (Indian 
+                                            Rupees Fifty Thousand only) by way of genuine pre-estimated compensation, by the Promoter (as stated in this 
+                                            clause), the Allottee(s) shall have no claim of any nature whatsoever on the Promoter and/or the said Apartment
+                                            and/or said Allotted Car Parking Space(s)/ the Avanya – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> Real Estate Project and the Promoter shall be 
+                                            entitled to deal with and/or dispose of the said Apartment and/or said Allotted Car Parking Space(s)/ the Avanya
+                                            – Phase  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> Real Estate Project in the manner they deem fit and proper. All costs with respect to executing and 
+                                            registering the Deed of Cancellation (if need be) shall be borne by the Allottee(s) only.   </li>
+                                        <li>
+                                            In case if the Allottee(s) elects his/her/their/its remedy under sub-clause (ii) (a) above then in such a case the Allottee(s) shall not subsequently be entitled to the remedy under sub-clause (ii) (b) above. </li>
+                                        
+                                        <li>
+                                            If the Allottee(s) fails to make any payments (including applicable taxes) of 3 (three) 
+                                            instalments, forming part of the Sale Consideration/ any other amounts payable under
+                                            this Agreement on the stipulated date/s and time/s as required under this Agreement,
+                                            then, the Allottee(s) shall pay to the Promoter interest at the Interest Rate, on all
+                                            and any such delayed payments computed from the date such amounts are due and payable
+                                            till the date such amounts are fully and finally paid together with the interest
+                                            thereon at the Interest Rate. If the Allottee(s) fail(s) to pay the applicable 
+                                            GST  <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A' || booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                            (in case of any change/ further increase in the applicable GST rate/ amount) 
+                                            </apex:outputText>
+                                            
+                                            
+                                            within the due date, then the Allottee(s) shall be liable to make good such amount 
+                                            to the Promoter at the same rate along with interest and penalties, if any, 
+                                            as it would be recovered by the Concerned Authorities from the Promoter, 
+                                            together with interest at the Interest Rate computed from the due date till the 
+                                            date of payment on aggregate amount paid to the Concerned Authority, without prejudice 
+                                            to the provisions of Clause 8(v) below. 
+                                        </li>
+                                        <li>
+                                            Without prejudice to the right of the Promoter to charge interest at the Interest Rate
+                                            mentioned at Clause 8 (iv) above, and any other rights and remedies available to the 
+                                            Promoter, on the Allottee(s) committing 3 (three) default in payment on due date of 
+                                            any amount due and payable by the Allottee(s) to the Promoter under this Agreement 
+                                            (including his/her/their/its proportionate share of taxes and other outgoings) 
+                                            (notwithstanding whether such default is subsequently rectified or not), the Promoter 
+                                            shall be entitled to at its own option and discretion, terminate this Agreement,
+                                            provided that, the Promoter shall give notice of 15 (fifteen) days in writing to 
+                                            the Allottee(s) (“Default Notice”), by Courier / E-mail / Registered Post A.D. at 
+                                            the address provided by the Allottee(s), of its intention to terminate this Agreement
+                                            with detail/s of the specific breach or breaches of terms and conditions in respect of 
+                                            which it is intended to terminate the Agreement. If the Allottee(s) fails to rectify the 
+                                            breach or breaches mentioned by the Promoter within the period of the Default Notice, 
+                                            including making full and final payment of any outstanding dues together with the interest
+                                            at the Interest Rate thereon, then on the expiry of the period contained in the Default 
+                                            Notice, the Promoter shall be entitled to terminate this Agreement by issuance of a
+                                            written notice to the Allottee(s) (“Promoter Termination Notice”), by Courier 
+                                            / E-mail / Registered Post A.D. at the address provided by the Allottee(s).
+                                            On the issuance of the Promoter Termination Notice to the Allottee(s), this Agreement 
+                                            shall stand terminated and cancelled ipso facto without any further act, deed or thing. 
+                                            On the termination and cancellation of this Agreement in the manner as stated in this 
+                                            sub-clause, the Promoter shall be entitled to forfeit a sum equivalent to 20% of the 
+                                            Sale Consideration and also deduct any brokerage expenses, marketing expenses incurred 
+                                            by the Promoter, Pre EMI interest (in case the Allottee(s) has opted for subvention / 
+                                            deferred payment scheme or if the Promoter has made any payments of such Pre-EMI interest 
+                                            to or on behalf of the Allottee(s), in any manner whatsoever) and/or applicable taxes / 
+                                            statutory dues / interest / penalties (“Forfeiture Amount”) as and by way of agreed genuine 
+                                            pre-estimate of liquidated damages. Within a period of 45 (forty five) days of execution and 
+                                            registration of the Deed of Cancellation of this Agreement, the Promoter shall after deduction 
+                                            of the Forfeiture Amount and other amounts as mentioned hereinabove, refund the balance amount of the Sale 
+                                            Consideration received by the Promoter to the Allottee(s) (hereinafter referred to as the “Refund Amount”). 
+                                            In case the Allottee(s) has availed any loans (including subvention/ deferred payment scheme or if the Promoter
+                                            has made any payments corresponding to Pre-EMI interest on behalf of the Allottee(s), in any manner whatsoever),
+                                            for payment of the Allotment Premium/ Sale Consideration then in such case the amounts disbursed by the lending 
+                                            Bank/Financial Institution to the Promoter, shall be refunded by the Promoter to such lending Bank/ Financial 
+                                            Institution (after deducting any payments made by the Promoter with respect to such Pre-EMI interest on behalf 
+                                            of the Allottee(s), in any manner whatsoever) directly and the Allottee(s) authorizes the Promoter to collect 
+                                            the original Agreement for Sale from such Bank/Financial Institution and the Promoter shall not be required to 
+                                            take any consent / confirmation from the Allottee(s) in this regard at any time. It is clarified herein that in case 
+                                            the amount of loan/ financial facility amount availed by the Allottee(s) is greater than the Sale Consideration received
+                                            by the Promoter less the Forfeiture Amount, the difference would have to be paid by the Allottee(s) from his/her/their/its 
+                                            own sources and ensure there is no outstanding bank loan with respect to the said Apartment. In case the Allottee(s) 
+                                            refuses to make such differential payment, the Promoter may make such payment on his/her/their/its behalf. This payment
+                                            shall be recovered from the Allottee(s) together with such minimal annually compounded interest at 18% or such annually
+                                            compounded interest rate which shall in no event be less than 200 basis points above the borrowing cost of the Promoter.
+                                            Upon the termination of this Agreement by the Promoter (regardless of whether the Promoter has refunded the Sale 
+                                            Consideration less Forfeiture Amount to the Allottee(s)), the Allottee(s) shall have no claim of any nature whatsoever
+                                            on the Promoter and/or the said Apartment and/or said Allotted Car Parking Space(s) and/or the Avanya – Phase 
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> Real 
+                                            Estate Project and the Promoter shall be entitled to deal with and/or dispose of the said Apartment and/or said Allotted
+                                            Car Parking Space(s) in the manner as the Promoter deems fit and proper.  
+                                        </li>
+                                        <li>
+                                            The Allottee(s) may at any time elect to cancel the Agreement for Sale 
+                                            (for no default of the Promoter), after the Allottee(s) gives the Promoter 
+                                            30 (thirty) days’ notice in writing of its intention to do so (“Allottee 
+                                            Cancellation Notice”) subject to a deduction of the Forfeiture Amount, as
+                                            and by way of agreed genuine pre-estimate of liquidated damages, and the 
+                                            Promoter shall after such deductions refund the remaining Sale Consideration 
+                                            (hereinafter referred to as the “Allottee Cancellation Notice Refund Amount”) 
+                                            to the Allottee(s) without any further act, deed or thing, on or before the 
+                                            expiry of the 45 (forty five) days’ from the execution and/or registration of 
+                                            a Deed of Cancellation to this effect. Upon termination of the Agreement for 
+                                            Sale, the Allottee(s) shall not have any right, title, interest, claim, demand
+                                            or dispute of any nature whatsoever on the Apartment and/or said Allotted Car
+                                            Parking Space(s) and/or the Avanya – Phase 
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> 
+                                            Real Estate Project and save and 
+                                            except the monetary claim to the extent of his/her/it/their Refund Amount,
+                                            if any, and the Promoter shall be at liberty to dispose of and sell
+                                            the Apartment and/or said Allotted Car Parking Space(s) and/or the 
+                                            Avanya – Phase 
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower A', 'true', 'false')}">
+                                            I
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower B', 'true', 'false')}">
+                                                II
+                                            </apex:outputText>
+                                            <apex:outputText rendered="{!IF( booking.Project_Name__r.Name == 'Avanya Tower C', 'true', 'false')}">
+                                                III
+                                            </apex:outputText> 
+                                            Real Estate Project to such person and at such price 
+                                            as the Promoter may in their absolute discretion think fit and proper.  </li>
+                                       </ol>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div--->
+            </div>
+        </body>
+    </html>
+</apex:page>

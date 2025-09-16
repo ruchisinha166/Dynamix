@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+We have emailed you the Draft Agreement for your Booking ID&nbsp;{{{Booking__c.Name}}}<br />
+Kindly check all the details. Please pay the Stamp Duty and Registration fees and register your apartment at the earliest.&nbsp;<br />
+For any queries contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}<br />
+Thank You
+</body></html>

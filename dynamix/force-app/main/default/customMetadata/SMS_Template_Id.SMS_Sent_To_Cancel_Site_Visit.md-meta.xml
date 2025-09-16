@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SMS Sent To Cancel Site Visit</label>
+    <protected>false</protected>
+    <values>
+        <field>External_Template_Id__c</field>
+        <value xsi:type="xsd:string">1707168596634732884</value>
+    </values>
+    <values>
+        <field>SMS_Template__c</field>
+        <value xsi:type="xsd:string">Hi, Your site visit scheduled for {{Enquiry__c.Site_Visit_Time__c}} on {{Enquiry__c.Site_Visit_Date__c}} at {{Enquiry__c.Project_Name__c}} has been cancelled.  To reschedule your visit, please call us on {{Enquiry__c.contactNumber}}
+
+-Dynamix Group</value>
+    </values>
+    <values>
+        <field>Salesforce_Template_Id__c</field>
+        <value xsi:type="xsd:string">00XFf0000007NcbMAE</value>
+    </values>
+</CustomMetadata>

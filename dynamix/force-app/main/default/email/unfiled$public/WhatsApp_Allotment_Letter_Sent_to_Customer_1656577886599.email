@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+<br />
+We hereby confirm the Allotment of the Apartment for your Booking ID&nbsp;{{{Booking__c.Name}}} at&nbsp;{{{Booking__c.Project_Name_Formulla__c}}} in your favour on the terms and conditions as agreed under the Digital Application Form. &nbsp;A copy of the allotment letter has been shared with you over email.<br />
+For any queries contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}<br />
+Thank you
+</body></html>

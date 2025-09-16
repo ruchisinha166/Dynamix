@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Site Head Queue</name>
+    <queueMembers>
+        <roles>
+            <role>Site_Head_Astrum</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Booking_Offer__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,225 @@
+<apex:page standardController="Booking__c" extensions="LedgerDocumentController" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        
+        <head>
+            <style>
+                table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                th, td {
+                padding: 1px;
+                text-align: left;
+                }
+            </style>
+        </head>
+        <body>
+            <apex:variable var="rowNo" value="{!0}"/>
+            <center><h3>LEDGER</h3></center>
+            <div>
+                <table style="width:100%;font-size:12px">
+                    <tr>
+                        <th>Customer Name</th>
+                        <td>{!booking.Primary_Applicant__r.Name}</td>
+                        
+                        <th colspan="2">Project Name</th>
+                        <td>{!booking.Project_Name__r.Name}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{!booking.Primary_Applicant__r.PersonMailingStreet} , {!booking.Primary_Applicant__r.PersonMailingCity} , {!booking.Primary_Applicant__r.PersonMailingState} , {!booking.Primary_Applicant__r.PersonMailingCountry}</td>
+                        
+                        <th colspan="2">Flat No.</th>
+                        <td>{!booking.Related_Suggested_Property__r.Unit__r.Name}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{!booking.Primary_Applicant__r.PersonMobilePhone}</td>
+                        
+                        <th colspan="2">Area in sq. ft </th>
+                        <td>{!booking.Related_Suggested_Property__r.Unit__r.Approved_Area__c}</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Email</th>
+                        <td>{!booking.Primary_Applicant__r.PersonEmail}</td>
+                        
+                        <th colspan="2">Car Parks Alloted</th>
+                        <td>{!booking.Tower_Name__r.Car_Parking__c}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"> </td>
+                        <th>Agreement Value</th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Agreement_Value__c}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </table>
+                
+                <br/>
+                <table style="width:100%;font-size:12px">
+                    <tr>
+                        <th>Flat Cost</th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Agreement_Value__c}" />
+                            </apex:outputText>
+                        </td>
+                        <th rowspan="2">Total Demands<br/> Amount</th>
+                        <th rowspan="2">Total Receipts <br/>Amount</th>
+                        <th rowspan="2">Percentage</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>Tax on Flat Cost </th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.GST__c}" />
+                            </apex:outputText>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <th>Other Charges</th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Other_Charges__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Payment_Milestones_Total_Amount__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Total_Amount_Received__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td>
+                            {!booking.Total_Amount_Received_in_Percentage__c}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Debit Charges</th>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <th>Tax on Debit Charges</th>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <th>Interest Till Date (including tax)</th>
+                        <td>
+                            
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Total_interest_amount__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Total <span style="font-size:10px;">(Agreement Value with GST + Registration Charges + Stamp Duty)</span></b>
+                        </th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Total_Amount__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Any adjusted payments on account</b>
+                        </th>
+                        <td>
+                            <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                <apex:param value="{!booking.Discount__c}" />
+                            </apex:outputText>
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <th>Telephone:</th>
+                        <td>{!booking.Project_Phone__c}</td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </table>
+                <br/>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;font-size:12px;">
+                    <thead cellpadding="0px" cellspacing="0px">
+                        <tr>
+                            <td colspan="11" text-align="center">
+                                Client Ledger Upto DD, Month, Year
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th width="5%">Sr No.</th>
+                            <th width="8%">Date</th>
+                            <th width="8%">Invoice<br/> Number</th>
+                            <th width="8%">Particulars</th>
+                            <th width="8%">Due Date</th>
+                            <th width="8%">Adjusted / Raised Against</th>
+                            <th width="3%">Bank Name</th>
+                            <th width="8%">Ref No.</th>
+                            <th width="13%">Debit</th>
+                            <th width="13%">Credit</th>
+                            <th width="13%">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody style="width:100%;font-size:12px;">
+                        <apex:repeat value="{!PaymentLine}" var="PaymentLine1">                            
+                            <tr style="border:1px solid black;width:100%;font-size:12px;" >
+                                <apex:variable var="rowNo" value="{!rowNo+1}"/>
+                                <td width="5%">{!rowNo}</td>
+                                <td width="8%"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!PaymentLine1.Payment__r.Payment_Date__c}" /> </apex:outputText></td>
+                                <td width="8%" style="word-break:break-all;word-wrap:break-word;">{!InvoiceId}</td>
+                                <td width="8%" style="word-break:break-all;word-wrap:break-word;">{!PaymentLine1.Milestone__r.Name}</td>
+                                <td width="8%"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!PaymentLine1.Milestone__r.Due_Date__c}" /> </apex:outputText></td>
+                                <td width="8%" style="word-break:break-all;word-wrap:break-word;">{!PaymentLine1.Adjusted_against__c}</td>
+                                <td width="8%" style="word-break:break-all;word-wrap:break-word;">
+                                    {!PaymentLine1.Payment__r.BankName__r.Name}               
+                                </td>
+                                <td width="8%" style="word-break:break-all;word-wrap:break-word;">{!PaymentLine1.Payment__r.Payment_Type__c} -&nbsp; {!PaymentLine1.Payment__r.Cheque_Transaction_Number__c} </td>
+                                <td width="13%">
+                                    <apex:outputText value="{0, number,#,##,###,##0.00}">
+                                        <apex:param value="{!ROUND(PaymentLine1.Amount__c,2)}" />
+                                    </apex:outputText>
+                                </td>
+                                <td width="13%">
+                                    <apex:outputText value="{0, number,#,##,###,##0.00}">
+                                        <apex:param value="{!ROUND(PaymentLine1.Credit_Amount__c,2)}" />
+                                    </apex:outputText>
+                                </td>
+                                <td width="13%">
+                                    <apex:outputText value="Rs {0, number,#,##,###,##0.00}">
+                                        <apex:param value="{!ROUND(PaymentLine1.Balance__c,2)}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>                            
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </body>       
+    </html>
+</apex:page>

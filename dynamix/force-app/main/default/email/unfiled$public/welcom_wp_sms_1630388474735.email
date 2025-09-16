@@ -1,0 +1,8 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">It gives us immense pleasure to welcome you at {{{Booking__c.Project_Name_Formulla__c}}}, our flagship development! {{{Booking__c.Project_Name_Formulla__c}}} is registered with MahaRERA and its identifying number is {{{Booking__c.RERA_Number__c}}}.<br />
+<br />
+We thank you for clearing the first tranche of payment of your Allotment Premium. We have emailed a receipt to you for the payment of the Allotment Premium.&nbsp;<br />
+<br />
+In case you are looking for any information or documents, please do not hesitate to contact {{{Recipient.Name}}} your designated Relationship Manager. {{{Recipient.Name}}} is excited to be part of this journey with you and will be your points-person for all things at {{{Booking__c.Project_Name_Formulla__c}}}. {{{Recipient.Name}}} can be reached over email at {{{Booking__c.Project_Email__c}}}, or over the phone at {{{Booking__c.Project_Phone__c}}} or {{{Booking__c.Project_Phone__c}}}.</body></html>

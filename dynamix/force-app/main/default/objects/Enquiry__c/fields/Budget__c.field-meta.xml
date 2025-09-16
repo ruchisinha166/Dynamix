@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget__c</fullName>
+    <label>Budget</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>220 - 240 L</fullName>
+                <default>false</default>
+                <label>220 - 240 L</label>
+            </value>
+            <value>
+                <fullName>Less than 0.7 Cr</fullName>
+                <default>false</default>
+                <label>Less than 0.7 Cr</label>
+            </value>
+            <value>
+                <fullName>0.7 - 0.8 Cr</fullName>
+                <default>false</default>
+                <label>0.7 - 0.8 Cr</label>
+            </value>
+            <value>
+                <fullName>0.8 - 0.9 Cr</fullName>
+                <default>false</default>
+                <label>0.8 - 0.9 Cr</label>
+            </value>
+            <value>
+                <fullName>0.9 - 1 Cr</fullName>
+                <default>false</default>
+                <label>0.9 - 1 Cr</label>
+            </value>
+            <value>
+                <fullName>1 - 1.1 Cr</fullName>
+                <default>false</default>
+                <label>1 - 1.1 Cr</label>
+            </value>
+            <value>
+                <fullName>1 - 1.2 Cr</fullName>
+                <default>false</default>
+                <label>1 - 1.2 Cr</label>
+            </value>
+            <value>
+                <fullName>1.2 - 1.3 Cr</fullName>
+                <default>false</default>
+                <label>1.2 - 1.3 Cr</label>
+            </value>
+            <value>
+                <fullName>1.3 - 1.4 Cr</fullName>
+                <default>false</default>
+                <label>1.3 - 1.4 Cr</label>
+            </value>
+            <value>
+                <fullName>1.4 - 1.6 Cr</fullName>
+                <default>false</default>
+                <label>1.4 - 1.6 Cr</label>
+            </value>
+            <value>
+                <fullName>1.6 - 1.8 Cr</fullName>
+                <default>false</default>
+                <label>1.6 - 1.8 Cr</label>
+            </value>
+            <value>
+                <fullName>1.8 - 2 Cr</fullName>
+                <default>false</default>
+                <label>1.8 - 2 Cr</label>
+            </value>
+            <value>
+                <fullName>2 - 2.2 Cr</fullName>
+                <default>false</default>
+                <label>2 - 2.2 Cr</label>
+            </value>
+            <value>
+                <fullName>2.2 - 2.4 Cr</fullName>
+                <default>false</default>
+                <label>2.2 - 2.4 Cr</label>
+            </value>
+            <value>
+                <fullName>2.4 - 2.6 Cr</fullName>
+                <default>false</default>
+                <label>2.4 - 2.6 Cr</label>
+            </value>
+            <value>
+                <fullName>2.6 - 2.8 Cr</fullName>
+                <default>false</default>
+                <label>2.6 - 2.8 Cr</label>
+            </value>
+            <value>
+                <fullName>2.8 - 3 Cr</fullName>
+                <default>false</default>
+                <label>2.8 - 3 Cr</label>
+            </value>
+            <value>
+                <fullName>3 Cr &amp; Above</fullName>
+                <default>false</default>
+                <label>3 Cr &amp; Above</label>
+            </value>
+            <value>
+                <fullName>Less than 2 Cr</fullName>
+                <default>false</default>
+                <label>Less than 2 Cr</label>
+            </value>
+            <value>
+                <fullName>2 – 2.2 Cr</fullName>
+                <default>false</default>
+                <label>2 – 2.2 Cr</label>
+            </value>
+            <value>
+                <fullName>2.2 – 2.5 Cr</fullName>
+                <default>false</default>
+                <label>2.2 – 2.5 Cr</label>
+            </value>
+            <value>
+                <fullName>2.5 – 2.75 Cr</fullName>
+                <default>false</default>
+                <label>2.5 – 2.75 Cr</label>
+            </value>
+            <value>
+                <fullName>2.75 – 3 Cr</fullName>
+                <default>false</default>
+                <label>2.75 – 3 Cr</label>
+            </value>
+            <value>
+                <fullName>3 – 3.2 Cr</fullName>
+                <default>false</default>
+                <label>3 – 3.2 Cr</label>
+            </value>
+            <value>
+                <fullName>3.2 – 3.5 Cr</fullName>
+                <default>false</default>
+                <label>3.2 – 3.5 Cr</label>
+            </value>
+            <value>
+                <fullName>3.5 – 3.8 Cr</fullName>
+                <default>false</default>
+                <label>3.5 – 3.8 Cr</label>
+            </value>
+            <value>
+                <fullName>4 Cr and Above</fullName>
+                <default>false</default>
+                <label>4 Cr and Above</label>
+            </value>
+            <value>
+                <fullName>Less than 1.8 Cr</fullName>
+                <default>false</default>
+                <label>Less than 1.8 Cr</label>
+            </value>
+            <value>
+                <fullName>1.8 – 2 Cr</fullName>
+                <default>false</default>
+                <label>1.8 – 2 Cr</label>
+            </value>
+            <value>
+                <fullName>1 – 1.2 Cr</fullName>
+                <default>false</default>
+                <label>1 – 1.2 Cr</label>
+            </value>
+            <value>
+                <fullName>1.2 – 1.4 Cr</fullName>
+                <default>false</default>
+                <label>1.2 – 1.4 Cr</label>
+            </value>
+            <value>
+                <fullName>1.4 – 1.6 Cr</fullName>
+                <default>false</default>
+                <label>1.4 – 1.6 Cr</label>
+            </value>
+            <value>
+                <fullName>1.6 – 1.8 Cr</fullName>
+                <default>false</default>
+                <label>1.6 – 1.8 Cr</label>
+            </value>
+            <value>
+                <fullName>2 – 2.5 Cr</fullName>
+                <default>false</default>
+                <label>2 – 2.5 Cr</label>
+            </value>
+            <value>
+                <fullName>2.5 Cr and Above</fullName>
+                <default>false</default>
+                <label>2.5 Cr and Above</label>
+            </value>
+            <value>
+                <fullName>Less than 1.5 Cr</fullName>
+                <default>false</default>
+                <label>Less than 1.5 Cr</label>
+            </value>
+            <value>
+                <fullName>1.5 - 1.6 Cr</fullName>
+                <default>false</default>
+                <label>1.5 - 1.6 Cr</label>
+            </value>
+            <value>
+                <fullName>1.6 - 1.7 Cr</fullName>
+                <default>false</default>
+                <label>1.6 - 1.7 Cr</label>
+            </value>
+            <value>
+                <fullName>1.7 - 1.8 Cr</fullName>
+                <default>false</default>
+                <label>1.7 - 1.8 Cr</label>
+            </value>
+            <value>
+                <fullName>2 - 2.25 Cr</fullName>
+                <default>false</default>
+                <label>2 - 2.25 Cr</label>
+            </value>
+            <value>
+                <fullName>2.25 - 2.5 Cr</fullName>
+                <default>false</default>
+                <label>2.25 - 2.5 Cr</label>
+            </value>
+            <value>
+                <fullName>2.5 - 2.75 Cr</fullName>
+                <default>false</default>
+                <label>2.5 - 2.75 Cr</label>
+            </value>
+            <value>
+                <fullName>2.75 - 3 Cr</fullName>
+                <default>false</default>
+                <label>2.75 - 3 Cr</label>
+            </value>
+            <value>
+                <fullName>3 - 3.25 Cr</fullName>
+                <default>false</default>
+                <label>3 - 3.25 Cr</label>
+            </value>
+            <value>
+                <fullName>3.25 - 3.5 Cr</fullName>
+                <default>false</default>
+                <label>3.25 - 3.5 Cr</label>
+            </value>
+            <value>
+                <fullName>3.5 - 3.75 Cr</fullName>
+                <default>false</default>
+                <label>3.5 - 3.75 Cr</label>
+            </value>
+            <value>
+                <fullName>3.75 - 4 Cr</fullName>
+                <default>false</default>
+                <label>3.75 - 4 Cr</label>
+            </value>
+            <value>
+                <fullName>4 - 4.5 Cr</fullName>
+                <default>false</default>
+                <label>4 - 4.5 Cr</label>
+            </value>
+            <value>
+                <fullName>4.5 Cr &amp; Above</fullName>
+                <default>false</default>
+                <label>4.5 Cr &amp; Above</label>
+            </value>
+            <value>
+                <fullName>above 3.5 Cr</fullName>
+                <default>false</default>
+                <label>above 3.5 Cr</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

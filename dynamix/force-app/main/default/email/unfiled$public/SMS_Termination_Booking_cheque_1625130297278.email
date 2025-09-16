@@ -1,0 +1,8 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Recipient.Name}}}<br />
+<br />
+In accordance with our Termination Notice dated {{{Payment__c.Termination_Notice_dated__c}}}, pertaining to the application/ allotment of the Apartment No.&nbsp;{{{Payment__c.Apartment_No__c}}}&nbsp; at {{{Payment__c.Project_Name__c}}}, registered with MahaRERA under identification No. {{{Payment__c.MahaRERA__c}}}, we have refunded your monies and you have accepted the same, if any, vide Cheque No.&nbsp;{{{Payment__c.Cheque_Transaction_Number__c}}} dated&nbsp;{{{Payment__c.Date__c}}} , details whereof have been emailed to you on your Email address registered with us.<br />
+<br />
+In case you have any queries, please feel free to get in touch with your relationship manager on&nbsp; {{{Payment__c.Booking_Owner_Name__c}}}&nbsp;or over email at&nbsp;{{{Payment__c.Project_Email__c}}}</body></html>

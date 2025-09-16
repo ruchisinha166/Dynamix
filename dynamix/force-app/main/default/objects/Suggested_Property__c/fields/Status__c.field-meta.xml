@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Short Listed</fullName>
+                <default>false</default>
+                <label>Short Listed</label>
+            </value>
+            <value>
+                <fullName>Reserved</fullName>
+                <default>false</default>
+                <label>Reserved</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>Booked</fullName>
+                <default>false</default>
+                <label>Booked</label>
+            </value>
+            <value>
+                <fullName>Unavailable</fullName>
+                <default>false</default>
+                <label>Unavailable</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Available</fullName>
+                <default>false</default>
+                <label>Available</label>
+            </value>
+            <value>
+                <fullName>Send for Cost-Sheet Approval</fullName>
+                <default>false</default>
+                <label>Send for Cost-Sheet Approval</label>
+            </value>
+            <value>
+                <fullName>Custom Payment Plan Approved</fullName>
+                <default>false</default>
+                <label>Custom Payment Plan Approved</label>
+            </value>
+            <value>
+                <fullName>Custom Payment Plan Reject</fullName>
+                <default>false</default>
+                <label>Custom Payment Plan Reject</label>
+            </value>
+            <value>
+                <fullName>Send for Cost-Sheet Discount Approval</fullName>
+                <default>false</default>
+                <label>Send for Cost-Sheet Discount Approval</label>
+            </value>
+            <value>
+                <fullName>Discount Approved</fullName>
+                <default>false</default>
+                <label>Discount Approved</label>
+            </value>
+            <value>
+                <fullName>Discount Reject</fullName>
+                <default>false</default>
+                <label>Discount Reject</label>
+            </value>
+            <value>
+                <fullName>Send for Approval</fullName>
+                <default>false</default>
+                <label>Send for Approval</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Reject</fullName>
+                <default>false</default>
+                <label>Reject</label>
+            </value>
+            <value>
+                <fullName>Confirmed Allocation</fullName>
+                <default>false</default>
+                <label>Confirmed Allocation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

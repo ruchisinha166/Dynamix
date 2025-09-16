@@ -1,0 +1,9 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hello&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+We have sent you a Demand Letter with Architect Certificates by email last week for your Booking ID {{{Booking__c.Name}}}. However, we have not received the payments against the demand yet.&nbsp;<br />
+Please make the payments within 7 days, failing to do so you will be liable to pay a sum of demand + interest charges. Please refer to your email for more details.<br />
+For any queries contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}
+</body></html>

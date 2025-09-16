@@ -1,0 +1,377 @@
+<apex:page standardController="Opportunity"  extensions="EOICAFormDocController" readOnly="advanced_pdf" docType="html-5.0"  renderAs="advanced_pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"  cache="false"  standardStylesheets="false">
+    <html>  
+        <head>  
+            
+            <style type="text/css">
+                .fontFamily{
+                font-family:Calibri;
+                font-size:11px;
+                }
+                .required:after {
+                content:" *";
+                color: red;
+                }               
+            </style>    
+            <style>            
+                @page
+                {
+                margin-bottom: 10%;
+                @bottom-left
+                {
+                content: element(footer);
+                }
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+            </style>
+        </head> 
+        <body onload="onloadf()" class="fontFamily">            
+            <apex:form id="frm">                 
+                <apex:pageBlock >
+                    <div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+                        <apex:outputText rendered="{!showHeader}" >
+                            <apex:image url="{!ProjectHeader}"  rendered="{!showHeader}"  width="700" height="140" />
+                        </apex:outputText>
+                    </div>
+                    <div style="background-color:#5F6A6A;padding-top:5px;font-size:18px;padding-bottom:5px;color:white;text-align:center">
+                        <b>EOI/CA Form </b> 
+                    </div>
+                    <div style="padding-top:12px;padding-bottom:12px;text-align:left;width:100%;">
+                        <div style="width:38%;display:inline-block;">
+                            
+                            
+                            <div style="width:50%;display:inline-block;font-weight: 700;">
+                                EOI/CA Form For:
+                            </div>
+                            <div style="display:inline-block;">
+                                <apex:outputText value="{!Opportunity.EOI_CA__c}"></apex:outputText>
+                            </div>
+                        </div>
+                        <div style="width:30%;display:inline-block;">                              
+                            <div style="width:32%;display:inline-block;font-weight: 700;">
+                                {!Opportunity.EOI_CA__c} Number:
+                            </div>
+                            <div style="display:inline-block;width:40%;">
+                                {!Opportunity.EOI_CA_Number__c}  
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <!--  Section 1 -->
+                    <apex:pageBlock >
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 1: Details</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;width:100%">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%">
+                                <div style="width:19%;display:inline-block;font-weight: 700;"> Full Name of the Applicant:</div>
+                                <div style="display:inline-block;width:70%;">                                     
+                                    {!Opportunity.Account.Salutation} {!Opportunity.Account.Name}    
+                                </div>
+                                
+                                <!--div style="display:inline-block;border:1px solid black;"> 
+&nbsp;{!Opportunity.Account.FirstName}                              
+</div-->
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Residental Address:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!residenceAddress}
+                                </div>
+                            </div>  
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Apartment/Flat:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.Apartment_Flat__c}
+                                    </div>
+                                </div>
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:25%;display:inline-block;font-weight: 700;">
+                                        Locality:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.Locality__c}                                    
+                                    </div>
+                                </div>
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:35%;display:inline-block;font-weight: 700;">
+                                        Residence City: 
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonMailingCity} 
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Pin Code:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonMailingPostalCode}
+                                    </div>
+                                </div>
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:25%;display:inline-block;font-weight: 700;">
+                                        State:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonMailingState}                                    
+                                    </div>
+                                </div>
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:35%;display:inline-block;font-weight: 700;">
+                                        Country:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonMailingCountry} 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Mobile Number:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonMobilePhone}
+                                    </div>
+                                </div>
+                                <div style="width:40%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;font-weight: 700;">
+                                        Email:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.PersonEmail}                                    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Age (In Years):
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Account.Age__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Residential status:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Account.Nationality__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Occupation:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Account.Employment_Type__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Organisation:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.Company_Name__pc}
+                                    </div>
+                                </div>
+                                <div style="width:40%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;font-weight: 700;">
+                                        Designation:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Account.Designation_or_Position__pc}                                    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Office Location:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Account.Office_Locality__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Configurations:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Interested_Configuration__c}                                   
+                                </div>
+                            </div>
+                            
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Desired Budget:
+                                </div>
+                                <div style="display:inline-block;width:70%;"> 
+                                    {!Opportunity.Budget1__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Carpet Area:
+                                </div>
+                                <div style="display:inline-block;width:70%;"> 
+                                    {!Opportunity.Project_Carpet_Area__c}                                   
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Purpose of Purchase:
+                                </div>
+                                <div style="display:inline-block;width:70%;"> 
+                                    {!Opportunity.Project_Carpet_Area__c}                                   
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </apex:pageBlock>
+                    
+                    <apex:pageBlock >
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 2: Source of {!Opportunity.EOI_CA__c}</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Source:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    {!Opportunity.Walk_in_Source__c}                                   
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;width:100%;display: {!IF((Opportunity.Walk_in_Source__c == 'Channel Partner'), 'block', 'none')};">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Channel Partner: 
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Channel_Partner__r.Name}
+                                    </div>
+                                </div>
+                                <div style="width:50%;display:inline-block;">                              
+                                    <div style="width:28%;display:inline-block;font-weight: 700;">
+                                        Sourcing Manager: 
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Sourcing_Manager__r.Name}                                    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </apex:pageBlock>
+                    <apex:pageBlock >
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 3: Payment Details</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:19%;display:inline-block;font-weight: 700;">
+                                    Received Amount:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:outputText rendered="{!IF(Opportunity.EOI_CA_Payment_Received__c != null, true, false)}" value="INR. {0, number, ###,##0.00}">
+                                        <apex:param value="{!Opportunity.EOI_CA_Payment_Received__c}" />
+                                    </apex:outputText>  
+                                    <apex:outputText rendered="{!IF(Opportunity.EOI_CA_Payment_Received__c == null, true, false)}">
+                                        N/A
+                                    </apex:outputText>                                 
+                                </div>
+                            </div>
+                            
+                            <div style="display: {!IF((Opportunity.EOI_CA__c == 'CA'), 'block', 'none')};text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:38%;display:inline-block;">                              
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Project:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Project__r.Name}
+                                    </div>
+                                </div>
+                                <div style="width:40%;display:inline-block;">                              
+                                    <div style="display: {!IF((Opportunity.EOI_CA__c == 'CA'), 'inline-block', 'none')};width:40%;font-weight: 700;">
+                                        Unit Number:
+                                    </div>
+                                    <div style="display: {!IF((Opportunity.EOI_CA__c == 'CA'), 'inline-block', 'none')};width:35%;"> 
+                                           {!propertyRecord.Name}                               
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div style="display: {!IF((Opportunity.EOI_CA__c == 'EOI'), 'block', 'none')};text-align:left;padding-top:2px;padding-bottom:2px;width:100%;">
+                                <div style="width:38%;display:inline-block;">  
+                                    <div style="width:50%;display:inline-block;font-weight: 700;">
+                                        Project:
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        {!Opportunity.Project__r.Name}
+                                    </div>
+                                </div>
+                                <div style="width:50%;display:inline-block;">                              
+                                    <div style="display:inline-block;width:25%;font-weight: 700;">
+                                        <b>Floor Preferred:</b> 
+                                    </div>
+                                    <div style="display:inline-block;width:65%;"> 
+                                        {!Opportunity.Floor_Preference__c}                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:pageBlock>
+                    <apex:pageBlock >
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 4: Terms &amp; Conditions</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:100%;display:inline-block;font-weight: 700;">
+                                    <apex:outputLink target="_blank" value="{!termsAndCondition}" style="overflow-wrap: break-word;">Terms and Conditions</apex:outputLink>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </apex:pageBlock>
+                    
+                    <div class="footer">
+                        <div style="text-align:right;padding-top:5px;">                              
+                            <div style="display:inline-block;font-weight: 700;">
+                                Date and Time of Application and OTP Submission :
+                            </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                    <apex:param value="{!opportunity.EOI_CA_Form_Submission_Date_and_Time__c}" />
+                                </apex:outputText>                                
+                            </div>
+                        </div>
+                        <apex:outputText rendered="{!showFooter}" >                        
+                            <apex:image url="{!ProjectFooter}" rendered="{!showFooter}"  width="700" height="50" />                       
+                        </apex:outputText>
+                    </div>
+                </apex:pageBlock>                   
+            </apex:form>            
+        </body>
+    </html>    
+</apex:page>

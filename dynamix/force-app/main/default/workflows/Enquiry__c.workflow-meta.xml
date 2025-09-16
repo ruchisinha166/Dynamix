@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Change_Stage_To_New_Enquiry</fullName>
+        <field>Stage__c</field>
+        <literalValue>New Enquiry</literalValue>
+        <name>Change Stage To New Enquiry</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Enquiry_Approved</fullName>
+        <field>Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Enquiry Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mark_Duplicate_Lead_as_True</fullName>
+        <field>Duplicate_Lead__c</field>
+        <literalValue>0</literalValue>
+        <name>Mark Duplicate Lead as True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Status_as_Approved</fullName>
+        <field>Duplicate_Lead_Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Status as Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Status_as_Rejected</fullName>
+        <field>Duplicate_Lead_Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Status as Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Status_as_Submitted</fullName>
+        <field>Duplicate_Lead_Approval_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Set Status as Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

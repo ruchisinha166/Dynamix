@@ -1,0 +1,17 @@
+<template>
+    <template if:false={relatedRecordId}>
+
+    </template>
+    <template if:true={relatedRecordId}>
+        <lightning-card icon-name={iconName}>
+            <h2 slot="title" class="slds-card__header-link">
+                {relatedObjectlabel}
+            </h2>
+            <p class="slds-p-horizontal_small">
+                <lightning-record-form record-id={relatedRecordId} object-api-name={relatedObjectApiName}
+                    layout-type="Compact">
+                </lightning-record-form>
+            </p>
+        </lightning-card>
+    </template>
+</template>

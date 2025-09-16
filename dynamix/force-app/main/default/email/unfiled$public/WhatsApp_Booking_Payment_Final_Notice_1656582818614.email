@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+We have sent you two reminders over the last two weeks and have notified you to make payment against the outstanding dues for your Booking ID&nbsp;{{{Booking__c.Name}}}&nbsp;<br />
+We regret to inform you that despite the aforesaid you have failed to make the payment of the outstanding dues.&nbsp;<br />
+In view thereof, you are yet now liable to pay a sum of demand raised plus interest calculated up to date. We request you to make the payment within the next 7 days, failing to do so will result in termination of your Application Form / Agreement for Sale . Please refer to your email for more details.<br />
+For any queries please contact&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}
+</body></html>

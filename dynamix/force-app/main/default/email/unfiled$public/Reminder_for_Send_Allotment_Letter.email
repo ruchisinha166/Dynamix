@@ -1,0 +1,5 @@
+Dear {!Booking__c.Owner.Name}, </br></br>
+
+The Allotment letter for the following booking records has been not sent to the client. Please send the Allotment letter to the client at the earliest to avoid escalations.
+</br>
+</br>

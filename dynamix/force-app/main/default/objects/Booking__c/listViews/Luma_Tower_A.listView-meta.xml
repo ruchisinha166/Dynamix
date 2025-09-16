@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Luma_Tower_A</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Name__c</field>
+        <operation>equals</operation>
+        <value>Luma Tower,Luma Tower B</value>
+    </filters>
+    <label>Luma Tower A</label>
+</ListView>

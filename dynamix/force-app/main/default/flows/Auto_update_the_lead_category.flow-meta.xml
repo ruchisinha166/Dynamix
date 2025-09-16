@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Deciding_about_Enquiry_Categories</name>
+        <label>Deciding about Enquiry Categories</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Hot</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Enquiry_Qualification_Tags__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Qualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>TotalValue</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>3.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Brochures_Sent__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Category_To_Hot</targetReference>
+            </connector>
+            <label>Hot</label>
+        </rules>
+        <rules>
+            <name>Warm</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Enquiry_Qualification_Tags__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Qualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>TotalValue</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>TotalValue</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>3.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Brochures_Sent__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Category_To_Warm</targetReference>
+            </connector>
+            <label>Warm</label>
+        </rules>
+        <rules>
+            <name>Cold</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Enquiry_Qualification_Tags__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Qualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>TotalValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Related_Task.Call_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Related_Task.Call_Sub_status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Answering</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Category_To_Cold</targetReference>
+            </connector>
+            <label>Cold</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>TotalValue</name>
+        <dataType>Number</dataType>
+        <expression>{!ValueForBudget}+{!ValueForConfiguration}+{!ValueForLocation}+{!ValueForConstructionStatus}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>ValueForBudget</name>
+        <dataType>Number</dataType>
+        <expression>IF( 
+TEXT({!$Record.Budget__c})&lt;&gt;&quot;N/A&quot; &amp;&amp;
+LEN(
+TEXT({!$Record.Budget__c}))&gt;0
+,1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>ValueForConfiguration</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+TEXT({!$Record.Configuration__c}) &lt;&gt; &quot;N/A&quot; &amp;&amp;
+LEN(
+TEXT({!$Record.Configuration__c}))&gt;0
+,1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>ValueForConstructionStatus</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+TEXT({!$Record.Construction_Status__c}) &lt;&gt; &quot;N/A&quot; &amp;&amp;
+LEN(
+TEXT({!$Record.Construction_Status__c}))&gt;0
+,1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>ValueForLocation</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+{!$Record.Location__c} &lt;&gt; &quot;&quot; &amp;&amp;
+LEN(
+{!$Record.Location__c})&gt;0
+,1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Auto update the lead category {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Auto update the lead category</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Related_Task</name>
+        <label>Get Related Task</label>
+        <locationX>446</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Deciding_about_Enquiry_Categories</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Category_To_Cold</name>
+        <label>Update Category To Cold</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>Enquiry_Category__c</field>
+            <value>
+                <stringValue>Cold</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Category_To_Hot</name>
+        <label>Update Category To Hot</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>Enquiry_Category__c</field>
+            <value>
+                <stringValue>Hot</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Category_To_Warm</name>
+        <label>Update Category To Warm</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>Enquiry_Category__c</field>
+            <value>
+                <stringValue>Warm</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Related_Task</targetReference>
+        </connector>
+        <object>Enquiry__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

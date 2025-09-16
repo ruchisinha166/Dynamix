@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_Car_Parking__c</fullName>
+    <label>Additional Car Parking</label>
+    <summarizedField>Price_Details__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Price_Details__c.Additional_Car_Bike_Parking__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Price_Details__c.Booking__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

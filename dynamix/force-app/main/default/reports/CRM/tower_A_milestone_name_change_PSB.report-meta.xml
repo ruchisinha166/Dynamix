@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Booking__c$Name</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Payment_Milestones__r$Name</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Booking__c$Project_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Avanya Tower A</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c.Payment_Milestones__r$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Completion of lift wells upto floor 6 (floor of the said apartment)</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>tower A (milestone name change )</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>booking_with_Milestone_and_project_progress__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

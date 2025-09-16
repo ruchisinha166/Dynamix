@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Escalation For Channel Partner Complaint Case</name>
+    <style>none</style>
+    <subject>Escalation : For Channel Partner Complaint Case</subject>
+    <textOnly>Hi,  
+
+The issue for the following complaints by the customer against the Bookings are not resolved and is pending for the last 6 days.   
+
+
+Please resolve the issues at the earliest in order to avoid escalations.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

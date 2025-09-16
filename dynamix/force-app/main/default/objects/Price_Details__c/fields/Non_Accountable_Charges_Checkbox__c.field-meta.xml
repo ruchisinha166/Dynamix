@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Accountable_Charges_Checkbox__c</fullName>
+    <formula>if( Charge_Group__c == &apos;Others&apos; &amp;&amp;( Name == &apos;Legal Charges&apos; || Name == &apos;Utilities Connection Charges&apos; || Name == &apos;Society Formation Charges&apos;|| Name == &apos;Infrastructure, development &amp; club house&apos; || Name == &apos;Society formation&apos; || Name == &apos;Society Formation&apos; ||
+  Name == &apos;Utilities connection charges&apos; || Name == &apos;Legal charges&apos;),True,False)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Non Accountable Charges Checkbox</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

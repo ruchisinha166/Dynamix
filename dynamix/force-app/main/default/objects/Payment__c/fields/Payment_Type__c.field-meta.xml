@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Type__c</fullName>
+    <label>Mode of Payment</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cheque</fullName>
+                <default>false</default>
+                <label>Cheque</label>
+            </value>
+            <value>
+                <fullName>NEFT/ RTGS/ IMPS</fullName>
+                <default>false</default>
+                <label>NEFT/ RTGS/ IMPS</label>
+            </value>
+            <value>
+                <fullName>Credit/Debit Cards</fullName>
+                <default>false</default>
+                <label>Credit/Debit Cards</label>
+            </value>
+            <value>
+                <fullName>Credit Note</fullName>
+                <default>false</default>
+                <label>Credit Note</label>
+            </value>
+            <value>
+                <fullName>SAP Credit Note</fullName>
+                <default>false</default>
+                <label>SAP Credit Note</label>
+            </value>
+            <value>
+                <fullName>Bank Disbursement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bank Disbursement</label>
+            </value>
+            <value>
+                <fullName>Debit Note</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Debit Note</label>
+            </value>
+            <value>
+                <fullName>Electronic NEFT/ RTGS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Electronic NEFT/ RTGS</label>
+            </value>
+            <value>
+                <fullName>IMPS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>IMPS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

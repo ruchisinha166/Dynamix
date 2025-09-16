@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Masked_Primary_Phone_Number__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR( ISNULL(Text(Country_Code__c)) ,ISBLANK(Text(Country_Code__c))) , &apos;+91&apos;,  text(Country_Code__c) )+&apos;******&apos;+RIGHT( Primary_Mobile_Number__c , 4)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Primary Phone Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

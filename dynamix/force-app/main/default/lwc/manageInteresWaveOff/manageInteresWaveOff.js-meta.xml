@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Booking Interest Wave Off</masterLabel>
+    <description>Booking Interest Wave Off</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            
+            <property name="planJSON" type="String" label="Payment Milestone Details" description="Details of Payment Milestones" />
+            <property name="intersAmountinput" type="String" label="Input Interest Amount" description="Input Interest Amount" />
+            
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

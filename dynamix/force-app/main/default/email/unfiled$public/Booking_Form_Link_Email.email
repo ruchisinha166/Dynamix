@@ -1,0 +1,10 @@
+Dear {!SM}, 
+ </br></br>
+The Booking Application Form for Booking {!Name} for {!Unit} in {!Project} is shared with the client. 
+ </br>
+Please have the completed form submitted by the customer at the earliest.
+<br/>
+Booking Form Link - {!Link}
+</br></br>
+Thankyou. </br>
+Dynamix

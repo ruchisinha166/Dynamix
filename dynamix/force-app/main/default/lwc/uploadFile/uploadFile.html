@@ -1,0 +1,8 @@
+<template>
+    <c-input-picklist-field label="Document Type" value={docTypeValue} object-api-name="ContentVersion"
+        field-api-name="Document_Type__c" variant="standard" onpicklistchange={handlePicklistValue}
+        controlling-field-value={objType} is-dependent-picklist required>
+    </c-input-picklist-field>
+    <lightning-file-upload label="Attach File" name="fileUploader" onuploadfinished={handleUploadFinished}
+        record-id={recordId} disabled={disabled}></lightning-file-upload>
+</template>

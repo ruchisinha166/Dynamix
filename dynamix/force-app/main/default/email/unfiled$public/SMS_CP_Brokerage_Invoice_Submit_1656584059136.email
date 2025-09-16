@@ -1,0 +1,7 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Broker_Payment__c.Channel_Partner_Name__c}}} Your invoice {{{Broker_Payment__c.Invoice_no__c}}} for Booking Id {{{Broker_Payment__c.Booking__c}}} has been submitted successfully for payment. For queries contact {{{Broker_Payment__c.Broker_Payment_Owner_Email__c}}} Dynamix Group<br />
+&nbsp;</body>
+</html>

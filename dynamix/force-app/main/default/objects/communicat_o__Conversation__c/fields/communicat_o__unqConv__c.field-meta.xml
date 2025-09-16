@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>communicat_o__unqConv__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <deprecated>false</deprecated>
+    <description>This field is filled as channelId.customerchannelid.whatid, channel id is the id of the channel where company receives the communication from, it could fb, whatsapp etc, customer channel id is the id of the customer, that links to the customer on that particular channel and whatid is the id of case/opportunity or any other object through which the communication takes place</description>
+    <externalId>true</externalId>
+    <label>unqConv</label>
+    <length>255</length>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

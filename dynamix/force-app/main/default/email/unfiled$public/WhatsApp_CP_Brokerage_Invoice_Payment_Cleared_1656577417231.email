@@ -1,0 +1,11 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Broker_Payment__c.Channel_Partner_Name__c}}}<br />
+Your payment against the invoice {{{Broker_Payment__c.Invoice_no__c}}} for the Booking Id&nbsp;{{{Broker_Payment__c.Booking__c}}} has been credited to your account!<br />
+Thank you for your contribution and support. We are looking forward to do more business with you.<br />
+<br />
+For queries contact {{{Broker_Payment__c.Broker_Payment_Owner_Email__c}}}<br />
+&nbsp;
+</body></html>

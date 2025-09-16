@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Amount_Received__c</fullName>
+    <inlineHelpText>All Payment Received Against Milestone</inlineHelpText>
+    <label>Total Amount Received</label>
+    <summarizedField>Payment__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Category__c</field>
+        <operation>notEqual</operation>
+        <value>Interest</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Credit Note</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Category__c</field>
+        <operation>notEqual</operation>
+        <value>Stamp Duty</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Payment__c.Payment_Category__c</field>
+        <operation>notEqual</operation>
+        <value>Registration</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Payment__c.Booking__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

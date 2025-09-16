@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Features__c</fullName>
+    <label>Features</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>24 X 7 Working</fullName>
+                <default>false</default>
+                <label>24 X 7 Working</label>
+            </value>
+            <value>
+                <fullName>24/7 Bore Well Water</fullName>
+                <default>false</default>
+                <label>24/7 Bore Well Water</label>
+            </value>
+            <value>
+                <fullName>24/7 Water Supply</fullName>
+                <default>false</default>
+                <label>24/7 Water Supply</label>
+            </value>
+            <value>
+                <fullName>Attractive Entrance Gate</fullName>
+                <default>false</default>
+                <label>Attractive Entrance Gate</label>
+            </value>
+            <value>
+                <fullName>Common Cafeteria</fullName>
+                <default>false</default>
+                <label>Common Cafeteria</label>
+            </value>
+            <value>
+                <fullName>Common Reception</fullName>
+                <default>false</default>
+                <label>Common Reception</label>
+            </value>
+            <value>
+                <fullName>Lobby</fullName>
+                <default>false</default>
+                <label>Lobby</label>
+            </value>
+            <value>
+                <fullName>Door Video Call</fullName>
+                <default>false</default>
+                <label>Door Video Call</label>
+            </value>
+            <value>
+                <fullName>Earthquake Resistance</fullName>
+                <default>false</default>
+                <label>Earthquake Resistance</label>
+            </value>
+            <value>
+                <fullName>Easy Access to Project - Good Roads to Connect</fullName>
+                <default>false</default>
+                <label>Easy Access to Project - Good Roads to Connect</label>
+            </value>
+            <value>
+                <fullName>Easy Public Transport</fullName>
+                <default>false</default>
+                <label>Easy Public Transport</label>
+            </value>
+            <value>
+                <fullName>Gated Community</fullName>
+                <default>false</default>
+                <label>Gated Community</label>
+            </value>
+            <value>
+                <fullName>Good Ceiling Height</fullName>
+                <default>false</default>
+                <label>Good Ceiling Height</label>
+            </value>
+            <value>
+                <fullName>Good Frontage</fullName>
+                <default>false</default>
+                <label>Good Frontage</label>
+            </value>
+            <value>
+                <fullName>Good Natural Light in the Unit</fullName>
+                <default>false</default>
+                <label>Good Natural Light in the Unit</label>
+            </value>
+            <value>
+                <fullName>Good No. of Common</fullName>
+                <default>false</default>
+                <label>Good No. of Common</label>
+            </value>
+            <value>
+                <fullName>Visitor Parking</fullName>
+                <default>false</default>
+                <label>Visitor Parking</label>
+            </value>
+            <value>
+                <fullName>Good No. of Reserved Parking</fullName>
+                <default>false</default>
+                <label>Good No. of Reserved Parking</label>
+            </value>
+            <value>
+                <fullName>High Quality Common Maintenance</fullName>
+                <default>false</default>
+                <label>High Quality Common Maintenance</label>
+            </value>
+            <value>
+                <fullName>Higher Carpet Area – Lower Loading</fullName>
+                <default>false</default>
+                <label>Higher Carpet Area – Lower Loading</label>
+            </value>
+            <value>
+                <fullName>High efficiency</fullName>
+                <default>false</default>
+                <label>High efficiency</label>
+            </value>
+            <value>
+                <fullName>Immediate Possession</fullName>
+                <default>false</default>
+                <label>Immediate Possession</label>
+            </value>
+            <value>
+                <fullName>Industrial Wear-House</fullName>
+                <default>false</default>
+                <label>Industrial Wear-House</label>
+            </value>
+            <value>
+                <fullName>Factory</fullName>
+                <default>false</default>
+                <label>Factory</label>
+            </value>
+            <value>
+                <fullName>Interlock Tiled Courtyard</fullName>
+                <default>false</default>
+                <label>Interlock Tiled Courtyard</label>
+            </value>
+            <value>
+                <fullName>Landscape Garden</fullName>
+                <default>false</default>
+                <label>Landscape Garden</label>
+            </value>
+            <value>
+                <fullName>Large Window</fullName>
+                <default>false</default>
+                <label>Large Window</label>
+            </value>
+            <value>
+                <fullName>Natural light</fullName>
+                <default>false</default>
+                <label>Natural light</label>
+            </value>
+            <value>
+                <fullName>Low Maintenance Cost</fullName>
+                <default>false</default>
+                <label>Low Maintenance Cost</label>
+            </value>
+            <value>
+                <fullName>Low Traffic Area</fullName>
+                <default>false</default>
+                <label>Low Traffic Area</label>
+            </value>
+            <value>
+                <fullName>Main Road Facing</fullName>
+                <default>false</default>
+                <label>Main Road Facing</label>
+            </value>
+            <value>
+                <fullName>No Retail on Ground Floor</fullName>
+                <default>false</default>
+                <label>No Retail on Ground Floor</label>
+            </value>
+            <value>
+                <fullName>Occupied By Well-Known Companies</fullName>
+                <default>false</default>
+                <label>Occupied By Well-Known Companies</label>
+            </value>
+            <value>
+                <fullName>Open Well Water</fullName>
+                <default>false</default>
+                <label>Open Well Water</label>
+            </value>
+            <value>
+                <fullName>Peaceful &amp; Pollution Free Environment.</fullName>
+                <default>false</default>
+                <label>Peaceful &amp; Pollution Free Environment.</label>
+            </value>
+            <value>
+                <fullName>Pillar Less Clean Floor</fullName>
+                <default>false</default>
+                <label>Pillar Less Clean Floor</label>
+            </value>
+            <value>
+                <fullName>Secured Compound Wall</fullName>
+                <default>false</default>
+                <label>Secured Compound Wall</label>
+            </value>
+            <value>
+                <fullName>Service Lift Available</fullName>
+                <default>false</default>
+                <label>Service Lift Available</label>
+            </value>
+            <value>
+                <fullName>Signage’s Facility With High Visibility</fullName>
+                <default>false</default>
+                <label>Signage’s Facility With High Visibility</label>
+            </value>
+            <value>
+                <fullName>Small Balcony</fullName>
+                <default>false</default>
+                <label>Small Balcony</label>
+            </value>
+            <value>
+                <fullName>Terrace Attached to the Unit</fullName>
+                <default>false</default>
+                <label>Terrace Attached to the Unit</label>
+            </value>
+            <value>
+                <fullName>Study Space or Office Space</fullName>
+                <default>false</default>
+                <label>Study Space or Office Space</label>
+            </value>
+            <value>
+                <fullName>Surrounded With Education Institutes</fullName>
+                <default>false</default>
+                <label>Surrounded With Education Institutes</label>
+            </value>
+            <value>
+                <fullName>Surrounded With Housing Societies</fullName>
+                <default>false</default>
+                <label>Surrounded With Housing Societies</label>
+            </value>
+            <value>
+                <fullName>Surrounded With Offices &amp; Commercial Space</fullName>
+                <default>false</default>
+                <label>Surrounded With Offices &amp; Commercial Space</label>
+            </value>
+            <value>
+                <fullName>Three Sides Open Property</fullName>
+                <default>false</default>
+                <label>Three Sides Open Property</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

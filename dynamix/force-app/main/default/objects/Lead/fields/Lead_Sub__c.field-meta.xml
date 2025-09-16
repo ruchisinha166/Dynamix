@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Sub__c</fullName>
+    <label>Lead Sub Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>LeadSource__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Facebook Paid</fullName>
+                <default>false</default>
+                <label>Facebook Paid</label>
+            </value>
+            <value>
+                <fullName>Facebook Organic</fullName>
+                <default>false</default>
+                <label>Facebook Organic</label>
+            </value>
+            <value>
+                <fullName>Instagram Paid</fullName>
+                <default>false</default>
+                <label>Instagram Paid</label>
+            </value>
+            <value>
+                <fullName>Instagram Organic</fullName>
+                <default>false</default>
+                <label>Instagram Organic</label>
+            </value>
+            <value>
+                <fullName>Hoarding Ad A</fullName>
+                <default>false</default>
+                <label>Hoarding Ad A</label>
+            </value>
+            <value>
+                <fullName>Hoarding Ad B</fullName>
+                <default>false</default>
+                <label>Hoarding Ad B</label>
+            </value>
+            <value>
+                <fullName>TOI</fullName>
+                <default>false</default>
+                <label>TOI</label>
+            </value>
+            <value>
+                <fullName>The Hindu</fullName>
+                <default>false</default>
+                <label>The Hindu</label>
+            </value>
+            <value>
+                <fullName>Mint</fullName>
+                <default>false</default>
+                <label>Mint</label>
+            </value>
+            <value>
+                <fullName>Wrong Number</fullName>
+                <default>false</default>
+                <label>Wrong Number</label>
+            </value>
+            <value>
+                <fullName>Not Answering</fullName>
+                <default>false</default>
+                <label>Not Answering</label>
+            </value>
+            <value>
+                <fullName>Casual Enquiry</fullName>
+                <default>false</default>
+                <label>Casual Enquiry</label>
+            </value>
+            <value>
+                <fullName>Fake Enquiry</fullName>
+                <default>false</default>
+                <label>Fake Enquiry</label>
+            </value>
+            <value>
+                <fullName>Channel Partner</fullName>
+                <default>false</default>
+                <label>Channel Partner</label>
+            </value>
+            <value>
+                <fullName>Early Possession</fullName>
+                <default>false</default>
+                <label>Early Possession</label>
+            </value>
+            <value>
+                <fullName>Test Lead</fullName>
+                <default>false</default>
+                <label>Test Lead</label>
+            </value>
+            <value>
+                <fullName>Low Budget</fullName>
+                <default>false</default>
+                <label>Low Budget</label>
+            </value>
+            <value>
+                <fullName>Lower Carpet Area</fullName>
+                <default>false</default>
+                <label>Lower Carpet Area</label>
+            </value>
+            <value>
+                <fullName>Number Busy</fullName>
+                <default>false</default>
+                <label>Number Busy</label>
+            </value>
+            <value>
+                <fullName>Location Issue</fullName>
+                <default>false</default>
+                <label>Location Issue</label>
+            </value>
+            <value>
+                <fullName>Disconnected While Ringing</fullName>
+                <default>false</default>
+                <label>Disconnected While Ringing</label>
+            </value>
+            <value>
+                <fullName>Purchased Elsewhere</fullName>
+                <default>false</default>
+                <label>Purchased Elsewhere</label>
+            </value>
+            <value>
+                <fullName>Existing Client</fullName>
+                <default>false</default>
+                <label>Existing Client</label>
+            </value>
+            <value>
+                <fullName>Not Connected Exhausted</fullName>
+                <default>false</default>
+                <label>Not Connected Exhausted</label>
+            </value>
+            <value>
+                <fullName>Site Visit Proposed</fullName>
+                <default>false</default>
+                <label>Site Visit Proposed</label>
+            </value>
+            <value>
+                <fullName>Call Back</fullName>
+                <default>false</default>
+                <label>Call Back</label>
+            </value>
+            <value>
+                <fullName>Duplicate Lead</fullName>
+                <default>false</default>
+                <label>Duplicate Lead</label>
+            </value>
+            <value>
+                <fullName>Follow Up</fullName>
+                <default>false</default>
+                <label>Follow Up</label>
+            </value>
+            <value>
+                <fullName>Drop The Plan</fullName>
+                <default>false</default>
+                <label>Drop The Plan</label>
+            </value>
+            <value>
+                <fullName>Switched Off</fullName>
+                <default>false</default>
+                <label>Switched Off</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>TOI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>The Hindu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>Mint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instagram</controllingFieldValue>
+            <valueName>Instagram Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instagram</controllingFieldValue>
+            <valueName>Instagram Organic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Facebook</controllingFieldValue>
+            <valueName>Facebook Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Facebook</controllingFieldValue>
+            <valueName>Facebook Organic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hoarding</controllingFieldValue>
+            <valueName>Hoarding Ad A</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hoarding</controllingFieldValue>
+            <valueName>Hoarding Ad B</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

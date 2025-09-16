@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>In_Progress_Status</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  TEXT( Status ) ==&apos;In Progress&apos;, StartDate &gt;  TODAY() )</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You cannot move to campaign In Progress.</errorMessage>
+</ValidationRule>

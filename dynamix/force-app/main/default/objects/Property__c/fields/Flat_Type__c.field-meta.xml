@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Flat_Type__c</fullName>
+    <label>Unit Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>COVERED STACK</fullName>
+                <default>false</default>
+                <label>COVERED STACK</label>
+            </value>
+            <value>
+                <fullName>STACK</fullName>
+                <default>false</default>
+                <label>STACK</label>
+            </value>
+            <value>
+                <fullName>1 BHK</fullName>
+                <default>false</default>
+                <label>1 BHK</label>
+            </value>
+            <value>
+                <fullName>2 BHK</fullName>
+                <default>false</default>
+                <label>2 BHK</label>
+            </value>
+            <value>
+                <fullName>2 BHK G</fullName>
+                <default>false</default>
+                <label>2 BHK G</label>
+            </value>
+            <value>
+                <fullName>2.5 BHK</fullName>
+                <default>false</default>
+                <label>2.5 BHK</label>
+            </value>
+            <value>
+                <fullName>3 BHK</fullName>
+                <default>false</default>
+                <label>3 BHK</label>
+            </value>
+            <value>
+                <fullName>4 BHK</fullName>
+                <default>false</default>
+                <label>4 BHK</label>
+            </value>
+            <value>
+                <fullName>PENTHOUSES</fullName>
+                <default>false</default>
+                <label>PENTHOUSES</label>
+            </value>
+            <value>
+                <fullName>ROW HOUSES</fullName>
+                <default>false</default>
+                <label>ROW HOUSES</label>
+            </value>
+            <value>
+                <fullName>VILLAS</fullName>
+                <default>false</default>
+                <label>VILLAS</label>
+            </value>
+            <value>
+                <fullName>BUNGALOW</fullName>
+                <default>false</default>
+                <label>BUNGALOW</label>
+            </value>
+            <value>
+                <fullName>SHOP WITH TERRACE</fullName>
+                <default>false</default>
+                <label>SHOP WITH TERRACE</label>
+            </value>
+            <value>
+                <fullName>SHOP WITHOUT TERRACE</fullName>
+                <default>false</default>
+                <label>SHOP WITHOUT TERRACE</label>
+            </value>
+            <value>
+                <fullName>OFFICE WITH TERRACE</fullName>
+                <default>false</default>
+                <label>OFFICE WITH TERRACE</label>
+            </value>
+            <value>
+                <fullName>OFFICE WITHOUT TERRACE</fullName>
+                <default>false</default>
+                <label>OFFICE WITHOUT TERRACE</label>
+            </value>
+            <value>
+                <fullName>REFUGEE</fullName>
+                <default>false</default>
+                <label>REFUGEE</label>
+            </value>
+            <value>
+                <fullName>STUDIO</fullName>
+                <default>false</default>
+                <label>STUDIO</label>
+            </value>
+            <value>
+                <fullName>CAR PARKING</fullName>
+                <default>false</default>
+                <label>CAR PARKING</label>
+            </value>
+            <value>
+                <fullName>BIKE PARKING</fullName>
+                <default>false</default>
+                <label>BIKE PARKING</label>
+            </value>
+            <value>
+                <fullName>BASEMENT PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BASEMENT PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE OPEN PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DOUBLE OPEN PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE PODIUM PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DOUBLE PODIUM PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE STILT PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DOUBLE STILT PARKING</label>
+            </value>
+            <value>
+                <fullName>OPEN PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>OPEN PARKING</label>
+            </value>
+            <value>
+                <fullName>PODIUM PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>PODIUM PARKING</label>
+            </value>
+            <value>
+                <fullName>STILT PARKING</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>STILT PARKING</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

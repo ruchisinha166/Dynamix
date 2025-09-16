@@ -1,0 +1,640 @@
+<apex:page standardController="Booking__c" extensions="NOCControllerCLass" renderAs="pdf"
+           applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" docType="html-5.0">
+    <apex:param name="loadId" value="" assignTo="{!loadId}" />
+    
+    <html>
+        <head>
+            <style>
+                .center {
+                margin-left: auto;
+                margin-right: auto;
+                }
+            </style>
+        </head>
+        <apex:pageBlock >
+            <body> 
+                <div style="display: {!IF((BankLoanObj.Home_LoanInstitution__r.Name == hdfcBank), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;margin-right:1px;margin-left:15px;">
+                    <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 80px;margin-left: 0%;margin-right: 0%;" width="100%">
+                        <p>
+                            Ref.No.:ACCPL/HDFC/NOC/{!currentYear}/ 
+                        </p>
+                        <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                            <tr style=";">
+                                <td>
+                                    To,
+                                </td>
+                                <td style="text-align: right;padding-left: 2px;">Date:&nbsp;
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!TODAY()}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    The Branch Manager,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HDFC BANK LIMITED.</td>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td>Dear Madam/Sir, </td>
+                            </tr>
+                        </table>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            1 This is to confirm that we have sold flat No <b>{!booking.Unit_Number__c}</b> on <b>{!booking.Floor_No__c}</b>
+                            floor in the building called <b>{!booking.Project_Name__r.Name}</b> situated at {!projectObj.Location__c},
+                            {!projectObj.City__c}, {!projectObj.Postal_Code__c}. To <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, for a total consideration of <b>Rs.</b>{!booking.Agreement_Value__c}
+                            ({!convertedValue}) under an agreement dated{!booking.Registration_Date__c}
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            2.We confirm that we have obtained necessary permission/ approvals/ sanctions for construction of 
+                            the said building from all the concerned competent authorities and the construction of the building
+                            as well as of the flat is in accordance with the approved plans.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            3.We assure you that the said flat as well as the said building and the land appurtenant thereto are not 
+                            subject to any encumbrance, charge or liability of any kind whatsoever and that the entire property
+                            is free and marketable.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            4.<b>{!projectObj.Builder_Organization__r.Name}</b> has obtained funding from {!projectObj.Finance_Name__c}, by 
+                            way of issuance of NCD vide Debenture Trust Deed. In this regard, IDBI Trusteeship Services Limited
+                            has been appointed as the Debenture Trustee to act for the benefit and on behalf of 
+                            {!projectObj.Finance_Name__c} who’s NOC for this transaction is enclosed herewith.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            5.We have no objection to your giving a loan to the above buyer/s and his/her/their mortgaging the 
+                            said flat to you by way of security for repayment, notwithstanding anything to the contrary
+                            contained in the said agreement.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            <p>
+                                6.<b>Kindly issue the payment in favour of 
+                                “{!projectObj.Builder_Organization__r.Name} {!projectObj.Builder_Organization__r.Branch_Name__c} branch, Account Number {!projectObj.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC Code {!bankType}</b>
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:justify;">
+                            <p>
+                                7.We also undertake to inform and give proper notice to the cooperative housing
+                                society as and when formed, about the flat being so mortgaged. 
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 30px;text-align:left;">
+                            Yours faithfully,<br/>
+                            <b>For {!projectObj.Builder_Organization__r.Name}</b><br/><br/>
+                        </div>
+                        <div style="border-top: 1px solid black;width:120px;padding-left:25px;">
+                            Authorised Signatory
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            <body> 
+                <div style="display: {!IF(isStateBankOfIndia, 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;margin-right:1px;margin-left:15px;">
+                    <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 80px;margin-left: 0%;margin-right: 0%;" width="100%">
+                        <p>
+                            Ref.No.:ACCPL/SBI/{!currentYear}/ 
+                        </p>
+                        <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                            <tr style=";">
+                                <td>
+                                    To,
+                                </td>
+                                <td style="text-align: right;padding-left: 2px;">Date:&nbsp;
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                        <apex:param value="{!TODAY()}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    The Branch Manager,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>State Bank of India,</td>
+                            </tr>
+                            <tr>
+                                <td>RACPC Borivali,</td>
+                            </tr>
+                            <tr>
+                                <td>Borivali – 400103.</td>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td>Dear Madam/Sir, </td>
+                            </tr>
+                        </table>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            We, <b>{!projectObj.Builder_Organization__r.Name}</b>, hereby certify that:
+                        </div> 
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            1.I/We have transferable rights to the property described below, which has been allotted by me/us
+                            to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> after referred to as “the purchasers”, subject to the due and proper performance and 
+                            compliances of all the terms and conditions of the Allotment Letter/Sale Agreement dated <b>{!booking.Registration_Date__c}</b>
+                        </div>
+                        <br/>
+                        <div style ="font-size: 11px;font-family: Helvetica, sans-serif;text-align: center;">
+                            Description of the property:
+                        </div><br/>
+                        <table border="1" cellspacing="0" cellpadding="2" class="center" style="width: 50%; font-family: Helvetica, sans-serif;"> 
+                            <tr >
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Flat No./House No.</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center>{!booking.Unit_Number__c}</center></b>
+                                </th>
+                            </tr>
+                            <tr >
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Building No./Name</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center>{!booking.Project_Name__r.Name}</center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Plot No.</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center></center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Street No./Name</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center>{!projectObj.Builder_Organization__r.Street__c}</center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Locality Name</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center></center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Area Name</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center></center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>City Name</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center>{!projectObj.Builder_Organization__r.City__c}</center></b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:50%;margin-right:15px;margin-left:15px;">
+                                    <center>Pin Code</center>
+                                </th>
+                                <th style="font-size:11px;font-family: Helvetica, sans-serif;width:40%;margin-right:15px;margin-left:15px;">
+                                    <b><center>{!projectObj.Builder_Organization__r.PIN_Code__c}</center></b>
+                                </th>
+                            </tr>
+                        </table>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            2.That the total consideration for this transaction is <b>Rs.{!booking.Agreement_Value__c}/-({!convertedValue})</b> towards
+                            <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            3.The title of the property described above is clear, marketable and free from all encumbrances and doubts.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            4.I/We confirm that I/we have no objection whatsoever to the said purchasers, at their own costs,
+                            charges, risks and consequences mortgaging the said property to STATE BANK OF INDIA (herein after
+                            referred to as “the Bank”) as security for the amount advanced by the Bank to them subject to the 
+                            due and proper performance and compliances of all the terms and conditions of the sale document by said purchasers.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            5.<b>{!projectObj.Builder_Organization__r.Name}</b> has obtained funding from {!projectObj.Finance_Name__c}, by way
+                            of issuance of NCD vide Debenture Trust Deed. In this regard, IDBI Trusteeship Services Limited has 
+                            been appointed as the Debenture Trustee to act for the benefit and on behalf of {!projectObj.Finance_Name__c}
+                            whose NOC for this transaction is enclosed herewith.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                6. After creation of proper charge/mortgage and after receipt of the copies there of and after 
+                                receipt of proper nomination in favor of the Bank, from the said purchasers, we are agreeable 
+                                to accept Sate Bank of India as nominee of the above named purchaser for the property described
+                                above and once the nomination favoring the Bank has been registered and advice sent to the Bank
+                                of having done so, I/We note not to change the same without the written NOC of the Bank.
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                7.After creation of charge/mortgage and after receipt of the copies thereof and after receipt 
+                                of the proper nomination in favor of the Bank, from the above named purchaser, I/We undertake
+                                to inform the society about the Bank’s charge on the said flat as and when the society is 
+                                formed. 
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                8.Please note that the payment for this transaction should be made by crossed cheque/Transfer of 
+                                funds favoring <b>“{!projectObj.Builder_Organization__r.GST_Account_Name__c} {!projectObj.Builder_Organization__r.Branch_Name__c} branch , Account 
+                                Number {!projectObj.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC Code {!bankType}</b>
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                9.In case of cancellation of the sale-agreement for any reason, I/We shall refund the amount by 
+                                crossed cheque favoring the Bank A/C <b>({!accountObject.salutation}{!accountObject.Name} {!coapplicantNames})</b> and forward the same to you directly.
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top:15px;text-align:justify;">
+                            <p>
+                                10.The signatory to this letter draws authority to sign this undertaking on behalf of the 
+                                company/firm vide resolution passed at the meeting of the board of Directors held on 30/10/2019 
+                                (description of document of delegation of authority to the signatory).
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top:15px;text-align:left;">
+                            Yours faithfully,<br/>
+                            <b>For {!projectObj.Builder_Organization__r.Name}</b><br/><br/>
+                        </div>
+                        <div style="border-top: 1px solid black;width:120px;margin-top:20px;padding-left:25px;">
+                            <b>Authorised Signatory</b>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            <body> 
+                <div style="display: {!IF((BankLoanObj.Home_LoanInstitution__r.Name == axisBank), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;margin-right:1px;margin-left:15px;">
+                    <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 80px;margin-left: 0%;margin-right: 0%;" width="100%">
+                        <p>Ref.No.:ACCPL/AXIS/{!currentYear}/ </p>
+                        <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                            <tr style=";">
+                                <td>
+                                    Place : Mumbai
+                                </td><td style="text-align: right;padding-left: 2px;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText>
+                                </td>
+                            </tr>
+                             <br/>
+                            <tr>
+                                <td>
+                                    To,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    AXIS BANK LTD,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RAC Mumbai.</td>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td><b>Dear Madam/Sir,</b></td>
+                            </tr>
+                        </table>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            <b>Re:</b>Permission to mortgage flat no. {!booking.Unit_Number__c} on the floor of the building 
+                            proposed to be named as <b>“{!booking.Project_Name__r.Name}”</b> situated at <b>{!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.Postal_Code__c}</b>
+                        </div> 
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            1.This is to confirm that we have allotted/sold flat no.{!booking.Unit_Number__c} admeasuring {!booking.Related_Suggested_Property__r.Unit__r.Proposed_Area__c} Sq. ft. (carpet/ built-up area)
+                            on the floor of the building proposed to be named as / known as s <b>“{!booking.Project_Name__r.Name}”</b> situated at <b>{!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.Postal_Code__c}</b>
+                            under construction / constructed by us to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> for a total consideration of <b>{!booking.Agreement_Value__c}/-({!convertedValue})</b>
+                            under an Agreement for Sale/ Sale Deed dated <b>{!booking.Registration_Date__c}</b>.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            2.We confirm that we have obtained necessary permissions / approvals / sanctions for construction 
+                            of the said building from all the concerned competent authorities and the construction of the building
+                            as well as the of the flat are in accordance with the approved plans.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            3.We assure that the said flat as well as the said building and the land appurtenant there to are 
+                            not subject to any encumbrance, charge or liability of any kind whatsoever and that the entire 
+                            property is free and marketable. We have a clear, legal and marketable title to the said property 
+                            and every part thereof.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            4.<b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> has paid an amount of <b>Rs.{!booking.Total_Received_Amount_Excluding_GST__c}
+                            ({!convertedAmountValue})</b> and a sum of <b>Rs.</b>{!BankLoanObj.Sanction_Amount__c}<b>({!convertedSancValue})</b>
+                            remains to be paid towards the cost of the said flat.
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            5.Possession of the said flat will be given to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> on or about
+                            30/06/2023 on payment of the full consideration of the flat.                        
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            6. We are aware that the said <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> has approached AXIS BANK LTD.
+                            for a loan for purchasing/acquiring the said flat and that AXIS BANK LTD. has agreed to 
+                            sanction/grant the loan to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> to purchase/acquire the above
+                            flat and <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> has agreed to mortgage the said flat in your 
+                            favour/in favour of your security trustee as security for the said loan. We hereby confirm that we have no 
+                            objection to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> mortgaging the said flat to your Bank/in 
+                            favour of your security trustee by way of security for repayment of the said loan.
+                            <br/>
+                            <div style = "font-size: 13px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                                <b>AND</b>
+                            </div><br/>
+                            Notwithstanding anything to the contrary contained in the said Agreement for Sale, we hereby agree to 
+                            note the aforesaid charge in our books in respect of the said flat and <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>
+                            will not be permitted to transfer, assign, sell off/cancel or in any other way/manner
+                            deal with the said flat prejudicial to the interest of the aforesaid mortgagee without the prior 
+                            written consent of the aforesaid mortgage`ee.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                7.We undertake to form a Co- operative Society/Condominium under the Apartment Ownership Act 
+                                of the premises/flat holders in the aforesaid building within the statutory period. And we 
+                                agree to inform and give proper notice to the Co- operative Society/Condominium as and when 
+                                formed, about and said unit/flat being so mortgaged to your Bank/the security trustee nominated by your Bank.
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                8.We have borrowed project finance from ECLs Finance Ltd. and Catalyst Trusteeship Ltd., whose
+                                NOC for this transaction is enclosed herewith.
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                9.<b>Kindly issue the payment in favour of “{!projectObj.Builder_Organization__r.GST_Account_Name__c} {!projectObj.Builder_Organization__r.Branch_Name__c} branch , Account 
+                                Number {!projectObj.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC Code {!bankType}</b>
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top:15px;text-align:left;">
+                            Yours faithfully,<br/>
+                            <b>For {!projectObj.Builder_Organization__r.Name}</b><br/><br/>
+                        </div>
+                        <div style="border-top: 1px solid black;width:120px;margin-top:20px;padding-left:25px;">
+                            <b>Authorised Signatory</b>
+                            <br/>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <b>NOTE:</b> This NOC is to be signed on behalf of the Builders by the same persons who have signed 
+                            the Agreement for sale in favour of the Purchaser / s(Borrower/s) or any person authorised by 
+                            the Builders to sign on their behalf.
+                        </div>
+                    </div>
+                </div>
+            </body>
+            <body> 
+                <div style="display: {!IF((BankLoanObj.Home_LoanInstitution__r.Name == lic), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;margin-right:1px;margin-left:15px;">
+                    <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 80px;margin-left: 0%;margin-right: 0%;" width="100%">
+                        <p>Ref.No.:ACCPL/LIC/{!currentYear}/ </p>
+                        <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                            <tr style=";">
+                                <td>
+                                    To,
+                                </td>
+                                <td style="text-align: right;padding-left: 2px;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Area Manager,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>LIC Housing Finance Ltd.</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mumbai branch.</td>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td>Dear Madam/Sir,</td>
+                            </tr>
+                        </table>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            1.We confirm that we have sold/agreed to sell flat no <b>{!booking.Unit_Number__c}</b> in the building known as 
+                            <b>“{!booking.Project_Name__r.Name}”</b> situated at <b>{!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.Postal_Code__c}</b>,
+                            To <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, for a total consideration of 
+                            <b>Rs.{!booking.Agreement_Value__c}/-({!convertedValue})</b> under agreement dated <b>{!booking.Registration_Date__c}</b>.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            2.The above agreement has been lodged/ordered for registration under <b>No: {!booking.Unit_Number__c}</b> of 
+                            Registration Date <b>{!booking.Registration_Date__c}</b> with the Sub-registrar of Assurance at we have admitted execution of 
+                            the said agreement at the Sub-Registrar’s office within stipulated time limit.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            3.We future state as follows :
+                            <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;margin-left:20px;">
+                                <p>
+                                    i)  We have obtained necessary permission/approval/sanctions for construction of the said building from
+                                    the concerned competent authority.
+                                </p>
+                                <p>
+                                    ii) The construction of the building and of the flat is carried out in accordance with the security for 
+                                    a loan of <b>Rs.-{!BankLoanObj.Sanction_Amount__c}({!convertedSancValue})</b>agreed to be obtained by 
+                                    <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> and for the purpose of purchasing the said flat.
+                                </p>
+                                <p>
+                                    iii) We have no objection to the above buyer/s mortgaging the said flat to you as security for a loan 
+                                    of <b>Rs.-{!BankLoanObj.Sanction_Amount__c}({!convertedSancValue})</b> agreed to be obtained by 
+                                    <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> for the purpose purchasing flat. 
+                                </p>
+                            </div>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            4.We shall get the property in question conveyed to the co-operative housing society after its registration.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            5.We also shall give proper notice to the co-operative Housing Society, about the mortgage of the
+                            said flat in favor of LIC Housing finance ltd.                        
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            6.We have not created any charges/encumbrance of whatsoever nature in relation to the land/building/flat in question till date.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                7.We shall not allow any transfer, sale, exchange and/ or alienation of flat without your permission during the pendancy of loan.
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                8.We undertake not to create any charge or encumbrance on the project land and/or superstructure
+                                constructed/ being constructed thereon.
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                9.No Objection Certificate from Piramal Trusteeship Services Pvt. Ltd., for this transaction is attached herewith.
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                <b>Kindly issue the payment in favour of “{!projectObj.Builder_Organization__r.GST_Account_Name__c} {!projectObj.Builder_Organization__r.Branch_Name__c} branch , Account 
+                                Number {!projectObj.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC Code {!bankType}</b>
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top:15px;text-align:left;">
+                            Thanking You,<br/>
+                            Yours faithfully,<br/>
+                            <b>For {!projectObj.Builder_Organization__r.Name}</b><br/><br/>
+                        </div>
+                        <div style="border-top: 1px solid black;width:120px;margin-top:20px;padding-left:25px;">
+                            Authorised Signatory
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            <body> 
+                <div style="display: {!IF((BankLoanObj.Home_LoanInstitution__r.Name == iciciBank), 'block', 'none')};font-family: Helvetica, sans-serif;font-size:11px;text-align:justify;width:95%;padding-bottom: 7px;margin-right:1px;margin-left:15px;">
+                    <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 50px;margin-left: 0%;margin-right: 0%;" width="100%">
+                        <p>Ref.No.:ACCPL/ICICI/{!currentYear}/ </p>
+                        <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                            <tr style=";">
+                                <td>
+                                    Place: Mumbai
+                                </td>
+                                <td style="text-align: right;padding-left: 2px;">Date:&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText>
+                                </td>
+                            </tr>
+                             <br/>
+                            <tr>
+                                <td>
+                                    To,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   ICICI Bank Ltd.
+                                </td>
+                            </tr>
+                            <br/>
+                            
+                            <tr>
+                                <td><b>Dear Madam/Sir,</b></td>
+                            </tr>
+                        </table>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            <b>Re:</b> Permission to mortgage flat no <b>{!booking.Unit_Number__c}</b> on the <b>{!booking.Floor_No__c}</b> floor of the building proposed to 
+                            be named as <b>{!booking.Project_Name__r.Name} {!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.Postal_Code__c}</b>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 10px;text-align:justify;">
+                            1.This is to confirm that we have allotted/sold flat no. <b>{!booking.Unit_Number__c}</b> admeasuring 
+                            <b>{!booking.Related_Suggested_Property__r.Unit__r.Proposed_Area__c}</b> sq. mt. (carpet/built-up area) on the {!booking.Tower_Name__r.Name} floor of the building proposed 
+                            to be named as/known as “<b>{!booking.Project_Name__r.Name}</b> situated at, <b>{!projectObj.Location__c}, {!projectObj.City__c}, {!projectObj.Postal_Code__c}</b> under construction/constructed
+                            by us to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, for a total consideration of <b>Rs.{!booking.Agreement_Value__c}/-({!convertedValue})</b> under an 
+                            Agreement for Sale/Sale Deed dated <b>{!booking.Registration_Date__c}</b>.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            2.We confirm that we have obtained necessary permissions/approvals/sanctions for construction of the
+                            said building from all the concerned competent authorities and the construction of the building as 
+                            well as of the flat are in accordance with the approved plans. Save and except as mentioned herein,
+                            we assure that the said flat as well as the said building and the land appurtenant thereto are not
+                            subject to any encumbrance, charge or liability of any kind whatsoever, save and except as disclosed
+                            herein and that the entire property is free and marketable. We have a clear, legal and marketable 
+                            title to the said property and every part thereof.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            3.<b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, has paid an amount of <b>Rs. {!booking.Total_Received_Amount_Excluding_GST__c}({!convertedAmountValue})</b> 
+                            and a sum of <b>Rs. {!booking.Agreement_Value__c}/-({!convertedValue})</b>
+                            remains to be paid towards the cost of the said flat.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            4.We are aware that the said <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, has approached ICICI Bank Ltd for a loan for 
+                            purchasing/acquiring the said flat and that ICICI Bank Ltd has agreed to sanction/grant 
+                            the loan to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>, to purchase / acquire the above flat and <b>{!accountObject.salutation} {!accountObject.Name} {!coapplicantNames}</b>,has
+                            agreed to mortgage the said flat in your favour / in favour of your security trustee as
+                            security for the said loan. We hereby confirm that we have no objection to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b>,
+                            mortgaging the said flat to your Company / in favour of your security trustee by way of 
+                            security for repayment of the said loan.
+                            <br/>
+                            <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <b>AND</b>
+                            </div>
+                             <br/>
+                            Not with standing anything to the contrary contained in the said Agreement for Sale, we hereby agree 
+                            to note the aforesaid charge in our books in respect of the said flat and <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> will not be
+                            permitted to transfer, assign, sell off / cancel or in any other way / manner deal with the said 
+                            flat prejudicial to the interest of the aforesaid mortgagee without the prior written consent of 
+                            the aforesaid mortgagee.
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            5.We undertake to form a Co-operative Society / Condominium under the Apartment Ownership Act 
+                            of the premises/flat holders in the aforesaid building within the statutory period. And we 
+                            agree to inform and give proper notice to the Co-operative Society/Condominium as and when
+                            formed, about and said unit/flat being so mortgaged to your Company / the security trustee 
+                            nominated by your Company.                        
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            6."We further agree that in case the Agreement for sale of the flat/premises executed between ourselves
+                            and <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> is terminated or otherwise the flat / premises purchase transaction is cancelled on
+                            account of non-payment of own contribution or for any reason whatsoever, then your bank shall have priority
+                            over the sum or sums of money advanced to <b>{!accountObject.salutation}{!accountObject.Name} {!coapplicantNames}</b> and paid to us, and we hereby undertake to forthwith
+                            refund to you without demur, such sum/sums of money paid to us".
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                7.{!projectObj.Builder_Organization__r.Name} has obtained funding from Kautilya Real Estate Fund, 
+                                by way of issuance of NCD vide Debenture Trust Deed. In this regard, IDBI Trusteeship Services Limited 
+                                has been appointed as the Debenture Trustee to act for the benefit and on behalf of Kautilya Real 
+                                Estate Fund who’s NOC for this transaction is enclosed herewith.
+                            </p>
+                        </div>
+                        
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                8.We further agree and confirms that the Bank reserves the right to visit the above mentioned
+                                property being mortgaged to the bank whenever applicable for recovery of dues related to loans
+                                borrowed from ICICI Bank.
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 15px;text-align:justify;">
+                            <p>
+                                9.Please note that the payment for this transaction should be made by crossed cheque/Transfer of 
+                                funds favoring <b>Account Name {!projectObj.Builder_Organization__r.GST_Account_Name__c} {!projectObj.Builder_Organization__r.Branch_Name__c}
+                                branch , Account Number {!projectObj.Builder_Organization__r.GST_Bank_Account_Number__c}, IFSC Code {!bankType}</b>
+                            </p>
+                        </div>
+                        <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top:15px;text-align:left;">
+                            Yours faithfully,<br/>
+                            <b>For {!projectObj.Builder_Organization__r.Name}</b><br/><br/>
+                        </div>
+                        <div style="border-top: 1px solid black;width:120px;margin-top:20px;padding-left:25px;">
+                            Authorised Signatory
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </apex:pageBlock>
+    </html>
+</apex:page>

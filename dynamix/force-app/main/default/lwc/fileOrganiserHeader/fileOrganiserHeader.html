@@ -1,0 +1,58 @@
+<template>
+    <div class="slds-page-header slds-has-bottom-magnet">
+        <div class="slds-page-header__row" style="align-items: center;">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure slds-avatar slds-avatar_small">
+                        <lightning-icon icon-name="standard:file" alternative-text="Files" title="Files">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="Files">Files</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <template if:true={hasFiles}>
+                        <div class="slds-page-header__control">
+                            <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                    role="none">
+                                    <input type="text" class="slds-input slds-combobox__input slds-is-open"
+                                        autocomplete="off" role="textbox" placeholder="Search Documents"
+                                        oninput={handleSearch} />
+                                    <lightning-icon icon-name="utility:search" size="x-small"
+                                        class="slds-input__icon slds-input__icon_right">
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="slds-page-header__control">
+                        <lightning-button-group>
+                            <lightning-button-icon icon-name="utility:refresh" variant="border-filled"
+                                alternative-text="Retrieve Documents" title="Retrieve Documents"
+                                onclick={handleRefreshFiles}>
+                            </lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:upload" variant="border-filled"
+                                label="Upload Documents" alternative-text="Upload Documents"
+                                onclick={handleUploadFiles}>
+                            </lightning-button-icon>
+                            <template if:true={hasFiles}>
+                                <lightning-button-icon icon-name="utility:filter" variant="border-filled"
+                                    alternative-text="Group Fields" onclick={handleGroupBy}></lightning-button-icon>
+                            </template>
+                        </lightning-button-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Channel_Partner_Project__c.Project__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.CP_Firm_Name__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Channel_Partner_Project__c.Walk_IN_s__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Channel_Partner_Project__c.Bookings__c</field>
+    </columns>
+    <columns>
+        <field>Channel_Partner_Project__c.Categories__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>FK_$Account.Active__c</field>
+    </columns>
+    <currency>INR</currency>
+    <format>Tabular</format>
+    <name>Active and Inactive CP&apos;s for the project</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Channel_Partner_Project__c@Channel_Partner_Project__c.Channel_Partner__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

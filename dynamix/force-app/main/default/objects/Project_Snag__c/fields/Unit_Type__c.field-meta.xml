@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_Type__c</fullName>
+    <label>Unit Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BASEMENT PARKING</fullName>
+                <default>false</default>
+                <label>BASEMENT PARKING</label>
+            </value>
+            <value>
+                <fullName>STILT PARKING</fullName>
+                <default>false</default>
+                <label>STILT PARKING</label>
+            </value>
+            <value>
+                <fullName>PODIUM PARKING</fullName>
+                <default>false</default>
+                <label>PODIUM PARKING</label>
+            </value>
+            <value>
+                <fullName>OPEN PARKING</fullName>
+                <default>false</default>
+                <label>OPEN PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE PODIUM PARKING</fullName>
+                <default>false</default>
+                <label>DOUBLE PODIUM PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE STILT PARKING</fullName>
+                <default>false</default>
+                <label>DOUBLE STILT PARKING</label>
+            </value>
+            <value>
+                <fullName>DOUBLE OPEN PARKING</fullName>
+                <default>false</default>
+                <label>DOUBLE OPEN PARKING</label>
+            </value>
+            <value>
+                <fullName>COVERED STACK</fullName>
+                <default>false</default>
+                <label>COVERED STACK</label>
+            </value>
+            <value>
+                <fullName>STACK</fullName>
+                <default>false</default>
+                <label>STACK</label>
+            </value>
+            <value>
+                <fullName>1BHK</fullName>
+                <default>false</default>
+                <label>1BHK</label>
+            </value>
+            <value>
+                <fullName>2 BHK</fullName>
+                <default>false</default>
+                <label>2 BHK</label>
+            </value>
+            <value>
+                <fullName>2BHK GRAND</fullName>
+                <default>false</default>
+                <label>2BHK GRAND</label>
+            </value>
+            <value>
+                <fullName>2 ½ BHK</fullName>
+                <default>false</default>
+                <label>2 ½ BHK</label>
+            </value>
+            <value>
+                <fullName>3 BHK</fullName>
+                <default>false</default>
+                <label>3 BHK</label>
+            </value>
+            <value>
+                <fullName>4 BHK</fullName>
+                <default>false</default>
+                <label>4 BHK</label>
+            </value>
+            <value>
+                <fullName>PENTHOUSES</fullName>
+                <default>false</default>
+                <label>PENTHOUSES</label>
+            </value>
+            <value>
+                <fullName>ROW HOUSES</fullName>
+                <default>false</default>
+                <label>ROW HOUSES</label>
+            </value>
+            <value>
+                <fullName>VILLAS</fullName>
+                <default>false</default>
+                <label>VILLAS</label>
+            </value>
+            <value>
+                <fullName>BUNGALOW</fullName>
+                <default>false</default>
+                <label>BUNGALOW</label>
+            </value>
+            <value>
+                <fullName>SHOP WITH TERRACE</fullName>
+                <default>false</default>
+                <label>SHOP WITH TERRACE</label>
+            </value>
+            <value>
+                <fullName>SHOP WITHOUT TERRACE</fullName>
+                <default>false</default>
+                <label>SHOP WITHOUT TERRACE</label>
+            </value>
+            <value>
+                <fullName>OFFICE WITH TERRACE</fullName>
+                <default>false</default>
+                <label>OFFICE WITH TERRACE</label>
+            </value>
+            <value>
+                <fullName>OFFICE WITHOUT TERRACE</fullName>
+                <default>false</default>
+                <label>OFFICE WITHOUT TERRACE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

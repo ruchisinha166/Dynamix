@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Primary_Seconday_info_not_updated1</name>
+    <style>none</style>
+    <subject>Primary/Secondary Applicant details not updated in the system</subject>
+    <textOnly>Dear Beena,
+
+Details of Primary/ Secondary Applicant/s for ({!Unit} in {!Project} need to be updated. Please inform {!RM} to update the detail/s of the client and re-initiate the registration process.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

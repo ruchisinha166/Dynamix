@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI/CA submitted Form</name>
+    <style>none</style>
+    <subject>{EOI_CAForm} is successfully submitted for {ProjectName}</subject>
+    <textOnly>Dear {Customer},
+
+Thank you for submitting the  {EOI_CA_Number} application form for {Project}. A copy of the form has been attached with this email for your reference.
+
+Feel free to contact the Dynamix team in case of any concerns.
+
+Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

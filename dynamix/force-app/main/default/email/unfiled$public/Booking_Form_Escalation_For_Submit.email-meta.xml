@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Booking Form Escalation For Submit</name>
+    <style>none</style>
+    <subject>Escalation : For Submit Booking Form</subject>
+    <textOnly>Hi,
+
+The Application Form is not submitted by the client. Please inform SM to request the client to complete the booking formalities by submitting the Application Form.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

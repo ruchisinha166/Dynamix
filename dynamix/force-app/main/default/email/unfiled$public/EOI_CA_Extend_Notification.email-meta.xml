@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI CA Extend Notification</name>
+    <style>none</style>
+    <subject>{EOI/CA} for {projectName} - Extension or Closure</subject>
+    <textOnly>Hi S&amp;M Head,
+
+{EOI_CA} details for {projectName}:-
+Launch Period Start Date :- {startDate}
+Launch Period End Date :-  {endDate}
+Minimum Amount :- {amount}
+Link:- {Link}
+
+Take necessary action on  an extension or closure confirmation of Launch  Period End Date.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

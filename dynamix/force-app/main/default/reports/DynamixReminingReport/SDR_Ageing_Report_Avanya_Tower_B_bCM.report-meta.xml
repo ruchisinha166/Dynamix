@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Booking__c.Stamp_Duty__c:SUM/10000000</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Stamp Duty (In Crore)</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumnGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>Booking__c$Project_Name__c</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>Booking__c$SDR_Ageing_Report__c</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Booking__c$Primary_Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Name</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Unit_Number__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Booking_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Stamp_Duty__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$Subject</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$Status</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Activities$CreatedDate</field>
+    </columns>
+    <currency>INR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF((NOW()-Activity.CreatedDate)&lt;16, &quot;0-15 Days&quot;,
+IF((NOW()-Activity.CreatedDate)&lt;31, &quot;16-30 Days&quot;,
+IF((NOW()-Activity.CreatedDate)&lt;61, &quot;31-60 Days&quot;,
+IF((NOW()-Activity.CreatedDate)&lt;91, &quot;61-90 Days&quot;,
+IF((NOW()-Activity.CreatedDate)&gt;90, &quot;&gt; 90 Days&quot;,
+&quot;Blank&quot;
+)))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SDR Task Pending Days</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Booking__c.Activities$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SDR Letter for the Booking</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c.Activities$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Completed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Indemnity_Form__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Booking_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>4/1/2023</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Stamp_Duty_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Dynamix</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c$Project_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Avanya Tower B</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Booking__c$Project_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Booking__c$SDR_Ageing_Report__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SDR Ageing Report Avanya Tower B</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_With_Tasks_Report_Type__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

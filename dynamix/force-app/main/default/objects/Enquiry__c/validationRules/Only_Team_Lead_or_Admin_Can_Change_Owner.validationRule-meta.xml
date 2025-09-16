@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_Team_Lead_or_Admin_Can_Change_Owner</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISCHANGED( OwnerId ), 
+     $UserRole.Name  &lt;&gt; &quot;SFDC Admin&quot;, 
+$UserRole.Name  &lt;&gt; &quot;Team Leader&quot;,PRIORVALUE(Round_Robin__c) == true
+)</errorConditionFormula>
+    <errorMessage>Only SFDC Admin and Team Leader can change the Owner.</errorMessage>
+</ValidationRule>

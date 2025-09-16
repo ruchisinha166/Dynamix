@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Refund Note" recipientType="Contact" relatedToType="Payment__c">
+
+        
+        <messaging:htmlEmailBody >
+                  <c:Refund_Termination PayMId="{!relatedTo.Id}"  />
+        </messaging:htmlEmailBody>
+
+
+</messaging:emailTemplate>

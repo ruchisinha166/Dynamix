@@ -1,0 +1,397 @@
+<apex:page standardController="Booking__c" renderAs="pdf" extensions="EscalationFormExtention">
+    <html>
+
+    <head>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            td {
+                text-align: left;
+                width: 20%;
+
+            }
+        </style>
+    </head>
+
+    <body style="">
+        <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+
+            <tr>
+                <td colspan="4" bgcolor="#800000" style="font-size:20px;text-align:center;color:white;">
+                    <b>Escalation Form</b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%; padding-bottom:10px;">Customer Name</td>
+                <td style="width:70%;" colspan="3">{!Booking__c.Primary_Applicant__r.Name}</td>
+            </tr>
+            <tr>
+                <td>Building &amp; Flat No. </td>
+                <td colspan="3">{!Booking__c.Tower_Name__r.Name}
+                    <b>-</b>{!properties.Name}</td>
+            </tr>
+            <tr>
+                <td>Booking Date</td>
+                <td colspan="3">
+                    <apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Booking__c.Booking_Date__c}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Flat Cost </td>
+                <td style="width:40%;">
+                    <apex:outputText value="{0, number, #,###.##}">
+                   <apex:param value="{!Booking__c.Agreement_Value__c}" />
+                    </apex:outputText></td>
+                <td style="width:10%;">GST</td>
+                <td style="width:20%;"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.GST__c}"/></apex:outputText></td>
+            </tr>
+
+        </table>
+        <br/>
+        <!-- Loan Deatails -->
+
+        <!--Registration Details-->
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Loan Details</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Home Loan</td>
+                <td style="width:70%;">{!bankloaddetail.Home_LoanInstitution__r.name}</td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Loan Sanction Details</td>
+                <td style="width:70%;"><apex:outputText value="{0, number, #,###.##}">Loan Sanction Amount - <apex:param value="{!bankloaddetail.Sanction_Amount__c }"/></apex:outputText></td>
+            </tr>
+        </table>
+        <br/>
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Registration Details</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Registration No &amp; Date</td>
+                <td style="width:70%;">
+                 {!Booking__c.Registration_Number__c}&nbsp;&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!Booking__c.Registration_Date__c}" />
+                    </apex:outputText> </td>
+            </tr>
+        </table>
+
+        <br/>
+        <!-- Amount Balance Details  -->
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="4" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Amount Balance Details </i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <th style="width:30%;" bgcolor="#C8C8C8"></th>
+                <th style="width:35%;" bgcolor="#C8C8C8">
+                    <b>Flat Due Amount</b>
+                </th>
+                <th style="width:35%;" bgcolor="#C8C8C8">
+                    <b>GST Due Amount</b>
+                </th>
+            </tr>
+            <tr>
+                <td style="width:30%;">Total Billed</td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.Payment_Milestones_Total_Amount__c}"/></apex:outputText></td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.Payment_Milestones_Total_GST__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+                <td style="width:%;">Total Received</td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.Payment_Received_Agreement__c}"/></apex:outputText></td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!Booking__c.Payment_Received_GST__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+                <td style="width:30%;">
+                    <b>Total Outstanding</b>
+                </td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalOutstanding}"/></apex:outputText></td>
+                <td><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalOutstandingGST}"/></apex:outputText></td>
+            </tr>
+        </table>
+        <br/>
+
+        <!-- RM Remarks   -->
+
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>RM Remarks</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">RM Name</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Escalation Date</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%; height: 70px;">Remarks</td>
+                <td style="width:70%;height: 70px;"></td>
+            </tr>
+        </table>
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Level – 1</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">RM Name</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Escalation Date</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%; height: 70px;">Remarks</td>
+                <td style="width:70%;height: 70px;"></td>
+            </tr>
+        </table>
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Level – 2</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">RM Name</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Escalation Date</td>
+                <td style="width:70%;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%; height: 70px;">Remarks</td>
+                <td style="width:70%;height: 70px;"></td>
+            </tr>
+        </table>
+        <br/>
+        <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+
+            <tr>
+                <td colspan="2" bgcolor="#800000" style="font-size:14px;color:white;">
+                    <b>
+                        <i>Case History</i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;">Date</td>
+                <td style="width:70%;">Remarks</td>
+            </tr>
+            <tr>
+                <td style="width:30%; height: 20px;"></td>
+                <td style="width:70%; height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%; height: 20px;"></td>
+                <td style="width:70%; height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="width:30%;height: 20px;"></td>
+                <td style="width:70%;height: 20px;"></td>
+            </tr>
+        </table>
+
+        <br/>
+
+
+
+    </body>
+
+    </html>
+</apex:page>

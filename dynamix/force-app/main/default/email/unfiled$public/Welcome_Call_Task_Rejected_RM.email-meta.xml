@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Welcome Call Task Rejected RM</name>
+    <style>none</style>
+    <subject>Welcome Call Task Rejected</subject>
+    <textOnly>Dear {!Name},
+
+{!SM} has been notified about the incorrect detailsin the Application Form for {!Unit} in {!Project}.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

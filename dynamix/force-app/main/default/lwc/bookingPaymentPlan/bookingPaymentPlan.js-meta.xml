@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Booking Payment Plan</masterLabel>
+    <description>Booking Payment Plan</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="bookId" type="String" label="Book Id" description="Id of Booking" />
+            <property name="deletedPMIds" type="String" label="Payment MilestoneDelete Id" description="Id of Deleted Payment Milestones" role="outputOnly" />
+            <property name="deletedPM" type="String[]" label="Payment MilestoneDelete Id Array" description="Id of Deleted Payment Milestones" />
+            <property name="planJSON" type="String" label="Plan Details" description="Details of Custom Plan" />
+            <property name="newAgreementValue" type="String" label="New Agreement Value" description="New Agreement Value" role="inputOnly" />
+            <property name="newGSTValue" type="String" label="New GST Value" description="New GST Value" role="inputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

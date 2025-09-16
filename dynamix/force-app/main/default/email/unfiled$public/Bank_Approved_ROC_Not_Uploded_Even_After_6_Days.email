@@ -1,0 +1,9 @@
+Dear {!crmHeadName},
+<Br/>
+<Br/>
+The ROC letter in the system for the Booking : {!bookingName} has not been uploaded in the system by {!rmName} for 6 days. Request to close this at the earliest for booking to proceed.
+<Br/>
+<Br/>
+Thank You,
+<Br/>
+Dynamix

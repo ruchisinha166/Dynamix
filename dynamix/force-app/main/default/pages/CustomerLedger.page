@@ -1,0 +1,412 @@
+<apex:page standardController="Booking__c" extensions="customerLedgerExtenstion" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+		<head>
+            <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body {
+                  font-family: Helvetica, sans-serif;
+                  font-size: 11px;
+                }
+            </style>
+        </head>
+		<body style="margin:0;">
+            
+            <div class="footer">
+             <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectFooter}" width="700" height="50" />    
+            </div>
+            <div width = "100%" class="header">
+              <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" width="700" height="140" />
+            </div>
+   
+<div style="margin:0 auto; width:100%; font-size: 11px;">
+    <div width="100%" style="text-align:center;font-size: 18px;">Client A/c Ledger</div>
+  <table border="1" cellpadding="0" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:3%; border-collapse:collapse; font-size:11px;">
+    <tr>
+	<td style="text-align:center;">Booking Dt.:&nbsp;<apex:outputText value="{0,date,MM/dd/yyyy}"> <apex:param value="{!booking.Booking_Date__c}" /> </apex:outputText></td>
+	<td style="text-align:center;">Category: Residential</td>
+	<td style="text-align:center;">Property No.:&nbsp;{!properties.Name}</td>
+	<td style="text-align:center;">CA(sq.ft.):&nbsp;{!properties.RERA_Carpet_Area__c}</td>
+  </tr>
+  </table>
+  
+    <table border="1" cellpadding="0" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse; font-size:11px;">
+        <tr style="width:100%;">
+            <td style="vertical-align:top;">
+                <table border="0" style="table-layout: auto;width:100%;height:100%;font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse; font-size:11px;">
+                            <tr>
+                            <td>Primary Applicant:</td>
+                            <td style="text-align: right;" >{!booking.Primary_Applicant__r.Name}</td>
+                            </tr>
+                            <apex:repeat value="{!coapplicant}" var="Name" id="theRepeat">
+                                <tr>
+                                <td>Co-Applicant:</td>
+                                <td style="text-align: right;" >{!Name.Account__r.name}</td>
+                                </tr>
+                            </apex:repeat>
+                            <tr>
+                                <td style="vertical-align:top;">Address:</td>
+                                <td style="text-align: right;" >{!booking.Primary_Applicant__r.PersonMailingStreet}, {!booking.Primary_Applicant__r.PersonMailingCity},<br/>{!booking.Primary_Applicant__r.PersonMailingState} - {!booking.Primary_Applicant__r.PersonMailingPostalCode}<br/> {!booking.Primary_Applicant__r.PersonMailingCountry}</td>
+                            </tr>
+                            <tr>
+                            <td style="text-align: left;" >Contact No:</td>
+                            <td style="text-align: right;" >{!booking.Primary_Applicant__r.PersonMobilePhone} <!--<apex:repeat value="{!coapplicant}" var="Mob" id="Mob">{!if(Mob.Account__r.PersonMobilePhone != "",",","")}{!Mob.Account__r.PersonMobilePhone}</apex:repeat> --></td>
+                            </tr>
+                            <tr rowspan="2">
+                            <td>E-mail:</td>
+                            <td style="text-align: right;" >{!booking.Primary_Applicant__r.PersonEmail}<!--<apex:repeat value="{!coapplicant}" var="Email" id="Email">{!if(Email.Account__r.PersonEmail != "",",","")}{!Email.Account__r.PersonEmail}</apex:repeat> --></td>
+                            </tr>
+                            </table>
+            </td>
+            <td style="width:30%;height:100%; vertical-align:top;">
+                <table border="0" style="table-layout: auto;width:100%;height:100%;font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse; font-size:11px;">
+            <tr>
+               <td colspan="0">Agr Dt.:</td>
+               <td style="text-align: right;"  colspan="2"><apex:outputText value="{0,date,MM/dd/yyyy}"> <apex:param value="{!booking.Agreement_Sent_to_Agent_Date__c}" /> </apex:outputText></td>
+               
+            </tr>
+            <tr>
+               <td colspan="0">Regn No:</td>
+               <td style="text-align: right;"  colspan="2">{!booking.Registration_Number__c}</td>
+               
+            </tr>
+            <tr>
+               <td>SD Dt.:</td>
+               <td style="text-align: right;" ><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!booking.Stamp_Duty_Date__c}" /> </apex:outputText></td>
+               
+            </tr>
+            <tr>
+                <td>SD Amt.:</td>
+               <td style="text-align: right;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.Stamp_Duty__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td>Regn Dt.:</td>
+               <td style="text-align: right;" ><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!booking.Registration_Date__c}" /> </apex:outputText></td>
+               
+            </tr>
+            <tr>
+                <td>Regn Amt:</td>
+               <td style="text-align: right;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.Registration_Charges__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td colspan="0" style="border-top:1px solid #000;">Lien Dt.:</td>
+               
+               <td colspan="0" style="text-align: right;border-top:1px solid #000;"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!booking.Lien_Date__c}" /> </apex:outputText></td>
+            </tr>
+            <tr>
+               <td colspan="0">Poss. Dt.:</td>
+               <td colspan="0" style="text-align: right;"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!booking.Possession_Date__c}" /> </apex:outputText></td>
+            </tr>
+            
+            </table>
+            </td>
+            <td style="width:40%;height:100%; vertical-align:top;">
+                <table border="0" style="table-layout: auto;width:100%;height:100%;font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse; font-size:11px;">
+            <tr>
+               <td>Agr Value:</td>
+               <td><apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.Agreement_Value__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td>GST:</td>
+               <td><apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.GST__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td>BSP:</td>
+               <td><apex:outputText value="{0, number, #,###}"><apex:param value="{!PricingPlanList.Price_Lumpsum__c}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td>Parking:</td>
+                <td>{!noOfCarParking} Car &amp; {!noOf2WheelerParking} Wheeler Parking</td>
+            </tr>
+            <tr>
+               <td>Possession charges:</td>
+               <td><apex:outputText value="{0, number, #,###}"><apex:param value="{!PossessionCharges}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td style="border-top:1px solid #000;">Total FC: (Total cost incl. AV + GST + SD + Regn)</td>
+               <td style="border-top:1px solid #000;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!totalFC}"/></apex:outputText></td>
+            </tr>
+            <tr>
+               <td style="border-top:1px solid #000;">Total Delay Charges:</td>
+               <td style="border-top:1px solid #000;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!TotalInterest}"/></apex:outputText></td>
+            </tr>
+            </table>
+            </td>
+        </tr>
+        <tr>
+           <td style="text-align:left;">C.P: {!booking.Channel_Partner__r.name}</td>
+           <td style="text-align:left;">Sales exec.: {!usr.Name}</td>
+           <td style="text-align:left;">Payment Plan: {!properties.Property_Price_Slab__r.Name}</td>
+        </tr>
+     </table>
+              <!--  <table border="0" cellpadding="8" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:30px; border-collapse:collapse;font-size:11px;border-top: 1px solid #000;">
+                <tr>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Bal. amt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Towards</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Bank Name &amp; Branch</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcpt. No.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;text-align:left">Txn. no.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Txn. Dt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd. Dt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd.Amt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Bank A/c</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Total rcvd.Amt.</th>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">(DP/Token/Inst./refund)</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">(ABC Bank 1234(till date)</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                
+            </table>  -->
+        <h2 style="font-family: Helvetica, sans-serif; font-size:14px; margin-top:30px;">Payment Inward Details:(AV &amp; GST payments rcvd)</h2>
+        <table border="0" cellpadding="8" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse;font-size:11px;border-top: 1px solid #000;text-align:left">
+                <tr>
+                  <th style="border-left: 1px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Bank Name &amp; Branch</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcpt. No.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;text-align:left">Txn. no.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Txn. Dt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd. Dt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd.Amt.</th>
+                </tr>
+            <apex:repeat value="{!payments}" var="payment" id="Paymentid" >
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;">{!payment.BankName__r.name} <apex:outputText rendered="{!if(payment.BankName__r.name = '',false,true)}" value=" & "></apex:outputText> {!payment.Branch_Name__c}</td>
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;">{!payment.Receipt_No__c}</td>
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;">{!payment.Cheque_Transaction_Number__c}</td>
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!payment.Date__c}" /> </apex:outputText></td>
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!payment.Payment_Date__c}" /> </apex:outputText></td>
+                  <td style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!payment.Amount__c}"/></apex:outputText></td>
+                </tr>
+             </apex:repeat>
+              <!--  <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                </tr> -->
+                
+            </table>	
+        
+        
+      <!--   <h2 style="font-family: Helvetica, sans-serif; font-size:14px; margin-top:30px;">GST inword details:</h2>
+        <table border="0" cellpadding="8" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse;font-size:11px;border-top: 1px solid #000;text-align:left">
+                <tr>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Bank Name &amp; Branch</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcpt. No.</th>
+                  <th style="border-right: 1px solid #000; border-bottom: 1px solid #000;text-align:left">Txn. no.</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Txn. Dt.</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd. Dt.</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Rcvd.Amt.</th>
+                </tr>
+           	 
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"></td>
+                </tr>
+             
+               <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                </tr>  
+                
+            </table>	-->
+            
+            
+     <!--   <h2 style="font-family: Helvetica, sans-serif; font-size:14px; margin-top:30px;">NOC Details:</h2>
+        <table border="0" cellpadding="8" cellspacing="0" style="width:100%; font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse;font-size:11px;border-top: 1px solid #000;text-align:left">
+                <tr>
+                  <th style="border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;text-align:left">NOC dt.</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Financial Institute </th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Branch </th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Loan File no.</th>
+                  <th style="border-right: 1px solid #000; border-bottom: 1px solid #000;text-align:left">Loan amt</th>
+                  <th style="border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Release dt.</th>
+                </tr>
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                  <td style="border-right: 1px solid #000;border-bottom: 1px solid #000;">&amp;nbsp;</td>
+                </tr>
+                
+            </table>	-->
+            
+            
+            <h2 style="font-family: Helvetica, sans-serif; font-size:14px; margin-top:30px;">Demand Letter Details:</h2>
+        <table Width="80%" border="1" cellspacing="0" cellpadding="5" style=" font-family:Helvetica, sans-serif;font-size: 11px;">
+
+            <tr>
+                <td style="width:20%;text-align: center;">A.</td>
+                <td style="width:50%;">Agreement Value</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!booking.Agreement_Value__c}"/></apex:outputText>/-</td>
+                
+            </tr>
+            <tr>
+               <td style="width:20%;text-align: center;">B.</td>
+                <td style="width:50%;">Milestone</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!TotalOutstanding}"/></apex:outputText>/-</td>
+            </tr>
+            <tr>
+                <td style="width:20%;text-align: center;">C.</td>
+                <td style="width:50%;">TDS (1% on B)</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!TDS}"/></apex:outputText>/-</td>
+            </tr>
+            <tr>
+               <td style="width:20%;text-align: center;">D.</td>
+                <td style="width:50%;">Amount Due (B-C)</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!AmountDue}"/></apex:outputText>/-</td>
+            </tr>
+            <tr>
+                <td style="width:20%;text-align: center;">E.</td>
+                <td style="width:50%;">Amount Due Towards CGST (2.5% of B)</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!CGST}"/></apex:outputText>/-</td>
+            </tr>
+             <tr>
+               <td style="width:20%;text-align: center;">F.</td>
+                <td style="width:50%;">Amount Due Towards SGST (2.5% of B)</td>
+                <td style="width:30%;">Rs.<apex:outputText value="{0, number, #,###}"><apex:param value="{!SGST}"/></apex:outputText>/-</td>
+            </tr>
+        </table>
+            
+                
+       <!--     <h2 style="font-family: Helvetica, sans-serif; font-size:14px; margin-top:30px;">Payment Plan: {!properties.Property_Price_Slab__r.Name}</h2>
+        <table border="0" cellpadding="8" cellspacing="0" style="width:80%; font-family: Helvetica, sans-serif; margin-top:0px; border-collapse:collapse; font-size:11px; border-top: 1px solid #000;text-align:left">
+                <tr>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Sr.no.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Milestones </th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">%</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">Due dt.</th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;text-align:left">Amount </th>
+                  <th style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:left">GST</th>
+                </tr>
+            <apex:variable value="{!1}" var="count" />
+            <apex:repeat value="{!paymentMilestons}" var="Mileston" id="Milestoneid">
+                <tr style="border-top: none; border-bottom: none;">
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;">{!count}</td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;">{!Mileston.name}</td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;">{!Mileston.Milestone_age__c}</td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!Mileston.Due_Date__c}" /> </apex:outputText></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!Mileston.Milestone_Amount1__c}"/></apex:outputText></td>
+                  <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;"><apex:outputText value="{0, number, #,###}"><apex:param value="{!Mileston.GST_Amount1__c}"/></apex:outputText></td>
+                </tr> 
+              <apex:variable value="{!count+1}" var="count" /> 
+            </apex:repeat>
+            </table> -->
+            </div>
+  </body>        
+    </html>
+</apex:page>

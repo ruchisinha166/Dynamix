@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Walk_in_Source__c</fullName>
+    <label>Walk-in Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Channel Partner</fullName>
+                <default>false</default>
+                <label>Channel Partner</label>
+            </value>
+            <value>
+                <fullName>Presales</fullName>
+                <default>false</default>
+                <label>Presales</label>
+            </value>
+            <value>
+                <fullName>Direct</fullName>
+                <default>false</default>
+                <label>Direct</label>
+            </value>
+            <value>
+                <fullName>Referred by Existing Customer</fullName>
+                <default>false</default>
+                <label>Referred by Existing Customer</label>
+            </value>
+            <value>
+                <fullName>Referred by Others</fullName>
+                <default>false</default>
+                <label>Referred by Others</label>
+            </value>
+            <value>
+                <fullName>Website</fullName>
+                <default>false</default>
+                <label>Website</label>
+            </value>
+            <value>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+                <label>Social Media</label>
+            </value>
+            <value>
+                <fullName>Online Ads</fullName>
+                <default>false</default>
+                <label>Online Ads</label>
+            </value>
+            <value>
+                <fullName>Hoarding</fullName>
+                <default>false</default>
+                <label>Hoarding</label>
+            </value>
+            <value>
+                <fullName>Newspaper Ad</fullName>
+                <default>false</default>
+                <label>Newspaper Ad</label>
+            </value>
+            <value>
+                <fullName>Radio</fullName>
+                <default>false</default>
+                <label>Radio</label>
+            </value>
+            <value>
+                <fullName>Loyalty</fullName>
+                <default>false</default>
+                <label>Loyalty</label>
+            </value>
+            <value>
+                <fullName>IVR Call</fullName>
+                <default>false</default>
+                <label>IVR Call</label>
+            </value>
+            <value>
+                <fullName>Property Portal</fullName>
+                <default>false</default>
+                <label>Property Portal</label>
+            </value>
+            <value>
+                <fullName>Email/SMS/WhatsApp</fullName>
+                <default>false</default>
+                <label>Email/SMS/WhatsApp</label>
+            </value>
+            <value>
+                <fullName>Exhibition</fullName>
+                <default>false</default>
+                <label>Exhibition</label>
+            </value>
+            <value>
+                <fullName>Existing Client</fullName>
+                <default>false</default>
+                <label>Existing Client</label>
+            </value>
+            <value>
+                <fullName>Google</fullName>
+                <default>false</default>
+                <label>Google</label>
+            </value>
+            <value>
+                <fullName>Digital</fullName>
+                <default>false</default>
+                <label>Digital</label>
+            </value>
+            <value>
+                <fullName>Rechurned Lead</fullName>
+                <default>false</default>
+                <label>Rechurned Lead</label>
+            </value>
+            <value>
+                <fullName>Magicbricks</fullName>
+                <default>false</default>
+                <label>Magicbricks</label>
+            </value>
+            <value>
+                <fullName>99 Acres</fullName>
+                <default>false</default>
+                <label>99 Acres</label>
+            </value>
+            <value>
+                <fullName>Event</fullName>
+                <default>false</default>
+                <label>Event</label>
+            </value>
+            <value>
+                <fullName>SMS</fullName>
+                <default>false</default>
+                <label>SMS</label>
+            </value>
+            <value>
+                <fullName>Passing By</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Passing By</label>
+            </value>
+            <value>
+                <fullName>Referral</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Referral</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

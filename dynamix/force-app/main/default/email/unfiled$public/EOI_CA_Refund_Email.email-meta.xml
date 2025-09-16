@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI/CA Refund Email</name>
+    <style>none</style>
+    <subject>Refund amount for {!Opportunity.EOI_CA__c} has been processed.</subject>
+    <textOnly>Hi,
+
+The refund for &apos;{!Opportunity.EOI_CA__c}&apos; {!Opportunity.EOI_CA_Number__c} of &apos;customer&apos; for &apos;{!Opportunity.Project__c}&apos; has been processed and is ready for payment.
+
+Please click on the link for more details: {!Opportunity.Link}
+
+Regards, Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

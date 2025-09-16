@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_Architecture_Certificate_is_false</fullName>
+    <active>true</active>
+    <description>If Architecture Certificate is uncheck and  Project Progress is complete</description>
+    <errorConditionFormula>Architecture_Certificate__c  = false &amp;&amp;   ISPICKVAL( Progress_Status__c , &quot;Completed&quot;)</errorConditionFormula>
+    <errorMessage>You can not Change the Status Completed, please attach the Architecture Certificate.</errorMessage>
+</ValidationRule>

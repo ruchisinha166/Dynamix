@@ -1,0 +1,7 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Recipient.Name}}},<br />
+We have emailed you the draft Subvention Letter, on your Email address registered with us, pertaining to the Apartment No. {{{Booking__c.Unit_Number__c}}} at {{{Booking__c.Project_Name_Formulla__c}}}, registered with MahaRERA under identification No. {{{Booking__c.RERA_Number__c}}}.<br />
+We request you to confirm the said Subvention Letter by countersigning the same, and returning it to us within the next 7 days. &nbsp;<br />
+In case you have any queries whatsoever or need any assistance in relation to the Subvention arrangement pertaining to the Allotment of the said Apartment, please feel free to get in touch with your relationship manager on {{{Booking__c.Project_Phone__c}}} or over email at {{{Booking__c.Project_Email__c}}}.</body></html>

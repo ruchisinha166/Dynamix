@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Booking__c.Welcome_Email_Checker__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>booking  name</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_61156477</developerName>
+        <masterLabel>Welcome Call</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Booking__c.Activities$Subject</sourceColumnName>
+        <useOther>false</useOther>
+    </buckets>
+    <columns>
+        <field>Booking__c$SDR_Completed_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Registration_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Related_Opportunity__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c$Name</field>
+    </columns>
+    <currency>INR</currency>
+    <filter>
+        <criteriaItems>
+            <column>Booking__c.Activities$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Welcome Call</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Booking__c$Project_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Booking Vs Welcome Vs SDR</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Booking_With_Tasks_Report_Type__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

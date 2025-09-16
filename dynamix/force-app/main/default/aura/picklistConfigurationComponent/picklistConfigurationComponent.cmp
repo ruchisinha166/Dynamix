@@ -1,0 +1,11 @@
+<aura:component controller="PicklistConfigurationController" implements="lightning:isUrlAddressable,lightning:availableForFlowScreens,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride" access="global" >
+    <aura:attribute name="picklistValues" type="List" />
+    <aura:attribute name="flowValues" type="String" />
+    <aura:attribute name="selectedValue" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <ui:inputSelect aura:id="picklistSelect" value="{!v.selectedValue}"  label="Configurations"  change="{!c.handlePicklistSelection}">
+        <aura:iteration items="{!v.picklistValues}" var="value">
+            <ui:inputSelectOption text="{!value}" label="{!value}"/>
+        </aura:iteration>
+    </ui:inputSelect>	
+</aura:component>

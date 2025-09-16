@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area_of_Residence__c</fullName>
+    <label>Area of Residence</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cumballa Hill</fullName>
+                <default>false</default>
+                <label>Cumballa Hill</label>
+            </value>
+            <value>
+                <fullName>Thane West</fullName>
+                <default>false</default>
+                <label>Thane West</label>
+            </value>
+            <value>
+                <fullName>Goregaon</fullName>
+                <default>false</default>
+                <label>Goregaon</label>
+            </value>
+            <value>
+                <fullName>Malad East</fullName>
+                <default>false</default>
+                <label>Malad East</label>
+            </value>
+            <value>
+                <fullName>Malad West</fullName>
+                <default>false</default>
+                <label>Malad West</label>
+            </value>
+            <value>
+                <fullName>Kandivali East</fullName>
+                <default>false</default>
+                <label>Kandivali East</label>
+            </value>
+            <value>
+                <fullName>Bandra West</fullName>
+                <default>false</default>
+                <label>Bandra West</label>
+            </value>
+            <value>
+                <fullName>Mira Road</fullName>
+                <default>false</default>
+                <label>Mira Road</label>
+            </value>
+            <value>
+                <fullName>Bhayandar West</fullName>
+                <default>false</default>
+                <label>Bhayandar West</label>
+            </value>
+            <value>
+                <fullName>Borivali</fullName>
+                <default>false</default>
+                <label>Borivali</label>
+            </value>
+            <value>
+                <fullName>Andheri East</fullName>
+                <default>false</default>
+                <label>Andheri East</label>
+            </value>
+            <value>
+                <fullName>Goregaon West</fullName>
+                <default>false</default>
+                <label>Goregaon West</label>
+            </value>
+            <value>
+                <fullName>Bandra East</fullName>
+                <default>false</default>
+                <label>Bandra East</label>
+            </value>
+            <value>
+                <fullName>Colaba</fullName>
+                <default>false</default>
+                <label>Colaba</label>
+            </value>
+            <value>
+                <fullName>Santacruz East</fullName>
+                <default>false</default>
+                <label>Santacruz East</label>
+            </value>
+            <value>
+                <fullName>Lodha</fullName>
+                <default>false</default>
+                <label>Lodha</label>
+            </value>
+            <value>
+                <fullName>Saki Naka</fullName>
+                <default>false</default>
+                <label>Saki Naka</label>
+            </value>
+            <value>
+                <fullName>Malabar Hill</fullName>
+                <default>false</default>
+                <label>Malabar Hill</label>
+            </value>
+            <value>
+                <fullName>Dahisar West</fullName>
+                <default>false</default>
+                <label>Dahisar West</label>
+            </value>
+            <value>
+                <fullName>Dahisar East</fullName>
+                <default>false</default>
+                <label>Dahisar East</label>
+            </value>
+            <value>
+                <fullName>Mulund East</fullName>
+                <default>false</default>
+                <label>Mulund East</label>
+            </value>
+            <value>
+                <fullName>Kandivali West</fullName>
+                <default>false</default>
+                <label>Kandivali West</label>
+            </value>
+            <value>
+                <fullName>Andheri West</fullName>
+                <default>false</default>
+                <label>Andheri West</label>
+            </value>
+            <value>
+                <fullName>Khar West</fullName>
+                <default>false</default>
+                <label>Khar West</label>
+            </value>
+            <value>
+                <fullName>Vile Parle</fullName>
+                <default>false</default>
+                <label>Vile Parle</label>
+            </value>
+            <value>
+                <fullName>Nerul</fullName>
+                <default>false</default>
+                <label>Nerul</label>
+            </value>
+            <value>
+                <fullName>Grant Road</fullName>
+                <default>false</default>
+                <label>Grant Road</label>
+            </value>
+            <value>
+                <fullName>Khar Danda</fullName>
+                <default>false</default>
+                <label>Khar Danda</label>
+            </value>
+            <value>
+                <fullName>Saidapet</fullName>
+                <default>false</default>
+                <label>Saidapet</label>
+            </value>
+            <value>
+                <fullName>Borivali West</fullName>
+                <default>false</default>
+                <label>Borivali West</label>
+            </value>
+            <value>
+                <fullName>Old Delhi</fullName>
+                <default>false</default>
+                <label>Old Delhi</label>
+            </value>
+            <value>
+                <fullName>Jogeshwari West</fullName>
+                <default>false</default>
+                <label>Jogeshwari West</label>
+            </value>
+            <value>
+                <fullName>Chembur</fullName>
+                <default>false</default>
+                <label>Chembur</label>
+            </value>
+            <value>
+                <fullName>Mira Road East</fullName>
+                <default>false</default>
+                <label>Mira Road East</label>
+            </value>
+            <value>
+                <fullName>Jogeshwari East</fullName>
+                <default>false</default>
+                <label>Jogeshwari East</label>
+            </value>
+            <value>
+                <fullName>Bhayandar</fullName>
+                <default>false</default>
+                <label>Bhayandar</label>
+            </value>
+            <value>
+                <fullName>Abu Dhabi</fullName>
+                <default>false</default>
+                <label>Abu Dhabi</label>
+            </value>
+            <value>
+                <fullName>Virar West</fullName>
+                <default>false</default>
+                <label>Virar West</label>
+            </value>
+            <value>
+                <fullName>Goregaon E</fullName>
+                <default>false</default>
+                <label>Goregaon E</label>
+            </value>
+            <value>
+                <fullName>Bhayandar East</fullName>
+                <default>false</default>
+                <label>Bhayandar East</label>
+            </value>
+            <value>
+                <fullName>Panvel</fullName>
+                <default>false</default>
+                <label>Panvel</label>
+            </value>
+            <value>
+                <fullName>Danteshwar</fullName>
+                <default>false</default>
+                <label>Danteshwar</label>
+            </value>
+            <value>
+                <fullName>Siddharth Nagar |  Goregaon West</fullName>
+                <default>false</default>
+                <label>Siddharth Nagar |  Goregaon West</label>
+            </value>
+            <value>
+                <fullName>Kharghar</fullName>
+                <default>false</default>
+                <label>Kharghar</label>
+            </value>
+            <value>
+                <fullName>Vasai West</fullName>
+                <default>false</default>
+                <label>Vasai West</label>
+            </value>
+            <value>
+                <fullName>Powai</fullName>
+                <default>false</default>
+                <label>Powai</label>
+            </value>
+            <value>
+                <fullName>Juhu</fullName>
+                <default>false</default>
+                <label>Juhu</label>
+            </value>
+            <value>
+                <fullName>Santacruz West</fullName>
+                <default>false</default>
+                <label>Santacruz West</label>
+            </value>
+            <value>
+                <fullName>Borivali East</fullName>
+                <default>false</default>
+                <label>Borivali East</label>
+            </value>
+            <value>
+                <fullName>Ridhi Sidhi Enclave</fullName>
+                <default>false</default>
+                <label>Ridhi Sidhi Enclave</label>
+            </value>
+            <value>
+                <fullName>Usarghar Gaon</fullName>
+                <default>false</default>
+                <label>Usarghar Gaon</label>
+            </value>
+            <value>
+                <fullName>Vile Parle West</fullName>
+                <default>false</default>
+                <label>Vile Parle West</label>
+            </value>
+            <value>
+                <fullName>Khadakpada</fullName>
+                <default>false</default>
+                <label>Khadakpada</label>
+            </value>
+            <value>
+                <fullName>Krishna Nagar</fullName>
+                <default>false</default>
+                <label>Krishna Nagar</label>
+            </value>
+            <value>
+                <fullName>Vashi</fullName>
+                <default>false</default>
+                <label>Vashi</label>
+            </value>
+            <value>
+                <fullName>Parel</fullName>
+                <default>false</default>
+                <label>Parel</label>
+            </value>
+            <value>
+                <fullName>Mahim</fullName>
+                <default>false</default>
+                <label>Mahim</label>
+            </value>
+            <value>
+                <fullName>Girgaon</fullName>
+                <default>false</default>
+                <label>Girgaon</label>
+            </value>
+            <value>
+                <fullName>Belgachia</fullName>
+                <default>false</default>
+                <label>Belgachia</label>
+            </value>
+            <value>
+                <fullName>B.B.D. Bagh</fullName>
+                <default>false</default>
+                <label>B.B.D. Bagh</label>
+            </value>
+            <value>
+                <fullName>Mulund West</fullName>
+                <default>false</default>
+                <label>Mulund West</label>
+            </value>
+            <value>
+                <fullName>Vasai East</fullName>
+                <default>false</default>
+                <label>Vasai East</label>
+            </value>
+            <value>
+                <fullName>Kondhwa</fullName>
+                <default>false</default>
+                <label>Kondhwa</label>
+            </value>
+            <value>
+                <fullName>Sawe Wadi</fullName>
+                <default>false</default>
+                <label>Sawe Wadi</label>
+            </value>
+            <value>
+                <fullName>Goregaon (E</fullName>
+                <default>false</default>
+                <label>Goregaon (E</label>
+            </value>
+            <value>
+                <fullName>Dadar East</fullName>
+                <default>false</default>
+                <label>Dadar East</label>
+            </value>
+            <value>
+                <fullName>Gorai</fullName>
+                <default>false</default>
+                <label>Gorai</label>
+            </value>
+            <value>
+                <fullName>Virar East</fullName>
+                <default>false</default>
+                <label>Virar East</label>
+            </value>
+            <value>
+                <fullName>Amboli</fullName>
+                <default>false</default>
+                <label>Amboli</label>
+            </value>
+            <value>
+                <fullName>Andheri (E</fullName>
+                <default>false</default>
+                <label>Andheri (E</label>
+            </value>
+            <value>
+                <fullName>Byculla</fullName>
+                <default>false</default>
+                <label>Byculla</label>
+            </value>
+            <value>
+                <fullName>Chinchpokli</fullName>
+                <default>false</default>
+                <label>Chinchpokli</label>
+            </value>
+            <value>
+                <fullName>Dadar West</fullName>
+                <default>false</default>
+                <label>Dadar West</label>
+            </value>
+            <value>
+                <fullName>Matunga</fullName>
+                <default>false</default>
+                <label>Matunga</label>
+            </value>
+            <value>
+                <fullName>Mumbai Central</fullName>
+                <default>false</default>
+                <label>Mumbai Central</label>
+            </value>
+            <value>
+                <fullName>Periyamet</fullName>
+                <default>false</default>
+                <label>Periyamet</label>
+            </value>
+            <value>
+                <fullName>Al Karama</fullName>
+                <default>false</default>
+                <label>Al Karama</label>
+            </value>
+            <value>
+                <fullName>Worli</fullName>
+                <default>false</default>
+                <label>Worli</label>
+            </value>
+            <value>
+                <fullName>Agarkar Nagar</fullName>
+                <default>false</default>
+                <label>Agarkar Nagar</label>
+            </value>
+            <value>
+                <fullName>Vikhroli West</fullName>
+                <default>false</default>
+                <label>Vikhroli West</label>
+            </value>
+            <value>
+                <fullName>Ghatkopar West</fullName>
+                <default>false</default>
+                <label>Ghatkopar West</label>
+            </value>
+            <value>
+                <fullName>Ghodbunder</fullName>
+                <default>false</default>
+                <label>Ghodbunder</label>
+            </value>
+            <value>
+                <fullName>Gopalbari</fullName>
+                <default>false</default>
+                <label>Gopalbari</label>
+            </value>
+            <value>
+                <fullName>Sahibzada Ajit Singh Nagar</fullName>
+                <default>false</default>
+                <label>Sahibzada Ajit Singh Nagar</label>
+            </value>
+            <value>
+                <fullName>Airoli</fullName>
+                <default>false</default>
+                <label>Airoli</label>
+            </value>
+            <value>
+                <fullName>HSR Layout</fullName>
+                <default>false</default>
+                <label>HSR Layout</label>
+            </value>
+            <value>
+                <fullName>Wadala</fullName>
+                <default>false</default>
+                <label>Wadala</label>
+            </value>
+            <value>
+                <fullName>Chhoti Gwaltoli</fullName>
+                <default>false</default>
+                <label>Chhoti Gwaltoli</label>
+            </value>
+            <value>
+                <fullName>Kurla</fullName>
+                <default>false</default>
+                <label>Kurla</label>
+            </value>
+            <value>
+                <fullName>Ajmeri Gate</fullName>
+                <default>false</default>
+                <label>Ajmeri Gate</label>
+            </value>
+            <value>
+                <fullName>Pink City</fullName>
+                <default>false</default>
+                <label>Pink City</label>
+            </value>
+            <value>
+                <fullName>Dadar</fullName>
+                <default>false</default>
+                <label>Dadar</label>
+            </value>
+            <value>
+                <fullName>Mazgaon</fullName>
+                <default>false</default>
+                <label>Mazgaon</label>
+            </value>
+            <value>
+                <fullName>Bhandup West</fullName>
+                <default>false</default>
+                <label>Bhandup West</label>
+            </value>
+            <value>
+                <fullName>Virar</fullName>
+                <default>false</default>
+                <label>Virar</label>
+            </value>
+            <value>
+                <fullName>Vikhroli</fullName>
+                <default>false</default>
+                <label>Vikhroli</label>
+            </value>
+            <value>
+                <fullName>Versova</fullName>
+                <default>false</default>
+                <label>Versova</label>
+            </value>
+            <value>
+                <fullName>Vasai-Virar</fullName>
+                <default>false</default>
+                <label>Vasai-Virar</label>
+            </value>
+            <value>
+                <fullName>Uttan</fullName>
+                <default>false</default>
+                <label>Uttan</label>
+            </value>
+            <value>
+                <fullName>Sion</fullName>
+                <default>false</default>
+                <label>Sion</label>
+            </value>
+            <value>
+                <fullName>Sankalp Society</fullName>
+                <default>false</default>
+                <label>Sankalp Society</label>
+            </value>
+            <value>
+                <fullName>Nalasopara West</fullName>
+                <default>false</default>
+                <label>Nalasopara West</label>
+            </value>
+            <value>
+                <fullName>Naigaon East</fullName>
+                <default>false</default>
+                <label>Naigaon East</label>
+            </value>
+            <value>
+                <fullName>Lower Parel</fullName>
+                <default>false</default>
+                <label>Lower Parel</label>
+            </value>
+            <value>
+                <fullName>Ghatkopar East</fullName>
+                <default>false</default>
+                <label>Ghatkopar East</label>
+            </value>
+            <value>
+                <fullName>Dombivli West</fullName>
+                <default>false</default>
+                <label>Dombivli West</label>
+            </value>
+            <value>
+                <fullName>Bunder</fullName>
+                <default>false</default>
+                <label>Bunder</label>
+            </value>
+            <value>
+                <fullName>Bhoiwada</fullName>
+                <default>false</default>
+                <label>Bhoiwada</label>
+            </value>
+            <value>
+                <fullName>Bhandup</fullName>
+                <default>false</default>
+                <label>Bhandup</label>
+            </value>
+            <value>
+                <fullName>Agripada</fullName>
+                <default>false</default>
+                <label>Agripada</label>
+            </value>
+            <value>
+                <fullName>A - Block</fullName>
+                <default>false</default>
+                <label>A - Block</label>
+            </value>
+            <value>
+                <fullName>Dombivli East</fullName>
+                <default>false</default>
+                <label>Dombivli East</label>
+            </value>
+            <value>
+                <fullName>Shivaji Park</fullName>
+                <default>false</default>
+                <label>Shivaji Park</label>
+            </value>
+            <value>
+                <fullName>Nalasopara East</fullName>
+                <default>false</default>
+                <label>Nalasopara East</label>
+            </value>
+            <value>
+                <fullName>Palghar West</fullName>
+                <default>false</default>
+                <label>Palghar West</label>
+            </value>
+            <value>
+                <fullName>Station Pada</fullName>
+                <default>false</default>
+                <label>Station Pada</label>
+            </value>
+            <value>
+                <fullName>Kalyan West</fullName>
+                <default>false</default>
+                <label>Kalyan West</label>
+            </value>
+            <value>
+                <fullName>Khar East</fullName>
+                <default>false</default>
+                <label>Khar East</label>
+            </value>
+            <value>
+                <fullName>Kopar Khairane</fullName>
+                <default>false</default>
+                <label>Kopar Khairane</label>
+            </value>
+            <value>
+                <fullName>Kulgaon</fullName>
+                <default>false</default>
+                <label>Kulgaon</label>
+            </value>
+            <value>
+                <fullName>Manjarli</fullName>
+                <default>false</default>
+                <label>Manjarli</label>
+            </value>
+            <value>
+                <fullName>Mumbai</fullName>
+                <default>false</default>
+                <label>Mumbai</label>
+            </value>
+            <value>
+                <fullName>Prabhadevi</fullName>
+                <default>false</default>
+                <label>Prabhadevi</label>
+            </value>
+            <value>
+                <fullName>Vevoor</fullName>
+                <default>false</default>
+                <label>Vevoor</label>
+            </value>
+            <value>
+                <fullName>Athwa</fullName>
+                <default>false</default>
+                <label>Athwa</label>
+            </value>
+            <value>
+                <fullName>Bhandup East</fullName>
+                <default>false</default>
+                <label>Bhandup East</label>
+            </value>
+            <value>
+                <fullName>Bhuleshwar</fullName>
+                <default>false</default>
+                <label>Bhuleshwar</label>
+            </value>
+            <value>
+                <fullName>Dasman</fullName>
+                <default>false</default>
+                <label>Dasman</label>
+            </value>
+            <value>
+                <fullName>Dubai</fullName>
+                <default>false</default>
+                <label>Dubai</label>
+            </value>
+            <value>
+                <fullName>Fraser Road Area</fullName>
+                <default>false</default>
+                <label>Fraser Road Area</label>
+            </value>
+            <value>
+                <fullName>Majiwada</fullName>
+                <default>false</default>
+                <label>Majiwada</label>
+            </value>
+            <value>
+                <fullName>Mankoli</fullName>
+                <default>false</default>
+                <label>Mankoli</label>
+            </value>
+            <value>
+                <fullName>Manpada</fullName>
+                <default>false</default>
+                <label>Manpada</label>
+            </value>
+            <value>
+                <fullName>Marine Lines</fullName>
+                <default>false</default>
+                <label>Marine Lines</label>
+            </value>
+            <value>
+                <fullName>Matunga East</fullName>
+                <default>false</default>
+                <label>Matunga East</label>
+            </value>
+            <value>
+                <fullName>Murist</fullName>
+                <default>false</default>
+                <label>Murist</label>
+            </value>
+            <value>
+                <fullName>Nampally</fullName>
+                <default>false</default>
+                <label>Nampally</label>
+            </value>
+            <value>
+                <fullName>Nariman Point</fullName>
+                <default>false</default>
+                <label>Nariman Point</label>
+            </value>
+            <value>
+                <fullName>Nashik Road</fullName>
+                <default>false</default>
+                <label>Nashik Road</label>
+            </value>
+            <value>
+                <fullName>Navjeevan Society</fullName>
+                <default>false</default>
+                <label>Navjeevan Society</label>
+            </value>
+            <value>
+                <fullName>Parijat Nagar</fullName>
+                <default>false</default>
+                <label>Parijat Nagar</label>
+            </value>
+            <value>
+                <fullName>Sector 3</fullName>
+                <default>false</default>
+                <label>Sector 3</label>
+            </value>
+            <value>
+                <fullName>Shiv Shakti Nagar</fullName>
+                <default>false</default>
+                <label>Shiv Shakti Nagar</label>
+            </value>
+            <value>
+                <fullName>Shubhash Nagar Ward</fullName>
+                <default>false</default>
+                <label>Shubhash Nagar Ward</label>
+            </value>
+            <value>
+                <fullName>Thakurli</fullName>
+                <default>false</default>
+                <label>Thakurli</label>
+            </value>
+            <value>
+                <fullName>Thane</fullName>
+                <default>false</default>
+                <label>Thane</label>
+            </value>
+            <value>
+                <fullName>Thane East</fullName>
+                <default>false</default>
+                <label>Thane East</label>
+            </value>
+            <value>
+                <fullName>Uttarakhand</fullName>
+                <default>false</default>
+                <label>Uttarakhand</label>
+            </value>
+            <value>
+                <fullName>Varachha</fullName>
+                <default>false</default>
+                <label>Varachha</label>
+            </value>
+            <value>
+                <fullName>Vasanth Nagar</fullName>
+                <default>false</default>
+                <label>Vasanth Nagar</label>
+            </value>
+            <value>
+                <fullName>Vishnu Nagar</fullName>
+                <default>false</default>
+                <label>Vishnu Nagar</label>
+            </value>
+            <value>
+                <fullName>Kashish Park</fullName>
+                <default>false</default>
+                <label>Kashish Park</label>
+            </value>
+            <value>
+                <fullName>Kalwa</fullName>
+                <default>false</default>
+                <label>Kalwa</label>
+            </value>
+            <value>
+                <fullName>Gokul Nagar</fullName>
+                <default>false</default>
+                <label>Gokul Nagar</label>
+            </value>
+            <value>
+                <fullName>Ghansoli</fullName>
+                <default>false</default>
+                <label>Ghansoli</label>
+            </value>
+            <value>
+                <fullName>CBD Belapur</fullName>
+                <default>false</default>
+                <label>CBD Belapur</label>
+            </value>
+            <value>
+                <fullName>Borivade Village</fullName>
+                <default>false</default>
+                <label>Borivade Village</label>
+            </value>
+            <value>
+                <fullName>Boisar</fullName>
+                <default>false</default>
+                <label>Boisar</label>
+            </value>
+            <value>
+                <fullName>Bengaluru</fullName>
+                <default>false</default>
+                <label>Bengaluru</label>
+            </value>
+            <value>
+                <fullName>Bahan</fullName>
+                <default>false</default>
+                <label>Bahan</label>
+            </value>
+            <value>
+                <fullName>Badlapur</fullName>
+                <default>false</default>
+                <label>Badlapur</label>
+            </value>
+            <value>
+                <fullName>Antrolikar Nagar</fullName>
+                <default>false</default>
+                <label>Antrolikar Nagar</label>
+            </value>
+            <value>
+                <fullName>Ambernath East</fullName>
+                <default>false</default>
+                <label>Ambernath East</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

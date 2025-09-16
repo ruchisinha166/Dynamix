@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CA_details_Should_be_filled</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  CA__c  = true, OR(ISNULL(  Launch_CA_Period_s_Start_Date__c  ),ISNULL(   Launch_CA_Period_s_End_Date__c  )  , ISNULL(  Minimum_amount_for_CA__c  ) 
+))</errorConditionFormula>
+    <errorMessage>CA Section should be completed for activating CA.</errorMessage>
+</ValidationRule>

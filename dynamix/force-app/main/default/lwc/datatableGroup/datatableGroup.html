@@ -1,0 +1,18 @@
+<template>
+    <table class="slds-table slds-table_bordered slds-table_fixed slds-table_col-bordered slds-table_resizable-cols"
+        style="border-collapse: collapse;">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <template iterator:col={columns}>
+                    <th key={col.value.label}>
+                        <c-datatable-col-header col={col.value.label} is-first={col.first} onsort={handleSort}>
+                        </c-datatable-col-header>
+                    </th>
+                </template>
+            </tr>
+        </thead>
+        <template if:true={rows}>
+            <c-datatable-rows rows={rows} columns={columns}></c-datatable-rows>
+        </template>
+    </table>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Message_for_Planned_Budget__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ActualCost== Prior_Planned_Budget__c  ,&apos;INR. &apos;+text(ActualCost),
+ &apos;Planned Budget has been Updated from INR. &apos; + TEXT(Prior_Planned_Budget__c) + &apos; to INR. &apos; + TEXT(ActualCost)
+)</formula>
+    <label>Message for Planned Budget</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

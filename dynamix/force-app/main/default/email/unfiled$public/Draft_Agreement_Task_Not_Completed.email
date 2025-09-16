@@ -1,0 +1,11 @@
+Dear {!Booking__c.Primary_Applicant_Name_Formulla__c},
+<br/><br/>
+You have received the Draft Agreement for Sale for your booking {!Booking__c.Name} of {!Booking__c.Unit_Number__c} in {!Booking__c.Project_Name_Formulla__c}. 
+<br/><br/>
+Please consider this as a final intimition to verify all the details as mentioned in the Agreement pertianing to your apartment.
+<br/><br/>
+In case of request for change in any detail, please respond  within the ext 24 hours; otherwise the details as mentioned therein shall be considered as duly approved by you.
+<br/><br/>
+Thankyou.
+<br/>
+Dynamix

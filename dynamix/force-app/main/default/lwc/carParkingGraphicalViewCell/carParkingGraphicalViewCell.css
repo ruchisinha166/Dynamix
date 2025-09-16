@@ -1,0 +1,39 @@
+.heading_text{
+    font-weight:bold;
+    color:white;
+}
+.available{
+    background-color:rgb(4, 132, 75);
+}
+.hold{
+    background-color: #FFBF00;
+}
+.blocked{
+    background-color: rgb(255, 0,0);
+}
+.sold{
+    background-color: #FF8C00;
+}
+.refuge{
+    background-color: rgb(255,192,203);
+}
+.blockeds{
+    background-color: rgb(36, 30, 51);
+}
+.filteredCell{
+    /*background-color: var(--lwc-colorBackgroundInputDisabled,rgb(236, 235, 234));*/
+     background-color: var(--lwc-colorBackgroundInputDisabled, rgb(236, 235, 234));
+      display: none;
+}
+.yetToStart{
+    background-color: rgb(135, 5, 0);
+}
+.filteredText{
+    color: #000;
+}
+.slds-visual-picker input[disabled]~label .slds-visual-picker__figure .slds-text-heading_small{
+    color: #000;
+    font-weight: lighter;
+    display: none;
+   
+}

@@ -1,0 +1,236 @@
+<apex:page standardController="Booking__c" extensions="BookingCancellationChecklist" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style>
+                @page
+                {
+                margin-top: 5%;
+                margin-bottom: 5%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body {
+                font-family: Helvetica, sans-serif;
+                font-size: 12px;
+                }
+                table {
+                border-collapse: collapse;
+                }
+                td {
+                padding-top: .6em;
+                padding-bottom: .6em;
+                padding-left: 5px;
+                }
+                .bold_text{
+                font-weight:700;
+                }
+            </style>
+        </head>
+        <apex:pageBlock >
+            <body> 
+                <div class="bold_text" style="font-size:18px;text-align:center;margin-bottom:20px;">
+                    Booking Cancellation Details
+                </div>
+                <div>
+                    <table width="100%" border="1">
+                        <tr>
+                            <td width="40%" class="bold_text">Primary Applicant Name</td>
+                            <td>{!bookingRecord.Primary_Applicant__r.FirstName}&nbsp;{!bookingRecord.Primary_Applicant__r.LastName}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Co-Applicant Name</td>
+                            <td>{!coAppllicantRecord.Account__r.Name}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Project</td>
+                            <td>{!bookingRecord.Project_Name__r.Name}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Tower Name</td>
+                            <td>{!bookingRecord.Tower_Name__r.Name}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Unit Number</td>
+                            <td>{!bookingRecord.Unit_Number__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Booking Status  </td>
+                            <td>{!bookingRecord.Stage__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Source of Booking</td>
+                            <td>{!bookingRecord.Source_of_Booking__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Registration Status  </td>
+                            <td>{!bookingRecord.Registration_Status__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Cancellation Request Confirmation Date </td>
+                            <td>
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                    <apex:param value="{!bookingRecord.Cancellation_Request_Confirmation_Date__c}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Cancellation Reason </td>
+                            <td>{!bookingRecord.Cancellation_Reasons__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Cancellation Sub Reason</td>
+                            <td>{!bookingRecord.Cancellation_Sub_Reason__c}</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Agreement Value </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Agreement_Value__c}" />
+                                </apex:outputText>                               
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Total Amount Received </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Total_Amount_Received__c}" />
+                                </apex:outputText>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">TDS Received </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.TDS_Received__c}" />
+                                </apex:outputText>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Non Recoverable GST of Invoice Raised </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Non_Recoverable_GST_of_Invoice_Raised__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td width="40%" class="bold_text">Forfeiture %  </td>
+                            <td>
+                                <apex:outputText value="{0, number, ##.##}%"><apex:param value="{!bookingRecord.Forfeiture__c}"/></apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Forfeiture Criteria </td>
+                            <td>
+                                {!bookingRecord.Forfeiture_Criteria__c}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Forfeiture Amount </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Forfeiture_Amount__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Brokerage Paid </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Brokerage_Paid__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Interest Accrued on Amount Due </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Interest_Accrued_on_Amount_Due__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">MVAT % </td>
+                            <td>
+                                
+                                <apex:outputText value="{0, number, ##.##}%"><apex:param value="{!bookingRecord.MVAT__c}"/></apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Service Tax</td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Service_Tax__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">TDS </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.TDS__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">GST Received </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Payment_Received_GST__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Miscellaneous Expense </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Miscellaneous_Expense__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>                      
+                        <tr>
+                            <td width="40%" class="bold_text">Total Forfeiture Amount </td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Total_Forfeiture_Amount__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" class="bold_text">Total Refund Amount</td>
+                            <td>
+                                <apex:outputText value="{0, number, ###,###,###,##0.00}" >
+                                    <apex:param value="{!bookingRecord.Total_Refund_Amount__c}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </table>
+                </div>               
+            </body>
+        </apex:pageBlock>
+    </html>
+</apex:page>

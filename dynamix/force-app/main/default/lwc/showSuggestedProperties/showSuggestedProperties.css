@@ -1,0 +1,44 @@
+/* propertySelector.css */
+.modal-container {
+    position: fixed;
+    top: 37%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95); 
+    z-index: 1000; /* Ensure the z-index is higher than other components on the page */
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for styling */
+}
+
+.modal-content {
+    max-width: 800px; /* Adjust the max-width as needed */
+    width: 100%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+}
+
+.close-button {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.options-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.options-section {
+    width: 70%; /* Adjust the width as needed */
+    margin-right: 40px; /* Add some right margin for spacing */
+}
+
+.button-section {
+    width: 30%;
+	margin-top: 30%;
+}

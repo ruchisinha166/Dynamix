@@ -1,0 +1,5 @@
+<aura:component>
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <lightning:messageChannel type="ShowOverlayModal__c" aura:id="uploadFileInfo" />
+    <lightning:button name="close" label="Close" onclick="{!c.cancel}" />
+</aura:component>

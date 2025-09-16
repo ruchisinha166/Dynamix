@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Avanya_Tower_A</fullName>
+    <columns>NAME</columns>
+    <columns>Unit_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Project_Name__c</field>
+        <operation>equals</operation>
+        <value>Avanya Tower A</value>
+    </filters>
+    <label>Avanya Tower A</label>
+</ListView>

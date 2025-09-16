@@ -1,0 +1,796 @@
+<apex:page readOnly="advanced_pdf" docType="html-5.0" standardController="Booking__c" extensions="AllotmentController" renderAs="advanced_pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"  cache="false"  standardStylesheets="false">
+    <html>  
+        <head>  
+            
+            <style type="text/css">
+                
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center 
+                {
+                content: element(header);
+                }
+                @bottom-center 
+                {
+                content: element(footer);
+                }
+                @bottom-left 
+                {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                body 
+                {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                 text-align:justify;
+                }
+                
+                ol.lowerRoman
+                {
+                list-style-type: lower-roman;
+                }
+                ol.upperAlpha {
+                list-style-type: upper-alpha;
+                }
+                li
+                {
+                line-height: normal;
+                margin: 10px;
+                }
+                .tableBorder th
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                .tableBorder td
+                {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                .textalign
+                {
+                text-align:center;
+                }
+                .breakAvoid tr
+                { 
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                .breakAvoid th
+                { 
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                .breakAvoid td
+                {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                }
+                
+                .tableCenter 
+                {
+                margin: auto;
+                width: 80%;
+                }
+                .Ending 
+                { 
+                display:block;
+                } 
+                .removeMargin
+                {
+                margin-left:0px;
+                }
+                ol
+                {
+                text-align:justify;
+                }
+            </style>
+        </head>
+        <body>
+            <!----------------------------------------- Footer--------------------------------------------------->
+            <div class="footer">
+                <p style="text-align:center;"> Page <span class="pagenumber"/> of <span class="pagecount"/></p>
+            </div>
+            <!----------------------------------------- Header--------------------------------------------------->
+            
+            <div  class="header"  style="margin-top: 20px;margin-left: 10px;width:100%">
+                <apex:outputText rendered="{!showHeader}" >
+                    <!--p style="text-align:center">
+                        ON THE LETTER HEAD 
+                    </p-->
+                    <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" rendered="{!showHeader}"  width="700" height="140" />
+                </apex:outputText>
+            </div>
+            <!----------------------------------------- Body--------------------------------------------------->
+            
+            <div class="Ending" style="display: block;">
+                
+                <div style ="font-size: 16px;font-family: Optima;text-align: center;"><b>ALLOTMENT LETTER</b></div>
+                
+                <div  style = "font-family: Optima;font-size: 11px;margin-top: 70px;margin-left: 0%;margin-right: 0%;" width="100%">
+                    
+                    <table width = "100%" style="font-size: 11px;font-family: Optima;margin-top: 20px;border-collapse: collapse">
+                        <tr>
+                            <td></td>
+                            <td style="text-align: right;">Date:&nbsp;
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!TODAY()}" /> 
+                                </apex:outputText>
+                                <!--apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TODAY()}" /></apex:outputText--></td></tr>
+                        <tr><td><b>To,</b></td>
+                        </tr>
+                        <!--   <tr><td><b>{!Booking__c.Primary_Applicant__r.Name}</b></td></tr> -->
+                        <tr><td><b>{!accountObject.salutation} {!Booking__c.Primary_Applicant__r.Name}</b></td></tr>
+                        <tr><td><b>{!coapplicantNames}</b></td></tr>
+                        <tr>
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingStreet=='',false,true)}">
+                                
+                                <td style="font-size: 11px;font-family: Optima;" ><b>{!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},</b></td>
+                            </apex:outputText>
+                        </tr>
+                        <tr >
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingState=='',false,true)}">
+                                <td style="width:30%"><b>{!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},</b></td>
+                            </apex:outputText>
+                        </tr>
+                        
+                        <tr>
+                            <apex:outputText rendered="{!if(accountObject.PersonMailingCountry=='',false,true)}">
+                                <td><b> {!accountObject.PersonMailingCountry}</b></td>
+                            </apex:outputText>
+                        </tr>
+                        <tr>
+                            <td><b>Handphone: {!Booking__c.Primary_Applicant__r.PersonMobilePhone}</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>Email: {!Booking__c.Primary_Applicant__r.PersonEmail}</b></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table>
+                        <tr>
+                            <td style="vertical-align: super;">Re:</td>
+                            <td>Your application for allotment of an apartment in the Real Estate Project known as "<b>{!project.name}</b>" 
+                                registered with Maharashtra Real Estate Regulatory Authority (“<b>MahaRERA</b>”) under 
+                                Registration No. <b>{!project.RERA_Number__c}</b> (“<b>Project</b>”).  </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                        Dear Madam/ Sir, 
+                    </p>
+                    <ol class ="upperAlpha">
+                        <li ><p style="text-align:none;margin:0px;">
+                            
+                            <b>Allotment of the Apartment: </b></p>
+                            We are pleased to inform you that your application vide Application Form dated <b><apex:outputText value="{0, date, MMMM d','  yyyy}"> 
+                            <apex:param value="{!booking.Booking_Date__c}" /> 
+                            </apex:outputText></b>
+                            
+                            ("<b>Application Form</b>") (a copy of which is annexed hereto at <b>Annexure 'A'</b>) has been 
+                            accepted and accordingly, you are hereby allotted a residential premise bearing No.
+                            <b>{!propertyRecord.Name}</b> admeasuring&nbsp;
+                            <b>  <apex:outputText rendered="{!IF(propertyRecord.RERA_Carpet_Area_in_sqmtr__c != 0, true, false)}">{!propertyRecord.RERA_Carpet_Area_in_sqmtr__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.RERA_Carpet_Area_in_sqmtr__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> 
+                            square metres of RERA carpet area (equivalent to
+                            <b>  <apex:outputText rendered="{!IF(propertyRecord.Approved_Area__c != 0, true, false)}">{!propertyRecord.Approved_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Approved_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>
+                            square feet) [excluding  
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area_in_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Utility_Area_in_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area_in_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square metres of utility area (equivalent to 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Utility_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square feet) and/or 
+                             <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Deck_Area_in_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Deck_Area_in_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Deck_Area_in_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>square metres of deck area 
+                            (equivalent to <b> <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c != 0, true, false)}">{!propertyRecord.Deck_Proposed_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square feet) and/or 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>square metres of dry balcony area (equivalent to    
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square feet) and/or 
+                             <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square metres of enclosed balcony area (equivalent to    <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square feet)
+                            as per the 'Approved Typical Plan' (which has been inspected and perused by you) or
+                            admeasuring 
+                            <b>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area_c_in_sqmtr__c != 0, true, false)}">{!propertyRecord.Proposed_Area_c_in_sqmtr__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area_c_in_sqmtr__c == 0, true, false)}" >N/A</apex:outputText> </b>
+                            
+                            
+                            square meters RERA carpet area (equivalent to <b>
+                             <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area__c == 0, true, false)}" >N/A</apex:outputText>
+                            </b> square feet) as 
+                            [excluding <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area_in_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Utility_Area_in_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area_in_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square metres of utility area (equivalent to 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Utility_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>square feet) and/or 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Deck_Area_in_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Deck_Area_in_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Deck_Area_in_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square metres of deck area (equivalent to 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c != 0, true, false)}">{!propertyRecord.Deck_Proposed_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>square feet) and/or 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>
+                            square metres of dry balcony area (equivalent to 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b> square feet) and/or 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>
+                               square metres of enclosed balcony area (equivalent to 
+                            <b> <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c != 0, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area__c}</apex:outputText>
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c == 0, true, false)}" >N/A</apex:outputText> 
+                            </b>
+                            square feet)]
+                            per the 'Proposed Typical Plan' (which has been inspected and perused by you) and
+                            comprising of <b>{!flatBHK}</b> Bedroom/s + 1 Hall + 1 Kitchen (“<b>Apartment</b>”) on the on the  <b>{!propertyRecord.Floor__c}<sup>{!floor} </sup></b> floor of
+                            the Project (defined above), having MahaRERA Registration No. <b>{!project.RERA_Number__c}</b>, to be 
+                            constructed/ developed on land bearing 
+                            <apex:outputPanel rendered="{!IF(NOT(ISBLANK(project.CTS_No__c)), true, false)}">
+                                CTS No. <b>{!project.CTS_No__c}</b>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF(ISBLANK(project.CTS_No__c), true, false)}">
+                                Survey No. <b>{!project.Survey_No__c}</b>
+                            </apex:outputPanel>
+                            of Village <b>{!project.City__c}</b>, District and 
+                            Taluka <b>{!project.Sublocation__c}</b>, within the limits of<b>   {!project.City__c} Municipal Corporation.</b> <br/>
+                        </li>
+                        <li>
+                            <b><p style="text-align:none;margin:0px;">Allotment of Parking Space(s):</p> </b>Further, we are pleased to inform you that, 
+                            in accordance with the Application Form, you are hereby allotted
+                            <b> <apex:outputText rendered="{!if(noOfCarParking > 0 ,true,false)}">{!noOfCarParking} car parking space(s) bearing No(s). {!carParkingUnitNumbers} admeasuring
+                                <apex:variable var="counter" value="{!0}" />
+                                <apex:repeat value="{!carParkingDimentionsList}" var="parkingSpace">
+                                    {!parkingSpace.length} Sq. Mts. length x 
+                                    {!parkingSpace.breadth} Sq. Mts. breadth x 
+                                    {!parkingSpace.height} Sq. Mts. vertical clearance
+                                    <apex:outputText rendered="{!counter != (carParkingDimentionsList.size - 1)}">,</apex:outputText>
+                                    <apex:variable var="counter" value="{!counter + 1}" />
+                                </apex:repeat> <apex:outputText rendered="{!if(noOfCarParking > 1 ,true,false)}"> respectively</apex:outputText>
+                                </apex:outputText></b>
+                            <b> <apex:outputText rendered="{!if(noOfCarParking == 0 ,true,false)}">N/A car parking space(s)</apex:outputText></b>
+                             and/or
+                            <b> <apex:outputText rendered="{!if(noOf2WheelerParking > 0 ,true,false)}">{!noOf2WheelerParking}</apex:outputText></b>
+                            <b> <apex:outputText rendered="{!if(noOf2WheelerParking == 0 ,true,false)}">N/A</apex:outputText></b>
+                            two-wheeler parking space(s) in the basements/ ground floor/ Stilt levels
+                            or on one of the podium floor levels ("<b>Parking Space/s</b>”) in the Project and the approved parking layout plan demarcating 
+                            the above allotment is attached herewith as Annexure ‘B’.<br/>
+                        </li>
+                        <li>
+                            <b><p style="text-align:none;margin:0px;">Receipt of part Sale Consideration:</p> </b>We confirm to have received from you an amount
+                            of INR <b>{!booking.Total_Received_Amount_Excluding_GST__c}/-</b> (Indian Rupees <b>{!bookingTotalReceivedAmountinWords}</b> only), being 
+                            <b>  <apex:outputText value="{0, number, 00.00}">
+                                
+                                <apex:param value="{!agreementReceivedPercentage}" />
+                                
+                                </apex:outputText>% </b> of the Sale Consideration (defined below) of 
+                            the Apartment as booking amount/ advance payment on
+                            <!--apex:outputpanel rendered="{!AND(paymentList.size > 0,paymentList[0] > 0)}"-->
+                            
+                            <b> <apex:outputPanel rendered="{!AND(paymentList[0].Payment_Date__c != '', paymentList[0].Payment_Date__c != null)}">
+                                
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!paymentList[0].Payment_Date__c}" /></apex:outputText>
+                                </apex:outputPanel> </b> 
+                            <!--/apex:outputpanel-->
+                            through 
+                            <!--apex:outputpanel rendered="{!AND(paymentList.size > 0,paymentList[0] > 0)}"-->
+                            <b> <apex:outputPanel rendered="{!AND(paymentList[0].Payment_Type__c != '', paymentList[0].Payment_Type__c != null)}">
+                                {!paymentList[0].Payment_Type__c} 
+                                </apex:outputPanel></b> No.
+                            <b> 
+                                {!paymentList[0].Cheque_Transaction_Number__c}
+                            </b> in favour of <b>{!project.Builder_Organization__r.Account_Name__c}</b> Escrow Account
+                            <apex:outputPanel layout="none" rendered="{!IF((paymentList[0].Payment_Type__c == 'Cheque'), true, false)}">
+                               drawn on <b>{!paymentList[0].BankName__r.Name}, {!paymentList[0].Branch_Name__c}</b>
+                            </apex:outputPanel>.  
+                            <!--/apex:outputpanel--></li>
+                        <li>
+                            The aforesaid allotment has been made based upon and relying on your assurance and confirmation
+                            inter alia that you shall (i) execute and deliver further documents as may be required by us,
+                            from time to time, and (ii) comply with your obligations (including but not limited to your 
+                            payment obligations) in a timely manner, from time to time, without any delay, default, demur,
+                            breach, failure etc. of any nature whatsoever and for any reason whatsoever. </li>
+                        <li>
+                            The aforesaid allotment is subject to the terms and conditions stipulated in the Application Form,
+                            this Allotment Letter and the Agreement for Sale to be executed between us. Principle terms and 
+                            conditions of the allotment as are captured in the Application Form are hereby reiterated below,
+                            and you shall be bound by all the terms and conditions stipulated in the Application Form:<br/>
+                            <ol Class ="removeMargin">
+                                
+                                <li>The Apartment has been allotted against a total sale consideration of INR <b>{!booking.Agreement_Value__c}/- </b>(Indian Rupees <b>{!bookingAgreementValueiwords}</b> only)
+                                    (“<b>Sale Consideration</b>”) and the same is 
+                                    <apex:outputText rendered="{!IF( booking.Project_Name__r.Name =='Avanya Tower A' ||booking.Project_Name__r.Name =='Avanya Tower B', 'true', 'false')}">
+                                        inclusive
+                                    </apex:outputText>
+                                     <apex:outputText rendered="{!IF( booking.Project_Name__r.Name !='Avanya Tower A' && booking.Project_Name__r.Name !='Avanya Tower B', 'true', 'false')}">
+                                        exclusive
+                                    </apex:outputText>
+                                    of goods &amp; service tax (state  &amp; central) (“<b>GST</b>”), 
+                                    Other Charges (as stated in the ‘Payment Schedule’ annexed to the Application Form), applicable stamp duty,
+                                    registration cost/ fee/ charges, printing/ scanning charges etc. which shall be borne and paid by you over
+                                    and above the Sale Consideration. In case of delay in making any payments, you shall be liable to pay interest 
+                                    at the rate which shall be the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent),
+                                    which shall be paid in accordance with the Application Form and/or the Agreement for Sale to be executed between us,
+                                    as the case may be.</li>
+                                <li>
+                                    The Parking Space/s is / are allotted without any additional consideration; however, you shall be liable to pay
+                                    the applicable fee, charges, etc. for the upkeep, maintenance, and servicing of the same. This conditional entitlement 
+                                    in respect of the Parking Space/s cannot be transferred/ assigned/ sold/ licensed etc. dehors or independent of the
+                                    Apartment, and only the owners/ residents of the Apartment shall be entitled to use the Parking Space/s in the manner
+                                    permissible under, statutory regulations, the applicable society bye-laws, and general best practices, and not otherwise. 
+                                </li>
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">Disclosures of Information: </p></b>
+                                    As requested by you, we have shared the following documents, information and access to you, which you have perused 
+                                    and studied in detail and are fully satisfied with the same: 
+                                    <ol class="lowerRoman removeMargin">
+                                        
+                                        <li>
+                                            All approved and proposed sanctioned plans, layout plans and specifications in respect of the Project 
+                                            and the Premises, including the ones displayed at the Project site and uploaded on MahaRERA’s website i.e.
+                                            <a href="https://maharera.mahaonline.gov.in/#" target="_blank">https://maharera.mahaonline.gov.in/#</a>;
+                                        </li>
+                                        <li>
+                                            The stage-wise time schedule for completing the Project, including the provisions for civic infrastructure 
+                                            like water, sanitation and electricity is as stated in Annexure ‘A’ attached herewith; and  
+                                        </li>
+                                        <li>
+                                            Such other documents and information in respect of the Project as requested by you, from time to time.</li>
+                                    </ol>
+                                </li>
+                                <li><b><p style="text-align:none;margin:0px;">Encumbrances:  </p></b>
+                                    <apex:outputText rendered="{!IF((CONTAINS(booking.Project_Name__r.Name,'Astrum')) , 'true', 'false')}">
+                                        The Project is absolutely free from all financial encumbrances.
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF((CONTAINS(booking.Project_Name__r.Name,'Avanya')), 'true', 'false')}">
+                                        A mortgage/ charge has been created in favour of IDBI Trusteeship Limited 
+                                        (acting as a <b>“Debenture Trustee”</b> to the Debenture Holder/s) in respect of the Project 
+                                        (which includes the Apartments) and the receivables from the sale of any part thereof. 
+                                        Accordingly, you will be required to pay the Sale Consideration and/or such other amounts 
+                                        payable by you or any part thereof either into our account and/or the Lender’s account, 
+                                        as may be instructed by us, from time to time.
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF(CONTAINS(booking.Project_Name__r.Name,'Divum') , 'true', 'false')}">
+                                        A mortgage/ charge has been created in favour of IDBI Trusteeship Limited 
+                                        (acting as a <b>“Debenture Trustee”</b> to the Debenture Holder/s) in respect of the Project 
+                                        (which includes the Apartments) and the receivables from the sale of any part thereof. 
+                                        Accordingly, you will be required to pay the Sale Consideration and/or such other amounts 
+                                        payable by you or any part thereof either into our account and/or the Lender’s account, 
+                                        as may be instructed by us, from time to time.
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF((CONTAINS(booking.Project_Name__r.Name,'Luma')) , 'true', 'false')}">
+                                        A mortgage/ charge has been created in favour of Beacon Trusteeship Limited 
+                                        (acting as a <b>“Debenture Trustee”</b> to the Debenture Holder/s) in respect of the Project 
+                                        (which includes the Apartments) and the receivables from the sale of any part thereof. 
+                                        Accordingly, you will be required to pay the Sale Consideration and/or such other amounts 
+                                        payable by you or any part thereof either into our account and/or the Lender’s account, 
+                                        as may be instructed by us, from time to time.
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF((CONTAINS(booking.Project_Name__r.Name,'Parkwoods D5')), 'true', 'false')}">
+                                        A mortgage/ charge has been created in favour of Catalyst Trusteeship Limited 
+                                        (acting as a <b>“Debenture Trustee”</b> to the Debenture Holder/s) in respect of the Project 
+                                        (which includes the Apartments) and the receivables from the sale of any part thereof. 
+                                        Accordingly, you will be required to pay the Sale Consideration and/or such other amounts 
+                                        payable by you or any part thereof either into our account and/or the Lender’s account, 
+                                        as may be instructed by us, from time to time.
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!IF((CONTAINS(booking.Project_Name__r.Name,'Parkwoods D6')), 'true', 'false')}">
+                                        A mortgage/ charge has been created in favour of Orbis Trusteeship Services Private Limited 
+                                        (acting as a “Debenture Trustee” to the Debenture Holder/s) in respect of the Project 
+                                        (which includes the Apartments) and the receivables from the sale of any part thereof. 
+                                        Accordingly, you will be required to pay the Sale Consideration and/or such other amounts 
+                                        payable by you or any part thereof either into our account and/or the Lender’s account, 
+                                        as may be instructed by us, from time to time.
+                                    </apex:outputText>
+                                    
+                                </li>
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">Further payments: </p></b>
+                                    Further payments towards Sale Consideration of the Apartment shall be made by you in the manner and at the 
+                                    times as well as on the terms and conditions as more specifically enumerated/ stated in the Application 
+                                    Form/ agreement for sale to be entered into between ourselves and yourselves. </li>
+                                
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">Possession: </p></b>
+                                    Possession of the Premises will be offered to you on or before 
+                                    <b>
+                                        
+                                        <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!project.First_Possession_Date__c}" /></apex:outputText>
+                                        <!--apex:outputPanel rendered="{!AND(propertyRecord.First_Possession_Date__c != '', propertyRecord.First_Possession_Date__c != null)}">
+
+<apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!propertyRecord.First_Possession_Date__c}" /></apex:outputText>
+</apex:outputPanel>
+<apex:outputPanel rendered="{!OR(propertyRecord.First_Possession_Date__c == '', propertyRecord.First_Possession_Date__c == null)}">
+
+N/A                                </apex:outputPanel--></b> and/or such other extended date
+                                    as may be permitted by MahaRERA (“<b>Proposed Possession Date</b>”), provided the Sale Consideration, the
+                                    Other Charges and such other amounts, charges, fee, taxes, contributions, reimbursements, penalties,
+                                    interests etc. are paid by you in a timely manner without any delay, default, demur, breach, failure etc.
+                                    of any nature whatsoever and for any reason whatsoever. The Proposed Possession Date may also be extended
+                                    for any reason beyond our control, which shall include, but not be limited to the following:
+                                    <ol class="lowerRoman removeMargin">
+                                        <li>
+                                            War, flood, drought, fire, cyclone, earthquake, civil commotion and/or any act of God;<br/>  
+                                        </li>
+                                        <li>
+                                            Any notice, order, rule, circular, notification of the Government and/or other public 
+                                            or competent authority/ court which has an impact on the development of the Project. <br/>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">Cancellation of allotment: </p></b>
+                                    In the event you wish to cancel/ withdraw/ terminate the allotment made hereunder, 
+                                    you will be required to serve us an advance/ prior written cancellation/ withdrawal/
+                                    termination notice (“<b>Allottee’s Termination Notice</b>”) of at-least 30 (thirty) days.
+                                    From the date of the Allottee’s Termination Notice, the applicable amounts as stated in the 
+                                    table below shall automatically stand forfeited by you in our favour from the amounts received by us, 
+                                    and the balance amounts, if any, will be returned to you, without any interest, within 45 (forty-five) 
+                                    days from the date of receipt of (a) the Allottee’s Termination Notice, and (b) such other documents, 
+                                    letters, writings, no-claim/ no-objection letters/ certificates etc. as may be required/ demanded by us, 
+                                    failing which the aforesaid balance amounts shall be returned along with simple interest at the rate which 
+                                    shall be the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent): 
+                                    <br/>
+                                    <br/>
+                                    <div class="tableCenter"><table class="tableBorder breakAvoid" style ="border:1px solid black;width:100%;border-collapse: collapse; page-break-inside: avoid">
+                                        
+                                        <tr  class="textalign" style="background-color:#D0D0D0;">
+                                            <th style ="padding:5px;">Sr.<br/> No.</th>
+                                            <th>If the Allottee’s<br/> Termination<br/>  Notice is received: </th>
+                                            <th>Forfeited Amount/ Amount <br/>to be deducted: </th>
+                                        </tr>
+                                        <tr class="textalign">
+                                            <td>(i)</td>
+                                            <td>Within 15 days from this Allotment Letter: </td>
+                                            
+                                            <td>Nil </td></tr>
+                                        <tr class="textalign">
+                                            <td>(ii)</td>
+                                            <td>Within 16 days to 30 days from this Allotment Letter: </td>
+                                            
+                                            <td>1% of the Sale Consideration </td></tr>
+                                        <tr class="textalign">
+                                            <td>(iii)</td>
+                                            <td>Within 31 days to 60 days from this Allotment Letter: </td>
+                                            
+                                            <td>1.5% of the Sale Consideration </td></tr>
+                                        <tr class="textalign">
+                                            <td>(iv)</td>
+                                            <td>After 61 days from this Allotment Letter: </td>
+                                            
+                                            <td>2% of the Sale Consideration </td></tr>
+                                        </table>
+                                    </div><br/><br/>
+                                    In addition to the above forfeited amounts, we shall also have the right and authority to deduct 
+                                    amounts towards any Pre-EMI interest (in case you have opted for a subvention/ deferred payment
+                                    scheme or if we have made any payments of such Pre-EMI interest to or on your behalf, in any manner
+                                    whatsoever) and the applicable taxes thereon as well as any brokerage expenses (or part thereof)
+                                    which we may have paid to any Real Estate Agent or marketing expenses incurred in connection with
+                                    the Allotment of the Apartment contained herein.<br/>
+                                    We reserve the right and authority to enhance the amounts/ percentage to be forfeited/ deducted in the 
+                                    event any further loss, damage and/or inconvenience etc. is caused to us.<br/>
+                                </li>
+                                <li>
+                                    In the event there is any breach by you of the terms and conditions stipulated in Application Form, 
+                                    this Allotment Letter and/or Agreement for Sale to be executed between us and/or in the event of any delay/
+                                    default/ breach in complying with your payment obligations (including but not limited to GST 
+                                    and/or any other taxes, charges, statutory dues, contributions, reimbursements, penalties, fines etc.)
+                                    in accordance with the Payment Schedule provided in the Application Form, then all such outstanding 
+                                    amounts shall be payable by you along with interest at the rate which shall be the State Bank of India’s 
+                                    Highest Marginal Cost of Lending Rate plus 2% (two per cent), to be calculated from the date(s) 
+                                    such amount(s) were due until such date the entire amounts along with interest are paid in full
+                                    by you to us. Your liability to pay the above interest is without prejudice to our right and 
+                                    authority to terminate the Application Form and this Allotment Letter by serving a termination 
+                                    notice (“<b>Promoter’s Termination Notice</b>”), in which case, your liability to pay the above interest 
+                                    shall continue and we shall have the further right and authority (at our sole and exclusive discretion) 
+                                    to forthwith terminate the Application Form and this Allotment Letter, and upon such termination, 
+                                    we shall deduct the following amounts from the amounts received by us from you - (i) 10% of the Sale 
+                                    Consideration towards as and by way of agreed genuine pre-estimate of liquidated damages; (ii) all the 
+                                    applicable taxes (including GST) and interest thereon on account of your delay in paying the same to us, 
+                                    along with interest at the State Bank of India’s Highest Marginal Cost of Lending Rate plus 2% (two per cent)
+                                    on such GST and interest; (iii) all fee, costs and charges for any legal services as may be availed by us;
+                                    and (iv) for applicable amounts for any further loss, damage and/or inconvenience as may be caused to us, 
+                                    if applicable. The balance amounts, if any, after making the above deductions, will be returned to you, 
+                                    without any interest, within 45 (Forty five) days from (a) the date of your acceptance of the Promoter’s
+                                    Termination Notice, and (b) your executing and delivering to us such other documents, letters, writings,
+                                    no-claim/ no-objection letters/ certificates etc. as may be required/ demanded by us. In the event the
+                                    aforesaid balance amount is not refunded within the aforesaid timelines, then the same shall be returned
+                                    by us along with simple interest at the rate which shall be the State Bank of India’s Highest Marginal 
+                                    Cost of Lending Rate plus 2% (two per cent). </li>
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">Other payments: </p></b>
+                                    You shall make the payment of GST, stamp duty, registration charges, printing/ scanning charges, 
+                                    other charges (as mentioned in the ‘Payment Schedule’ annexed to the Application Form), as applicable 
+                                    and such other payments as more specifically mentioned in the Application Form/ agreement for sale,
+                                    the proforma of the same has been shared with you. 
+                                </li>
+                                <li><b><p style="text-align:none;margin:0px;">Proforma of the agreement for sale and binding effect:</p> </b>
+                                    The proforma/ format of the Agreement for Sale to be executed between us has been shared with
+                                    you and the same can be reviewed on the MahaRERA’s website. It is clarified that mere sharing
+                                    of the aforesaid proforma/ format does not create any binding obligation, liability and/or 
+                                    commitment on us. The terms and conditions with respect to the allotment of the Premises as
+                                    recorded in the Application Form and this Allotment Letter shall stand superseded by the
+                                    ‘Agreement for Sale’ to be executed between us.  </li>
+                                <li><b><p style="text-align:none;margin:0px;">
+                                    Execution and registration of the agreement for sale: 
+                                    </p></b>
+                                    <ol Class="removeMargin">
+                                        
+                                        <li>
+                                            You shall execute the agreement for sale and appear for registration of the same before the 
+                                            concerned Sub-Registrar within a period of 2 months from the date of issuance of this 
+                                            letter or within such period as may be communicated to you. The said period of 2 months
+                                            can be further extended on our mutual understanding. </li>
+                                        <li>
+                                            If you fail to execute the agreement for sale and appear for registration of the same
+                                            before the concerned Sub-Registrar within the stipulated period 2 months from the date
+                                            of issuance of this letter or within such period as may be communicated to you, we 
+                                            shall be entitled to serve upon you a notice calling upon you to execute the agreement 
+                                            for sale and appear for registration of the same within 15 (fifteen) days, which if not 
+                                            complied, we shall be entitled to cancel this allotment letter and further we shall be 
+                                            entitled to forfeit a sum amounting to 2% of the cost of the Apartment along with amounts
+                                            towards any Pre-EMI interest (in case you have opted for a subvention/ deferred payment 
+                                            scheme or if we have made any payments of such Pre-EMI interest to or on your behalf,
+                                            in any manner whatsoever) and the applicable taxes thereon as well as any brokerage expenses
+                                            (or part thereof) which we may have paid to any Real Estate Agent or marketing expenses 
+                                            incurred in connection with the Allotment of the Apartment contained herein and the balance
+                                            amount if any due and payable shall be refunded without interest within 45 (forty five) 
+                                            days from the date of expiry of the notice period. 
+                                        </li>
+                                        <li>
+                                            In the event the balance amount due and payable referred in clause (b) above is not 
+                                            refunded within 45 (forty five) days from the date of expiry of the notice period, 
+                                            you shall be entitled to receive the balance amount, if any, with interest calculated
+                                            at the rate which shall be the State Bank of India highest Marginal Cost of Lending Rate
+                                            plus two percent. 
+                                        </li>
+                                    </ol></li>
+                                
+                                <li><b><p style="text-align:none;margin:0px;">
+                                    Validity of allotment letter: 
+                                    </p></b>
+                                    This allotment letter shall not be construed to limit your rights and interest upon execution and
+                                    registration of the agreement for sale between ourselves and yourselves. Cancellation of 
+                                    allotment of the said unit thereafter, shall be covered by the terms and conditions of the said 
+                                    registered document.   
+                                    
+                                </li>
+                                <li>
+                                    <b><p style="text-align:none;margin:0px;">
+                                        Headings: 
+                                        </p></b>Headings are inserted for convenience only and shall not affect the construction of
+                                    the various Clauses of this allotment letter. </li>
+                            </ol>
+                        </li>                
+                        <li>
+                            We reserve the right to make further alteration, modification, amendments to the terms and conditions 
+                            stipulated in the Application Form and this Allotment Letter, as may be permitted by MahaRERA, from time to time.  </li>
+                        
+                        
+                    </ol> 
+                    <p>
+                        
+                        For any further assistance or support, you may kindly contact our Customer Relations Team on <b><!--{!bookingOwner.MobilePhone}-->{!project.Project_Phone__c}</b> or 
+                        alternatively email us at <b><!--{!booking.Booking_Owner_Email__c}-->{!project.Project_Email__c}</b>.</p>
+                    <p style="text-align:none;margin-bottom:0px;"> Your truly,</p><br/>
+                    <p style="text-align:none;margin:0px;"><b>For  {!project.Builder_Organization__r.name}</b></p><br/><br/>
+                        <br/><br/>
+                    
+                    <div style="border-top: 1px solid black;width:150px;padding-left:15px;">
+                        <b>Director/Authorised Signatory</b>
+                        <br/><br/><br/>
+                    </div>
+                    <br/><br/><br/><br/>
+                </div>
+            </div>
+            <div style ="width: 100%; display:block;page-break-after: always;">
+                <div style ="width: 60%;display: block;float:right;">
+                    <h5>
+                        ALLOTTEE’S CONFIRMATION AND ACKNOWLEDGEMENT: 
+                    </h5>
+                    <p>
+                        I/We, the Allottee(s) herein, hereby acknowledge having received this Allotment 
+                        Letter and confirm that I/we have carefully read and understood the contents hereof
+                        and the Application Form and accordingly, I/we hereby unconditionally and irrevocably 
+                        agree and accept the terms and conditions stipulated herein and the Application Form. 
+                    </p>
+                    
+                    <table width = "100%" style="font-size: 10px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse;text-align: right;">
+                        <tr>
+                            <td>
+                                <b>{!accountObject.salutation} {!accountObject.Name}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">
+                                <b><apex:outputText value="{!SUBSTITUTE(JSENCODE(coapplicantNames), '\\n', '<br/>')}" escape="false"/></b>
+                            </td>
+                        </tr> 
+                        
+                        <tr>
+                            <td>
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!TODAY()}" />
+                                </apex:outputText>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td>
+                                {!project.City__c}
+                            </td>
+                        </tr> 
+                    </table>
+                   
+                </div>
+                <div> 
+                </div> 
+            </div>
+            <!----------------------------------- Page Break -------------------------------------->
+             <div style="page-break-after: always;"></div>
+            <div style="display:block;width:100%;">
+                <center><h5>
+                    Annexure – A 
+                    </h5>
+                </center>
+                <p>
+                    Stage wise time schedule of completion of the project 
+                </p>
+                <table class="tableBorder" style ="border:1px solid black;width:100%;border-collapse: collapse;">
+                    
+                    <tr class="textalign">
+                        <th style ="padding:5px;">Sr.<br/> No.</th>
+                        <th style="width:70%">Stages </th>
+                        <th style="width:25%">Date of Completion </th>
+                    </tr>
+                     <tr>
+                            <td class="textalign">1.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Excavation</td>
+                         <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">2.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Basement (if any)</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">3.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Podiums (if any)</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                        <tr>
+                            <td class="textalign">4.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Plinth</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+
+ <tr>
+                            <td class="textalign">5.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Stilt (if any)</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">6.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Slabs of super structure</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">7.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Internal walls, internal plaster, completion of floorings, doors and windows</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                        <tr>
+                            <td class="textalign">8.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Sanitary electrical and water supply fittings within the said units</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr> 
+                     <tr>
+                            <td class="textalign">9.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Staircase, lifts wells and lobbies at each floor level overhead and underground water tanks</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">10.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">External plumbing and external plaster, elevation, completion of terraces with waterproofing.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">11.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Installation of lifts, water pumps, firefighting fittings and equipment, electrical fittings, mechanical equipment, finishing to entrance lobby/s, plinth protection, paving of areas appurtenant to building/wing, compound wall and all other requirements as may be required to complete project as per specifications in agreement of sale, any other activities.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                        <tr>
+                            <td class="textalign">12.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Internal roads &amp; footpaths, lighting</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+
+ <tr>
+                            <td class="textalign">13.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Water supply</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">14.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Sewerage (chamber, lines, septic tank, STP)</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">15.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Storm water drains</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                        <tr>
+                            <td class="textalign">16.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Treatment and disposal of sewage and sullage water</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr> 
+                    <tr>
+                            <td class="textalign">17.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Solid waste management &amp; disposal</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+
+ <tr>
+                            <td class="textalign">18.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Water conservation/rain water harvesting</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">19.</td>
+                            <td style ="padding-left:5px; padding-right:5px;">Electrical meter room, sub-station, receiving station.</td>
+                            <td style ="padding-left:5px; padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                     <tr>
+                            <td class="textalign">20.</td>
+                            <td style ="padding-left:5px;padding-right:5px;">Others</td>
+                            <td style ="padding-left:5px;padding-right:5px;">On or before *Date of <br/>Completion.</td>
+                        </tr>
+                        
+                </table>
+                <br/>
+                <p>
+                    *Note: The Date of Completion referred hereinabove shall be the date of completion of the Project,
+                    as reflected on MahaRERA website, from time to time. 
+                </p>
+                
+            </div>
+        </body>
+    </html>
+</apex:page>

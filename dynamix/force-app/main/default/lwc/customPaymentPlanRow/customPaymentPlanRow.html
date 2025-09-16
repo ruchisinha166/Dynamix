@@ -1,0 +1,51 @@
+<template>
+    <td style="text-align: center;">
+        {paymentMilestone.Sequence_No__c}
+    </td>
+   <td>
+    <div class="slds-form-element">
+                    <c-lookup
+                        record-id={paymentMilestone.Milestone_Master__c}
+                        config={milestoneEntityConfig}
+                        onchange={handleMilestoneChange}
+                        required
+                    >
+                    </c-lookup>
+      </div> 
+      </td>
+    <!--<td>
+        <lightning-input value={paymentMilestone.Name} variant="label-hidden" data-element="Name"
+            onchange={handleInput} class="validValue inputLastName">
+        </lightning-input>
+    </td> -->
+    <td>
+        <c-input-picklist-field label="Milestone Type" value={paymentMilestone.Milestone_Activation__c}
+            object-api-name="Payment_Plan_Milestones__c" field-api-name="Milestone_Activation__c" variant="label-hidden"
+            onpicklistchange={handlePicklistValue} required>
+        </c-input-picklist-field>
+    </td>
+    <td>
+        <template if:true={isBookingBased}>
+            <lightning-input type="number" value={paymentMilestone.Days_after_Booking__c}
+                disabled={isProjectProgressBased} formatter="decimal" step="any" variant="label-hidden"
+                data-element="Days_after_Booking__c" onchange={handleInput}>
+            </lightning-input>
+        </template>
+        <template if:true={isProjectProgressBased}>
+            <c-lookup record-id={paymentMilestone.Project_Progress__c} config={entityConfig} onchange={handleChange}
+                disabled={isBookingBased}>
+            </c-lookup>
+        </template>
+    </td>
+    <td>
+        <lightning-input type="number" value={paymentMilestone.Milestone_age__c} formatter="percent-fixed" step="any"
+            variant="label-hidden" data-element="Milestone_age__c" onchange={handleInput} required>
+        </lightning-input>
+    </td>
+    <td>
+        <lightning-button-icon icon-name="utility:delete"
+                                        data-id={indx} alternative-text="Delete" class="slds-m-left_xx-small"
+                                        onclick={removeRow} title="Delete">
+        </lightning-button-icon>
+    </td>
+</template>

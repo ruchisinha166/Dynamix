@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR_Ageing_Report__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &lt; 30,&quot;&lt; 1 Month&quot;,
+ IF(IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &gt;= 30 &amp;&amp; IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &lt;60,&quot;1 to 2 Months&quot;,
+  IF(IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &gt;= 60 &amp;&amp; IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &lt;120,&quot;2 to 4 Months&quot;,
+    IF(IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &gt;= 120 &amp;&amp; IF(NOT(ISBLANK( SDR_Completed_Date__c )), TRUNC(SDR_Completed_Date__c - SDR_Inititated_Date__c ,0), TRUNC(TODAY()- SDR_Inititated_Date__c,0) ) &lt; 180,&quot;4 to 6 Months&quot;,&quot;&quot;)
+  )
+ )
+)</formula>
+    <label>SDR Ageing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

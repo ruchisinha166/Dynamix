@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Migrated from the Payment Milestone Status Active process using Activate Milestone criteria.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formula_1_myWaitEvent_myWait_myRule_1_event_0_SA2_7401903830</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.Milestone_Activation_Date__c} + 15</expression>
+    </formulas>
+    <label>Payment Milestone Status Active_1</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>myRule_1_A1</name>
+        <label>update intrernal note</label>
+        <locationX>50</locationX>
+        <locationY>276</locationY>
+        <inputAssignments>
+            <field>Internal_Note__c</field>
+            <value>
+                <stringValue>test1</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>myWaitEvent_myWait_myRule_1_event_0_SA1</name>
+        <label>Update Milestone Status</label>
+        <locationX>314</locationX>
+        <locationY>276</locationY>
+        <connector>
+            <targetReference>myWaitEvent_myWait_myRule_1_event_0_SA2</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Milestone_Status__c</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>myWaitEvent_myWait_myRule_1_event_0_SA2</name>
+        <label>Update Due Date</label>
+        <locationX>314</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>Due_Date__c</field>
+            <value>
+                <elementReference>formula_1_myWaitEvent_myWait_myRule_1_event_0_SA2_7401903830</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>myRule_1_A1</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND({!$Record.Project_Progress__c}==NULL,{!$Record.Milestone_Activation_Date__c}!=today())</filterFormula>
+        <object>Payment_Milestones__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>myWaitEvent_myWait_myRule_1_event_0</name>
+            <connector>
+                <targetReference>myWaitEvent_myWait_myRule_1_event_0_SA1</targetReference>
+            </connector>
+            <label>ScheduledPath_1</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>Milestone_Activation_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

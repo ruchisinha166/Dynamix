@@ -1,0 +1,46 @@
+<apex:page standardController="Booking__c" extensions="CancellationOfFlatExtenstion" renderAs="pdf">
+    <html>
+        <head>
+            <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+            td{
+            text-align: left;
+            width:20%;
+            
+            }
+            </style>
+        </head>
+        <body>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Date :  {!DAY(TODAY())}/{!MONTH(TODAY())}/{!YEAR(TODAY())}</p>
+            
+            
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">From:</p>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;"><b>{!Booking__c.Primary_Applicant__r.Name}</b><br/>
+            <b>{!Booking__c.Primary_Applicant__r.PersonMailingStreet}<br/>
+            {!Booking__c.Primary_Applicant__r.PersonMailingCity}, {!Booking__c.Primary_Applicant__r.PersonMailingState} - {!Booking__c.Primary_Applicant__r.PersonMailingPostalCode},<br/>
+                Contact No.: {!Booking__c.Primary_Applicant__r.PersonMobilePhone}</b></p>
+        
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">To,<br/><br/> <br/>Dombivli (West)</p>
+    
+         
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">Sub: Cancellation of Flat No. <b> {!properties.Name}</b> in <b> Building No. {!Booking__c.Tower_Name__r.Building_Type__c} ({!Booking__c.Tower_Name__r.Name}) </b>at {!Booking__c.Project_Name__r.Sublocation__c}, {!Booking__c.Project_Name__r.Location__c}, {!Booking__c.Project_Name__r.City__c}-{!Booking__c.Project_Name__r.Postal_Code__c}</p>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">Dear Sirs,</p>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">I/We have booked the above said flat and paid the token amount of part of earnest money. I have assured you that I will pay the balance amount by in 15 days from date of this letter.<br/>
+                                                                                                      If I fail to pay the amount by the above said date, then you are free to cancel the above said flat and forfeit the amount Rs. {!Booking__c.cancellation_fees__c}/- from the total amount paid by me. I do not have the objection for the same.</p>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">Regards,</p>
+            <br/>
+            <br/>
+            <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;"><apex:outputPanel rendered="{!if(coApplicant.size != 0,true,false)}">
+                <apex:repeat value="{!coApplicant}" var="coApp" id="theRepeat">
+                    <apex:outputText value="{!coApp.Applicant_Name__c}, aged about {!coApp.Account__r.Age__c} years," /> 
+                </apex:repeat>
+                
+            </apex:outputPanel></p>
+        
+            
+        </body>
+</html>
+</apex:page>

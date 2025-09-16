@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parking_Type__c</fullName>
+    <label>Parking Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Puzzle Tandem</fullName>
+                <default>false</default>
+                <label>Puzzle Tandem</label>
+            </value>
+            <value>
+                <fullName>Puzzle</fullName>
+                <default>false</default>
+                <label>Puzzle</label>
+            </value>
+            <value>
+                <fullName>Surface</fullName>
+                <default>false</default>
+                <label>Surface</label>
+            </value>
+            <value>
+                <fullName>Stack</fullName>
+                <default>false</default>
+                <label>Stack</label>
+            </value>
+            <value>
+                <fullName>2 Wheeler as per Old DCPR</fullName>
+                <default>false</default>
+                <label>2 Wheeler as per Old DCPR</label>
+            </value>
+            <value>
+                <fullName>2 Wheeler as per New DCPR</fullName>
+                <default>false</default>
+                <label>2 Wheeler as per New DCPR</label>
+            </value>
+            <value>
+                <fullName>2-Wheeler Parking</fullName>
+                <default>false</default>
+                <label>2-Wheeler Parking</label>
+            </value>
+            <value>
+                <fullName>Dependant</fullName>
+                <default>false</default>
+                <label>Dependant</label>
+            </value>
+            <value>
+                <fullName>Independent</fullName>
+                <default>false</default>
+                <label>Independent</label>
+            </value>
+            <value>
+                <fullName>Basement Parking</fullName>
+                <default>false</default>
+                <label>Basement Parking</label>
+            </value>
+            <value>
+                <fullName>Stilt Parking</fullName>
+                <default>false</default>
+                <label>Stilt Parking</label>
+            </value>
+            <value>
+                <fullName>Podium Parking</fullName>
+                <default>false</default>
+                <label>Podium Parking</label>
+            </value>
+            <value>
+                <fullName>Open Parking</fullName>
+                <default>false</default>
+                <label>Open Parking</label>
+            </value>
+            <value>
+                <fullName>Double Podium Parking</fullName>
+                <default>false</default>
+                <label>Double Podium Parking</label>
+            </value>
+            <value>
+                <fullName>Double Stilt Parking</fullName>
+                <default>false</default>
+                <label>Double Stilt Parking</label>
+            </value>
+            <value>
+                <fullName>Double Open Parking</fullName>
+                <default>false</default>
+                <label>Double Open Parking</label>
+            </value>
+            <value>
+                <fullName>CAR PARK TYPE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CAR PARK TYPE</label>
+            </value>
+            <value>
+                <fullName>Stack (Pit)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Stack (Pit)</label>
+            </value>
+            <value>
+                <fullName>UNIT TYPE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UNIT TYPE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,4 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Welcome to {{{Booking__c.Project_Name__c}}}&nbsp; registered with MahaRERA under No. {{{Booking__c.RERA_Number__c}}}. For any information, please contact&nbsp; {{{Booking__c.OwnerFullName}}}&nbsp; your Relationship Manager at {{{Booking__c.Project_Email__c}}} or over the phone at&nbsp; &nbsp;{{{Booking__c.Project_Phone__c}}}.</body></html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approved</fullName>
+        <description>Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>S_M_Head</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>ss-5vnp@force.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/Approved_Request_for_Source_1695365212955</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Approved</fullName>
+        <description>Email Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ss-5vnp@force.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Sales_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Approved_Request_for_Source_1695365212955</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Rejected</fullName>
+        <description>Email Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ss-5vnp@force.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>Sales_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Rejected_request_for_Source_1695365275925</template>
+    </alerts>
+    <alerts>
+        <fullName>Request_Rejected</fullName>
+        <description>Request Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>S_M_Head</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>ss-5vnp@force.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Rejected_request_for_Source_1695365275925</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Aprooval_sent</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>In Process</literalValue>
+        <name>Aprooval sent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EOI_CA_Cancellation_Approved</fullName>
+        <field>EOI_CA_Approval_Stages__c</field>
+        <literalValue>Approved</literalValue>
+        <name>EOI/CA  Cancellation Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EOI_CA_Cancellation_Rejected</fullName>
+        <field>EOI_CA_Approval_Stages__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>EOI/CA  Cancellation Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EOI_CA_Cancellation_Sent_for_Approval</fullName>
+        <field>EOI_CA_Approval_Stages__c</field>
+        <literalValue>Sent for Approval</literalValue>
+        <name>EOI/CA  Cancellation Sent for Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EOI_CA_stage_mark_as_cancelled</fullName>
+        <field>EOI_CA_stage__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>EOI/CA stage mark as cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stage</fullName>
+        <field>StageName</field>
+        <literalValue>Closed Lost</literalValue>
+        <name>Stage</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_rejected_update</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Status rejected update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Status_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>update Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

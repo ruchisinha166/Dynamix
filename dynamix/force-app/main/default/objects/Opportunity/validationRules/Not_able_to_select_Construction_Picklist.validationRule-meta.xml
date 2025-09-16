@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_able_to_select_Construction_Picklist</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISBLANK( TEXT( Construction_Status_sm__c) ), NOT(ISBLANK( TEXT( Construction_Status_checkbox__c	 )) ))</errorConditionFormula>
+    <errorDisplayField>Construction_Status_sm__c</errorDisplayField>
+    <errorMessage>Construction Status should be mandatory if you select Accompanied By Yes or No.</errorMessage>
+</ValidationRule>

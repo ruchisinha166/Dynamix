@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Documents_Handed_Over_to_Customer__c</fullName>
+    <label>Documents Handed Over to Customer</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Original Registered Agreement</fullName>
+                <default>false</default>
+                <label>Original Registered Agreement</label>
+            </value>
+            <value>
+                <fullName>Architect Certificate</fullName>
+                <default>false</default>
+                <label>Architect Certificate</label>
+            </value>
+            <value>
+                <fullName>Demand Letter</fullName>
+                <default>false</default>
+                <label>Demand Letter</label>
+            </value>
+            <value>
+                <fullName>Bank NOC/ Builder NOC</fullName>
+                <default>false</default>
+                <label>Bank NOC/ Builder NOC</label>
+            </value>
+            <value>
+                <fullName>Allotment Letter</fullName>
+                <default>false</default>
+                <label>Allotment Letter</label>
+            </value>
+            <value>
+                <fullName>Original Payment Receipts</fullName>
+                <default>false</default>
+                <label>Original Payment Receipts</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

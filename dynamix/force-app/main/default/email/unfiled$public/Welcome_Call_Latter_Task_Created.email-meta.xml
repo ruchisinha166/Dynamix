@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Welcome Call Latter Task Created</name>
+    <style>none</style>
+    <subject>Welcome Call Latter Task Created</subject>
+    <textOnly>Dear {!RM},
+
+Welcome Call Task against Booking Id {!Name} for  {!Unit} in {!Project} is now created, Please complete the welcome call task.
+
+Thank You,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

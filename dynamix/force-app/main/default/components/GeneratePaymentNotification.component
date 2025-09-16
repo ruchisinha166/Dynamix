@@ -1,0 +1,60 @@
+<apex:component controller="PaymentReceiptVFCompContrl" access="global">
+    
+    <apex:attribute name="PayMId" type="Id" description="Booking id of the case" assignTo="{!PMId}"/>
+    
+    <html>
+        <head>
+            <style>
+                
+                @page
+                {
+                margin-top: 20%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+            </style>
+            <body>
+                
+                <center><apex:image url="{!ProjectHeader}" width="700" height="140" /></center>
+                <br/><br/>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-left:5px;">
+                    Dear Sir/Ma'am,
+                    <!--{!booking[0].Primary_Applicant__r.Name},-->
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-top:10px;padding-left:5px;">
+                    Greetings From Dynamix Group!
+                    <!--Thank you for your payment towards {!booking[0].Tower_Name__r.Name} – {!booking[0].Property_Name__c} at {!booking[0].Project_Name__r.Name}.<br/>The details of payment are in attachments.-->
+                </p>
+                <p style="font-family:Helvetica, sans-serif;font-size: 11px;text-align:justify;padding-top:10px;padding-left:5px;">
+                    Please find the attachment of the payment receipt
+                </p>
+                <br/><br/>
+                <apex:image url="{!ProjectFooter}" width="700" height="50" />
+            </body>
+        </head>
+    </html>
+</apex:component>

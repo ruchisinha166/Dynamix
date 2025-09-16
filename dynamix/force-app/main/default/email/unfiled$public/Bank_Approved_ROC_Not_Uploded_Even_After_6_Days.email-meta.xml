@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Bank Approved ROC Not Uploded Even After 6 Days</name>
+    <style>none</style>
+    <subject>Bank Approved ROC Not Uploded Even After 6 Days</subject>
+    <textOnly>Dear {!crmHeadName},
+
+The ROC letter in the system for the Booking : {!bookingName} has not been uploaded in the system by {!rmName} for 6 days. Request to close this at the earliest for booking to proceed.
+
+Thank You,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

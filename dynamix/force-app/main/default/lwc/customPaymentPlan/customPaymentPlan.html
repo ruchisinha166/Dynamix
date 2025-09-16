@@ -1,0 +1,64 @@
+<template>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+        <span class="slds-assistive-text">error</span>
+        <lightning-icon class="slds-m-right_x-small" icon-name="utility:error" size="x-small" variant="inverse">
+        </lightning-icon>
+        <h2>Please ensure all fields are filled and Total for Milestone % is 100({totalPercentage}).
+        </h2>
+    </div>
+    <div class="slds-p-bottom_x-large slds-scrollable" style="max-height:400px">
+        <table class="slds-table slds-table_bordered slds-table_col-bordered" style="border-collapse: collapse;">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th style="width:0.25rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Name" class="slds-truncate">No.</span>
+                        </a>
+                    </th>
+                    <th style="width:12.25rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Name" class="slds-truncate">Name</span>
+                            <lightning-helptext
+                                content="This Lookup Field needs to be filled only for a Custom Milestone.">
+                            </lightning-helptext>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Milestone Type" class="slds-truncate">Milestone Type</span>
+                            <lightning-helptext
+                                content="Booking Date: Choose no of days after booking date this milestone is Activated. 
+                                Project Progress: Choose a Project Project Record based on which the milestone is activated.">
+                            </lightning-helptext>
+                        </a>
+                    </th>
+                    <th style="width:3.75rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Activation Criteria" class="slds-truncate">Activation Criteria</span>
+                        </a>
+                    </th>
+                    <th style="width:1.25rem">
+                        <a class="slds-th__action slds-text-link_reset">
+                            <span title="Milestone (%)" class="slds-truncate">Milestone (%)</span>
+                        </a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={paymentMilestones} for:item="paymentMilestone" for:index="index">
+                    <c-custom-payment-plan-row key={paymentMilestones.Sequence_No__c} draggable="true" ondrag={drag}
+                        data-index={index} ondragover={allowDrop} ondrop={drop} ondelete={deleteRow}
+                        payment-plan-milestone={paymentMilestone} index={index} onmilestonechange={handleChange}>
+                    </c-custom-payment-plan-row>
+                </template>
+            </tbody>
+        </table>
+    </div>
+    <footer class="slds-modal__footer" style="position: fixed; width: 100%; left:0;">
+        <lightning-button class="slds-button" type="Add Row" label="Add Row" onclick={handleAddRow}>
+        </lightning-button>
+        <lightning-button class="slds-button" disabled={disableNext} variant="brand" label="Next" onclick={handleNext}>
+        </lightning-button>
+    </footer>
+</template>

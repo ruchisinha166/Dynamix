@@ -1,0 +1,15 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="EOICALinkExpirationController">	
+    <aura:attribute name = "Show" type = "Boolean" default = "false"/>
+    <aura:attribute name = "message" type = "string" />
+    <aura:attribute name="recordId" type="Id" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   <lightning:card title ="EOI/CA Form Link Status">
+        <aura:renderIf isTrue="{!v.Show}">
+           <Center> <h1 style ="font-size:30px;color:red;"><b>EOI/CA Form Link is Expired.</b></h1></Center>
+            <aura:set attribute="else">
+              <Center>  <h1 style ="font-size:30px;color:green;"><b>{!v.message}</b></h1></Center>
+            </aura:set>
+        </aura:renderIf>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,6 @@
+Hi {!accountUser},</br></br>
+
+New Broker Payment {!brokerPaymentNo} of Amount : {!amount} is added for Booking {!bookingName}. Please verify details and approve it.</br></br>
+
+Thank You,</br>
+Dynamix

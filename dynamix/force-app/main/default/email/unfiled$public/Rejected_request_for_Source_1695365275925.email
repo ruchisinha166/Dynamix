@@ -1,0 +1,13 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Source Change Request Rejected<br />
+<br />
+Dear {{{Opportunity.Sales_Manager__c}}},<br />
+We regret to inform you that your request for a change of source has been rejected.&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<br />
+&nbsp;Reason for Change:{{{Opportunity.Reason_For_Approval_Status__c}}}<br />
+&nbsp;We understand that this decision may be disappointing. If you have any questions or need further clarification regarding the rejection, please feel free to&nbsp; &nbsp;reach out to us.<br />
+<br />
+&nbsp;Thank you for your understanding.</body>
+</html>

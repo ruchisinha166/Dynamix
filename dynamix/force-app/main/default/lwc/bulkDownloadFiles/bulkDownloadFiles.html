@@ -1,0 +1,34 @@
+<template>
+    <template if:true={firstPage}>
+        <div class="slds-m-top_none">
+            <div class="slds-p-bottom_medium">
+
+                <select class="slds-select" name="optionSelect" onchange={changeHandler}>
+                    <option value="">-- Select Document Type --</option>
+                    <option value="Invoice">Demand Letter</option>
+                    <option value="Payment Receipt">Payment Receipt</option>
+                </select>
+
+            </div>
+
+            <footer class="slds-modal__footer" style="position: fixed; width: 100%; left:0;">
+                <button class="slds-button slds-button_brand" onclick={nextPage}>Next</button>
+            </footer>
+        </div>
+    </template>
+
+    <template if:true={secondPage}>
+        <div style="margin-top: -30px;">
+            <div class="slds-scrollable" style="max-height:265px;">
+                <template if:true={contentVersionList}>
+                    <lightning-datatable data={contentVersionList} columns={columns} key-field="Id">
+                    </lightning-datatable>
+                </template>
+            </div>
+
+            <footer class="slds-modal__footer" style="position: fixed; width: 100%; left:0;">
+                <button class="slds-button slds-button_brand" onclick={bulkDownloadFiles}>Download Files</button>
+            </footer>
+        </div>
+    </template>
+</template>

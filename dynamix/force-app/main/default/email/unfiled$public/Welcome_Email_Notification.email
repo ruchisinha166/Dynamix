@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Welcome To Dynamix" recipientType="Contact" relatedToType="Booking__c">
+    <messaging:htmlEmailBody >
+        <c:WelcomeEmailNotification BkId="{!relatedTo.Id}"  />
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

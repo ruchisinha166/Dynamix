@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-visual-picker slds-visual-picker_small">
+        <input type="radio" id={flatNumber} value={flatNumber} name="options" disabled={disabled}
+            onclick={handleClick} />
+        <label for={flatNumber}>
+            <span class="slds-visual-picker__figure slds-visual-picker__icon slds-align_absolute-center"
+                style="height: 2.5rem; width: 7rem;">
+                <span class="slds-is-not-selected">
+                    <span>
+                        <span class="slds-text-heading_small heading_text">{flatNumber}</span>
+                    </span>
+                </span>
+                <span class="slds-is-selected">
+                    <span class="slds-icon_container">
+                        <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse">
+                        </lightning-icon>
+                    </span>
+                </span>
+            </span>
+        </label>
+    </div>
+    <div class="slds-hide">{filtered}</div>
+</template>

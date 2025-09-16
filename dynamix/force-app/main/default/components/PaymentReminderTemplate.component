@@ -1,0 +1,178 @@
+<apex:component controller="PaymentReminderClass" access="global">
+  <apex:attribute name="PayMId" type="Id" description="account id of the case" assignTo="{!PMId}"/>
+  
+  <html>
+    <head>
+       <style>
+               @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+          
+           .float-container {
+            border: 3px solid #fff;
+            padding: 20px;
+            }
+
+            .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            }  
+             .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            } 
+            </style>
+        
+       
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        td{
+        text-align: left;
+        width:20%;
+        
+        }
+            .marginBottom{
+            margin-bottom: 10px;
+            }
+            .marginTop{
+            margin-top: 10px;
+            }
+        </style>
+        
+    </head>
+    <body style="font-family:Helvetica, sans-serif;font-size: 11px;">
+        <center><apex:image url="{!ProjectHeader}" width="700" height="140" /></center>
+        <b ><p style="text-align:Center;">REMINDER LETTER</p></b>
+       
+        
+       <div style="font-size:11px;font-family: Helvetica, sans-serif;padding-left:0px;">
+            <span style="font-family:Helvetica, sans-serif;font-size: 11px;">
+        <span style="text-align:left;">
+            To,
+        <span style="float:right;">
+        Date:&nbsp;<apex:outputText style="text-align: right;" value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!TODAY()}" /></apex:outputText>
+        </span>
+        </span>
+        <br/>
+        {!booking.Primary_Applicant__r.Name}<br/>
+        {!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},<br/>
+        {!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},<br/>
+        {!accountObject.PersonMailingCountry}<br/>
+        Mob No.: {!accountObject.PersonMobilePhone} 
+        </span>
+           <br/>
+        </div>
+         <br/>
+        <center><b><u>Sub: Reminder for payment of outstanding Milestone linked Instalment of the Allotment Premium / Sale Consideration.
+            </u></b></center><br/>
+    <!--    <p style=" text-align:left">
+            
+            <u>
+            <b>
+                along with Applicable Interest.
+                </b>
+            </u>
+        </p><br/> -->
+        <div style="font-size:11px;font-family: Helvetica, sans-serif;padding-left:0px;">        
+            <table style="font-size:11px;font-family: Helvetica, sans-serif;text-align: justify;border-style: none;width:100%;">
+                <tr>
+                    <td style="font-size:11px;font-family: Helvetica, sans-serif;border-style: none;text-align: justify;width:2%;vertical-align:top;">
+                        <b>
+                            Re:
+                        </b>
+                    </td>
+                    <td style="font-size:11px;font-family: Helvetica, sans-serif;border-style: none;text-align: justify;width:98%;">
+                        Demand Letter dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                        <apex:param value="{!paymentMilestoneobj.Milestone_Activation_Date__c}" /></apex:outputText> for the payment of
+                        Rs.<apex:outputText value="{0,number,#,###}"><apex:param value="{!ROUND(TotalOutstanding,0)}"/></apex:outputText>/- ("Demand Letter") in respect of Application Form 
+                        dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!booking.Booking_Date__c}" /></apex:outputText>  ("Form") / Agreement for Sale
+                        dated&nbsp;<apex:outputText rendered="{!if(booking.Registration_Status__c== 'Completed',true,false)}" value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText><apex:outputText rendered="{!if(booking.Registration_Status__c!= 'Completed',true,false)}" value="NA">
+                        </apex:outputText> ("Agreement") (as the case may be) pertaining to 
+                        Apartment No {!sPropertyobj.Unit__r.name} on the {!sPropertyobj.Unit__r.Floor__c}<sup>{!floor}</sup> floor of the building known as {!booking.Project_Name__r.Name} {!if(LOWER(booking.Tower_Name__r.Name) == 'na',"",booking.Tower_Name__r.Name)}
+                        situated at {!project.City__c}, {!project.state__c} - {!project.Postal_Code__c}(“said Apartment”).
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+        <p style="font-size:11px;font-family: Helvetica, sans-serif;text-align: left;padding-left:0px;"> <br/> Dear {!accountObject.Salutation} {!booking.Primary_Applicant__r.Name},</p>
+        <ol type="1" style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+        <li class="marginBottom">
+           <p style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+            We refer to the captioned Application Form <!-- dated&nbsp;<apex:outputText rendered="{!if(booking.Registration_Status__c== 'Completed',true,false)}" value="{0,date,dd/MM/yyyy}">
+              <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText><apex:outputText rendered="{!if(booking.Registration_Status__c!= 'Completed',true,false)}" value="NA"></apex:outputText> -->/ Agreement for Sale (as the case may be) wherein you have applied to / agreed 
+            to purchase the said Apartment at and for  an Allotment Premium / Sale Consideration  and on other terms and conditions as contained therein.</p>
+       </li>
+        <li class="marginBottom">
+           <p style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+            Pursuant thereto, we had vide our Demand Letter raised a demand for the payment of Rs.<apex:outputText value="{0,number,#,###}"><apex:param value="{!ROUND(TotalOutstanding,0)}"/></apex:outputText>/-
+           (Rupees {!MilestoneAmountInWord} Only) as per the schedule contained in the Application Form 
+           / Agreement for Sale (as the case may be). A copy of the Demand Letter dated&nbsp;
+            <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!paymentMilestoneobj.Milestone_Activation_Date__c}" /></apex:outputText>  is enclosed herewith.</p>
+        </li>
+        <li class="marginBottom">
+           <p style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+            However, you have failed and neglected to pay the aforesaid sum of Rs.<apex:outputText value="{0,number,#,###}"><apex:param value="{!ROUND(TotalOutstanding,0)}"/></apex:outputText>/- 
+            (Rupees {!MilestoneAmountInWord} Only) as contained in our Demand Letter dated{!if(paymentMilestoneobj.Milestone_Activation_Date__c!=null," ","")}<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!paymentMilestoneobj.Milestone_Activation_Date__c}" /></apex:outputText>.</p>
+        </li>
+        <li class="marginBottom">
+           <p style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+            In view thereof, you are yet required to pay a sum of Rs.<apex:outputText value="{0,number,#,###}"><apex:param value="{!ROUND(TotalAmountwihIntrest,0) }"/></apex:outputText>/-
+             (Rupees&nbsp;{!TotalAmountwihIntrestInWord} Only).</p>
+        </li>
+        <li class="marginBottom">
+         <p style="font-size:11px;font-family: Helvetica, sans-serif;margin-left : 5px;text-align: justify;">
+        We hereby kindly remind you to make the payment of the aforesaid outstanding amounts within a period of 7
+         (Seven) days from the date of this letter, failing which, you shall be liable to pay interest on the
+          aforesaid outstanding amounts, as per the provisions of the Form / Agreement (as the case may be).</p>
+        </li>
+        </ol>
+       
+        <p style="margin-left : 5px;text-align: justify;padding-left:0px;">Yours Truly,</p>
+        <p style="margin-left : 5px;text-align: justify;padding-left:0px;"><b>{!project.Builder_Organization__r.name}</b></p><br/><br/><br/>
+      
+      
+    <center>
+               <apex:image url="{!ProjectFooter}" width="700" height="50"  />
+            
+           </center>
+           
+      </body>  
+</html>
+</apex:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Snag__c</fullName>
+    <label>Project Snag</label>
+    <referenceTo>Project_Snag__c</referenceTo>
+    <relationshipLabel>Unit Snag Responses</relationshipLabel>
+    <relationshipName>Unit_Snag_Responses</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

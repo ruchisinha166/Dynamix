@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Send Demand Letter to Customer</name>
+    <style>none</style>
+    <subject>Demand Letter - {!Booking__c.Project_Name_Formulla__c} {!Booking__c.Unit_Number__c}</subject>
+    <textOnly>Dear {!Customer},
+
+Please find the attachment of Demand Letter for your booking of Project {!Project} and Unit No. {!Unit}.
+
+Thank You,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

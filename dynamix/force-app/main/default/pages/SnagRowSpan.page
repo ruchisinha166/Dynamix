@@ -1,0 +1,380 @@
+<apex:page standardController="Property__c" extensions="SnagRowSpanController" action="{!getData}" showHeader="false" applyBodyTag="false" docType="html-5.0" applyHtmlTag="false" showQuickActionVfHeader="false"  standardStylesheets="false">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" />
+    <html>
+        <head>
+            <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+            
+            <script type='text/javascript'>
+            var snagDetails = [];
+            var fileValue;
+            var fileName  = [];
+            
+          
+
+            function quotesCheck(recordId,receivedInputValue){
+                console.log('recordId'+recordId);
+                console.log('receivedInputValue'+receivedInputValue);
+                item = {};
+               
+                //item ['recordId'] = recordId;
+                //  item ['CheckBox'] = receivedInputValue;
+                console.log('snagDetails'+snagDetails.length);
+                if(snagDetails.length != 0)
+                { 
+                    const existingItem = snagDetails.find(item => item.recordId === recordId);
+                    if (existingItem === undefined) {
+                        console.log('item'+item.recordId);
+                        console.log('recordId----'+recordId);
+                        item ['recordId'] = recordId;
+                        item ['CheckBox'] = receivedInputValue;
+                        item ['remarks'] ='';
+                        snagDetails.push(item); 
+                    } else {
+                        existingItem.CheckBox = receivedInputValue;
+                    }
+                }
+                else
+                {
+                    console.log('Hello');
+                    item ['recordId'] = recordId;
+                    item ['CheckBox'] = receivedInputValue;
+                    item ['remarks'] ='';
+                    snagDetails.push(item); 
+                    
+                }
+                console.log(snagDetails);
+            }
+            function remarks(recordId,remarks){
+                
+                item = {};
+                // item ['recordId'] = recordId;
+                // item ['Remarks'] = remarks;
+                // snagDetails.push(item);
+                if(snagDetails.length != 0)
+                {
+                    const existingItem = snagDetails.find(item => item.recordId === recordId);
+                    if (existingItem === undefined) {
+                        console.log('item'+item.recordId);
+                        console.log('recordId----'+recordId);
+                        item ['recordId'] = recordId;
+                        item ['CheckBox'] = false;
+                        item ['remarks'] = remarks;
+                        snagDetails.push(item); 
+                    } else {
+                        existingItem.remarks = remarks;
+                    }
+                }
+                else
+                {
+                    console.log('Hello');
+                    item ['recordId'] = recordId;
+                    item ['CheckBox'] = receivedInputValue;
+                    item ['remarks'] ='';
+                    snagDetails.push(item); 
+                    
+                }
+                console.log(snagDetails);
+            }
+            
+            function onSave() {
+                saveUnitSnagList(JSON.stringify(snagDetails));
+                console.log('snagDetails'+JSON.stringify(snagDetails));
+                Sfdc.canvas.publisher.publish({ name: "publisher.close", payload:{ refresh: "true" }});
+            }
+            function onSavePostOC() {
+                saveUnitSnagListForPostOc(JSON.stringify(snagDetails));
+                console.log('snagDetails'+JSON.stringify(snagDetails));
+                Sfdc.canvas.publisher.publish({ name: "publisher.close", payload:{ refresh: "true" }});
+            }
+            document.getElementById('inputFile').addEventListener('change', function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    var blobData = event.target.result;
+                    console.log('Blob Data:', blobData);
+                    // You can now send the blobData to your Apex controller or perform further processing.
+                };
+
+    reader.readAsDataURL(file);
+});
+            function onSaveCustomer() {
+                console.log('snagDetails'+JSON.stringify(snagDetails));
+                var fileInput = document.getElementById('inputFile');
+                console.log('fileInput',fileInput);       
+                              // console.log('fileInput 1',fileInput[0].files); 
+                console.log('snagDetails 1',JSON.stringify(snagDetails));               
+                if (fileInput) {
+                     item = {};
+                    var files = fileInput.files;
+                    var blobData ;
+                    if(files!= null && files.length> 0)
+                    {
+                        console.log('fileInput.files',fileInput.files);       
+                        fileValue =files[0].blob;
+                        fileName = files[0].name;
+                         var reader = new FileReader();
+                        reader.onload = function(event) {
+                            blobData = event.target.result;
+                             item ['FileValue'] = blobData;
+                             item ['FileName'] = fileName;
+                            console.log('Blob Data: 2', blobData);
+                            snagDetails.push(item);
+                            console.log('snagDetails'+JSON.stringify(snagDetails));
+                            saveCustomerUnitSnagList(JSON.stringify(snagDetails),JSON.stringify(files[0]));
+                            
+                        };
+                        reader.readAsDataURL(files[0]);
+                        
+                        console.log('fileName'+fileName);
+                        console.log('fileName'+fileName);
+                        console.log('files[0]'+JSON.stringify(files[0]));
+                        console.log('fileValue'+JSON.stringify(fileValue));
+                        saveCustomerUnitSnagList(JSON.stringify(snagDetails),JSON.stringify(files[0]));
+                        Sfdc.canvas.publisher.publish({ name: "publisher.close", payload:{ refresh: "true" }});
+                        
+                    }
+                    else
+                    {
+                        document.getElementById("snagFileUploadError").innerHTML="Please Upload Customer Snag List.";
+                        
+                    }
+                } 
+
+                
+            }
+            </script>            
+            <style>
+                table, tr,th,td {
+                table-layout: fixed;
+                width: 100%; 
+                
+                border:1px solid black;
+                text-align:center;
+                page-break-inside: avoid;
+                border-collapse: collapse;
+                
+                }
+                body {
+                overflow-y: scroll !important;
+                scrollbar-width: thin;
+                }
+                
+                /* Hide the horizontal scrollbar */
+                body::-webkit-scrollbar {
+                width: 0.1em;
+                }
+                
+                body::-webkit-scrollbar-thumb {
+                background-color: transparent;
+                }
+                .fontFamily{
+                font-family:Calibri;
+                font-size:14px;
+                }
+                
+            </style>
+        </head>
+        <body  class="fontFamily">            
+            <apex:form id="frm">
+                <apex:pageBlock >
+                    <div style="background-color:#005F9E;padding-top:5px;font-size:18px;padding-bottom:5px;color:white;text-align:Center">
+                      <apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">   <b>PRE-OC UNIT INSPECTION CHECKLIST</b> 
+                          <apex:pageBlock rendered="{! If(Task == false,true,false) }">
+                             <center><b style="color:red;margin:30px;">Please create Pre - OC FM Unit Inspection for further actions.</b> </center> 
+                          </apex:pageBlock>
+                        </apex:pageBlock>
+                         <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">   <b>POST OC UNIT INSPECTION CHECKLIST</b> 
+                             <apex:pageBlock rendered="{! If(Task == false,true,false) }">
+                             <center><b style="color:red;margin:30px;">Please create Post - OC FM Unit Inspection for further actions.</b> </center> 
+                          </apex:pageBlock>
+                        </apex:pageBlock>
+                        
+                         <apex:pageBlock rendered="{! If(SnagType == 'Not Scheduled' ,true,false) }"><b>CUSTOMER UNIT INSPECTION CHECKLIST</b> 
+                             <apex:pageBlock rendered="{! If(Task == false,true,false) }">
+                             <center><b style="color:red;margin:30px;">There is no Customer Unit Inspection Scheduled.</b> </center> 
+                          </apex:pageBlock>
+                        </apex:pageBlock>
+                        
+                         <apex:pageBlock rendered="{! If(SnagType == 'Customer with Snag' ,true,false) }"><b>CUSTOMER UNIT INSPECTION CHECKLIST</b> 
+                             <apex:pageBlock rendered="{! If(Task == false,true,false) }">
+                             <center><b style="color:red;margin:30px;">Please Complete Post - OC FM Review Task and ask RM to schecdule next Customer Unit Inscpection.</b> </center> 
+                          </apex:pageBlock>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }"><b>CUSTOMER UNIT INSPECTION CHECKLIST</b> 
+                             <apex:pageBlock rendered="{! If(Task == false,true,false) }">
+                             <center><b style="color:red;margin:30px;">Please Complete Deep Cleaning Task for further actions.</b> </center> 
+                          </apex:pageBlock>
+                        </apex:pageBlock>
+                    </div>
+                    <!--div width = "100%" class="header"  style="margin-top: 10px;margin-left: 10px;margin-bottom: 20px;">
+                        <center> <apex:image url="{!ProjectHeader}"  width="70%" height="140" /></center>
+                    </div-->
+                     <apex:pageBlock rendered="{! If(Task == true,true,false) }">
+                    <apex:variable var="rowcount" value="{!1}" />
+                    <table>
+                        <caption style ="background-color:#D5D8DC;padding:5px;">
+                            <b>  {!propertyList[0].Project__r.Name}: POSSESSION  HANDOVER CHECKLIST  Date: <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                <apex:param value="{!NOW()}" />
+                                </apex:outputText></b></caption>
+                      
+                        <tr>
+                            <th colspan="2">
+                                {!propertyList[0].Tower__r.Name} - {!propertyList[0].Flat_Type__c}
+                            </th>
+                            <th>
+                                FLAT NO.: {!propertyList[0].Name}
+                            </th>
+                            <th colspan="2">
+                                CUSTOMER NAME: {!CustomerName}
+                            </th>
+                            
+                        </tr>   
+                        <tr>
+                            <th>S.NO.
+                            </th>
+                            <th>
+                                AREA
+                            </th>
+                            <th>PARTICULARS
+                            </th>
+                            <th> 
+                                STATUS
+                            </th>
+                            <th>REMARKS
+                            </th>
+                            
+                        </tr>
+                        <apex:repeat id="myRepeatHeader" value="{!areaList}" var="key">         
+                            <apex:variable var="count" value="{!1}"/> 
+                            <apex:repeat id="SnagDetails" value="{!mapArea[key]}" var="snag">
+                                <tr>
+                                    <apex:outputPanel layout="none" rendered="{!count==1}">
+                                        <td rowspan="{!(areaCountMap[key])}">{!rowcount}. </td>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!count==1}">
+                                        <td rowspan="{!(areaCountMap[key])}"><apex:outputText value="{!snag.area}"/></td>
+                                    </apex:outputPanel>
+                                    
+                                    <td><apex:outputText value="{!snag.question}"/></td>
+                                    <apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">
+                                        <td style="text-align: center" width="4%">
+                                            <apex:pageBlock rendered="{! If(snag.preOcCheckBox == true ,true,false) }"><input type="checkbox" class = "preOcCheckBox" checked="checked" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                            <apex:pageBlock rendered="{! If(snag.preOcCheckBox == false ,true,false) }"><input type="checkbox" class = "preOcCheckBox" value="{!snag.preOcCheckBox}" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                        </td>
+                                        <td style="text-align: center" width="4%"><apex:inputTextArea style="width:98.5%" value="{!snag.Remarks}" onChange="remarks('{!snag.recordId}',this.value);"/></td>
+                                    </apex:pageBlock>
+                                    <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">
+                                        <td style="text-align: center" width="4%">
+                                            <apex:pageBlock rendered="{! If(snag.postOcCheckBox == true ,true,false) }"><input type="checkbox" class = "preOcCheckBox" checked="checked" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                            <apex:pageBlock rendered="{! If(snag.postOcCheckBox == false ,true,false) }"><input type="checkbox" class = "preOcCheckBox" value="{!snag.postOcCheckBox}" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                        </td>
+                                        <td style="text-align: center" width="4%">
+                                            <apex:inputTextArea style="width:98.5%" value="{!snag.postOcremarks}" onChange="remarks('{!snag.recordId}',this.value);" />
+                                        </td>
+                                    </apex:pageBlock>
+                                    <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                                        <td style="text-align: center" width="4%">
+                                            <apex:pageBlock rendered="{! If(snag.customerCheckBox == true ,true,false) }"><input type="checkbox" class = "preOcCheckBox" checked="checked" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                            <apex:pageBlock rendered="{! If(snag.customerCheckBox == false ,true,false) }"><input type="checkbox" class = "preOcCheckBox" value="{!snag.customerCheckBox}" onChange="quotesCheck('{!snag.recordId}', this.checked);" /></apex:pageBlock>
+                                        </td>
+                                        <td style="text-align: center" width="4%"><apex:inputTextArea style="width:98.5%" value="{!snag.customerRemarks}" onChange="remarks('{!snag.recordId}',this.value);"/></td>
+                                    </apex:pageBlock>
+                                    <apex:variable var="count" value="{!count+1}"/>
+                                    
+                                </tr>
+                            </apex:repeat>
+                            <apex:variable var="rowcount" value="{!rowcount+1}" />
+                        </apex:repeat> 
+                        <tr Style="padding:15px;">
+                        <th colspan="5" Style="padding:15px;">
+                            </th></tr>
+                        <tr>
+                            <th colspan="2" style="text-align:left;padding-bottom:15px;">
+                                ELETRIC METER NUMBER: {!propertyList[0].Electric_Meter_Number__c}
+                            </th>
+                            <th style="text-align:left;padding-bottom:15px;">
+                                Installed: {!propertyList[0].Electric_Meter_Installed__c}
+                            </th>
+                            <th colspan="2" style="text-align:left;padding-bottom:15px;">
+                                ELETRIC METER READING: <apex:input type="number" style="width:98.5%" value="{!meterReading}"/>
+                            </th>
+                        </tr>
+                         <tr>
+                         <apex:outputPanel rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                             <apex:actionRegion >
+                                  <tr>
+                                      <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                          
+                                          <th colspan="2" style="text-align:left;padding-bottom:15px;"> <div style="width:25%;display:inline-block;">
+                                              Customer Snag File:
+                                              </div>
+                                          </th>
+                                          <th colspan="2" style="text-align:left;padding-bottom:15px;">
+                                              <div style="margin-left:94px;display:inline-block;"> 
+                                                  <input type="file" id="inputFile"  />
+                                                  <div style="display:inline-block;color:red;" id="snagFileUploadError"></div>
+                                                  
+                                                  
+                                              </div>
+                                          </th>
+                                      </div>
+                                 </tr>
+                             </apex:actionRegion>
+                             </apex:outputPanel>
+                             
+                        </tr>
+                         </table>
+                         <!--apex:outputPanel rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                             <apex:actionRegion >
+                                 <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                     <div style="width:25%;display:inline-block;">
+                                         Customer Snag File:
+                                     </div>
+                                     <div style="margin-left:94px;display:inline-block;"> 
+                                         <input type="file" id="inputFile"  />
+                                          <div style="display:inline-block;color:red;" id="snagFileUploadError"></div>
+
+                                         
+                                     </div>
+                                 </div>
+                             </apex:actionRegion>
+                         </apex:outputPanel-->
+                         
+                    <apex:actionFunction action="{!saveUnitSnagList}" name="saveUnitSnagList" rerender="frm">
+                        <apex:param value="" name="SnagDetails"/>
+                        <apex:param value="" name="meterReading"/>
+                    </apex:actionFunction>
+                         <apex:actionFunction action="{!saveUnitSnagListForPostOc}" name="saveUnitSnagListForPostOc" rerender="frm">
+                             <apex:param value="" name="SnagDetails"/>
+                             <apex:param value="" name="meterReading"/>
+                         </apex:actionFunction>
+                         <apex:actionFunction action="{!saveCustomerUnitSnagList}" name="saveCustomerUnitSnagList" rerender="frm">
+                             <apex:param value="" name="SnagDetails"/>
+                             <apex:param value="" name="meterReading"/>
+                              <apex:param value="" name="fileName"/>
+                              <apex:param value="" name="fileValue"/>
+                         </apex:actionFunction>
+                         
+                    
+                    <center>
+                        <div Style="margin-top:20px;">
+                            
+                      
+                        <apex:pageBlock rendered="{! If(SnagType == 'Pre-OC' ,true,false) }">
+                            <button class="btn callbutton submitbutton" onClick="onSave();" id="submitBtn" style="background-color:#005F9E;font-size:18px;border-radius: 4px;padding:7px;color:white;text-align:Center" type="button"  >Submit</button>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{! If(SnagType == 'Post-OC' ,true,false) }">
+                            <button class="btn callbutton submitbutton" onClick="onSavePostOC();" id="submitBtn" style="background-color:#005F9E;font-size:18px;border-radius: 4px;padding:7px;color:white;text-align:Center"  type="button"  >Submit</button>
+                        </apex:pageBlock>
+                            <apex:pageBlock rendered="{! If(SnagType == 'Customer' ,true,false) }">
+                            <button class="btn callbutton submitbutton" onClick="onSaveCustomer();" id="submitBtn" style="background-color:#005F9E;font-size:18px;border-radius: 4px;padding:7px;color:white;text-align:Center" type="button"  >Submit</button>
+                        </apex:pageBlock>
+                              </div>
+                    </center> 
+                </apex:pageBlock>
+                </apex:pageBlock>
+            </apex:form>
+        </body>
+    </html>
+</apex:page>

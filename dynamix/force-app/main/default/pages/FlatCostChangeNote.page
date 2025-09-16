@@ -1,0 +1,164 @@
+<apex:page renderAs="pdf" standardController="Booking__c" extensions="FlatCostChangeNoteDetail" applyHtmlTag="true" showHeader="false">
+    <html>
+       <style>
+           table
+           {
+                font-family:Calibri (Body);
+           }
+       </style>
+       <body>
+           
+            <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:20px;text-align:center;color:white;" ><b>Flat Cost Change Note</b></td>
+                </tr>
+                <tr>
+                    <td  style="width:30%; padding-bottom:10px;">Customer Name</td>
+                    <td  style="width:70%;">{!booking.Primary_Applicant__r.Name}</td>
+                </tr>
+                <tr>
+                    <td>Building &#38; Flat No. </td>
+                    <td>{!booking.Tower_Name__r.Name} {!properties.Name}</td>
+                </tr>
+                
+                <tr>
+                    <td>Booking Date </td>
+                    <td>
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                            <apex:param value="{!booking.Booking_Date__c}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Scheme </td>
+                    <td>{!payPlan.Name}</td>
+                </tr>
+                <tr>
+                    <td><b>Flat Cost</b> </td>
+                    <td>{!booking.Agreement_Value__c}</td>
+                </tr>
+                
+                <tr>
+                    <td>Difference Amount </td>
+                    <td>{!DifferenceAmount}</td>
+                </tr>
+                <tr>
+                    <td><b>Revised Flat Cost </b></td>
+                    <td>{!newAgreementValue}</td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom:40px;">Details of Cost Change </td>
+                    <td></td>
+                </tr>
+           </table>
+           <br/>
+           <!--table 2-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="2"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Loan Details</i></b></td>
+                </tr> 
+                 <tr>
+                    <td style="width:30%;">Loan (Bank Name)</td>
+                    <td style="width:70%;">
+                        <apex:outputPanel rendered="{!bankloandetails.size>0}">{!bankloandetails[0].Home_LoanInstitution__r.Name }</apex:outputPanel>
+                    </td>
+                </tr>
+                 <tr>
+                    <td style="width:30%;">Loan Sanction Amount</td>
+                    <td style="width:70%;">
+                        <apex:outputPanel rendered="{!bankloandetails.size>0}"><apex:outputText value="{0, number, #,###.##}"><apex:param value="{!bankloandetails[0].Sanction_Amount__c}"/></apex:outputText> </apex:outputPanel>
+                    </td>
+                </tr>
+                 <tr>
+                    <td style="width:30%;">OCR Amount</td>
+                    <td style="width:70%;">
+                        <apex:outputText value="{0, number, #,###.##}"><apex:param value="{!OCRAmount}"/></apex:outputText>
+                    </td>
+                </tr>
+           </table>
+           <br/>
+           <!--table 3-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Amount Balance Details</i></b></td>
+                </tr> 
+                <tr>
+                    <th  style="width:30%;" bgcolor="#C8C8C8"></th>
+                    <th  style="width:35%;" bgcolor="#C8C8C8"><b>Flat Due Amount</b></th>
+                    <th  style="width:35%;" bgcolor="#C8C8C8"><b>GST Due Amount</b></th>
+                </tr>
+                 <tr>
+                    <td style="width:30%;">Total Billed</td>
+                    <td>{!totalBilled}</td>
+                    <td>{!totalbilledGST}</td>
+                </tr>
+                 <tr>
+                    <td style="width:%;">Total Received</td>
+                    <td>{!totalReceived}</td>
+                    <td>{!totalReceivedGST}</td>
+                </tr>
+                 <tr>
+                    <td style="width:30%;"><b>Total Outstanding</b></td>
+                    <td>{!totalOutstanding}</td>
+                    <td>{!totalOutstandingGST}</td>
+                </tr>
+           </table><br/>
+           <!--table 4-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="5">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Checked By</i></b></td>
+                </tr>
+                 <tr>
+                    <th style="width:25%;" bgcolor="#C8C8C8"></th>
+                    <th style="width:25%;" bgcolor="#C8C8C8">Name</th>
+                    <th style="width:25%;" bgcolor="#C8C8C8">Date</th>
+                    <th style="width:25%;" bgcolor="#C8C8C8">Signature</th>
+                </tr>
+               <tr>
+                    <td>Prepared By</td>
+                    <td>{!$User.FirstName} {!$User.LastName}</td>
+                    <td></td>
+                    <td></td>
+                </tr> 
+                <tr>
+                    <td>Sales Manager</td>
+                    <td>{!booking.Sales_Manager__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Approved By (Sales AGM)</td>
+                    <td>{!booking.Project_Name__r.Project_Head__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td>Approved By (Sales Head)</td>
+                    <td>{!booking.Project_Name__r.Sales_Head__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+               <tr>
+                    <td>Verified &amp; Approved by CRM Head</td>
+                    <td>{!booking.Project_Name__r.Post_Sales_Head__r.Name}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Accounts Team </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+           </table>
+           <br/>
+           <p>
+               Remarks:&nbsp;
+           </p>
+        </body>
+    </html>
+</apex:page>

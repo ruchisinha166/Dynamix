@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_able_to_select_Budget_Picklist</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISBLANK( TEXT( Budget__c ) ),  NOT(ISBLANK( TEXT(  Budget_Checkbox__c  )) ))</errorConditionFormula>
+    <errorDisplayField>Budget_Checkbox__c</errorDisplayField>
+    <errorMessage>Budget should be mandatory if you select Budget Picklist.</errorMessage>
+</ValidationRule>

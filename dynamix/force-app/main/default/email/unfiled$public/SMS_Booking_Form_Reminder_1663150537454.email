@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} You are just a step away from completing the booking of your dream home. Please fill in the Application Form for {{{Booking__c.Project_Name__c}}} in {{{Booking__c.Name}}} to proceed with the booking formalities. Dynamix Group</body>
+</html>

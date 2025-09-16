@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_should_Be_Approved_To_be_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISPICKVAL( Approval_Status__c , &quot;Approved&quot;)),  IsActive = true)</errorConditionFormula>
+    <errorMessage>This Campaign cannot yet be marked as Active, because it has not been approved by the Promoter.</errorMessage>
+</ValidationRule>

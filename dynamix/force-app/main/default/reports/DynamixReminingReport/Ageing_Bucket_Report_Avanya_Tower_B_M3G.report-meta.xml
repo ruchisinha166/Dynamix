@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Payment_Milestones__c.Primary_Applicant_Name__c:UNIQUE</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Customer Count</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Payment_Milestones__c.Remaining_Milestone_Amount__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Outstanding Amount</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <acrossGroupingContext>CDF1</acrossGroupingContext>
+        <calculatedFormula>(((Payment_Milestones__c.Remaining_Milestone_Amount__c:SUM) * 100)
+    / PARENTGROUPVAL(Payment_Milestones__c.Remaining_Milestone_Amount__c:SUM, ROW_GRAND_SUMMARY,COLUMN_GRAND_SUMMARY))</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <downGroupingContext>ROW_GRAND_SUMMARY</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>% Outstanding</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Payment_Milestones__c.Milestone_Amount1__c:SUM/10000000</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA4</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Milestone Amount (In Crore)</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Payment_Milestones__c.Remaining_Milestone_Amount__c:SUM/10000000</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA5</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Out Standing Amount (In Crore)</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA4</column>
+        </chartSummaries>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA5</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CDF1</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CHILD_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Payment_Milestones__c.Milestone_Amount1__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Payment_Milestones__c.Out_Standing_Amount_Milestone_Rpt__c</field>
+    </columns>
+    <columns>
+        <field>Payment_Milestones__c.Milestone_Status__c</field>
+    </columns>
+    <columns>
+        <field>Payment_Milestones__c.Milestone_Activation_Date__c</field>
+    </columns>
+    <columns>
+        <field>Payment_Milestones__c.Due_Date__c</field>
+    </columns>
+    <currency>INR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>IF(Payment_Milestones__c.Milestone_Activation_Date__c + 90 &lt; TODAY() ,&quot;91 To &gt; 120 Days&quot;, 
+IF(Payment_Milestones__c.Milestone_Activation_Date__c + 60 &lt; TODAY(), &quot;61 To 90 Days&quot;, 
+IF(Payment_Milestones__c.Milestone_Activation_Date__c + 30 &lt; TODAY(), &quot;31 To 60 Days&quot;, 
+IF(Payment_Milestones__c.Milestone_Activation_Date__c + 15 &lt; TODAY(), &quot;16 To 30 Days&quot;, 
+IF(Payment_Milestones__c.Milestone_Activation_Date__c + 0 &lt; TODAY(), &quot;0 To 15 Days&quot;, 
+IF(ISBLANK(Payment_Milestones__c.Milestone_Activation_Date__c), &quot;Milestone Activation Date Not Available&quot;,
+&quot;NOT DUE&quot;))))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Ageing</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Payment_Milestones__c.Milestone_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c.Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Payment_Milestones__c.Project_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Avanya Tower B</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Payment_Milestones__c.Remaining_Milestone_Amount__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>INR 0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Payment_Milestones__c.Milestone_Activation_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessOrEqual</operator>
+            <value>TODAY</value>
+        </criteriaItems>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CUST_NAME</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Payment_Milestones__c.Primary_Applicant_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Ageing Bucket Report - Avanya Tower B</name>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$Booking__c$Payment_Milestones__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c.Agreement_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

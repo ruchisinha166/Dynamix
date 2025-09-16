@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Email to Account User For New Broker Payment</name>
+    <style>none</style>
+    <subject>Approval for New Broker Payment</subject>
+    <textOnly>Hi {!accountUser}, 
+
+New Broker Payment {!brokerPaymentNo} of Amount {!amount} is added for Booking {!bookingName}. Please verify details and approve it. 
+
+Thank You, 
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

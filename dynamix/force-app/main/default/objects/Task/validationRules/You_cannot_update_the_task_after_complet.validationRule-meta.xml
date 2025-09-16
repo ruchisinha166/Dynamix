@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>You_cannot_update_the_task_after_complet</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISPICKVAL( PRIORVALUE( Status ), &apos;Completed&apos; ) , NOT( ISNEW() ) ,  TEXT(Type_Of_Call__c)== &apos;Pre Sales&apos;   )</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You cannot update the task once it&apos;s completed.</errorMessage>
+</ValidationRule>

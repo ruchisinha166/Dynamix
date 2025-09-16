@@ -1,0 +1,2062 @@
+<apex:page standardController="Booking__c"  extensions="BookingFormVfpController" docType="html-5.0" showHeader="false" applyBodyTag="false" applyHtmlTag="false"  standardStylesheets="false">
+    <html>  
+        <head>   
+            <style type="text/css">
+                body {
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                }
+                .fontFamily{
+                /*font-family:Calibri;
+                font-size:14px;*/
+                font-family: Helvetica, sans-serif;
+                font-size: 11px; 
+                }
+                .required:after {
+                content:" *";
+                color: red;
+                }
+            </style>    
+            <script type="text/javascript">
+            window.reload();
+            </script>
+        </head> 
+        <body onload="onloadf()" class="fontFamily">            
+            <apex:form id="frm">
+                
+                <apex:pageBlock >
+                    <div style="background-color:#5F6A6A;padding-top:5px;font-size:18px;padding-bottom:5px;color:white;text-align:center">
+                        <b>Booking Application Form </b> 
+                    </div>
+                    <div style="padding-top:12px;padding-bottom:5px;text-align:left;">
+                        <div style="width:25%;display:inline-block;" class="required">
+                            Booking Application Form For:
+                        </div>
+                        <div style="display:inline-block;" > 
+                            <!-- <apex:inputField value="{!opportunityObj.Nature_of_Purchase__c}"/>-->
+                            <apex:selectList size="1" value="{!selectedPurchasePurpose}" disabled="true"> 
+                                <apex:selectOptions value="{!selPurchasePurposeOption}"/> 
+                                <apex:actionSupport event="onchange" action="{!onChangePurchasePurpose}" />
+                            </apex:selectList>
+                        </div>
+                    </div>
+                    <div style="padding-bottom:12px;text-align:left;">
+                        
+                        <apex:actionRegion > 
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">  
+                                
+                                <div style="width:25%;display:inline-block;" class="required">
+                                    EOI/CA Booking
+                                </div>
+                                <div style="display:inline-block;">                                     
+                                    <apex:selectList size="1" value="{!selectedEOIBooking}" disabled="{!isDisableEOIBooking}"> 
+                                        <apex:selectOptions value="{!eoiBookingOptions}"/>  
+                                        <apex:actionSupport event="onchange" reRender="eoiSection" action="{!onChangeEoiBooking}" />
+                                    </apex:selectList>
+                                </div>
+                                
+                            </div>                         
+                            <apex:outputPanel id="eoiSection">                               
+                                <apex:pageBlock rendered="{!showEoiBookingDateandAmt}">
+                                    <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                        <div style="width:25%;display:inline-block;"> EOI/CA Date</div>
+                                        <div style="width:25%;display:inline-block;" > 
+                                            <apex:input type="date" disabled="{!isDisableEOIBooking}" value="{!eoiDate}"/>
+                                        </div>
+                                        <!--div style="display:inline-block;"> EOI Amount</div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:input type="number" value="{!eoiAmount}"/>
+                                        </div-->
+                                    </div>   
+                                </apex:pageBlock>                              
+                            </apex:outputPanel>                            
+                        </apex:actionRegion>
+                    </div>
+                    <!--  Section 1 -->
+                    <apex:pageBlock rendered="{!showSection1}">
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 1: Details of First Applicant </b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}"> Full Name of the Applicant</div>
+                                <div style="width:7%;display:inline-block;"> 
+                                    <!-- <apex:input type="text" value="{!primaryAccountSalutation}" title="Title" html-placeholder="Title"/>-->
+                                    <apex:selectList size="1" value="{!primaryAccountSalutation}"> 
+                                        <apex:selectOptions value="{!primaryAccountSalutationOption}"/>                          
+                                    </apex:selectList>                         
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountLastName}" title="Last Name" html-placeholder="Last Name"/>
+                                </div>
+                                <div style="width:15%;display:inline-block;">
+                                    <apex:input type="text" value="{!primaryAccountMiddleName}" title="Middle Name" html-placeholder="Middle Name"/>
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountFirstName}" title="First Name" html-placeholder="First Name" />
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer' && showAadhaarSection == true, 'required', '')}">
+                                    Date of Birth
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="date"  value="{!primaryAccountBirthDate}" />
+                                </div>                           
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                    Permanent Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountPermanentAddress}"/>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!--<apex:input type="text" value="{!primaryAccountPostCode}"/>-->
+                                        <apex:input type="text" value="{!primaryAccountPostCode}" html-oninput="checkPrimaryAccountPostCodeStr();" id="primaryAccountPostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="priAccPostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="priAccPostCodeErr"></div>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="primaryAccState">
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer' && showGStSection == false, 'required', '')}">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedPrimaryAccPermAddState}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccPermAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;">  
+                                    <apex:actionRegion > 
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedPrimaryAccPermAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccPermAddCountryOptions}"/>
+                                                <apex:actionSupport event="onchange" reRender="primaryAccState" action="{!onChangePrimaryAccCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                    Mailing Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccMailingAddStreet}" html-placeholder="Street"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccMailingAddCity}" html-placeholder="City"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccMailingAddPostalCode}" html-placeholder="PostalCode"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccMailingAddState}" html-placeholder="State"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccMailingAddCountry}" html-placeholder="Country"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                    Preferred Address for all Corresppondence
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccPreffAdd}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccPreffAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                    Nationality
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccNationality}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccNationalityOptions}"/>  
+                                        <apex:actionSupport event="onchange" action="{!onChangePrimaryAccNationality}" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <apex:pageBlock rendered="{!isPrimaryAccIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        PAN Number
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!primaryAccountPanNumber}" html-oninput="checkPrimaryAccountPanNumber();" id="primaryAccountPanNumber"/>
+                                        <apex:actionSupport event="onchange" reRender="primaryAccountPanNumberError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="primaryAccountPanNumberError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccPanCardFile}" filename="{!primaryAccPanCardFileName}"  />
+                                    </div>
+                                    
+                                </div>
+                                <apex:outputPanel rendered="{!showAadhaarSection}">
+                                    <apex:actionRegion >
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        Aadhaar Card
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!primaryAccountAadhaarCard}" html-oninput="checkPrimaryAccountAadhaarCard();" id="primaryAccountAadhaarCard"/>
+                                        <apex:actionSupport event="onchange" reRender="primaryAccountAadhaarCardError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;">
+                                        
+                                    </div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccAadharCardFile}" filename="{!primaryAccAadharCardFileName}"/>
+                                    </div>
+                                    
+                                </div>
+                                    </apex:actionRegion>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!showGStSection}">
+                                    <apex:actionRegion >
+                                 <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" >
+                                    GST Number
+                                </div>
+                                <div style="width:10%;display:inline-block;"> 
+                                    
+                                    <apex:input type="text" value="{!thirdAccountGstNumber}"  id="thirdAccountGstNumber"/>
+                                </div>   
+                                <div style="padding-left:50px;display:inline-block;color:red;" id="primaryAccountAadhaarCardError"></div>
+
+                                <div style="margin-left:94px;display:inline-block;"> 
+                                    <apex:inputFile value="{!thirdAccGstNumberFile}" filename="{!thirdAccGstNumberName}"/>
+                                </div>
+                            </div>
+                                    </apex:actionRegion>
+                                </apex:outputPanel>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!primaryAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccAddProofFile}" filename="{!primaryAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!isPrimaryAccNonIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        Passport
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!primaryAccountPassport}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccPassportFile}" filename="{!primaryAccPassportFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" >
+                                        OCI/PIO Card
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!primaryAccountOCIPIOCard}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccOCIPIOFile}" filename="{!primaryAccOCIPIOFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" >
+                                        PAN Details
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!primaryAccountPanDetails}" html-oninput="checkPrimaryAccountPanDetails();" id="primaryAccountPanDetails"/>
+                                        <apex:actionSupport event="onchange" reRender="primaryAccountPanDetailsError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="primaryAccountPanDetailsError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccPanDetailsFile}" filename="{!primaryAccPanDetailsFileName}"/>
+                                    </div>
+                                </div>    
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!primaryAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!primaryAccAddProofFile}" filename="{!primaryAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}"> Mobile Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountMobileNo}" html-oninput="checkPrimaryAccountMobileNoStr();" id="primaryAccountMobileNo"/>
+                                    <apex:actionSupport event="onchange" reRender="err1" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err1"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">Email</div>
+                                
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="email" value="{!primaryAccountEmail}" html-oninput="checkPrimaryAccountEmailStr();" id="primaryAccountEmail"/>
+                                    <apex:actionSupport event="onchange" reRender="err3" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err3"></div>
+                                
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">Landline</div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountLandline}" html-oninput="checkPrimaryAccountLandlineStr();" id="primaryAccountLandline"/>
+                                    <apex:actionSupport event="onchange" reRender="primaryAccountLandlineError" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="primaryAccountLandlineError"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Occupation
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedPrimaryAccOccupation}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccOccupationOptions}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Name
+                                </div>
+                                <div style="width:20%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountOrganizationName}"/>
+                                </div>
+                                <div style="width:10%;display:inline-block;">
+                                    Designation
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountDesignation}"/>
+                                </div>
+                            </div>   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Office Address
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountOrgOfficeAddress}"/>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!--<apex:input type="text" value="{!primaryAccountOrgOfficePostCode}"/>-->
+                                        <apex:input type="text" value="{!primaryAccountOrgOfficePostCode}" html-oninput="checkPrimaryAccountOrgOfficePostCodeStr();" id="primaryAccountOrgOfficePostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="priAccOfficePostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="priAccOfficePostCodeErr"></div>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="primaryAccOrgState">
+                                        <div style="width:20%;display:inline-block;">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedPrimaryAccOrgOfficeAddState}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccOrgOfficeAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:actionRegion > 
+                                        <div style="width:20%;display:inline-block;">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedPrimaryAccOrgOfficeAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccOrgOfficeAddCountryOptions}"/>
+                                                <apex:actionSupport event="onchange" reRender="primaryAccOrgState" action="{!onChangePrimaryAccOrgOfficeCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Phone Number (s)
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountOrgPhoneNumber}" html-oninput="checkPrimaryAccountOrgPhoneStr();" id="primaryAccountOrgPhoneNumber"/>
+                                    <apex:actionSupport event="onchange" reRender="primaryAccountOrgPhoneNumberError" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="primaryAccountOrgPhoneNumberError"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Other Details / Remarks
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!primaryAccountOtherDetails}"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </apex:pageBlock>
+                    
+                    <!--  Section 2 -->  
+                    <apex:pageBlock rendered="{!showSection2}">
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 2: Details of Secondary Applicant</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"> Full Name of the Applicant</div>
+                                <div style="width:7%;display:inline-block;"> 
+                                    <!-- <apex:input type="text" value="{!secondAccountSalutation}" title="Title" html-placeholder="Title"/>-->
+                                    <apex:selectList size="1" value="{!secondAccountSalutation}"> 
+                                        <apex:selectOptions value="{!secondAccountSalutationOption}"/>                          
+                                    </apex:selectList>     
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountLastName}"  title="Last Name" html-placeholder="Last Name" />
+                                </div>
+                                <div style="width:15%;display:inline-block;">
+                                    <apex:input type="text" value="{!secondAccountMiddleName}" title="Middle Name" html-placeholder="Middle Name"/>
+                                </div>
+                                <div style="width:15%;display:inline-block;">
+                                    <apex:input type="text" value="{!secondAccountFirstName}" title="First Name" html-placeholder="First Name" />
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Date of Birth
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="date" value="{!secondAccountBirthDate}"/>
+                                </div>                           
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Permanent Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountPermanentAddress}"/>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!-- <apex:input type="text" value="{!secondAccountPostCode}"/>-->
+                                        <apex:input type="text" value="{!secondAccountPostCode}" html-oninput="checkSecondAccountPostCodeStr();" id="secondAccountPostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="secAccPostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="secAccPostCodeErr"></div>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="secondAccState">
+                                        <div style="width:20%;display:inline-block;">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedSecondAccPermAddState}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccPermAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:actionRegion >
+                                        <div style="width:20%;display:inline-block;">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedSecondAccPermAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccPermAddCountryOptions}"/>
+                                                <apex:actionSupport event="onchange" reRender="secondAccState" action="{!onChangeSecondAccCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Mailing Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddStreet}" html-placeholder="Street"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddCity}" html-placeholder="City"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddPostalCode}" html-placeholder="PostalCode"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddState}" html-placeholder="State"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddCountry}" html-placeholder="Country"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Preferred Address for all Corresppondence
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedSecondAccPreffAdd}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccPreffAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" id="secAccNationality">
+                                    Nationality
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedSecondAccNationality}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccNationalityOptions}"/>
+                                        <apex:actionSupport event="onchange" action="{!onChangeSecondAccNationality}" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <apex:pageBlock rendered="{!isSecondAccIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        PAN Number
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountPanNumber}" html-oninput="checkSecondAccountPanNumber();" id="secondAccountPanNumber"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountPanNumberError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountPanNumberError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPanCardFile}" filename="{!secondAccPanCardFileName}"/>
+                                    </div>
+                                </div>
+                                
+                              
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Aadhaar Card
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountAadhaarCard}" html-oninput="checkSecondAccountAadhaarCard();" id="secondAccountAadhaarCard"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountAadhaarCardError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountAadhaarCardError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAadharCardFile}" filename="{!secondAccAadharCardFileName}"/>
+                                    </div>
+                                </div>
+                             
+                                 
+                                    
+                               
+                               
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAddProofFile}" filename="{!secondAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!isSecondAccNonIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Passport
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountPassport}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPassportFile}" filename="{!secondAccPassportFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        OCI/PIO Card
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountOCIPIOCard}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccOCIPIOFile}" filename="{!secondAccOCIPIOFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        PAN Details
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountPanDetails}" html-oninput="checkSecondAccountPanDetails();" id="secondAccountPanDetails"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountPanDetailsError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountPanDetailsError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPanDetailsFile}" filename="{!secondAccPanDetailsFileName}"/>
+                                    </div>
+                                </div>  
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAddProofFile}" filename="{!secondAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"> Mobile Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text"  value="{!secondAccountMobileNo}" html-oninput="checkSecondAccountMobileNoStr();" id="secondAccountMobileNo"/>
+                                    <apex:actionSupport event="onchange" reRender="err2" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err2"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">Email</div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="email" value="{!secondAccountEmail}" html-oninput="checkSecondAccountEmailStr();" id="secondAccountEmail"/>
+                                    <apex:actionSupport event="onchange" reRender="err4" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err4"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">Landline</div>
+                                <div style="display:inline-block;"> 
+                                    
+                                    <apex:input type="text" value="{!secondAccountLandline}" html-oninput="checkSecondAccountLandlineStr();" id="secondAccountLandline"/>
+                                    <apex:actionSupport event="onchange" reRender="secondAccountLandlineError" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="secondAccountLandlineError"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Occupation
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedSecondAccOccupation}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccOccupationOptions}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Name
+                                </div>
+                                <div style="width:20%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountOrganizationName}"/>
+                                </div>
+                                <div style="width:10%;display:inline-block;">
+                                    Designation
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountDesignation}"/>
+                                </div>
+                            </div>   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Office Address
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountOrgOfficeAddress}"/>
+                                </div>
+                            </div>                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!-- <apex:input type="text" value="{!secondAccountOrgOfficePostCode}"/>-->
+                                        <apex:input type="text" value="{!secondAccountOrgOfficePostCode}" html-oninput="checkSecondAccountOrgOfficePostCodeStr();" id="secondAccountOrgOfficePostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="secAccOfficePostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="secAccOfficePostCodeErr"></div>
+                                </div>
+                                <div style="width:30%;display:inline-block;">  
+                                    <apex:outputPanel id="secondAccOrgState">
+                                        <div style="width:20%;display:inline-block;">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedSecondAccOrgOfficeAddState}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccOrgOfficeAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;">    
+                                    <apex:actionRegion >
+                                        <div style="width:20%;display:inline-block;">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedSecondAccOrgOfficeAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccOrgOfficeAddCountryOptions}"/> 
+                                                <apex:actionSupport event="onchange" reRender="secondAccOrgState" action="{!onChangeSecondAccOrgOfficeCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Phone Number (s)
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    
+                                    <apex:input type="text" value="{!secondAccountOrgPhoneNumber}" html-oninput="checkSecondAccountOrgPhoneStr();" id="secondAccountOrgPhoneNumber"/>
+                                    <apex:actionSupport event="onchange" reRender="secondAccountOrgPhoneNumberError" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="secondAccountOrgPhoneNumberError"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Other Details / Remarks
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountOtherDetails}"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </apex:pageBlock>
+                    <!--  Section 3 -->  
+                    
+                    <!---------------------------Investment------------------------------>
+                    <apex:pageBlock rendered="{!showSection3}">
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 1: Company Details</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">  Name</div>                          
+                                <div style="width:7%;display:inline-block;"> 
+                                    <!--<apex:input type="text" value="{!thirdAccountSalutation}" title="Title" html-placeholder="Title"/>-->
+                                    <apex:selectList size="1" value="{!thirdAccountSalutation}"> 
+                                        <apex:selectOptions value="{!thirdAccountSalutationOption}"/>                          
+                                    </apex:selectList> 
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountLastName}" title="Company Name" html-placeholder="Company Name"/>
+                                </div>
+                                <!--div style="width:15%;display:inline-block;"> 
+<apex:input type="text" value="{!thirdAccountFirstName}" title="First Name" html-placeholder="First Name" />
+</div-->
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">  Registered Office Address</div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountRegiOfficeAdd}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!-- <apex:input type="text" value="{!thirdAccountPostCode}"/>-->
+                                        <apex:input type="text" value="{!thirdAccountPostCode}" html-oninput="checkThirdAccountPostCodeStr();" id="thirdAccountPostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="thirdAccountPostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="thirdAccountPostCodeErr"></div>
+                                </div>
+                                
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="thirdAccOrgState">
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedThirdAccPermAddState}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccPermAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;">  
+                                    <apex:actionRegion > 
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedThirdAccPermAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccPermAddCountryOptions}"/>
+                                                <apex:actionSupport event="onchange" reRender="thirdAccOrgState" action="{!onChangePrimaryAccCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Corporate Office Address
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountCorpOfficeAddress}"/>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!--<apex:input type="text" value="{!thirdAccCorpOfficePostCode}"/>-->
+                                        <apex:input type="text" value="{!thirdAccCorpOfficePostCode}" html-oninput="checkThirdAccCorpOfficePostCodeStr();" id="thirdAccCorpOfficePostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="thirdAccCorpOfficePostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="thirdAccCorpOfficePostCodeErr"></div>
+                                </div>
+                                 <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="thirdPrimaryOrgState">
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedThirdAccOrgOfficeAddState}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccOrgOfficeAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;">  
+                                    <apex:actionRegion > 
+                                        <div style="width:20%;display:inline-block;" class="{!IF(submittedBy == 'customer', 'required', '')}">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedThirdAccOrgOfficeAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedPrimaryAccOrgOfficeAddCountryOptions}"/>
+                                                <apex:actionSupport event="onchange" reRender="thirdPrimaryOrgState" action="{!onChangePrimaryAccCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Tin Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountTinNumber}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    PAN Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountPanNumber}"/>
+                                </div>
+                            </div>  
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Date of Board Resolution/ Authority Letter
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="date" value="{!thirdAccountDateOfBoardResol}"/>
+                                </div>
+                            </div> 
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    In Favour Of:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountInFavourOf}"/>
+                                </div>
+                            </div> 
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Email Address
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountEmail}"/>
+                                </div>
+                            </div> 
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Phone Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountPhoneNumber}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Fax Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountFaxNumber}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Name of Share Holders / Partners:
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountShareHolName}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Percentage Holding
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="number" value="{!thirdAccountPerHolding}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Name of Directors
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountDirectorName}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Other Details / Remarks
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!thirdAccountOtherDetails}"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    GST Number
+                                </div>
+                                <div style="width:10%;display:inline-block;"> 
+                                    
+                                    <apex:input type="text" value="{!thirdAccountGstNumber}"  id="thirdAccountGstNumber"/>
+                                </div>   
+                                <div style="margin-left:94px;display:inline-block;"> 
+                                    <apex:inputFile value="{!thirdAccGstNumberFile}" filename="{!thirdAccGstNumberName}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:pageBlock>
+                    
+                    <!-------------- Contact Name ---------------------->
+                    <apex:pageBlock rendered="{!showSection4}">
+                        <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                            <b>Section 2: Contact Details</b> 
+                        </div>
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"> Full Name of the Applicant</div>
+                                <div style="width:7%;display:inline-block;"> 
+                                    <!-- <apex:input type="text" value="{!secondAccountSalutation}" title="Title" html-placeholder="Title"/>-->
+                                    <apex:selectList size="1" value="{!secondAccountSalutation}"> 
+                                        <apex:selectOptions value="{!secondAccountSalutationOption}"/>                          
+                                    </apex:selectList>     
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!contactLastName}"  title="Last Name" html-placeholder="Last Name" />
+                                </div>
+                                <div style="width:15%;display:inline-block;"> 
+                                    <apex:input type="text" value="{!contactFirstName}" title="First Name" html-placeholder="First Name" />
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Date of Birth
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="date" value="{!secondAccountBirthDate}"/>
+                                </div>                           
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Permanent Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!contactAddress}"/>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:30%;display:inline-block;">                              
+                                    <div style="width:20%;display:inline-block;">
+                                        Post Code
+                                    </div>
+                                    <div style="display:inline-block;"> 
+                                        <!-- <apex:input type="text" value="{!secondAccountPostCode}"/>-->
+                                        <apex:input type="text" value="{!contactPostCode}" html-oninput="checksecondcontactPostCodeStr();" id="secondcontactPostCode"/>
+                                        <apex:actionSupport event="onchange" reRender="secondcontactPostCodeErr" status="status"/>
+                                    </div>
+                                    <div style="display:inline-block;color:red;" id="secondcontactPostCodeErr"></div>
+                                </div>
+                                <div style="width:30%;display:inline-block;"> 
+                                    <apex:outputPanel id="contactState">
+                                        <div style="width:20%;display:inline-block;">
+                                            State
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            <apex:selectList size="1" value="{!selectedcontactAddState}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccPermAddStateOptions}"/>  
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                <div style="width:30%;display:inline-block;">    
+                                    <apex:actionRegion >
+                                        <div style="width:20%;display:inline-block;">
+                                            Country
+                                        </div>
+                                        <div style="display:inline-block;"> 
+                                            
+                                            <apex:selectList size="1" value="{!selectedcontactAddCountry}"> 
+                                                <apex:selectOptions value="{!selectedSecondAccPermAddCountryOptions}"/> 
+                                                <apex:actionSupport event="onchange" reRender="contactState" action="{!onChangeSecondAccCountry}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Mailing Address of Primary Applicant
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddStreet}" html-placeholder="Street"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddCity}" html-placeholder="City"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddPostalCode}" html-placeholder="PostalCode"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddState}" html-placeholder="State"/>
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccMailingAddCountry}" html-placeholder="Country"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Preferred Address for all Corresppondence
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedSecondAccPreffAdd}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccPreffAddOption}"/>  
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;" id="secAccNationality">
+                                    Nationality
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:selectList size="1" value="{!selectedSecondAccNationality}"> 
+                                        <apex:selectOptions value="{!selectedPrimaryAccNationalityOptions}"/>
+                                        <apex:actionSupport event="onchange" action="{!onChangeSecondAccNationality}" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <apex:pageBlock rendered="{!isSecondAccIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        PAN Number
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountPanNumber}" html-oninput="checkSecondAccountPanNumber();" id="secondAccountPanNumber"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountPanNumberError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountPanNumberError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPanCardFile}" filename="{!secondAccPanCardFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        GST Number
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountAadhaarCard}" html-oninput="checkSecondAccountAadhaarCard();" id="secondAccountAadhaarCard"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountAadhaarCardError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountAadhaarCardError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAadharCardFile}" filename="{!secondAccAadharCardFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAddProofFile}" filename="{!secondAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!isSecondAccNonIndian}">
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Passport
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountPassport}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPassportFile}" filename="{!secondAccPassportFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        OCI/PIO Card
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountOCIPIOCard}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccOCIPIOFile}" filename="{!secondAccOCIPIOFileName}"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        PAN Details
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        
+                                        <apex:input type="text" value="{!secondAccountPanDetails}" html-oninput="checkSecondAccountPanDetails();" id="secondAccountPanDetails"/>
+                                        <apex:actionSupport event="onchange" reRender="secondAccountPanDetailsError" status="status"/>
+                                    </div>   
+                                    <div style="padding-left:50px;display:inline-block;color:red;" id="secondAccountPanDetailsError"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccPanDetailsFile}" filename="{!secondAccPanDetailsFileName}"/>
+                                    </div>
+                                </div>  
+                                <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                    <div style="width:25%;display:inline-block;">
+                                        Address Proof
+                                    </div>
+                                    <div style="width:10%;display:inline-block;"> 
+                                        <apex:input type="text" value="{!secondAccountAddressProof}"/>
+                                    </div>
+                                    <div style="padding-left:50px;display:inline-block;"></div>
+                                    <div style="margin-left:94px;display:inline-block;"> 
+                                        <apex:inputFile value="{!secondAccAddProofFile}" filename="{!secondAccAddProofFileName}"/>
+                                    </div>
+                                </div>
+                            </apex:pageBlock>
+                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;"> Mobile Number
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text"  value="{!contactPhoneNumber}" html-oninput="checkcontactPhoneNumberStr();" id="contactPhoneNumber"/>
+                                    <apex:actionSupport event="onchange" reRender="errcontactPhone" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="errcontactPhone"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">Email</div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="email" value="{!secondAccountEmail}" html-oninput="checkSecondAccountEmailStr();" id="secondAccountEmail"/>
+                                    <apex:actionSupport event="onchange" reRender="err4" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="err4"></div>
+                            </div>
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">Landline</div>
+                                <div style="display:inline-block;"> 
+                                    
+                                    <apex:input type="text" value="{!secondAccountLandline}" html-oninput="checkSecondAccountLandlineStr();" id="secondAccountLandline"/>
+                                    <apex:actionSupport event="onchange" reRender="secondAccountLandlineError" status="status"/>
+                                </div>
+                                <div style="display:inline-block;color:red;" id="secondAccountLandlineError"></div>
+                            </div>
+                            <!--div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;">
+Occupation
+</div>
+<div style="display:inline-block;"> 
+<apex:selectList size="1" value="{!selectedSecondAccOccupation}"> 
+<apex:selectOptions value="{!selectedPrimaryAccOccupationOptions}"/>  
+</apex:selectList>
+</div>
+</div-->   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <!--div style="width:25%;display:inline-block;">
+Organisation Name
+</div>
+<div style="width:20%;display:inline-block;"> 
+<apex:input type="text" value="{!secondAccountOrganizationName}"/>
+</div-->
+                                <div style="width:10%;display:inline-block;">
+                                    Designation
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountDesignation}"/>
+                                </div>
+                            </div>   
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <div style="width:25%;display:inline-block;">
+                                    Organisation Office Address
+                                </div>
+                                <div style="display:inline-block;"> 
+                                    <apex:input type="text" value="{!secondAccountOrgOfficeAddress}"/>
+                                </div>
+                            </div>                            
+                            <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                                <!--div style="width:30%;display:inline-block;">                              
+<div style="width:20%;display:inline-block;">
+Post Code
+</div>
+<div style="display:inline-block;"> 
+<apex:input type="text" value="{!contactPostCode}" html-oninput="checksecondcontactPostCodeStr();" id="secondcontactPostCode"/>
+<apex:actionSupport event="onchange" reRender="secondcontactPostCodeErr" status="status"/>
+</div>
+<div style="display:inline-block;color:red;" id="secondcontactPostCodeErr"></div>
+</div-->
+                            </div>
+                        </div>
+                    </apex:pageBlock>
+                    
+                    <!--  Section 3 --> 
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b>Section 3: Details of the Home Applied For</b> 
+                    </div>
+                    <div style="margin-top:10px;margin-bottom:10px;">               
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                            <div style="width:25%;display:inline-block;">  Project Name : </div>
+                            <div style="display:inline-block;"> 
+                                {!projectRecord.Name}
+                            </div>
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;" class="required">
+                                Apartment Type :
+                            </div>
+                            <div style="display:inline-block;"> 
+                                <apex:selectList size="1" value="{!selectedPropertyType}" disabled="true"> 
+                                    <apex:selectOptions value="{!selectedPropertyTypeOptions}"/>  
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                            <div style="width:25%;display:inline-block;" class="required">  Apartment Number : </div>
+                            <div style="display:inline-block;"> 
+                                {!apartmentNumber}
+                            </div>
+                        </div>
+                        <!--  <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+<div style="width:25%;display:inline-block;">
+Residential Level
+</div>
+<div style="display:inline-block;">                                     
+<apex:selectList size="1" value="{!selectedResidentialLevel}"> 
+<apex:selectOptions value="{!residentialLevelOptions}"/>  
+</apex:selectList>
+</div>
+</div>-->
+                        <!--    <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;" class="required"> RERA Carpet Area (in sq. mts.) : </div>
+<div style="width:25%;display:inline-block;"> 
+<apex:outputText >{!propertyRecord.RERA_Carpet_Area_in_sqmtr__c}</apex:outputText> 
+</div>
+<div style="display:inline-block;" class="required"> RERA Carpet Area (in sq. ft.) : </div>
+<div style="display:inline-block;"> 
+<apex:outputText > {!propertyRecord.RERA_Carpet_Area__c}</apex:outputText>
+</div>
+</div>
+<div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;" > Utility Area (in sq. ft.) : </div>
+<div style="width:25%;display:inline-block;"> 
+<apex:outputText rendered="{!IF(propertyRecord.Utility_Area__c != null, true, false)}">{!propertyRecord.Utility_Area__c}</apex:outputText> 
+<apex:outputText rendered="{!IF(propertyRecord.Utility_Area__c == null, true, false)}" >N/A</apex:outputText> 
+</div>
+<div style="display:inline-block;" > Deck Carpet Area (in sq. ft.) : </div>
+<div style="display:inline-block;"> 
+<apex:outputText rendered="{!IF(propertyRecord.Deck_Carpet_Area__c != null, true, false)}">{!propertyRecord.Deck_Carpet_Area__c}</apex:outputText> 
+<apex:outputText rendered="{!IF(propertyRecord.Deck_Carpet_Area__c == null, true, false)}" >N/A</apex:outputText>
+</div>
+</div> -->
+                        <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;" class="required"> RERA Carpet Area : </div>
+<div style="width:25%;display:inline-block;"> 
+<apex:outputText ></apex:outputText>
+<apex:outputText rendered="{!IF(propertyRecord.RERA_Carpet_Area__c != null, true, false)}">{!propertyRecord.RERA_Carpet_Area_in_sqmtr__c} sq. mt. ({!propertyRecord.RERA_Carpet_Area__c} sq. ft.)</apex:outputText> 
+<apex:outputText rendered="{!IF(propertyRecord.RERA_Carpet_Area__c == null, true, false)}" >N/A</apex:outputText> 
+</div>-->
+                        <!--<div style="display:inline-block;" > Deck Carpet Area : </div>
+<div style="display:inline-block;"> 
+<apex:outputText rendered="{!IF(propertyRecord.Deck_Carpet_Area__c != null, true, false)}">{!propertyRecord.Deck_Carpet_Area_c_in_sqmtr__c} sq. mt. ({!propertyRecord.Deck_Carpet_Area__c} sq. ft.)</apex:outputText> 
+<apex:outputText rendered="{!IF(propertyRecord.Deck_Carpet_Area__c == null, true, false)}" >N/A</apex:outputText> 
+</div>-->
+                        
+                        <!--  </div>-->
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                           
+                            <div style="display:inline-block;width:25%;" > Approved RERA Carpet Area : </div>
+                            <div style="width:25%;display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Approved_Area__c != null, true, false)}">{!propertyRecord.Approved_Area_in_sqmtr__c} sq. mt. ({!propertyRecord.Approved_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Approved_Area__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>
+                            <div style="width:25%;display:inline-block;" > Proposed RERA Carpet Area : </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area__c != null, true, false)}">{!propertyRecord.Proposed_Area_c_in_sqmtr__c} sq. mt. ({!propertyRecord.Proposed_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Area__c == null, true, false)}" >N/A</apex:outputText> 
+                            </div>
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                           
+                            <div style="display:inline-block;width:25%;" > Approved Deck Area : </div>
+                            <div style="width:25%;display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Approved_Area__c != null, true, false)}"> {!propertyRecord.Approved_Deck_Area_in_sq_mt__c} sq. mt. ({!propertyRecord.Deck_Approved_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Approved_Area__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>
+                            <div style="width:25%;display:inline-block;" > Proposed Deck Area : </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c != null, true, false)}"> {!propertyRecord.Proposed_Deck_Area_in_sq_mt__c} sq. mt. ({!propertyRecord.Deck_Proposed_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Deck_Proposed_Area__c == null, true, false)}" >N/A</apex:outputText> 
+                            </div>
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                           
+                            <div style="display:inline-block;width:25%;" > Approved Utility Area : </div>
+                            <div style="width:25%;display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Utility_Area__c != null, true, false)}">{!propertyRecord.Utility_Area_in_sqmtr__c} sq. mt. ({!propertyRecord.Utility_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Utility_Area__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>
+                            <div style="width:25%;display:inline-block;" > Proposed Utility Area : </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c != null, true, false)}">{!propertyRecord.Proposed_Utility_Area_in_sq_mt__c} sq. mt. ({!propertyRecord.Proposed_Utility_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Utility_Area__c == null, true, false)}" >N/A</apex:outputText> 
+                            </div>
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                          
+                            <div style="display:inline-block;width:25%;" > Approved Enclosed Balcony Area : </div>
+                            <div style="width:25%;display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Enclosed_balcony__c != null, true, false)}">{!propertyRecord.Enclosed_Balcony_in_sqmtr__c} sq. mt. ({!propertyRecord.Enclosed_balcony__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Enclosed_balcony__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>
+                            <div style="width:25%;display:inline-block;" > Proposed Enclosed Balcony Area : </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c != null, true, false)}">{!propertyRecord.Proposed_Enclosed_Balcony_Area_sq_mt__c} sq. mt. ({!propertyRecord.Proposed_Enclosed_Balcony_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Enclosed_Balcony_Area__c == null, true, false)}" >N/A</apex:outputText> 
+                            </div>
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                           
+                            <div style="width:25%;display:inline-block;" >Approved Total Area : </div>
+                            <div style="width:25%;display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Total_Area__c != null, true, false)}">{!propertyRecord.Total_Area_in_sq_mt__c} sq. mt. ({!propertyRecord.Total_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Total_Area__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>
+                            <div style="width:25%;display:inline-block;" >Proposed Total Area : </div>
+                            <div style="display:inline-block;"> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Total_Area__c != null, true, false)}">{!propertyRecord.Proposed_Total_Area_in_sq_mt__c} sq. mt. ({!propertyRecord.Proposed_Total_Area__c} sq. ft.)</apex:outputText> 
+                                <apex:outputText rendered="{!IF(propertyRecord.Proposed_Total_Area__c == null, true, false)}" >N/A</apex:outputText>
+                            </div>                           
+                        </div>
+                        
+                        <!--  <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;"> Enclosed Balcony:</div>
+<div style="width:25%;display:inline-block;"> 
+<apex:outputText rendered="{!IF(propertyRecord.Enclosed_balcony__c != null, true, false)}">{!propertyRecord.Enclosed_balcony__c}</apex:outputText> 
+<apex:outputText rendered="{!IF(propertyRecord.Enclosed_balcony__c == null, true, false)}" >N/A</apex:outputText>
+</div>
+
+<div style="display:inline-block;" class="required"> No. of Parking(s) Spots Required :</div>
+<div style="display:inline-block;"> 
+{!noOfParkingSpotRequired}
+</div>                         
+</div>-->
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+                            <!--  <div style="width:25%;display:inline-block;" class="required"> No. of Parking(s) Spots Required :</div>
+<div style="width:25%;display:inline-block;"> 
+{!noOfParkingSpotRequired}
+</div>-->
+                            <!-- <div style="display:inline-block;"> Allotment Premium</div>
+<div style="display:inline-block;"> 
+<apex:input type="number" value="{!allotmentPremium}"/>
+</div>-->
+                            <div style="width:25%;display:inline-block;" class="required"> Allotment Premium :</div>
+                            <div style="width:25%;display:inline-block;">                                 
+                                <apex:outputText value="INR. {0, number, ###,##0.00}">
+                                    <apex:param value="{!agreementValue}" />
+                                </apex:outputText>                                
+                            </div>
+                            <div style="display:inline-block;width:25%;" class="required"> No. of Parking Space(s) :</div>
+                            <div style="display:inline-block;"> 
+                                {!noOfParkingSpotRequired}
+                            </div>
+                        </div>
+                        <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;">  Amount in Words</div>
+<div style="display:inline-block;"> 
+<apex:input type="text" value="{!amountInWords}"/>
+</div>
+</div>-->
+                    </div>
+                    
+                    <!--  Section 5 --> 
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b>Section 4: Source of Booking</b> 
+                    </div>
+                    <div style="margin-top:10px;margin-bottom:10px;">
+                        <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+<div style="width:25%;display:inline-block;">
+Source of Booking
+</div>
+<div style="display:inline-block;">                                 
+<apex:selectList size="1" value="{!selectedBookingSource}"> 
+<apex:selectOptions value="{!bookingSourceOptions}"/>  
+</apex:selectList>
+</div>
+</div>
+<div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+<div style="width:25%;display:inline-block;">
+Sub Source Specification
+</div>
+<div style="display:inline-block;">                                 
+<apex:input type="text" Value="{!subSourceSpecification}"/>
+</div>
+</div>-->
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;vertical-align:top;" class="required">
+                                Booking Offer
+                            </div>
+                            <div style="display: {!IF(showProjectOffer == false && submittedBy=='customer', 'inline-block', 'none')};">
+                                N/A
+                            </div>
+                            <div style="display: inline-block;">  
+                                <apex:selectcheckboxes value="{!projectOfferName}" styleClass="check" layout="pageDirection" disabled="{!isDisableOffer}">  
+                                    <apex:selectoptions value="{!projectOfferNames}" >                                       
+                                    </apex:selectoptions>                        
+                                </apex:selectcheckboxes>                             
+                            </div>
+                            
+                        </div>
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;" class="required">
+                                Sub Booking Offer
+                            </div>
+                            <div style="display: {!IF(showProjectOffer == true && submittedBy!='customer', 'inline-block', 'none')};">                                 
+                                <apex:input type="text" Value="{!subBookingOffer}"/>
+                            </div>
+                            <div style="display: {!IF(showProjectOffer == true && submittedBy=='customer', 'inline-block', 'none')};">                                 
+                                {!subBookingOffer}
+                            </div>
+                            <div style="display: {!IF(showProjectOffer == false, 'inline-block', 'none')};">
+                                N/A
+                            </div>
+                        </div>
+                        <!--  <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+<div style="width:25%;display:inline-block;">
+EOI Booking
+</div>
+<div style="display:inline-block;">                                     
+<apex:selectList size="1" value="{!selectedEOIBooking}"> 
+<apex:selectOptions value="{!eoiBookingOptions}"/>  
+<apex:actionSupport event="onchange" action="{!onChangeEoiBooking}" />
+</apex:selectList>
+</div>
+</div>
+
+<apex:pageBlock rendered="{!showEoiBookingDateandAmt}"> 
+<div style="text-align:left;padding-top:2px;padding-bottom:2px;">
+<div style="width:25%;display:inline-block;"> EOI Date</div>
+<div style="width:25%;display:inline-block;" > 
+<apex:input type="date" value="{!eoiDate}"/>
+</div>
+<div style="display:inline-block;"> EOI Amount</div>
+<div style="display:inline-block;"> 
+<apex:input type="number" value="{!eoiAmount}"/>
+</div>
+</div>
+</apex:pageBlock> -->
+                        
+                    </div>
+                    
+                    <!--  Section 6 -->                    
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b>Section 5: Application Money Details</b> 
+                    </div>
+                     <div style="margin-top:10px;margin-bottom:10px;">
+                      <div style="display: {!IF(showEOICASection == true , 'inline-block', 'none')};text-align:left;padding-top:2px;padding-bottom:2px;width:100%">                              
+                             <div style="width:25%;display:inline-block;" class="required">
+                               Total Received Amount
+                            </div>
+                           
+                            <div style="width:25%;display:inline-block;" >
+                                  <apex:outputText rendered="{!IF(TotalAmount != null, true, false)}" value="INR. {0, number, ###,##0.00}">
+                                  <apex:param value="{!TotalAmount}" />
+                              </apex:outputText>  
+                              <apex:outputText rendered="{!IF(TotalAmount == null, true, false)}">
+                                  N/A
+                              </apex:outputText>
+                               
+                            </div>
+                          <div style="width:25%;display:inline-block;" >
+                            {!bookingRecord.Related_Opportunity__r.EOI_CA__c}  Received Amount
+                          </div>
+                          <div style="display:inline-block;" >                                 
+                              <apex:outputText rendered="{!IF(bookingRecord.Related_Opportunity__r.EOI_CA_Approved_Payment__c != null, true, false)}" value="INR. {0, number, ###,##0.00}">
+                                  <apex:param value="{!bookingRecord.Related_Opportunity__r.EOI_CA_Approved_Payment__c}" />
+                              </apex:outputText>  
+                              <apex:outputText rendered="{!IF(bookingRecord.Related_Opportunity__r.EOI_CA_Approved_Payment__c == null, true, false)}">
+                                  N/A
+                              </apex:outputText>
+                          </div>
+                        </div>
+                   
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;" class="required">
+                                Received Amount
+                            </div>
+                            <div style="display:inline-block;width:10%">                                 
+                                <apex:outputText rendered="{!IF(receivedAmount != null, true, false)}" value="INR. {0, number, ###,##0.00}">
+                                    <apex:param value="{!receivedAmount}" />
+                                </apex:outputText>  
+                                <apex:outputText rendered="{!IF(receivedAmount == null, true, false)}">
+                                    N/A
+                                </apex:outputText>
+                            </div>
+                            <div style="display:inline-block;">                                 
+                                <apex:outputText value="{!receivedAmountInWords}"></apex:outputText> 
+                            </div>
+                        </div>
+                        <!--   <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+<div style="width:25%;display:inline-block;" class="required">
+via Demand Draft / Pay Order / Cheque / RTGS No.
+</div>
+<div style="display:inline-block;">                                 
+<apex:outputText rendered="{!IF(demandDraftNo != null, true, false)}" Value="{!demandDraftNo}"/>
+<apex:outputText rendered="{!IF(demandDraftNo == null, true, false)}">
+N/A
+</apex:outputText>
+</div>
+</div> -->
+                        <!-- <div style="text-align:left;padding-top:2px;padding-bottom:2px;">  -->                            
+                        <!-- <div style="width:25%;display:inline-block;">
+in favour of Aniline Properties Pvt Ltd Avanya Tower C Master Collection Escrow Account drawn on
+</div>-->
+                        
+                        <!--    <div style="width:25%;display:inline-block;" class="required">
+{!builderOrgName}
+</div>
+<div style="display:inline-block;">                                 
+<apex:outputText Value="{!bankName}"/> &nbsp;&nbsp;(Bank name)
+</div>
+</div>-->
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;" class="required">
+                                Booking Date
+                            </div>
+                            <div style="display:inline-block;">                                 
+                                <apex:outputText rendered="{!IF(bookingRecord.Booking_Date__c != null, true, false)}" value="{0,date,dd'/'MM'/'yyyy}" >   
+                                    <apex:param value="{!bookingRecord.Booking_Date__c}"/>  
+                                </apex:outputText>  
+                                <apex:outputText rendered="{!IF(bookingRecord.Booking_Date__c == null, true, false)}">
+                                    N/A
+                                </apex:outputText>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align:left;padding-top:2px;padding-bottom:2px;">                              
+                            <div style="width:25%;display:inline-block;"  class="required">
+                                Account Name
+                            </div>
+                            <div style="display:inline-block;">                                 
+                                <apex:outputText Value="{!accountName}"/>
+                            </div>
+                        </div>
+                    </div>   
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b> Annexures</b> 
+                    </div>
+                    <div style="padding-top:5px;padding-bottom:5px;">
+                        <apex:outputLink value="{!projectAnnexures}" style="overflow-wrap: break-word;">Annexures</apex:outputLink>
+                    </div>
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b>Terms &amp; Conditions </b> 
+                    </div>
+                    <div style="padding-top:5px;padding-bottom:5px;">
+                        <apex:outputLink value="{!projectTermsandConditions}" style="overflow-wrap: break-word;">TermsAndConditions</apex:outputLink>
+                    </div>
+                    <div style="background-color:#D5D8DC;padding-top:5px;padding-bottom:5px;color:black;text-align:center">
+                        <b> Cost Sheet Link</b> 
+                    </div>
+                    <div>
+                        <apex:outputPanel rendered="{!Booking__c.Updated_Cost_Sheet_Generated__c}">
+                            <apex:outputLink value="{!Booking__c.Updated_Cost_Sheet_Link__c}">CostSheetLink</apex:outputLink>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(Booking__c.Updated_Cost_Sheet_Generated__c)}">
+                            <apex:outputLink value="{!suggestedLinkList[0].Cost_Sheet_Link__c}" >CostSheetLink</apex:outputLink>
+                        </apex:outputPanel>
+                    </div>
+                    <div style="display: {!IF(submittedBy == 'customer', 'block', 'none')};margin-top:20px;font-size:14px;">
+                        <div style="display:inline-block;">
+                            <apex:pageBlockSection id="termCondiChbx">                               
+                                <apex:inputCheckbox value="{!isAgreeWithTermsConditions}" id="termsandCondiCheckbox" disabled="{!isDisableTermCondiCheckbox}" onchange="onChangeTermCondiCheckboxValue()" >             
+                                </apex:inputCheckbox>                                 
+                            </apex:pageBlockSection>
+                        </div> 
+                        <div style="display:inline-block;vertical-align:top;">
+                            I Agree to the Terms &amp; Conditions
+                        </div>
+                    </div>
+                    
+                    <!--<div style="padding-top:5px;padding-bottom:5px;">
+<a href="!{suggestedLinkList}"></a>
+<apex:outputLink value="/!{suggestedLinkList}" style="overflow-wrap: break-word;">Cost Sheet Link</apex:outputLink>>
+</div-->
+                    <apex:outputPanel id="msgSection">
+                        <div style="margin-top:20px;padding-left:5px;color:green;font-size:16px;" >
+                            <apex:outputText rendered="{!if(isDisableTermCondiCheckbox==true,true,false)}">This Booking Form has been Submitted Successfully</apex:outputText>
+                        </div>
+                        <div style="margin-top:20px;text-align:center;color:red;font-size:16px;" >
+                            <apex:outputText value="{!errorMsg}"></apex:outputText>
+                        </div>
+                        <div style="margin-top:20px;text-align:center;color:green;font-size:16px;" >
+                            <apex:outputText value="{!sucessMsg}"></apex:outputText>
+                        </div>
+                        <div style="border:1px solid black;background:#F5F5D6;">
+                            <div style="padding-left:5px;">
+                                <apex:pageMessages escape="false" />
+                            </div>  
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlock>  
+                <apex:outputPanel id="bottomSection">
+                    <!--OTP Code-->
+                    <div align="center"  draggable="false" style="display: {!IF(submittedBy == 'customer', 'block', 'none')};padding-top:10px;padding-bottom:10px;">
+                        <apex:outputPanel rendered="{!isverifyed}">
+                            <apex:actionRegion >
+                                <apex:commandButton rerender="none" onclick="sendOtp()" value="{!otpBtnValue}" id="getOtpBtn" oncomplete="CallWebService_JS();"  action="{!sendOtpM}" style="margin-right:20px;padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >    
+                                </apex:commandButton> 
+                                <apex:actionFunction action="{!callOut}" name="CallWebService_JS" status="Status2" reRender="none"/>
+                                <apex:commandButton onclick="verifyFun()" value="Verify" reRender="bottomSection,msgSection" id="verifyBtn" action="{!verifyOtp}" style="margin-right:20px;padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >    
+                                </apex:commandButton>
+                                <apex:input value="{!otpCode}" style="margin-right:100px;" id="OtpInp" type="text" />  
+                            </apex:actionRegion>
+                            <div style="font-weight:700;" id="otpTimer">Time left &nbsp; <span id="timer"></span></div>
+                        </apex:outputPanel>
+                    </div>                
+                    <div align="center" style="display: {!IF(submittedBy == 'customer', 'block', 'none')};padding-top:10px;padding-bottom:10px;" draggable="false" >                        
+                        <apex:commandButton id="submitBtn"  value="Submit Form" disabled="{!isSubmitButtonDisable}"  action="{!submitBookingForm}" onclick="return bookingForm_Validation();" style="padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >
+                            
+                        </apex:commandButton>
+                    </div>
+                    <div align="center" style="display: {!IF(submittedBy == 'customer', 'none', 'block')};padding-top:10px;padding-bottom:10px;" draggable="false" >
+                        
+                        <apex:commandButton id="submitBtn1"  value="Save Form" disabled="{!opportunityRecord.Is_Booking_Form_Submitted_by_Customer__c}"  action="{!submitBookingForm}" onclick="return bookingForm_Validation();" style="padding-top:8px;border: none;border-radius: 4px;padding-bottom:8px;" >
+                            
+                        </apex:commandButton>
+                    </div>
+                    
+                </apex:outputPanel>
+            </apex:form> 
+            
+        </body>
+        
+        <script type="text/javascript">
+        function checkPrimaryAccountMobileNoStr(){
+            var phone=document.querySelector("[id$='primaryAccountMobileNo']").value;
+            var letters = /^[A-Za-z]+$/;
+            if(phone.length!=10 || isNaN(phone)){
+                document.getElementById("err1").innerHTML="Number must be 10 digits long & cannot contain Letters.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err1").innerHTML=""; 
+            }
+        }
+        function checkPrimaryAccountEmailStr(){
+            var email=document.querySelector("[id$='primaryAccountEmail']").value;
+            var atpos=email.indexOf("@");
+            var dotpos=email.lastIndexOf(".");
+            if(atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length){
+                document.getElementById("err3").innerHTML="Invalid Email.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err3").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountMobileNoStr(){
+            var phone=document.querySelector("[id$='secondAccountMobileNo']").value;
+            var letters = /^[A-Za-z]+$/;
+            if(phone.length!=10 || isNaN(phone)){
+                document.getElementById("err2").innerHTML="Number must be 10 digits long & cannot contain Letters.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err2").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountEmailStr(){
+            var email=document.querySelector("[id$='secondAccountEmail']").value;
+            var atpos=email.indexOf("@");
+            var dotpos=email.lastIndexOf(".");
+            if(atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length){
+                document.getElementById("err4").innerHTML="Invalid Email.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("err4").innerHTML=""; 
+            }
+        }
+        
+        function checkPrimaryAccountLandlineStr(){
+            var priAccLandline=document.querySelector("[id$='primaryAccountLandline']").value;
+            // var letters = /^[A-Za-z]+$/;
+            if(isNaN(priAccLandline)){
+                document.getElementById("primaryAccountLandlineError").innerHTML="Landline number can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("primaryAccountLandlineError").innerHTML=""; 
+            }
+        }
+        function checkPrimaryAccountOrgPhoneStr(){
+            var priAccOrgPhone=document.querySelector("[id$='primaryAccountOrgPhoneNumber']").value;
+            //var letters = /^[A-Za-z]+$/;
+            if(isNaN(priAccOrgPhone)){
+                document.getElementById("primaryAccountOrgPhoneNumberError").innerHTML="Organization phone number can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("primaryAccountOrgPhoneNumberError").innerHTML=""; 
+            }
+            
+        }
+        
+        function checkSecondAccountLandlineStr(){
+            var secAccLandLine=document.querySelector("[id$='secondAccountLandline']").value;
+            //var letters = /^[A-Za-z]+$/;
+            if(isNaN(secAccLandLine)){
+                document.getElementById("secondAccountLandlineError").innerHTML="Landline number can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secondAccountLandlineError").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountOrgPhoneStr(){
+            var secAccOrgPhone=document.querySelector("[id$='secondAccountOrgPhoneNumber']").value;
+            //var letters = /^[A-Za-z]+$/;
+            if(isNaN(secAccOrgPhone)){
+                document.getElementById("secondAccountOrgPhoneNumberError").innerHTML="Organization phone number can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secondAccountOrgPhoneNumberError").innerHTML=""; 
+            }
+            
+        }
+        function checkPrimaryAccountPanNumber(){
+            var priAccPanNumber=document.querySelector("[id$='primaryAccountPanNumber']").value;
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;    
+            if(!regex.test(priAccPanNumber)){      
+                document.getElementById("primaryAccountPanNumberError").innerHTML="PAN number format should XXXXX0000X.";
+                event.preventDefault();
+                return true;
+            }   
+            else{
+                document.getElementById("primaryAccountPanNumberError").innerHTML=""; 
+            }
+        }
+        function checkPrimaryAccountAadhaarCard(){
+            var priAccAadharCard=document.querySelector("[id$='primaryAccountAadhaarCard']").value;
+            if(priAccAadharCard.length!=12){
+                document.getElementById("primaryAccountAadhaarCardError").innerHTML="Aadhar number is not valid it should be 12 digits long.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("primaryAccountAadhaarCardError").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountPanNumber(){
+            var secAccPanNumber=document.querySelector("[id$='secondAccountPanNumber']").value;
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;    
+            if(!regex.test(secAccPanNumber)){      
+                document.getElementById("secondAccountPanNumberError").innerHTML="PAN number format should XXXXX0000X.";
+                event.preventDefault();
+                return true;
+            }   
+            else{
+                document.getElementById("secondAccountPanNumberError").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountAadhaarCard(){
+            var secAccAadharCard=document.querySelector("[id$='secondAccountAadhaarCard']").value;
+            if(secAccAadharCard.length!=12){
+                document.getElementById("secondAccountAadhaarCardError").innerHTML="Aadhar number is not valid it should be 12 digits long.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secondAccountAadhaarCardError").innerHTML=""; 
+            }
+        }
+        function checkPrimaryAccountPanDetails(){
+            var priAccPanDetails=document.querySelector("[id$='primaryAccountPanDetails']").value;
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;    
+            if(!regex.test(priAccPanDetails)){      
+                document.getElementById("primaryAccountPanDetailsError").innerHTML="PAN number format should XXXXX0000X.";
+                event.preventDefault();
+                return true;
+            }   
+            else{
+                document.getElementById("primaryAccountPanDetailsError").innerHTML=""; 
+            }
+        }
+        function checkSecondAccountPanDetails(){
+            var secAccPanDetails=document.querySelector("[id$='secondAccountPanDetails']").value;
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;    
+            if(!regex.test(secAccPanDetails)){      
+                document.getElementById("secondAccountPanDetailsError").innerHTML="PAN number format should XXXXX0000X.";
+                event.preventDefault();
+                return true;
+            }   
+            else{
+                document.getElementById("secondAccountPanDetailsError").innerHTML=""; 
+            }
+        }  
+        function checkcontactPhoneNumberStr(){
+            var phone=document.querySelector("[id$='contactPhoneNumber']").value;
+            var letters = /^[A-Za-z]+$/;
+            if(phone.length!=10 || isNaN(phone)){
+                document.getElementById("errcontactPhone").innerHTML="Number must be 10 digits long & cannot contain Letters.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("errcontactPhone").innerHTML=""; 
+            }
+        }
+        function onChangeTermCondiCheckboxValue(){            
+            var chbValue= document.querySelector("[id$='termsandCondiCheckbox']").checked;
+            const button = document.querySelector("[id$='getOtpBtn']");
+            var inPutBox = document.querySelector("[id$='OtpInp']");
+            const vbutton = document.querySelector("[id$='verifyBtn']");
+            if(chbValue==true){
+                button.disabled=false;
+                button.enable=true;
+                inPutBox.disabled = false;
+                inPutBox.enable = true;
+                vbutton.disabled = false;
+                vbutton.enable = true;
+            }
+            else{
+                button.disabled=true;
+                button.enable=false;
+                inPutBox.disabled=true;
+                inPutBox.enable=false;
+                vbutton.disabled=true;
+                vbutton.enable=false;
+            }
+        }     
+        function sendOtp(){
+            document.querySelector("[id$='getOtpBtn']").value = 'Resend OTP';
+            document.querySelector("[id$='getOtpBtn']").disabled = true;
+            document.querySelector("[id$='verifyBtn']").disabled = false;
+            document.querySelector("[id$='verifyBtn']").enable = true;
+            //   button.disabled=true;
+            //  setTimeout(function(){document.getElementById("[id$='getOtpBtn']").disabled = false;},5000);
+            
+            document.querySelector("[id$='otpTimer']").style.display = 'block';
+            var timerOn = true;
+            timer(300,true);
+            return true;    
+        }
+        function timer(remaining,timerOn) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            document.getElementById('timer').innerHTML = m + ':' + s;
+            remaining -= 1;
+            
+            if(remaining >= 0 && timerOn) {
+                setTimeout(function() {
+                    if(remaining==0){
+                        timer(remaining,false);
+                    }
+                    else{
+                        timer(remaining,true);
+                    }
+                }, 1000);
+                return;
+            }
+            
+            if(!timerOn) {
+                // Do validate stuff here
+                document.querySelector("[id$='getOtpBtn']").enable = true;
+                document.querySelector("[id$='getOtpBtn']").disabled = false;
+                document.querySelector("[id$='verifyBtn']").disabled = true;
+                return;
+            }
+            
+        }
+        function verifyFun(){
+            
+        }
+        function onloadf(){
+            var vbtn=  document.querySelector("[id$='verifyBtn']").disabled = true;
+            document.querySelector("[id$='submitBtn']").disabled = true;
+            document.querySelector("[id$='otpTimer']").style.display = 'none';
+            var chbValue= document.querySelector("[id$='termsandCondiCheckbox']").checked;
+            const button = document.querySelector("[id$='getOtpBtn']");
+            var inPutBox = document.querySelector("[id$='OtpInp']");
+            if(chbValue==true){
+                button.disabled=false;
+                button.enable=true;
+                inPutBox.disabled = false;
+                inPutBox.enable = true;
+                vbtn.disabled = false;
+                vbtn.enable = true;
+            }
+            else{
+                button.disabled=true;
+                button.enable=false;
+                inPutBox.disabled=true;
+                inPutBox.enable=false;
+                vbtn.disabled=true;
+                vbtn.enable=false;
+            }            
+        }
+        function checkPrimaryAccountPostCodeStr(){
+            var priAccPostCode=document.querySelector("[id$='primaryAccountPostCode']").value;
+            if(isNaN(priAccPostCode)){
+                document.getElementById("priAccPostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("priAccPostCodeErr").innerHTML=""; 
+            }      
+        }
+        function checkPrimaryAccountOrgOfficePostCodeStr(){
+            var priAccOffPostCode=document.querySelector("[id$='primaryAccountOrgOfficePostCode']").value;
+            if(isNaN(priAccOffPostCode)){
+                document.getElementById("priAccOfficePostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("priAccOfficePostCodeErr").innerHTML=""; 
+            }      
+        }
+        function checkSecondAccountPostCodeStr(){
+            var secAccPostCode=document.querySelector("[id$='secondAccountPostCode']").value;
+            if(isNaN(secAccPostCode)){
+                document.getElementById("secAccPostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secAccPostCodeErr").innerHTML=""; 
+            }      
+        }
+        function checkSecondAccountOrgOfficePostCodeStr(){
+            var secAccOffPostCode=document.querySelector("[id$='secondAccountOrgOfficePostCode']").value;
+            if(isNaN(secAccOffPostCode)){
+                document.getElementById("secAccOfficePostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secAccOfficePostCodeErr").innerHTML=""; 
+            }      
+        }
+        
+        function checksecondcontactPostCodeStr(){
+            var secAccOffPostCode=document.querySelector("[id$='secondcontactPostCode']").value;
+            if(isNaN(secAccOffPostCode)){
+                document.getElementById("secondcontactPostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("secondcontactPostCodeErr").innerHTML=""; 
+            }      
+        }
+        function checkThirdAccountPostCodeStr(){
+            var thirdAccOffPostCode=document.querySelector("[id$='thirdAccountPostCode']").value;
+            if(isNaN(thirdAccOffPostCode)){
+                document.getElementById("thirdAccountPostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("thirdAccountPostCodeErr").innerHTML=""; 
+            }      
+        }
+        function checkThirdAccCorpOfficePostCodeStr(){
+            var thirdAccCorpOffPostCode=document.querySelector("[id$='thirdAccCorpOfficePostCode']").value;
+            if(isNaN(thirdAccCorpOffPostCode)){
+                document.getElementById("thirdAccCorpOfficePostCodeErr").innerHTML="Post Code can contains only number.";
+                event.preventDefault();
+                return true;
+            }else{
+                document.getElementById("thirdAccCorpOfficePostCodeErr").innerHTML=""; 
+            }      
+        }
+        </script> 
+    </html>    
+</apex:page>

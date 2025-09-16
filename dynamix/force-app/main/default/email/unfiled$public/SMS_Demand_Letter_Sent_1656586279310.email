@@ -1,0 +1,6 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi {{{Booking__c.Primary_Applicant_Name_Formulla__c}}} The demand letter for your Booking Id {{{Booking__c.Name}}} has been sent over email. Please make the payments within 7 days. Thank You
+</body></html>

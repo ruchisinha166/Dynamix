@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Firm_Type__c</fullName>
+    <label>CP Firm Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Proprietor</fullName>
+                <default>false</default>
+                <label>Proprietor</label>
+            </value>
+            <value>
+                <fullName>Firm</fullName>
+                <default>false</default>
+                <label>Firm</label>
+            </value>
+            <value>
+                <fullName>Individual</fullName>
+                <default>false</default>
+                <label>Individual</label>
+            </value>
+            <value>
+                <fullName>Proprietorship</fullName>
+                <default>false</default>
+                <label>Proprietorship</label>
+            </value>
+            <value>
+                <fullName>Partnership</fullName>
+                <default>false</default>
+                <label>Partnership</label>
+            </value>
+            <value>
+                <fullName>Limited Company</fullName>
+                <default>false</default>
+                <label>Limited Company</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Component_Type__c</fullName>
+    <label>Component Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ZPR0</fullName>
+                <default>false</default>
+                <label>Flat material</label>
+            </value>
+            <value>
+                <fullName>ZCPR</fullName>
+                <default>false</default>
+                <label>Car Parking</label>
+            </value>
+            <value>
+                <fullName>ZLC0</fullName>
+                <default>false</default>
+                <label>Legal Charges</label>
+            </value>
+            <value>
+                <fullName>ZWEC</fullName>
+                <default>false</default>
+                <label>Utility conn. Charge</label>
+            </value>
+            <value>
+                <fullName>ZSF0</fullName>
+                <default>false</default>
+                <label>Society Formation</label>
+            </value>
+            <value>
+                <fullName>ZSAM</fullName>
+                <default>false</default>
+                <label>Share Appl Money</label>
+            </value>
+            <value>
+                <fullName>ZSD1</fullName>
+                <default>false</default>
+                <label>Security Deposit</label>
+            </value>
+            <value>
+                <fullName>ZREG</fullName>
+                <default>false</default>
+                <label>Registration Charge</label>
+            </value>
+            <value>
+                <fullName>ZSDT</fullName>
+                <default>false</default>
+                <label>Stamp Duty</label>
+            </value>
+            <value>
+                <fullName>ZCPA</fullName>
+                <default>false</default>
+                <label>Additional Car Parking</label>
+            </value>
+            <value>
+                <fullName>ZCLS</fullName>
+                <default>false</default>
+                <label>Large Car Parkspace</label>
+            </value>
+            <value>
+                <fullName>ZCSS</fullName>
+                <default>false</default>
+                <label>Small Car Parkspace</label>
+            </value>
+            <value>
+                <fullName>ZCP1</fullName>
+                <default>false</default>
+                <label>Car Parking 1</label>
+            </value>
+            <value>
+                <fullName>ZCP2</fullName>
+                <default>false</default>
+                <label>Car Parking 2</label>
+            </value>
+            <value>
+                <fullName>Base</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Base</label>
+            </value>
+            <value>
+                <fullName>Feature</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Feature</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

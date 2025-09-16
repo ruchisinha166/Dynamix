@@ -1,0 +1,8 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+It gives us immense pleasure to welcome you at {{{Booking__c.Project_Name_Formulla__c}}}. Your Welcome Letter with booking details has been shared with you over email. For any information or queries please contact&nbsp; {{{Booking__c.Booking_Owner_Name__c}}}, your designated Relationship Manager at {{{Booking__c.Booking_Owner_Email__c}}}.<br />
+Thank You
+</body></html>

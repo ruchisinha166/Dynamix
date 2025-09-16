@@ -1,0 +1,8 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Payment__c.Primary_Applicant__c}}}<br />
+<br />
+In accordance with your request for Cancellation pertaining to the application/ allotment of the Apartment No. {{{Payment__c.Apartment_No__c}}} at {{{Payment__c.Project_Name__c}}}, registered with MahaRERA under identification No. {{{Payment__c.MahaRERA__c}}}, dated {{{Payment__c.Today_Date__c}}}, we have refunded your monies and you have accepted the same, if any, vide Cheque No. {{{Payment__c.Cheque_Transaction_Number__c}}}&nbsp; dated {{{Payment__c.Payment_Date__c}}}, details whereof have been emailed to you on your email address registered with us.&nbsp;<br />
+<br />
+In case you have any queries whatsoever or need any assistance in relation to the refund amounts with respect to the cancellation of the application/ allotment of the said Apartment, please feel free to get in touch with your relationship manager on {{{Payment__c.Project_Phone_Formulla__c}}} or over email at {{{Payment__c.Project_Email__c}}}.</body></html>

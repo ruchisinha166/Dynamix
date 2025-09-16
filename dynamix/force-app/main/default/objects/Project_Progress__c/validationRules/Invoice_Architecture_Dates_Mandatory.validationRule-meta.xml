@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Architecture_Dates_Mandatory</fullName>
+    <active>true</active>
+    <description>Invoice Architecture Dates Mandatory, when Progress status changed to Completed</description>
+    <errorConditionFormula>IF(AND(ISPICKVAL( Progress_Status__c , &apos;Completed&apos;),OR(ISBLANK(Invoice_Date__c),ISBLANK( Architect_Certification_Received_Date__c))),true,false)</errorConditionFormula>
+    <errorMessage>Invoice Date and Architecture Dates are mandatory when Progress status is Completed</errorMessage>
+</ValidationRule>

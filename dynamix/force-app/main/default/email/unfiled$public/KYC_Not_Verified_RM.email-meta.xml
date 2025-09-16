@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>KYC Not Verified RM</name>
+    <style>none</style>
+    <subject>KYC Not Verified</subject>
+    <textOnly>Dear {!RM},
+
+The KYC documents of the Applicant/s for {!Unit} in {!Project} are not verified. Please verify it at the earliest to proceed.
+
+Thankyou.
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

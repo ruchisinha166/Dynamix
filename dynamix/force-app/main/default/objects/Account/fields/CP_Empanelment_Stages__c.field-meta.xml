@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CP_Empanelment_Stages__c</fullName>
+    <label>CP Empanelment Stages</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unregistered</fullName>
+                <default>true</default>
+                <label>Unregistered</label>
+            </value>
+            <value>
+                <fullName>Validate Partner</fullName>
+                <default>false</default>
+                <label>Validate Partner</label>
+            </value>
+            <value>
+                <fullName>Registration Initiated</fullName>
+                <default>false</default>
+                <label>Registration Initiated</label>
+            </value>
+            <value>
+                <fullName>Registered</fullName>
+                <default>false</default>
+                <label>Registered</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

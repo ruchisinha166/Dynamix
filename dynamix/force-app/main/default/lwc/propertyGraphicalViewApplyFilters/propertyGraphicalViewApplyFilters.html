@@ -1,0 +1,29 @@
+<template>
+    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right slds-hidden slds-m-left_small"
+        aria-hidden="false">
+        <div class="slds-panel__header">
+            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Property Filters">Property
+                Filters</h2>
+            <lightning-button-icon icon-name="utility:close" variant="border-filled" alternative-text="Collapse Filter"
+                title="Collapse Filter" onclick={handleFilterToggle}>
+            </lightning-button-icon>
+        </div>
+        <div class="slds-panel__body">
+            <div class="slds-form">
+                <lightning-checkbox-group name="Tower" label="Tower" options={options.tower}
+                    value={selectedOptions.tower} data-fielddisplayname="Tower" data-fieldapiname="tower"
+                    onchange={handleChange}>
+                </lightning-checkbox-group>
+                <lightning-checkbox-group name="UnitType" label="Unit Type" options={options.unitType}
+                    data-fielddisplayname="Unit Type" data-fieldapiname="unitType" value={selectedOptions.unitType}
+                    onchange={handleChange}>
+                </lightning-checkbox-group>
+                <lightning-checkbox-group name="PreferredLocation" label="Preferred Location" options={options.pLC}
+                    data-fielddisplayname="Preferred Location" data-fieldapiname="pLC" value={selectedOptions.pLC}
+                    onchange={handleChange}>
+                </lightning-checkbox-group>
+            </div>
+        </div>
+    </div>
+    <div class="slds-hide">{toggleFilter}</div>
+</template>

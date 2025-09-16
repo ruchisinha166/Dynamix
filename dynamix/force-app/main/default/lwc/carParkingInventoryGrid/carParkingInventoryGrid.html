@@ -1,0 +1,13 @@
+<template>
+    <fieldset class="slds-form-element">
+        <div class="slds-form-element__control">
+            <div class="slds-visual-picker" style="text-align: start;">
+                <template for:each={tower.floors} for:item="floor">
+                    <c-car-Parking-graphical-view-row class="pgv-row" key={floor.parkingtype} floor={floor}
+                        style="width: max-content;">
+                    </c-car-Parking-graphical-view-row>
+                </template>
+            </div>
+        </div>
+    </fieldset>
+</template>

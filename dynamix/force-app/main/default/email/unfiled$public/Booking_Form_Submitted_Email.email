@@ -1,0 +1,11 @@
+Dear {!User},
+ <br>
+ <br>
+The completed Booking Application Form for Booking {!Name} of {!Unit} in {!Project} has been submitted by customer. 
+<br>
+ <br>
+Kindly verify the details and update in the system.
+ <br>
+<br>
+Thank You, <br>
+Dynamix

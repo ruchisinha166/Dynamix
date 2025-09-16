@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Final payment Reminder" recipientType="Contact" relatedToType="Payment_Milestones__c">
+   <messaging:htmlEmailBody >
+                  <c:FinalReminder PayMId="{!relatedTo.Id}"  />
+        </messaging:htmlEmailBody>
+</messaging:emailTemplate>

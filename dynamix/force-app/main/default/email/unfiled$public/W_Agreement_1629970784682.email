@@ -1,0 +1,8 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Recipient.Name}}}<br />
+<br />
+We have emailed you the draft Agreement for Sale, on your Email address registered with us, pertaining to the Apartment No. {{{Booking__c.Unit_Number__c}}} at {{{Booking__c.Project_Name_Formulla__c}}}, registered with MahaRERA under identification No. {{{Booking__c.RERA_Number__c}}}. We request you to please pay the Stamp Duty and Registration fees in relation thereto and execute the agreement, as is mandated by law. Kindly inform us as soon as you pay the same and also share a copy of payment details with your relationship manager. We request you to register the Agreement for Sale for the captioned Apartment at the earliest.<br />
+<br />
+In case you have any queries whatsoever or need any assistance in relation to the draft Agreement for Sale pertaining to the captioned Apartment, please feel free to get in touch with your relationship manager on {{{Booking__c.Project_Phone__c}}} or over email at {{{Booking__c.Project_Email__c}}}.</body></html>

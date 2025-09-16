@@ -1,0 +1,11 @@
+<apex:page >
+    <html>
+        <head>
+        </head>
+        <body>
+            <div style="margin-top:20px;text-align:center;color:green;font-size:16px;" >
+                Your CIF Form has been Submitted Successfully.
+            </div>            
+        </body>
+    </html>
+</apex:page>

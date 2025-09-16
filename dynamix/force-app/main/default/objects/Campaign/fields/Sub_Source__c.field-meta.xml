@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Source__c</fullName>
+    <label>Sub-Source</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Source__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Facebook Paid</fullName>
+                <default>false</default>
+                <label>Facebook Paid</label>
+            </value>
+            <value>
+                <fullName>Facebook Organic</fullName>
+                <default>false</default>
+                <label>Facebook Organic</label>
+            </value>
+            <value>
+                <fullName>Instagram Paid</fullName>
+                <default>false</default>
+                <label>Instagram Paid</label>
+            </value>
+            <value>
+                <fullName>Instagram Organic</fullName>
+                <default>false</default>
+                <label>Instagram Organic</label>
+            </value>
+            <value>
+                <fullName>Hoarding Ad A</fullName>
+                <default>false</default>
+                <label>Hoarding Ad A</label>
+            </value>
+            <value>
+                <fullName>Hoarding Ad B</fullName>
+                <default>false</default>
+                <label>Hoarding Ad B</label>
+            </value>
+            <value>
+                <fullName>TOI</fullName>
+                <default>false</default>
+                <label>TOI</label>
+            </value>
+            <value>
+                <fullName>The Hindu</fullName>
+                <default>false</default>
+                <label>The Hindu</label>
+            </value>
+            <value>
+                <fullName>Mint</fullName>
+                <default>false</default>
+                <label>Mint</label>
+            </value>
+            <value>
+                <fullName>Leadgen</fullName>
+                <default>false</default>
+                <label>Leadgen</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>TOI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>The Hindu</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Newspaper</controllingFieldValue>
+            <valueName>Mint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instagram</controllingFieldValue>
+            <valueName>Instagram Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instagram</controllingFieldValue>
+            <valueName>Instagram Organic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Facebook</controllingFieldValue>
+            <valueName>Facebook Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Facebook</controllingFieldValue>
+            <valueName>Facebook Organic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Facebook</controllingFieldValue>
+            <valueName>Leadgen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hoarding</controllingFieldValue>
+            <valueName>Hoarding Ad A</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hoarding</controllingFieldValue>
+            <valueName>Hoarding Ad B</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

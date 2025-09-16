@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CDF1</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Primary_Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Related_Opportunity__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c.Registration_Date__c</field>
+    </columns>
+    <columns>
+        <field>Booking__c.SDR_Completed_Date__c</field>
+    </columns>
+    <currency>INR</currency>
+    <customDetailFormulas>
+        <calculatedFormula>
+CASE(
+  FLOOR(Booking__c.Registration_Date__c-Booking__c.SDR_Completed_Date__c),
+  0, &quot;0-10 Days&quot;,
+ 1, &quot;0-10 Days&quot;,
+ 2, &quot;0-10 Days&quot;,
+ 3, &quot;0-10 Days&quot;,
+ 4, &quot;0-10 Days&quot;,
+ 5, &quot;0-10 Days&quot;,
+ 6, &quot;0-10 Days&quot;,
+ 7, &quot;0-10 Days&quot;,
+ 8, &quot;0-10 Days&quot;,
+ 9, &quot;0-10 Days&quot;,
+ 10, &quot;0-10 Days&quot;,
+  11, &quot;11-15 Days&quot;,
+ 12, &quot;11-15 Days&quot;,
+ 13, &quot;11-15 Days&quot;,
+ 14, &quot;11-15 Days&quot;,
+ 15, &quot;11-15 Days&quot;,
+ 16, &quot;16-30 Days&quot;,
+17, &quot;16-30 Days&quot;,
+18, &quot;16-30 Days&quot;,
+19, &quot;16-30 Days&quot;,
+20, &quot;16-30 Days&quot;,
+21, &quot;16-30 Days&quot;,
+22, &quot;16-30 Days&quot;,
+23, &quot;16-30 Days&quot;,
+24, &quot;16-30 Days&quot;,
+25, &quot;16-30 Days&quot;,
+26, &quot;16-30 Days&quot;,
+27, &quot;16-30 Days&quot;,
+28, &quot;16-30 Days&quot;,
+29, &quot;16-30 Days&quot;,
+30, &quot;16-30 Days&quot;,
+
+  &quot;More than 30 Days&quot;
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>TAT Days</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Booking__c.SDR_Completed_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Booking__c.Stage__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Terminated,Booking Cancelled – Refund Pending,Booking Cancelled – Refund Ready</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Booking__c.Project_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SDR Vs Registration TAT</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Booking__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Booking__c.Booking_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

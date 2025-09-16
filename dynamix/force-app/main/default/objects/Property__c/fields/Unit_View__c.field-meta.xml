@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unit_View__c</fullName>
+    <label>Unit View</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>EAST FACING</fullName>
+                <default>false</default>
+                <label>EAST FACING</label>
+            </value>
+            <value>
+                <fullName>WEST FACING</fullName>
+                <default>false</default>
+                <label>WEST FACING</label>
+            </value>
+            <value>
+                <fullName>SOUTH</fullName>
+                <default>false</default>
+                <label>SOUTH</label>
+            </value>
+            <value>
+                <fullName>NORTH</fullName>
+                <default>false</default>
+                <label>NORTH</label>
+            </value>
+            <value>
+                <fullName>NORTH - EAST</fullName>
+                <default>false</default>
+                <label>NORTH - EAST</label>
+            </value>
+            <value>
+                <fullName>NORTH - WEST</fullName>
+                <default>false</default>
+                <label>NORTH - WEST</label>
+            </value>
+            <value>
+                <fullName>SOUTH - EAST</fullName>
+                <default>false</default>
+                <label>SOUTH - EAST</label>
+            </value>
+            <value>
+                <fullName>SOUTH - WEST</fullName>
+                <default>false</default>
+                <label>SOUTH - WEST</label>
+            </value>
+            <value>
+                <fullName>EAST - WEST</fullName>
+                <default>false</default>
+                <label>EAST - WEST</label>
+            </value>
+            <value>
+                <fullName>COMMERCIAL</fullName>
+                <default>false</default>
+                <label>COMMERCIAL</label>
+            </value>
+            <value>
+                <fullName>POOL</fullName>
+                <default>false</default>
+                <label>POOL</label>
+            </value>
+            <value>
+                <fullName>CLUB HOUSE</fullName>
+                <default>false</default>
+                <label>CLUB HOUSE</label>
+            </value>
+            <value>
+                <fullName>TEMPLE</fullName>
+                <default>false</default>
+                <label>TEMPLE</label>
+            </value>
+            <value>
+                <fullName>MAIN ROAD</fullName>
+                <default>false</default>
+                <label>MAIN ROAD</label>
+            </value>
+            <value>
+                <fullName>ROAD</fullName>
+                <default>false</default>
+                <label>ROAD</label>
+            </value>
+            <value>
+                <fullName>SEA</fullName>
+                <default>false</default>
+                <label>SEA</label>
+            </value>
+            <value>
+                <fullName>INTERNAL ROAD</fullName>
+                <default>false</default>
+                <label>INTERNAL ROAD</label>
+            </value>
+            <value>
+                <fullName>GARDEN</fullName>
+                <default>false</default>
+                <label>GARDEN</label>
+            </value>
+            <value>
+                <fullName>PARK</fullName>
+                <default>false</default>
+                <label>PARK</label>
+            </value>
+            <value>
+                <fullName>LANDSCAP PODIUM</fullName>
+                <default>false</default>
+                <label>LANDSCAP PODIUM</label>
+            </value>
+            <value>
+                <fullName>RIVER / LAKE</fullName>
+                <default>false</default>
+                <label>RIVER / LAKE</label>
+            </value>
+            <value>
+                <fullName>HILL</fullName>
+                <default>false</default>
+                <label>HILL</label>
+            </value>
+            <value>
+                <fullName>GREENERY</fullName>
+                <default>false</default>
+                <label>GREENERY</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

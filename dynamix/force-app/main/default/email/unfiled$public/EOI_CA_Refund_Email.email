@@ -1,0 +1,8 @@
+Hi,<br><br>
+
+The refund for '{!Opportunity.EOI_CA__c}' {!Opportunity.EOI_CA_Number__c} of 'customer' for '{!Opportunity.Project__c}' has been processed and is ready for payment.<br><br>
+
+Please click on the link for more details: <a href="{!Opportunity.Link}">{!Opportunity.Link}</a><br><br>
+
+Regards,
+Dynamix Group

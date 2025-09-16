@@ -1,0 +1,176 @@
+<apex:component controller="PaymentReminderClass" access="global">
+    <apex:attribute name="PayMId" type="Id" description="account id of the case" assignTo="{!PMId}"/>
+    
+    <html>
+        <head>
+            <style>
+                table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+                td{
+                text-align: left;
+                width:20%;
+                
+                }
+            </style>
+            <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+                
+                .float-container {
+                border: 3px solid #fff;
+                padding: 20px;
+                }
+                
+                .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                }  
+                .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+                } 
+                .marginBottom{
+                margin-bottom: 10px;
+                }
+                .marginTop{
+                margin-top: 10px;
+                }
+            </style>
+        </head>
+        <body style="font-family:Helvetica, sans-serif;font-size: 11px;">
+            <center><apex:image url="{!ProjectHeader}" width="730" height="140"></apex:image></center><br/><br/><br/>
+            <center><b>Termination Notice</b></center>
+            <div style="padding-left:0px;">
+                <span style="">
+                    <span style="text-align:left;">
+                        To,
+                        <span style="float:right;">
+                            Date:&nbsp;<apex:outputText style="text-align: right;" value="{0,date,dd/MM/yyyy}"> 
+                            <apex:param value="{!TODAY()}" /></apex:outputText>
+                        </span>
+                    </span>
+                    <br/>{!booking.Primary_Applicant__r.Name}<br/>
+                    {!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},<br/>
+                    {!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},<br/>
+                    {!accountObject.PersonMailingCountry}<br/>
+                    Mob No.: {!accountObject.PersonMobilePhone}
+                    
+                </span>
+            </div>
+            <br/><br/><br/>
+            <center><b style="text-align : left;"><u>Sub: Notice of Termination of Application/ Allotment in respect of said Apartment.</u></b></center><br/><br/><br/>
+            
+            <div style="padding-left:0px;">        
+                <table style="text-align: justify;border-style: none;width:100%;">
+                    <tr>
+                        <td style="border-style: none;text-align: justify;width:2%;vertical-align:top;">
+                            <b>
+                                Re:
+                            </b>
+                        </td>
+                        <td style="border-style: none;text-align: justify;width:98%;">
+                            Final Reminder Letter dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentMilestoneobj.Third_Payment_Email_Reminder_Date__c }" />
+                            </apex:outputText> for the payment of outstanding dues with interest of Rs.<apex:outputText value="{0, number, #,###.##}"><apex:param value="{!TotalAmountwihIntrest}"/></apex:outputText>  /- 
+                            in respect of the Application Form dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                            <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText> /
+                            Agreement for Sale dated&nbsp;<apex:outputText rendered="{!if(booking.Registration_Status__c== 'Completed',true,false)}" value="{0,date,dd/MM/yyyy}">
+                            <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText> 
+                            <apex:outputText rendered="{!if(booking.Registration_Status__c!= 'Completed',true,false)}" >NA</apex:outputText> (as the case may be) in respect of 
+                            Apartment No. {!sPropertyobj.Unit__r.name} on the {!sPropertyobj.Unit__r.Floor__c}<sup>{!floor}</sup> floor
+                            in {!booking.Project_Name__r.Name} {!if(LOWER(booking.Tower_Name__r.Name) == 'na',"",booking.Tower_Name__r.Name)} Project (“said Apartment”),
+                            situated at {!project.City__c}, {!project.state__c} - {!project.Postal_Code__c}.
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+            <p style="margin-left : 5px;text-align : left;;padding-left:0px;">
+                Dear {!accountObject.Salutation} {!booking.Primary_Applicant__r.Name},
+            </p>
+            <ol type="1" style="text-align: justify;">
+                <li class="marginBottom">
+                    <p style="margin-left : 5px;text-align: justify;">
+                        We refer to First Reminder Letter dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!paymentMilestoneobj.First_Payment_Email_Reminder_Date__c}" /></apex:outputText>,
+                        Second Reminder Letter dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentMilestoneobj.Second_Payment_Email_Reminder_Date__c }" /></apex:outputText>, and Final Reminder Letter dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentMilestoneobj.Third_Payment_Email_Reminder_Date__c }" /></apex:outputText> where in 
+                        we had intimated and reminded you regarding your outstanding dues along with interest thereon in respect of your Application
+                        / Allotment for/of the said Apartment in the aforesaid building known as {!booking.Project_Name__r.Name} and called upon you to pay 
+                        the outstanding dues alongwith interest thereon, as mentioned therein.  
+                    </p>
+                </li>
+                <li class="marginBottom">        
+                    <p style="text-align : left;;text-align: justify;">
+                        We regret to inform you that you have committed breach of the terms and conditions 
+                        of the the Form/ Agreement (as the case maybe). As per provisions of the said Form / Agreement (including but not limited to clause 8.4 of the
+                        Form and/or 8(v) of the Agreement as the case may be), in the event you commit any default in the payment of instalments of the Allotment
+                        Premium / Sale Consideration, your Application / Allotment in respect of the said Apartment shall stand cancelled. In view of the non-payment of the outstanding dues 
+                        even after and despite our giving you the requisite notice and time as contemplated under the terms of the Form / Agreement (as the case may be),we assume that you are no longer interested in continuing 
+                        with the aforesaid Application/ Allotment (as the case may be) and therefore as provided in the said Form / Agreement (as the case may be), we regret to inform you that 
+                        your Application/Allotment stood cancelled and terminated with immediate effect on the expiry of 15 (fifteen) days from the
+                        First Reminder Letter dated&nbsp;
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!paymentMilestoneobj.First_Payment_Email_Reminder_Date__c}" /></apex:outputText>.
+                    </p>
+                </li>
+                <li class="marginBottom">
+                    <p style="text-align : left;;text-align: justify;">
+                        We shall refund the balance monies/ amounts paid by you, if any, under the Form / Agreement (as the case may be),
+                        as per the terms and conditions of the Form / Agreement (as the case may be) (in accordance with but not limited to clause 8.5 of the
+                        Form and/or clause 8(v) of the Agreement, as the case may be).
+                    </p>
+                </li>
+                <li class="marginBottom">
+                    <p style="text-align : left;;text-align: justify;">
+                        We further inform you that in view of the cancellation/termination of your Application / Allotment in respect 
+                        of the said Apartment, you have ceased to have any right, title, interest, claim or demand of any nature whatsoever
+                        either against the Promoter or in the said Apartment or any part thereof or the Project and we are fully entitled to deal
+                        with the said Apartment as we may in our sole absolute and unfettered discretion deem fit and proper, without any further recourse to you.
+                    </p>
+                </li>
+            </ol>
+            <p style="margin-left : 5px;text-align : left;padding-left:0px;">
+                Yours faithfully,</p>
+            <p style="margin-left : 5px;text-align : left;padding-left:0px;"> <b>{!project.Builder_Organization__r.name}</b>
+            </p><br/><br/>
+            
+            
+            <div class="footer">
+                <center><apex:image url="{!ProjectFooter}"  width="700" height="50"  /></center>
+            </div>
+        </body>
+    </html>
+</apex:component>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>calloutBookingCancellation</name>
+        <label>calloutBookingCancellation</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <actionName>calloutBookingCancellation</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>bookingId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>calloutBookingCancellation</nameSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_If_Booking_is_Synced_To_SAP</name>
+        <label>Check If Booking is Synced To SAP</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Synced</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sap_Code__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Data_Sync</targetReference>
+            </connector>
+            <label>Synced</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Booking Cancellation Data Sync {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Booking Cancellation Data Sync</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Data_Sync</name>
+        <label>Create Data Sync</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>calloutBookingCancellation</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Event_Type__c</field>
+            <value>
+                <stringValue>Booking Cancellation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordId__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Pending</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sync_Direction__c</field>
+            <value>
+                <stringValue>SFDC to SAP</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Data_Sync__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_If_Booking_is_Synced_To_SAP</targetReference>
+        </connector>
+        <filterLogic>(1 AND 2) OR (3 AND 4 AND 5)</filterLogic>
+        <filters>
+            <field>Stage__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Booking Cancelled – Refund Pending</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Stage__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Stage__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Booking Cancelled -- Refund Done</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Stage__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Cancellation_Requested_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unit Transfer</stringValue>
+            </value>
+        </filters>
+        <object>Booking__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

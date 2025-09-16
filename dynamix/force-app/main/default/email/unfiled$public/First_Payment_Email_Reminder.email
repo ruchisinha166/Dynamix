@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="First Payment Reminder" recipientType="Contact" relatedToType="Payment_Milestones__c">
+
+        
+        <messaging:htmlEmailBody >
+                  <c:PaymentReminderTemplate PayMId="{!relatedTo.Id}"  />
+        </messaging:htmlEmailBody>
+
+
+</messaging:emailTemplate>

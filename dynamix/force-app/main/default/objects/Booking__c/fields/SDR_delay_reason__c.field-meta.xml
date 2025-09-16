@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR_delay_reason__c</fullName>
+    <inlineHelpText>SDR Delay reson</inlineHelpText>
+    <label>SDR delay reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Indemnity_Form__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Booking</fullName>
+                <default>true</default>
+                <label>New Booking</label>
+            </value>
+            <value>
+                <fullName>Customer Delaying</fullName>
+                <default>false</default>
+                <label>Customer Delaying</label>
+            </value>
+            <value>
+                <fullName>Customer Availability Issue</fullName>
+                <default>false</default>
+                <label>Customer Availability Issue</label>
+            </value>
+            <value>
+                <fullName>Awaiting Loan Sanction</fullName>
+                <default>false</default>
+                <label>Awaiting Loan Sanction</label>
+            </value>
+            <value>
+                <fullName>Loan Eligibility Issue (short sanction)</fullName>
+                <default>false</default>
+                <label>Loan Eligibility Issue (short sanction)</label>
+            </value>
+            <value>
+                <fullName>Fund Issue</fullName>
+                <default>false</default>
+                <label>Fund Issue</label>
+            </value>
+            <value>
+                <fullName>Self-Cancellation</fullName>
+                <default>false</default>
+                <label>Self-Cancellation</label>
+            </value>
+            <value>
+                <fullName>Propose Cancellation</fullName>
+                <default>false</default>
+                <label>Propose Cancellation</label>
+            </value>
+            <value>
+                <fullName>Management Reference</fullName>
+                <default>false</default>
+                <label>Management Reference</label>
+            </value>
+            <value>
+                <fullName>Awaiting Management Decision</fullName>
+                <default>false</default>
+                <label>Awaiting Management Decision</label>
+            </value>
+            <value>
+                <fullName>Not Reachable / Responding</fullName>
+                <default>false</default>
+                <label>Not Reachable / Responding</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Indemnity form</fullName>
+                <default>false</default>
+                <label>Indemnity form</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>New Booking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Customer Delaying</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Customer Availability Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Awaiting Loan Sanction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Loan Eligibility Issue (short sanction)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Fund Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Self-Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Propose Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Management Reference</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Awaiting Management Decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Not Reachable / Responding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>unchecked</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Indemnity form</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,7 @@
+Dear {!Booking__c.Owner.Name}, </br></br>
+The Allotment letter for Booking: {!Booking__c.Name} of Project: {!projectName} has been sent to the client.
+</br>
+ </br>
+
+Thank you, </br>
+Dynamix

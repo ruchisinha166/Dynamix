@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Send SDR Letter to Customer</name>
+    <style>none</style>
+    <subject>SDR Letter Generated</subject>
+    <textOnly>Dear Sir/Madam,
+
+Greetings from Dynamix Group!
+
+Please find the attached Stamp Duty and Registration letter for your reference.
+
+Regarding the Registration of the Agreement For Sale, kindly verify the below details for the Agreement:
+
+Name &amp; Address Confirmation:
+
+{!Name of the 1st Applicant}
+
+{!Pan Card Number of the 1st Applicant}
+
+{!PAssport}
+
+{!OCICard}
+
+Address: {!Address}
+
+{!CoApplicantDetails}
+Additionally, please email self-attested copies of the PAN card and Aadhar card of all applicants.
+
+Please feel free to call the undersigned for any clarifications.
+
+Disclaimer: In case of no response within 3 days, the above details will be considered verified.
+
+Best Regards,
+{!RMName}
+Mob: {!RMPhone}
+Email: {!RMEmail}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

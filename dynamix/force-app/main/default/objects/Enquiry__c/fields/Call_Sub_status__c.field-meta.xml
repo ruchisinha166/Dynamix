@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Sub_status__c</fullName>
+    <label>Call Sub-status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Call_Status__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SVS</fullName>
+                <default>false</default>
+                <label>SVS</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Junk</fullName>
+                <default>false</default>
+                <label>Junk</label>
+            </value>
+            <value>
+                <fullName>Interested</fullName>
+                <default>false</default>
+                <label>Interested</label>
+            </value>
+            <value>
+                <fullName>Call Back Later</fullName>
+                <default>false</default>
+                <label>Call Back Later</label>
+            </value>
+            <value>
+                <fullName>Not Answering</fullName>
+                <default>false</default>
+                <label>Not Answering</label>
+            </value>
+            <value>
+                <fullName>Disconnected while ringing</fullName>
+                <default>false</default>
+                <label>Disconnected while ringing</label>
+            </value>
+            <value>
+                <fullName>Number Busy</fullName>
+                <default>false</default>
+                <label>Number Busy</label>
+            </value>
+            <value>
+                <fullName>Switched Off</fullName>
+                <default>false</default>
+                <label>Switched Off</label>
+            </value>
+            <value>
+                <fullName>Not Reachable</fullName>
+                <default>false</default>
+                <label>Not Reachable</label>
+            </value>
+            <value>
+                <fullName>IVR Invalid Number</fullName>
+                <default>false</default>
+                <label>IVR Invalid Number</label>
+            </value>
+            <value>
+                <fullName>Temporarily Disconnected</fullName>
+                <default>false</default>
+                <label>Temporarily Disconnected</label>
+            </value>
+            <value>
+                <fullName>Incoming calls barred</fullName>
+                <default>false</default>
+                <label>Incoming calls barred</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Connected</controllingFieldValue>
+            <valueName>SVS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Connected</controllingFieldValue>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Lost</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Connected</controllingFieldValue>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Junk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Connected</controllingFieldValue>
+            <valueName>Interested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Connected</controllingFieldValue>
+            <valueName>Call Back Later</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Not Answering</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Disconnected while ringing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Number Busy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Switched Off</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Not Reachable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>IVR Invalid Number</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Temporarily Disconnected</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not-Connected</controllingFieldValue>
+            <valueName>Incoming calls barred</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

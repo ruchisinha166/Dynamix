@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type__c</fullName>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SObjectType__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cost Sheet</fullName>
+                <default>false</default>
+                <label>Cost Sheet</label>
+            </value>
+            <value>
+                <fullName>Aadhar</fullName>
+                <default>false</default>
+                <label>Aadhar</label>
+            </value>
+            <value>
+                <fullName>PAN Card</fullName>
+                <default>false</default>
+                <label>PAN Card</label>
+            </value>
+            <value>
+                <fullName>Approved Cost Sheet</fullName>
+                <default>false</default>
+                <label>Approved Cost Sheet</label>
+            </value>
+            <value>
+                <fullName>Booking Form</fullName>
+                <default>false</default>
+                <label>Booking Form</label>
+            </value>
+            <value>
+                <fullName>Other Supporting Documents</fullName>
+                <default>false</default>
+                <label>Other Supporting Documents</label>
+            </value>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Agreement Sale</fullName>
+                <default>false</default>
+                <label>Agreement Sale</label>
+            </value>
+            <value>
+                <fullName>Architecture Certificate</fullName>
+                <default>false</default>
+                <label>Architecture Certificate</label>
+            </value>
+            <value>
+                <fullName>Allotment</fullName>
+                <default>false</default>
+                <label>Allotment</label>
+            </value>
+            <value>
+                <fullName>Payment Receipt</fullName>
+                <default>false</default>
+                <label>Payment Receipt</label>
+            </value>
+            <value>
+                <fullName>Agreement Checklist</fullName>
+                <default>false</default>
+                <label>Agreement Checklist</label>
+            </value>
+            <value>
+                <fullName>Name Change Note</fullName>
+                <default>false</default>
+                <label>Name Change Note</label>
+            </value>
+            <value>
+                <fullName>KIT</fullName>
+                <default>false</default>
+                <label>KIT</label>
+            </value>
+            <value>
+                <fullName>Escalation</fullName>
+                <default>false</default>
+                <label>Escalation</label>
+            </value>
+            <value>
+                <fullName>Sanction Letter</fullName>
+                <default>false</default>
+                <label>Sanction Letter</label>
+            </value>
+            <value>
+                <fullName>Index II Document</fullName>
+                <default>false</default>
+                <label>Index II Document</label>
+            </value>
+            <value>
+                <fullName>Flat Cancellation</fullName>
+                <default>false</default>
+                <label>Flat Cancellation</label>
+            </value>
+            <value>
+                <fullName>Flat Refund</fullName>
+                <default>false</default>
+                <label>Flat Refund</label>
+            </value>
+            <value>
+                <fullName>Stamp Duty</fullName>
+                <default>false</default>
+                <label>Stamp Duty</label>
+            </value>
+            <value>
+                <fullName>TDS</fullName>
+                <default>false</default>
+                <label>TDS Challan</label>
+            </value>
+            <value>
+                <fullName>POA</fullName>
+                <default>false</default>
+                <label>POA</label>
+            </value>
+            <value>
+                <fullName>Bank NOC</fullName>
+                <default>false</default>
+                <label>Bank NOC</label>
+            </value>
+            <value>
+                <fullName>Lien Letter</fullName>
+                <default>false</default>
+                <label>Lien Letter</label>
+            </value>
+            <value>
+                <fullName>Brokerage Invoice</fullName>
+                <default>false</default>
+                <label>Brokerage Invoice</label>
+            </value>
+            <value>
+                <fullName>CheckList – Booking Checklist</fullName>
+                <default>false</default>
+                <label>CheckList – Booking Checklist</label>
+            </value>
+            <value>
+                <fullName>CheckList – Cost Change Note</fullName>
+                <default>false</default>
+                <label>CheckList – Cost Change Note</label>
+            </value>
+            <value>
+                <fullName>Checklist – Stamp Duty Payment</fullName>
+                <default>false</default>
+                <label>Checklist – Stamp Duty Payment</label>
+            </value>
+            <value>
+                <fullName>CheckList – KIT Handover</fullName>
+                <default>false</default>
+                <label>CheckList – KIT Handover</label>
+            </value>
+            <value>
+                <fullName>CheckList – Excess Amount Refund</fullName>
+                <default>false</default>
+                <label>CheckList – Excess Amount Refund</label>
+            </value>
+            <value>
+                <fullName>CheckList – Contact Details Change</fullName>
+                <default>false</default>
+                <label>CheckList – Contact Details Change</label>
+            </value>
+            <value>
+                <fullName>CheckList – Flat Cancellation</fullName>
+                <default>false</default>
+                <label>CheckList – Flat Cancellation</label>
+            </value>
+            <value>
+                <fullName>CheckList – Flat Cancellation and Transfer</fullName>
+                <default>false</default>
+                <label>CheckList – Flat Cancellation and Transfer</label>
+            </value>
+            <value>
+                <fullName>Cancellation Deed</fullName>
+                <default>false</default>
+                <label>Cancellation Deed</label>
+            </value>
+            <value>
+                <fullName>Rectification Deed</fullName>
+                <default>false</default>
+                <label>Rectification Deed</label>
+            </value>
+            <value>
+                <fullName>Hardship Compensation</fullName>
+                <default>false</default>
+                <label>Hardship Compensation</label>
+            </value>
+            <value>
+                <fullName>Letterhead</fullName>
+                <default>false</default>
+                <label>Letterhead</label>
+            </value>
+            <value>
+                <fullName>Snag/Desnag</fullName>
+                <default>false</default>
+                <label>Snag/Desnag</label>
+            </value>
+            <value>
+                <fullName>Indemnity</fullName>
+                <default>false</default>
+                <label>Indemnity</label>
+            </value>
+            <value>
+                <fullName>Bareshell - Allotment Letter</fullName>
+                <default>false</default>
+                <label>Bareshell - Allotment Letter</label>
+            </value>
+            <value>
+                <fullName>Letter of Allotment Confirmation</fullName>
+                <default>false</default>
+                <label>Letter of Allotment Confirmation</label>
+            </value>
+            <value>
+                <fullName>Interchange of floors - Allotment Letter</fullName>
+                <default>false</default>
+                <label>Interchange of floors - Allotment Letter</label>
+            </value>
+            <value>
+                <fullName>Project Header</fullName>
+                <default>false</default>
+                <label>Project Header</label>
+            </value>
+            <value>
+                <fullName>Project Footer</fullName>
+                <default>false</default>
+                <label>Project Footer</label>
+            </value>
+            <value>
+                <fullName>Interest Waiver</fullName>
+                <default>false</default>
+                <label>Interest Waiver</label>
+            </value>
+            <value>
+                <fullName>Flat Cost Change Note</fullName>
+                <default>false</default>
+                <label>Flat Cost Change Note</label>
+            </value>
+            <value>
+                <fullName>RERA</fullName>
+                <default>false</default>
+                <label>RERA</label>
+            </value>
+            <value>
+                <fullName>SDR Letter</fullName>
+                <default>false</default>
+                <label>SDR Letter</label>
+            </value>
+            <value>
+                <fullName>SDR Challan Copy</fullName>
+                <default>false</default>
+                <label>SDR Challan Copy</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>OCI/PIO Card</fullName>
+                <default>false</default>
+                <label>OCI/PIO Card</label>
+            </value>
+            <value>
+                <fullName>Address Proof</fullName>
+                <default>false</default>
+                <label>Address Proof</label>
+            </value>
+            <value>
+                <fullName>Bank Approved NOC</fullName>
+                <default>false</default>
+                <label>Bank Approved NOC</label>
+            </value>
+            <value>
+                <fullName>ROC</fullName>
+                <default>false</default>
+                <label>ROC</label>
+            </value>
+            <value>
+                <fullName>Bank Approved ROC</fullName>
+                <default>false</default>
+                <label>Bank Approved ROC</label>
+            </value>
+            <value>
+                <fullName>NOC</fullName>
+                <default>false</default>
+                <label>NOC</label>
+            </value>
+            <value>
+                <fullName>Handover Document</fullName>
+                <default>false</default>
+                <label>Handover Document</label>
+            </value>
+            <value>
+                <fullName>Checklist - Booking Cancellation</fullName>
+                <default>false</default>
+                <label>Checklist - Booking Cancellation</label>
+            </value>
+            <value>
+                <fullName>Ledger</fullName>
+                <default>false</default>
+                <label>Ledger</label>
+            </value>
+            <value>
+                <fullName>Source Change Document</fullName>
+                <default>false</default>
+                <label>Source Change Document</label>
+            </value>
+            <value>
+                <fullName>Rera Certificate</fullName>
+                <default>false</default>
+                <label>Rera Certificate</label>
+            </value>
+            <value>
+                <fullName>Terms &amp; Conditions</fullName>
+                <default>false</default>
+                <label>Terms &amp; Conditions</label>
+            </value>
+            <value>
+                <fullName>Annexures</fullName>
+                <default>false</default>
+                <label>Annexures</label>
+            </value>
+            <value>
+                <fullName>GST No. Certificate</fullName>
+                <default>false</default>
+                <label>GST No. Certificate</label>
+            </value>
+            <value>
+                <fullName>Loan Closure Letter</fullName>
+                <default>false</default>
+                <label>Loan Closure Letter</label>
+            </value>
+            <value>
+                <fullName>Bank Returned NOC</fullName>
+                <default>false</default>
+                <label>Bank Returned NOC</label>
+            </value>
+            <value>
+                <fullName>Bank Returned ROC</fullName>
+                <default>false</default>
+                <label>Bank Returned ROC</label>
+            </value>
+            <value>
+                <fullName>Provisional NOC</fullName>
+                <default>false</default>
+                <label>Provisional NOC</label>
+            </value>
+            <value>
+                <fullName>Other Document</fullName>
+                <default>false</default>
+                <label>Other Document</label>
+            </value>
+            <value>
+                <fullName>Demand Letter</fullName>
+                <default>false</default>
+                <label>Demand Letter</label>
+            </value>
+            <value>
+                <fullName>Cancellation of EOI/CA</fullName>
+                <default>false</default>
+                <label>Cancellation of EOI/CA</label>
+            </value>
+            <value>
+                <fullName>EOI Terms &amp; Conditions</fullName>
+                <default>false</default>
+                <label>EOI Terms &amp; Conditions</label>
+            </value>
+            <value>
+                <fullName>CA Terms &amp; Conditions</fullName>
+                <default>false</default>
+                <label>CA Terms &amp; Conditions</label>
+            </value>
+            <value>
+                <fullName>EOI/CA Form</fullName>
+                <default>false</default>
+                <label>EOI/CA Form</label>
+            </value>
+            <value>
+                <fullName>Intimation of Completion of Unit Check</fullName>
+                <default>false</default>
+                <label>Intimation of Completion of Unit Check</label>
+            </value>
+            <value>
+                <fullName>Car Park Agreement</fullName>
+                <default>false</default>
+                <label>Car Park Agreement</label>
+            </value>
+            <value>
+                <fullName>Approved Car Park Payment Plan</fullName>
+                <default>false</default>
+                <label>Approved Car Park Payment Plan</label>
+            </value>
+            <value>
+                <fullName>Interest Waiver Email</fullName>
+                <default>false</default>
+                <label>Interest Waiver Email</label>
+            </value>
+            <value>
+                <fullName>Terminate/Cancel Booking Email</fullName>
+                <default>false</default>
+                <label>Terminate/Cancel Booking Email</label>
+            </value>
+            <value>
+                <fullName>Cost Sheet with Additional Parking</fullName>
+                <default>false</default>
+                <label>Cost Sheet with Additional Parking</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Demand__c</controllingFieldValue>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Demand Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>Project Header</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>Project Footer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>Terms &amp; Conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>EOI Terms &amp; Conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>CA Terms &amp; Conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project__c</controllingFieldValue>
+            <valueName>Intimation of Completion of Unit Check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity</controllingFieldValue>
+            <valueName>Cost Sheet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity</controllingFieldValue>
+            <valueName>Source Change Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity</controllingFieldValue>
+            <valueName>Cancellation of EOI/CA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity</controllingFieldValue>
+            <valueName>EOI/CA Form</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>Aadhar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>PAN Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Approved Cost Sheet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Booking Form</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Other Supporting Documents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Agreement Sale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Allotment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Payment Receipt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Agreement Checklist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Name Change Note</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>KIT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Escalation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Sanction Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Index II Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Flat Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Flat Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Stamp Duty</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>TDS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>POA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Bank NOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Lien Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <controllingFieldValue>Broker_Payment__c</controllingFieldValue>
+            <valueName>Brokerage Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Booking Checklist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Cost Change Note</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Checklist – Stamp Duty Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – KIT Handover</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Excess Amount Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Contact Details Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Flat Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>CheckList – Flat Cancellation and Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Cancellation Deed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Rectification Deed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Hardship Compensation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Snag/Desnag</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Indemnity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Flat Cost Change Note</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>SDR Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>SDR Challan Copy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>Passport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>OCI/PIO Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>Address Proof</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Bank Approved NOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>ROC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Bank Approved ROC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>NOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Handover Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Checklist - Booking Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Ledger</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Interest Waiver Email</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Terminate/Cancel Booking Email</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Booking__c</controllingFieldValue>
+            <valueName>Cost Sheet with Additional Parking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>RERA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>Rera Certificate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account</controllingFieldValue>
+            <valueName>GST No. Certificate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Project_Progress__c</controllingFieldValue>
+            <valueName>Architecture Certificate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Loan Closure Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Bank Returned NOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Bank Returned ROC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Provisional NOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank_Loan_Details__c</controllingFieldValue>
+            <valueName>Other Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Builder_Organisation__c</controllingFieldValue>
+            <valueName>Letterhead</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment_Milestones__c</controllingFieldValue>
+            <valueName>Interest Waiver</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Property__c</controllingFieldValue>
+            <valueName>Annexures</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Property__c</controllingFieldValue>
+            <valueName>Car Park Agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Property__c</controllingFieldValue>
+            <valueName>Approved Car Park Payment Plan</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Recipient.Name}}}<br />
+We are thrilled to inform you that we have received Occupation Certificate with respect to the {{{Booking__c.Project_Name_Formulla__c}}}, registered with MahaRERA under MahaRERA number {{{Booking__c.RERA_Number__c}}}.<br />
+<br />
+In accordance to the above, we offer possession to you, subject to provisions of Agreement for Sale pertaining to the Apartment No. {{{Booking__c.Unit_Number__c}}} at {{{Booking__c.Project_Name_Formulla__c}}}, a detailed document has been emailed to you on your email address registered with us.&nbsp;<br />
+<br />
+In case you have any queries whatsoever or require any assistance pertaining to the possession of the Apartment, please feel free to get in touch with your relationship manager on {{{Booking__c.Project_Phone__c}}} or over email at {{{Booking__c.Project_Email__c}}}.<br />
+&nbsp;</body></html>

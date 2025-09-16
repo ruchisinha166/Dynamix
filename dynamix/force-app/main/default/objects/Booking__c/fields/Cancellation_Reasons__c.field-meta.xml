@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancellation_Reasons__c</fullName>
+    <label>Cancellation Reasons</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Corona Job Loss</fullName>
+                <default>false</default>
+                <label>Corona Job Loss</label>
+            </value>
+            <value>
+                <fullName>Covid 19</fullName>
+                <default>false</default>
+                <label>Covid 19</label>
+            </value>
+            <value>
+                <fullName>Data Entry Error</fullName>
+                <default>false</default>
+                <label>Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>Financial Loss</fullName>
+                <default>false</default>
+                <label>Financial Loss</label>
+            </value>
+            <value>
+                <fullName>Flat Upgrade</fullName>
+                <default>false</default>
+                <label>Flat Upgrade</label>
+            </value>
+            <value>
+                <fullName>Flat Upgrade Post Regiseration</fullName>
+                <default>false</default>
+                <label>Flat Upgrade Post Regiseration</label>
+            </value>
+            <value>
+                <fullName>Flat Downgrade</fullName>
+                <default>false</default>
+                <label>Flat Downgrade</label>
+            </value>
+            <value>
+                <fullName>Loan Eligibility Issue</fullName>
+                <default>false</default>
+                <label>Loan Eligibility Issue</label>
+            </value>
+            <value>
+                <fullName>Medical Emergency</fullName>
+                <default>false</default>
+                <label>Medical Emergency</label>
+            </value>
+            <value>
+                <fullName>Project Location</fullName>
+                <default>false</default>
+                <label>Project Location</label>
+            </value>
+            <value>
+                <fullName>Personal Issue</fullName>
+                <default>false</default>
+                <label>Personal Issue</label>
+            </value>
+            <value>
+                <fullName>Purchased Property Elsewhere</fullName>
+                <default>false</default>
+                <label>Purchased Property Elsewhere</label>
+            </value>
+            <value>
+                <fullName>Ready Possession</fullName>
+                <default>false</default>
+                <label>Ready Possession</label>
+            </value>
+            <value>
+                <fullName>Bank Information Misguiding</fullName>
+                <default>false</default>
+                <label>Bank Information Misguiding</label>
+            </value>
+            <value>
+                <fullName>No Response</fullName>
+                <default>false</default>
+                <label>No Response</label>
+            </value>
+            <value>
+                <fullName>Job Transfer</fullName>
+                <default>false</default>
+                <label>Job Transfer</label>
+            </value>
+            <value>
+                <fullName>Flat Transfer Before Login</fullName>
+                <default>false</default>
+                <label>Flat Transfer Before Login</label>
+            </value>
+            <value>
+                <fullName>Sale of Flat</fullName>
+                <default>false</default>
+                <label>Sale of Flat</label>
+            </value>
+            <value>
+                <fullName>Dummy Entry</fullName>
+                <default>false</default>
+                <label>Dummy Entry</label>
+            </value>
+            <value>
+                <fullName>Termination</fullName>
+                <default>false</default>
+                <label>Termination</label>
+            </value>
+            <value>
+                <fullName>Unit Transfer</fullName>
+                <default>false</default>
+                <label>Unit Transfer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

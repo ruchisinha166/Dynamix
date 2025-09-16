@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Broker Payment Not Cleared Accounts Team</name>
+    <style>none</style>
+    <subject>Broker Payment Not Cleared</subject>
+    <textOnly>Dear Accounts Team,
+
+The brokerage invoice of {!CP} against Booking {!Name} for {!Unit} in {!Project} was submitted on {!Date}, but the payment is still pending. Please release the payment at the earliest to avoid escalations.
+
+Thank You,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

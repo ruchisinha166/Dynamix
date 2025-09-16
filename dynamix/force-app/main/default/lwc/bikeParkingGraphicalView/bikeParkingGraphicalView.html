@@ -1,0 +1,18 @@
+<template>
+    <div style="display: flex;height:80vh;">
+        <div class="slds-col flexi-box">
+            <c-car-Parking-graphical-view-filters toggle-filter={toggleFilter} ontogglefilter={handleFilterToggle}
+                filters={propertyFilters} onfilterremove={handleRemoveFilter}>
+            </c-car-Parking-graphical-view-filters>
+            <c-bike-Parking-graphical-view-data record-id={recordId} property-graph={filteredPropertyGraph}
+                onproperty_select={handlePropertySelect} class="flexi-box">
+            </c-bike-Parking-graphical-view-data>
+        </div>
+        <c-car-Parking-info property={property} opp-id={oppId} show-property-info={showPropertyInfo}
+            is-transfer={isTransfer} oncloseinfo={handleCloseInfo} ontransfer={handleTransfer}>
+        </c-car-Parking-info>
+        <c-car-Parking-graphical-view-apply-filters toggle-filter={toggleFilter} ontogglefilter={handleFilterToggle}
+            property-graph={propertyGraph} record-id={recordId} onfilterchange={handleFilter} filters={propertyFilters}>
+        </c-car-Parking-graphical-view-apply-filters>
+    </div>
+</template>

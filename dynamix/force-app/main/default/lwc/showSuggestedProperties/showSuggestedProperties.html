@@ -1,0 +1,27 @@
+<!-- propertySelector.html -->
+<template>
+    <div class="modal-container">
+        <div class="modal-header">
+            <lightning-button-icon icon-name="utility:close" variant="border-filled" alternative-text="Collapse Info"
+                title="Collapse Info" onclick={handleClose}></lightning-button-icon>
+        </div>
+        <div class="modal-content">
+            <lightning-card title="Suggested Propety">
+                <div class="options-container">
+                    <div class="options-section">
+                        <lightning-radio-group
+                            name="propertyOptions"
+                            label="Select Suggested Property"
+                            options={propertyOptions}
+                            value={selectedProperty}
+                            onchange={handlePropertyChange}
+                        ></lightning-radio-group>
+                    </div>
+                    <div class="button-section">
+                        <lightning-button label="Submit" onclick={createAddOn}></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+</template>

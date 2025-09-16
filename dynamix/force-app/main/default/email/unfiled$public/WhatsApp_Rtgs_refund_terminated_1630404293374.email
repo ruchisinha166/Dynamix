@@ -1,0 +1,7 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear {{{Payment__c.Primary_Applicant__c}}}<br />
+In accordance with our Termination Notice dated {{{Payment__c.Termination_Notice_dated__c}}}, pertaining to the application/ allotment of the Apartment No. {{{Payment__c.Apartment_No__c}}} at {{{Payment__c.Project_Name__c}}}, registered with MahaRERA under identification No. {{{Payment__c.MahaRERA__c}}}, we have refunded your monies, if any, to your registered Bank Account. Details of such refund have been emailed to you on your email address registered with us.&nbsp;<br />
+<br />
+In case you have any queries whatsoever or need any assistance in relation to the refund amounts with respect to the termination of the application/ allotment of the said Apartment, please feel free to get in touch with your relationship manager on {{{Payment__c.Project_Phone_Formulla__c}}}&nbsp; or over email at {{{Payment__c.Project_Email__c}}}.</body></html>

@@ -1,0 +1,21 @@
+<template>
+<template if:false={areDetailsVisible}>
+    <table>
+    <tbody>
+    
+    <tr style="width:100%">
+
+        <th th style="width:10%">
+        Sourcing Manager:
+        </th>
+        <td data-label="Spec File" style="width:22%;display:inline-block; float:left">
+    <c-Sales-Managerowner selected-icon-name="standard:User" object-label="User" role ="Sales Manager"
+    object-api-name="User" field-api-name="Name" other-field-api-name="Phone"
+    onvalueselected={handleValueSelectedOnSourcingManager} sourcing-manager-id={sourcingManagerId} sourcing-manager-name={sourcingManagerName} make-it-read-only={makeItReadOnly}>
+</c-Sales-Managerowner>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</template>
+</template>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_If_Booking_on_Payment_Milestone_Exist</name>
+        <label>Check If Booking on Payment Milestone Exist</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Booking__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Booking_with_unexposed_Ids_on_Delete</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>addCurrentId</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!$Record.Booking__r.Unexposed_Milestone_Ids_on_Delete__c}), {!$Record.Id},{!$Record.Booking__r.Unexposed_Milestone_Ids_on_Delete__c}&amp;&apos;,&apos;&amp;{!$Record.Id})</expression>
+    </formulas>
+    <interviewLabel>Payment Milestone Data Sync Flow on Delete {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Payment Milestone Data Sync Flow on Delete</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Booking_with_unexposed_Ids_on_Delete</name>
+        <label>Update Booking with unexposed Ids on Delete</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Booking__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Unexposed_Milestone_Ids_on_Delete__c</field>
+            <value>
+                <elementReference>addCurrentId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Booking__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_If_Booking_on_Payment_Milestone_Exist</targetReference>
+        </connector>
+        <object>Payment_Milestones__c</object>
+        <recordTriggerType>Delete</recordTriggerType>
+        <triggerType>RecordBeforeDelete</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

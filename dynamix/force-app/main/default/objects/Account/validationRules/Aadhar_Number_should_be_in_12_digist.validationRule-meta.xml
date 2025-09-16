@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aadhar_Number_should_be_in_12_digist</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK( Aadhar_No__pc )),
+OR( LEN(Aadhar_No__pc ) &lt;&gt; 12, NOT(REGEX(Aadhar_No__pc,&quot;^[0-9]+$&quot;))))</errorConditionFormula>
+    <errorDisplayField>Aadhar_No__pc</errorDisplayField>
+    <errorMessage>Aadhar number is not valid it should be 12 digits long.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<apex:page contentType="application/pdf" renderAs="pdf" standardStylesheets="false">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <body>
+        <h1>Alpha symbol: &#945;</h1> <!-- Unicode character for alpha -->
+    </body>
+</apex:page>

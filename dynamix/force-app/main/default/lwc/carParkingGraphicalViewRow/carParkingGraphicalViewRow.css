@@ -1,0 +1,3 @@
+.pgv-cell+.pgv-cell{
+    margin-left: var(--lwc-spacingMedium,1rem);
+}

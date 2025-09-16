@@ -1,0 +1,10 @@
+Dear {!SMName},
+<br/><br/>
+The following details were marked incorrect for {!Unit} in {!Project} in the Welcome Call checklist.
+<br/> {!checkListDetails}
+
+<br/>
+<br/>
+Thank you,
+<br/>
+Dynamix

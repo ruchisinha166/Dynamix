@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>omni Channel</name>
+    <queueMembers>
+        <roles>
+            <role>Pre_Sales_Executive</role>
+        </roles>
+    </queueMembers>
+    <queueRoutingConfig>Enquiry_Channel_Routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Enquiry__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>communicat_o__Activity__c</sobjectType>
+    </queueSobject>
+</Queue>

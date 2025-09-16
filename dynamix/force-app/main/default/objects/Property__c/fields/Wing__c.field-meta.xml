@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wing__c</fullName>
+    <label>Wing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>WING A</fullName>
+                <default>false</default>
+                <label>WING A</label>
+            </value>
+            <value>
+                <fullName>WING B</fullName>
+                <default>false</default>
+                <label>WING B</label>
+            </value>
+            <value>
+                <fullName>WING C</fullName>
+                <default>false</default>
+                <label>WING C</label>
+            </value>
+            <value>
+                <fullName>WING D</fullName>
+                <default>false</default>
+                <label>WING D</label>
+            </value>
+            <value>
+                <fullName>WING E</fullName>
+                <default>false</default>
+                <label>WING E</label>
+            </value>
+            <value>
+                <fullName>WING F</fullName>
+                <default>false</default>
+                <label>WING F</label>
+            </value>
+            <value>
+                <fullName>WING G</fullName>
+                <default>false</default>
+                <label>WING G</label>
+            </value>
+            <value>
+                <fullName>WING H</fullName>
+                <default>false</default>
+                <label>WING H</label>
+            </value>
+            <value>
+                <fullName>WING I</fullName>
+                <default>false</default>
+                <label>WING I</label>
+            </value>
+            <value>
+                <fullName>WING J</fullName>
+                <default>false</default>
+                <label>WING J</label>
+            </value>
+            <value>
+                <fullName>WING K</fullName>
+                <default>false</default>
+                <label>WING K</label>
+            </value>
+            <value>
+                <fullName>WING L</fullName>
+                <default>false</default>
+                <label>WING L</label>
+            </value>
+            <value>
+                <fullName>WING M</fullName>
+                <default>false</default>
+                <label>WING M</label>
+            </value>
+            <value>
+                <fullName>WING N</fullName>
+                <default>false</default>
+                <label>WING N</label>
+            </value>
+            <value>
+                <fullName>WING O</fullName>
+                <default>false</default>
+                <label>WING O</label>
+            </value>
+            <value>
+                <fullName>WING P</fullName>
+                <default>false</default>
+                <label>WING P</label>
+            </value>
+            <value>
+                <fullName>WING Q</fullName>
+                <default>false</default>
+                <label>WING Q</label>
+            </value>
+            <value>
+                <fullName>WING R</fullName>
+                <default>false</default>
+                <label>WING R</label>
+            </value>
+            <value>
+                <fullName>WING S</fullName>
+                <default>false</default>
+                <label>WING S</label>
+            </value>
+            <value>
+                <fullName>WING T</fullName>
+                <default>false</default>
+                <label>WING T</label>
+            </value>
+            <value>
+                <fullName>WING U</fullName>
+                <default>false</default>
+                <label>WING U</label>
+            </value>
+            <value>
+                <fullName>WING V</fullName>
+                <default>false</default>
+                <label>WING V</label>
+            </value>
+            <value>
+                <fullName>WING W</fullName>
+                <default>false</default>
+                <label>WING W</label>
+            </value>
+            <value>
+                <fullName>WING X</fullName>
+                <default>false</default>
+                <label>WING X</label>
+            </value>
+            <value>
+                <fullName>WING Y</fullName>
+                <default>false</default>
+                <label>WING Y</label>
+            </value>
+            <value>
+                <fullName>WING Z</fullName>
+                <default>false</default>
+                <label>WING Z</label>
+            </value>
+            <value>
+                <fullName>OTHERS</fullName>
+                <default>false</default>
+                <label>OTHERS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

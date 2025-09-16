@@ -1,0 +1,45 @@
+<p> {!Campaign.Owner_Name__c} has requested your approval for the following item: <a href ={!ApprovalRequest.Internal_URL}>{!ApprovalRequest.Internal_URL}</a> </p><br>
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+</style>
+
+<table>
+  <tr>
+    <th colspan=2>Campaign Details</th>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td>{!Campaign.Name}</td>
+  </tr>
+  <tr>
+    <td>Owner</td>
+    <td>{!Campaign.Owner_Name__c}</td>
+  </tr>
+  <tr>
+    <td>Project</td>
+    <td>{!Campaign.Project__c}</td>
+  </tr>
+  <tr>
+    <td>Planned Budget</td>
+    <td>{!Campaign.ActualCost}</td>
+  </tr>
+  <tr>
+    <td>Start Date</td>
+    <td>{!Campaign.StartDate}</td>
+  </tr>
+  <tr>
+    <td>End Date</td>
+    <td>{!Campaign.EndDate}</td>
+  </tr>
+</table><br>
+<p> Please click the above-mentioned link to approve or reject this record. OR &nbsp;Reply to this mail by typing APPROVE or REJECT in the first line and must add comments in the second line to approve or reject this record. </p>
+<p>Thank you,<br>
+Salesforce</p>

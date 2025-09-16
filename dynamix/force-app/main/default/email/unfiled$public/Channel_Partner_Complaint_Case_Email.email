@@ -1,0 +1,7 @@
+Hi {!CRMHeadUserName}, </br></br>
+
+Channel Partner Case: {!CaseNumber} has been assigned to {!newCaseOwner}.</br>
+ </br>
+
+Thank you, </br>
+Dynamix

@@ -1,0 +1,308 @@
+<apex:component controller="PaymentReminderClass" access="global">
+  <apex:attribute name="PayMId" type="Id" description="account id of the case" assignTo="{!PMId}"/>
+  
+  <html>
+    <head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        td{
+        text-align: left;
+        width:20%;
+        
+        }
+        </style>
+        <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 170px;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+             .marginBottom{
+            margin-bottom: 10px;
+            }
+            .marginTop{
+            margin-top: 10px;
+            }
+            </style>
+    </head>
+    <body style="font-family:Helvetica, sans-serif;font-size: 11px;"> 
+        <div class="header">
+        <center><apex:image url="{!ProjectHeader}" width="730" height="140"></apex:image></center>
+       </div>
+            <br/><br/><br/><br/>
+            <center><b>Final Reminder</b></center>
+           <br/>
+           <br/>
+          
+          <div style="padding-left:0px;">
+            <span style="font-family:Helvetica, sans-serif;font-size: 11px;">
+        <span style="text-align:left;">
+            To,
+        <span style="float:right;">
+        Date:&nbsp;<apex:outputText style="text-align: right;" value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!TODAY()}" /></apex:outputText>
+        </span>
+        </span>
+        <br/>
+        {!booking.Primary_Applicant__r.Name}<br/>
+        {!accountObject.PersonMailingStreet}, {!accountObject.PersonMailingCity},<br/>
+        {!accountObject.PersonMailingState} - {!accountObject.PersonMailingPostalCode},<br/>
+        {!accountObject.PersonMailingCountry}<br/>
+        Mob No.: {!accountObject.PersonMobilePhone} 
+        </span>
+        </div>
+        
+           
+          <p style="text-align : left;padding-left:0px;"> Dear sir,</p>
+        <center><b style="text-align : left;" ><u>Sub: Final Reminder for payment of outstanding Milestone linked instalment towards Allotment Premium / Sale Consideration along with Interest.</u></b></center><br/>
+   
+        
+        <div style="font-family:Helvetica, sans-serif;font-size: 11px;padding-left:0px;">    
+      <table style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;border-style: none;width:100%;">
+        <tr>
+          <td style="font-family:Helvetica, sans-serif;font-size: 11px;border-style: none;text-align: justify;width:2%;vertical-align:top;">
+            <b>
+              Re:
+            </b>
+          </td>
+          <td style="font-family:Helvetica, sans-serif;font-size: 11px;border-style: none;text-align: justify;width:98%;">
+              Reminder Letters dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!paymentMilestoneobj.First_Payment_Email_Reminder_Date__c}" /></apex:outputText> 
+                        and&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!paymentMilestoneobj.Second_Payment_Email_Reminder_Date__c}" /></apex:outputText> for
+                        payment of outstanding dues in respect of Application Form dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText> /
+                        Agreement for Sale dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+                        <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText>, (as the case may be), pertaining to Apartment No. {!sPropertyobj.Unit__r.name} on the {!sPropertyobj.Unit__r.Floor__c}<sup>{!floor}</sup> floor of 
+                        the building known as {!booking.Project_Name__r.Name} {!if(LOWER(booking.Tower_Name__r.Name) == 'na',"",booking.Tower_Name__r.Name)}
+                        situated at {!project.City__c}, {!project.state__c} - {!project.Postal_Code__c} (“said Apartment”).
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+        
+          <ol type="1" style="text-align : left;">
+          <li class="marginBottom">
+              <p style="margin-left : 5px;text-align: justify;">
+              We refer to our Reminder Letters dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+              <apex:param value="{!paymentMilestoneobj.First_Payment_Email_Reminder_Date__c}" /></apex:outputText>
+              and&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+              <apex:param value="{!paymentMilestoneobj.Second_Payment_Email_Reminder_Date__c}" /></apex:outputText> wherein we had intimated and reminded you regarding your outstanding dues along with interest thereon (hereinafter referred to as “Outstanding dues”) 
+              in respect of your Application / Allotment for/ of the said Apartment in the building known as {!booking.Project_Name__r.Name} 
+              and called upon you to pay the same within 7 (Seven) days from the date thereof.
+             </p>
+          </li>
+          <li class="marginBottom">
+              <p style="margin-left : 5px;text-align: justify;">
+              We regret to inform you that despite the aforesaid you have failed and neglected to make the payment of the outstanding dues.
+              </p> 
+           </li>
+           <li class="marginBottom">
+               <p style="margin-left : 5px;text-align: justify;">
+               In view thereof, you are liable to pay a sum of Rs.<apex:outputText value="{0,number, #,###.##}">
+               <apex:param value="{!ROUND(TotalAmountwihIntrest,0)}"/></apex:outputText>/- (Rupees {!TotalAmountwihIntrestInWord} only)
+                including the interest calculated up to the date hereof as set out below:
+                </p>
+          </li>
+          </ol> 
+         <table border="1" cellspacing="0" style="margin-left : 35px; padding-left: 0%;text-align : left;">
+             <tr >
+             <th style="width:30%;">
+                 <b><center>Due date</center></b>
+             </th>
+             <th style="width:30%;">
+                 <b><center>Description</center></b>
+             </th>
+             <th style="width:30%;" colspan="2">
+                 <b><center>Amount Due / Outstanding Due </center></b>
+             </th>
+             </tr>
+             <tr >
+                 <td>
+                  	{!paymentMilestoneobj.Due_Date__c}
+                 </td>
+                 <td>
+                   Amount Due / Outstanding Due 
+                 </td>
+                 <td>
+                     <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Last_Amount_Due_Outstanding_Due__c,0)}"/></apex:outputText>
+                     
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                    
+                 </td>
+               
+                 <td>
+                 CGST ( 2.5% ) 
+                
+                 </td>
+                   <td>
+                       <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.CGST_On_Total_Amount_Due__c,0)}"/></apex:outputText>
+                     
+                 </td>
+             </tr>
+            
+             <tr>
+                 <td>
+                     
+                 </td>
+                 <td>
+            SGST ( 2.5% ) 
+                 </td>
+                   <td>
+                       <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.SGST_On_Total_Amount_Due__c,0)}"/></apex:outputText>
+                      
+                       
+    
+                 </td>
+             </tr >
+             
+             <tr >
+                <td>
+                    
+                </td>
+                <td>
+                   [*]  Milestone
+                   
+                </td>
+                   <td>
+                         <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Remaining_Amount__c,0)}"/></apex:outputText>
+                    		
+                 </td>
+             </tr >
+             <tr >
+                 <td>
+                   
+                 </td>
+                 <td>
+                     CGST ( 2.5% ) 
+                 </td>
+                   <td>
+                          <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.CGST_On_Milestone_Remining_Amount_Due__c,0)}"/></apex:outputText>
+                    
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     
+                 </td>
+                 <td>
+                    SGST ( 2.5% ) 
+                 </td>
+                   <td>
+                        <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.SGST_on_Milestone_Remining_Amount__c,0)}"/></apex:outputText>
+                     
+                 </td>
+             </tr >
+            
+             <tr >
+                 <td colspan="2" >
+                     <center>Total Due (Milestone linked Allotment Premium/Sale     Consideration Amount)  </center>
+                 </td>
+                 <td>
+                      <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Total_Due_Amount_of_Milestones__c,0)}"/></apex:outputText>
+                   
+                 </td>
+                   
+             </tr >
+           
+             <tr >
+                  <td colspan="2" >
+                     <center> Total Interest Due </center>
+                 </td>
+                   <td>
+                                             <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Interest_on_Total_Amount_of_Milestones__c,0)}"/></apex:outputText>
+                    
+                 </td>
+                </tr>
+                <tr>
+                      <td colspan="2" >
+                     <center>Interest on GST - 18%  </center>
+                 </td>
+                      <td>
+                          <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Interest_on_CGST_SGST__c,0)}"/></apex:outputText>
+                    
+                 </td>
+                </tr >
+                <tr >
+                     <td colspan="2" >
+                     <center> Total Interest Due </center>
+                 </td>
+                      <td>
+                             <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Total_Interest_Due__c,0)}"/></apex:outputText>
+                   
+                 </td>
+                 </tr >
+                 <tr >
+                       <td colspan="2" >
+                     <center>18% GST on Interest Due  </center>
+                 </td>
+                       <td>
+                           <apex:outputText value="{0,number, #,###}">
+               <apex:param value="{!ROUND(paymentMilestoneobj.Gst_On_Total_Interest_Due__c,0)}"/></apex:outputText>
+                     		
+                 </td>
+                </tr >
+          </table> 
+ 
+          
+            <p style="margin-left : 5px;text-align :justify;padding-left:0px;">
+               In view of maintaining cordial relations, we are hereby making this last and final attempt of once again
+               calling upon you to make the payment of the aforesaid outstanding dues with in 3 (three) days from
+                the date hereof, failing which your Application / Allotment in respect of the said Apartment automatically 
+                stand withdrawn / cancelled / terminated as per the terms and conditions contained in the captioned Application 
+                Form / Agreement For Sale (as the case may be), which you please note.
+                 </p>
+           <p style="margin-left : 5px;text-align : left;padding-left:0px;">
+               Yours Truly,</p>
+           <p style="margin-left : 5px;text-align : left;padding-left:0px;"><b>{!project.Builder_Organization__r.name}</b>
+        </p><br/><br/>
+           
+           
+        <div class="footer">
+        <center><apex:image url="{!ProjectFooter}"  width="700" height="50"  /></center>
+      </div>
+    </body>
+</html>
+</apex:component>

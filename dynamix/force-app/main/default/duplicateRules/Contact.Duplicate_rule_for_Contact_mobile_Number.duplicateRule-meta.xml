@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionOnInsert>Block</actionOnInsert>
+    <actionOnUpdate>Block</actionOnUpdate>
+    <alertText>Provided mobile number already exist for another record, please use different mobile number.hese records?</alertText>
+    <description xsi:nil="true"/>
+    <duplicateRuleFilter xsi:nil="true"/>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Contact</matchRuleSObjectType>
+        <matchingRule>Matching_rule_for_Contact_mobile_Number</matchingRule>
+        <objectMapping xsi:nil="true"/>
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>Duplicate rule for Contact mobile Number</masterLabel>
+    <securityOption>EnforceSharingRules</securityOption>
+    <sortOrder>4</sortOrder>
+</DuplicateRule>

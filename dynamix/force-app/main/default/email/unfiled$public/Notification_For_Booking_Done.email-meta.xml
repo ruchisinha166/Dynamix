@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Notification For Booking Done</name>
+    <style>none</style>
+    <subject>Flat - {!Booking__c.Property_Name__c} is Successfully Booked</subject>
+    <textOnly>CONGRATULATIONS!!!!
+
+Dear {!Contact.FirstName},{!Contact.LastName}
+
+You are now a Dynamix and a proud owner of  {!Booking__c.Tower_Name__c} –  at  {!Booking__c.Property_Name__c} {!Booking__c.Project_Name__c}, We Thank You for your continued patronage towards Dynamix Group.
+
+Our team will be there to assist you in your journey at {!Booking__c.Project_Name__c}.
+
+For any queries call or email at {!Booking__c.Project_Email__c}
+
+Warm Regards,
+Dynamix Group</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

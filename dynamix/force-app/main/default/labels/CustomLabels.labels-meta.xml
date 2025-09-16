@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Account_User_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Account User ID</shortDescription>
+        <value>0055g000001rhjl</value>
+    </labels>
+    <labels>
+        <fullName>Animesh_Das</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Animesh Das</shortDescription>
+        <value>animesh.das@dynamixgroup.co.in</value>
+    </labels>
+    <labels>
+        <fullName>AuthorizationHeader</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AuthorizationHeader</shortDescription>
+        <value>Basic c2ItMDUyMmNiNzYtODI3Zi00N2I2LTkwMjgtZGQ2ODlmZmZhNDU0IWI5MTk0MHxpdC1ydC1keW5hbWl4LWNwaS1ub24tcHJvZC00ZDU2cmV0diFiMTg2MzE6YTk5NDU1NTktOTE4MC00NTEzLWE3ZjYtMWVlMjBhYzFiYzE4JFM2SzlzVHhBNVJUb2tsZEo1NDFYODhyYTVkVjZCN2RFdFl0RW5LRFJqVXc9</value>
+    </labels>
+    <labels>
+        <fullName>Avanya_Project_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Avanya Project Name</shortDescription>
+        <value>Avanya</value>
+    </labels>
+    <labels>
+        <fullName>Axis</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Axis</shortDescription>
+        <value>AXIS Bank</value>
+    </labels>
+    <labels>
+        <fullName>Bearer_Token_For_OTP</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bearer Token For OTP</shortDescription>
+        <value>1036363e9276f111889ee45c482d1997</value>
+    </labels>
+    <labels>
+        <fullName>Booking_Form_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Booking Form Link</shortDescription>
+        <value>https://dynamixgroup2--dynamixpar.sandbox.my.salesforce-sites.com/bookingForm</value>
+    </labels>
+    <labels>
+        <fullName>Booking_Trigger</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Booking Trigger</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Payment_Email_Template_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Payment Email Template ID</shortDescription>
+        <value>00XBg0000000LVt</value>
+    </labels>
+    <labels>
+        <fullName>CRM_Head_User</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRM Head User</shortDescription>
+        <value>beena.patel@dynamixgroup.co.in.dynamixpar</value>
+    </labels>
+    <labels>
+        <fullName>CarParkingMilestone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CarParkingMilestone</shortDescription>
+        <value>Car Parking Milestone</value>
+    </labels>
+    <labels>
+        <fullName>Channel_Partner_Phone_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Channel Partner Phone Number</shortDescription>
+        <value>-</value>
+    </labels>
+    <labels>
+        <fullName>ContentVersionTrigger</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ContentVersionTrigger</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Snag_List_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Snag List Error Message</shortDescription>
+        <value>You cannot mark this task as complete without Uploading customer snag list on Booking.</value>
+    </labels>
+    <labels>
+        <fullName>Divum_Project_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Divum Project Name</shortDescription>
+        <value>Divum</value>
+    </labels>
+    <labels>
+        <fullName>Due_Date_Duration</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Due Date Duration</shortDescription>
+        <value>7</value>
+    </labels>
+    <labels>
+        <fullName>Error_For_Post_OC_FM_Unit_Inspection</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error For Post - OC FM Unit Inspection</shortDescription>
+        <value>You cannot close the task until all Snags are closed.</value>
+    </labels>
+    <labels>
+        <fullName>Final_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Final Reminder</shortDescription>
+        <value>00X5g000000Yncl</value>
+    </labels>
+    <labels>
+        <fullName>First_Payment_Reminder_Notification</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>First_Payment_Reminder_Notification</shortDescription>
+        <value>00X5g000000YqBb</value>
+    </labels>
+    <labels>
+        <fullName>HDFC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HDFC</shortDescription>
+        <value>HDFC Bank</value>
+    </labels>
+    <labels>
+        <fullName>ICICI</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ICICI</shortDescription>
+        <value>ICICI Bank</value>
+    </labels>
+    <labels>
+        <fullName>JayUser</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>JayUser</shortDescription>
+        <value>j.goenka@dynamixgroup.co.in</value>
+    </labels>
+    <labels>
+        <fullName>LIC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LIC</shortDescription>
+        <value>LIC Housing Finance</value>
+    </labels>
+    <labels>
+        <fullName>Notification_for_Broker_on_Booking</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Notification for Broker on Booking</shortDescription>
+        <value>00X5g000000Yncr</value>
+    </labels>
+    <labels>
+        <fullName>Notification_for_Broker_on_Site_Visit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Notification for Broker on Site Visit</shortDescription>
+        <value>00X5g000000Yncs</value>
+    </labels>
+    <labels>
+        <fullName>OtherChargesMilestone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OtherChargesMilestone</shortDescription>
+        <value>Possession/Handover(Other) Charge</value>
+    </labels>
+    <labels>
+        <fullName>PM_Head_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PM Head Email</shortDescription>
+        <value>aanchal.dhiman@manras.com; Prashant.sharma@manras.com</value>
+    </labels>
+    <labels>
+        <fullName>Parkwoods_project_name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Parkwoods project name</shortDescription>
+        <value>Parkwoods D5</value>
+    </labels>
+    <labels>
+        <fullName>Payment_Reminder_Email_Template_for_Booking_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generate PMT notification Id</shortDescription>
+        <value>00X5g000000Ynck</value>
+    </labels>
+    <labels>
+        <fullName>Payment_Trigger</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Payment Trigger</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
+        <fullName>Payment_reminder_after_7_days_email_template</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Payment reminder after 7 days email template</shortDescription>
+        <value>00X5g000000Yncv</value>
+    </labels>
+    <labels>
+        <fullName>Person_Account</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Person Account</shortDescription>
+        <value>PersonAccount</value>
+    </labels>
+    <labels>
+        <fullName>ProjectID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProjectID</shortDescription>
+        <value>a0Q5g000001uuajEAA</value>
+    </labels>
+    <labels>
+        <fullName>Project_Add_On_Parking_Record_Tpye</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Project Add On Parking Record Tpye</shortDescription>
+        <value>0125g000000d9RtAAI</value>
+    </labels>
+    <labels>
+        <fullName>Project_Preferred_Location_Record_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Project Preferred Location Record Id</shortDescription>
+        <value>0125g000000d9RuAAI</value>
+    </labels>
+    <labels>
+        <fullName>RM_Complete_Unit_Inspection_Task</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RM Complete Unit Inspection Task</shortDescription>
+        <value>You cannot mark this task as complete without completing customer snag list on property.</value>
+    </labels>
+    <labels>
+        <fullName>Refund_Cancellation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Refund Note Cancellation</shortDescription>
+        <value>00X9D0000010q9V</value>
+    </labels>
+    <labels>
+        <fullName>Refund_Note_Cancellation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Note Cancellation</shortDescription>
+        <value>00X5g000000Yncw</value>
+    </labels>
+    <labels>
+        <fullName>Refund_Note_Termination</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Note Termination</shortDescription>
+        <value>00X5g000000Yncx</value>
+    </labels>
+    <labels>
+        <fullName>SBI</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SBI</shortDescription>
+        <value>State Bank Of India,STATE BANK OF INDIA</value>
+    </labels>
+    <labels>
+        <fullName>SMSAllotment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMSAllotment</shortDescription>
+        <value>m0B0p0000009dff</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Cancellation_Booking_Cheque</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Cancellation Booking Cheque</shortDescription>
+        <value>m0B0p0000009dgJ</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Cancellation_Booking_RTGS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Cancellation Booking RTGS</shortDescription>
+        <value>m0B0p0000009dgO</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Demand_Letter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Demand Letter</shortDescription>
+        <value>m0B0p0000009dfk</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Final_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Final Reminder</shortDescription>
+        <value>m0B0p0000009dgd</value>
+    </labels>
+    <labels>
+        <fullName>SMS_First_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS First Reminder</shortDescription>
+        <value>m0B0p0000009dgT</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Second_Posession</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS_Second_Posession</shortDescription>
+        <value>m0B0p0000009dg4</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Second_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Second Reminder</shortDescription>
+        <value>m0B0p0000009dgY</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Termination_Booking_Cheque</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Termination Booking Cheque</shortDescription>
+        <value>m0B0p0000009dgE</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Termination_Booking_RTGS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Termination Booking RTGS</shortDescription>
+        <value>m0B0p0000009dg9</value>
+    </labels>
+    <labels>
+        <fullName>SMS_Termination_Letter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMS Termination Letter</shortDescription>
+        <value>m0B0p0000009dgi</value>
+    </labels>
+    <labels>
+        <fullName>SMSaggrement</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SMSaggrement</shortDescription>
+        <value>m0B0p0000009dfu</value>
+    </labels>
+    <labels>
+        <fullName>S_M_Head</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>S&amp;M Head</shortDescription>
+        <value>jessie.k@dynamixgroup.co.in</value>
+    </labels>
+    <labels>
+        <fullName>Sales_Profile_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sales Profile Id</shortDescription>
+        <value>00eN0000000hGKV</value>
+    </labels>
+    <labels>
+        <fullName>Second_Payment_Reminder_Notification</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Second_Payment_Reminder_Notification</shortDescription>
+        <value>00X5g000000Yncz</value>
+    </labels>
+    <labels>
+        <fullName>Site_Head_User_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Site Head User Name</shortDescription>
+        <value>manas.dixit@dynamixgroup.co.in</value>
+    </labels>
+    <labels>
+        <fullName>Sms_Subvention</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sms Subvention</shortDescription>
+        <value>m0B0p0000009dfz</value>
+    </labels>
+    <labels>
+        <fullName>Task_Trigger</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Trigger</shortDescription>
+        <value>false</value>
+    </labels>
+    <labels>
+        <fullName>Termination_Note</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Termination Note</shortDescription>
+        <value>00X5g000000Ynd0EAC</value>
+    </labels>
+    <labels>
+        <fullName>Thank_You_Email_Template_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Thank You Email Template Id</shortDescription>
+        <value>00X5g000000Ynd1EAC</value>
+    </labels>
+    <labels>
+        <fullName>TriggerOnPaymentMileStone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TriggerOnPaymentMileStone</shortDescription>
+        <value>True</value>
+    </labels>
+    <labels>
+        <fullName>Unit_Inspection_Scheduled_For_a_Day</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unit Inspection Scheduled For a Day</shortDescription>
+        <value>5</value>
+    </labels>
+    <labels>
+        <fullName>Welcome_Email_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Welcome Email Id</shortDescription>
+        <value>00X5g000000Ynd2EAC</value>
+    </labels>
+    <labels>
+        <fullName>Welcome_SMS_Template_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Welcome SMS Template Id</shortDescription>
+        <value>m0B0p0000009dXR</value>
+    </labels>
+    <labels>
+        <fullName>WhatsApp_RTgs_refund_termina</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WhatsApp RTgs refund termina</shortDescription>
+        <value>m055g000000Aegx</value>
+    </labels>
+    <labels>
+        <fullName>WhatsApp_Rtgs_refund_cancellation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WhatsApp Rtgs refund cancellation</shortDescription>
+        <value>m055g000000Aegy</value>
+    </labels>
+    <labels>
+        <fullName>WhatsApp_Sender_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WhatsApp Sender Address</shortDescription>
+        <value>Dynamix_919152915208</value>
+    </labels>
+    <labels>
+        <fullName>Whatsap_Final_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsap Final Reminder</shortDescription>
+        <value>m055g000000Aeh2</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Agreement</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Agreement</shortDescription>
+        <value>m055g000000Aegt</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Allotment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Allotment</shortDescription>
+        <value>m055g000000Aegw</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Cheque_Refund_Details_Cancellat</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Cheque Refund Details Cancellat</shortDescription>
+        <value>m055g000000Aegz</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Cheque_Refund_Details_Terminati</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Cheque Refund Details Terminati</shortDescription>
+        <value>m055g000000Aeh0</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Demand_letter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Demand letter</shortDescription>
+        <value>m055g000000Aeh1</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_First_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp First Reminder</shortDescription>
+        <value>m055g000000Aeh3</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Possession</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Possession</shortDescription>
+        <value>m055g000000Aeh4</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Second_Reminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Second Reminder</shortDescription>
+        <value>m055g000000Aeh5</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Termination</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Termination id</shortDescription>
+        <value>m055g000000Aegu</value>
+    </labels>
+    <labels>
+        <fullName>Whatsapp_Welcome_TemplateId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Whatsapp Welcome TemplateId</shortDescription>
+        <value>m055g000000Aeh7</value>
+    </labels>
+    <labels>
+        <fullName>ers_CancelButton</fullName>
+        <categories>buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>ers_ClearFilterAction</fullName>
+        <categories>actions</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear Filter</shortDescription>
+        <value>Clear Filter</value>
+    </labels>
+    <labels>
+        <fullName>ers_ClearFilterButton</fullName>
+        <categories>buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear All Filters</shortDescription>
+        <value>Clear All Filters</value>
+    </labels>
+    <labels>
+        <fullName>ers_ClearSelectionButton</fullName>
+        <categories>buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear Selection</shortDescription>
+        <value>Clear Selection</value>
+    </labels>
+    <labels>
+        <fullName>ers_ColumnHeader</fullName>
+        <categories>headers</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Column</shortDescription>
+        <value>Column</value>
+    </labels>
+    <labels>
+        <fullName>ers_EmptyTableMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty</shortDescription>
+        <value>This table currently has no data to display</value>
+    </labels>
+    <labels>
+        <fullName>ers_ErrorRequiredEntry</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required</shortDescription>
+        <value>This is a required entry.  At least 1 row must be selected.</value>
+    </labels>
+    <labels>
+        <fullName>ers_FilterHeader</fullName>
+        <categories>headers</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filter</shortDescription>
+        <value>Filter</value>
+    </labels>
+    <labels>
+        <fullName>ers_LabelHeader</fullName>
+        <categories>headers</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label</shortDescription>
+        <value>Label</value>
+    </labels>
+    <labels>
+        <fullName>ers_SaveButton</fullName>
+        <categories>buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>ers_SearchPlaceholder</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search Term</shortDescription>
+        <value>Enter search term ...</value>
+    </labels>
+    <labels>
+        <fullName>ers_SetFilterAction</fullName>
+        <categories>actions</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Set Filter</shortDescription>
+        <value>Set Filter</value>
+    </labels>
+    <labels>
+        <fullName>fsc_AccessLevel</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccessLevel</shortDescription>
+        <value>Access Level</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Back</fullName>
+        <categories>Buttons,Filters,Title</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ButtonIsNotSupportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ButtonIsNotSupportedMessage</shortDescription>
+        <value>Following buttons are note supported:</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ConditionLogicHelpText</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ConditionLogicHelpText</shortDescription>
+        <value>Use parentheses, AND, OR, and NOT to customize the logic. For example, if you enter “(1 AND 2 AND 3) OR 4”, the flow evaluates whether the first three conditions are true or only the fourth condition is true.</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Delete</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>fsc_FieldIsNotSupportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FieldIsNotSupportedMessage</shortDescription>
+        <value>Following fields are not supported:</value>
+    </labels>
+    <labels>
+        <fullName>fsc_FieldTypeNotSuportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>fsc_FieldTypeNotSuportedMessage</shortDescription>
+        <value>You provided an unsupported value for the DataTypeFilter input on Object and Field Picker. Currently the only supported value is ’picklist’</value>
+    </labels>
+    <labels>
+        <fullName>fsc_For</fullName>
+        <categories>Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For</shortDescription>
+        <value>For</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Key_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Key Label</shortDescription>
+        <value>Key</value>
+    </labels>
+    <labels>
+        <fullName>fsc_LackingPermissions</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LackingPermissions</shortDescription>
+        <value>You don\&apos;t have the proper permissions for ths action</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ManagerEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ManagerEmptyMessage</shortDescription>
+        <value>&quot;Manager APEX Class&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_MultipleGroupsForRole</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MultipleGroupsForRole</shortDescription>
+        <value>There are multiple groups for that role</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Name</fullName>
+        <categories>quicklinks, Labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>fsc_NonePicklistValueLabel</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NonePicklistValueLabel</shortDescription>
+        <value>-- None --</value>
+    </labels>
+    <labels>
+        <fullName>fsc_OWDReadWrite</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OWDReadWrite</shortDescription>
+        <value>Sharing Settings must be private or public read/write to enable manual sharing</value>
+    </labels>
+    <labels>
+        <fullName>fsc_OwnerAdminModify</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OwnerAdminModify</shortDescription>
+        <value>Only the record owner or administrators can modify permissions</value>
+    </labels>
+    <labels>
+        <fullName>fsc_PublicGroups</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PublicGroups</shortDescription>
+        <value>Public Groups</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Queues</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queues</shortDescription>
+        <value>Queues</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Read</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Read</shortDescription>
+        <value>Read</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ReadWrite</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ReadWrite</shortDescription>
+        <value>Read / Write</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Reason</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reason</shortDescription>
+        <value>Reason</value>
+    </labels>
+    <labels>
+        <fullName>fsc_RelatedUsers</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RelatedUsers</shortDescription>
+        <value>Related Users</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Roles</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Roles</shortDescription>
+        <value>Roles</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Search</fullName>
+        <categories>Actions,Buttons,quicklinks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search in</shortDescription>
+        <value>Search in</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SearchFor</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SearchFor</shortDescription>
+        <value>For</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SetAccessLevel</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SetAccessLevel</shortDescription>
+        <value>Set Access Level</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedAddCapabilitiesEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedAddCapabilitiesEmptyMessage</shortDescription>
+        <value>&quot;Add Capabilities&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedButtonsEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedButtonsEmptyMessage</shortDescription>
+        <value>&quot;Supported Buttons&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedEditCapabilitiesEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedEditCapabilitiesEmptyMessage</shortDescription>
+        <value>&quot;Edit Capabilities&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_TooManyResultsMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TooManyResultsMessage</shortDescription>
+        <value>Your search found more than 200 results.  Keep typing to make it more specific</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Type</fullName>
+        <categories>Buttons,Filters,Title</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>fsc_UserOrGroup</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>UserOrGroup</shortDescription>
+        <value>User Or Group</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Users</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Users</shortDescription>
+        <value>Users</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Value_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Value Label</shortDescription>
+        <value>Value</value>
+    </labels>
+</CustomLabels>

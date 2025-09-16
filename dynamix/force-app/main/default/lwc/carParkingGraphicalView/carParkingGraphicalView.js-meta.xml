@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <apiVersion>50.0</apiVersion>
+    
+    <isExposed>true</isExposed>
+    
+    <masterLabel>Property Graphical View</masterLabel>
+    
+    <targets>
+        
+        <target>lightning__RecordPage</target>
+        
+        <target>lightning__FlowScreen</target>
+        
+    </targets>
+    
+    <targetConfigs>
+        
+        <targetConfig targets="lightning__RecordPage">
+            
+            <objects>
+                
+                <object>Project__c</object>
+                
+            </objects>
+            
+        </targetConfig>
+        
+        <targetConfig targets="lightning__FlowScreen">
+            
+            <property name="recordId" type="String" label="Project Id" description="Id of Project" role="inputOnly"/>
+            
+            <property name="isTransfer" type="Boolean" label="isTransfer" description="True if used for booking transfer" role="inputOnly"/>
+            
+            <property name="selectedProperty" type="String" label="Selected Property Id" description="Id of Selected Propert" role="outputOnly"/>
+            
+        </targetConfig>
+        
+    </targetConfigs>
+    
+</LightningComponentBundle>

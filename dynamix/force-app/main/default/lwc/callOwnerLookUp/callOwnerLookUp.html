@@ -1,0 +1,92 @@
+<template>
+  <template if:false={areDetailsVisible}>
+     <table>
+      <tbody>
+        
+      <tr style="width:100%">
+   <th style="width:10%">
+            Channel Partner:
+          </th>
+          <td data-label="Spec File" style="width:22%;display:inline-block; float:left">
+   <c-reusable-lookup selected-icon-name="standard:account" object-label="Account"
+        object-api-name="Account" field-api-name="Name" other-field-api-name="Phone"
+        onvalueselected={handleValueSelectedOnAccount} channel-partner-id={recordInfo} channel-partner-name={channelPartnerName} make-it-read-only={makeItReadOnly}
+        type="Channel Partner"
+        >
+    </c-reusable-lookup>
+          </td>
+          <!--th th style="width:10%">
+            Sourcing Manager:
+          </th>
+          <td data-label="Spec File" style="width:50%;display:inline-block; float:left">
+        <c-Sales-Managerowner selected-icon-name="standard:User" object-label="User"
+        object-api-name="User" field-api-name="Name" other-field-api-name="Phone"
+        onvalueselected={handleValueSelectedOnSourcingManager} sourcing-manager-id={sourcingManagerId} sourcing-manager-name={sourcingManagerName} make-it-read-only={makeItReadOnly}>
+    </c-Sales-Managerowner>
+          </td---->
+      </tr>
+      </tbody>
+     </table>
+  </template>
+    <template if:true={areDetailsVisible}>
+      <table>
+      <tbody>
+        
+      <tr style="width:100%">
+   <th style="width:10%">
+            Channel Partner:
+          </th>
+
+<td data-label="Spec File" style="width:50%;display:inline-block; float:left">
+      <div tabindex="0" class="slds-combobox_container slds-has-selection">
+                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                            role="none" >
+                            <span
+                                class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                                title="Account">
+                                <lightning-icon icon-name={selectedIconName} alternative-text={selectedIconName}
+                                    size="x-small"></lightning-icon>
+                            </span>
+                            <button type="button"
+                                class="slds-input_faux slds-combobox__input slds-combobox__input-value"
+                                aria-labelledby="combobox-label-id-34 combobox-id-5-selected-value"
+                                id="combobox-id-5-selected-value" aria-controls="listbox-id-5" aria-expanded="false"
+                                aria-haspopup="listbox" >
+                                <span class="slds-truncate" id="combobox-value-id-19" >{channelPartnerName}</span>
+                            </button>
+                        </div>
+                    </div>
+</div>
+</td>
+<th th style="width:10%">
+            Sourcing Manager:
+          </th>
+<td data-label="Spec File" style="width:50%;display:inline-block; float:left">
+      <div tabindex="0" class="slds-combobox_container slds-has-selection">
+                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                            role="none" >
+                            <span
+                                class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                                title="Account">
+                                <lightning-icon icon-name={selectedIconName} alternative-text={selectedIconName}
+                                    size="x-small"></lightning-icon>
+                            </span>
+                            <button type="button"
+                                class="slds-input_faux slds-combobox__input slds-combobox__input-value"
+                                aria-labelledby="combobox-label-id-34 combobox-id-5-selected-value"
+                                id="combobox-id-5-selected-values" aria-controls="listbox-id-5" aria-expanded="false"
+                                aria-haspopup="listbox" >
+                                <span class="slds-truncate" id="combobox-value-id-191" >{sourcingManagerName}</span>
+                            </button>
+                        </div>
+                    </div>
+</div>
+</td>
+      </tr>
+      </tbody>
+      </table>
+    </template>
+    <!--</lightning-card>-->
+</template>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_Of_Call__c</fullName>
+    <label>Type Of Call</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pre Sales</fullName>
+                <default>false</default>
+                <label>Pre Sales</label>
+            </value>
+            <value>
+                <fullName>Post Sales</fullName>
+                <default>false</default>
+                <label>Post Sales</label>
+            </value>
+            <value>
+                <fullName>Sourcing</fullName>
+                <default>false</default>
+                <label>Sourcing</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

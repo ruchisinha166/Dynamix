@@ -1,0 +1,53 @@
+<apex:page standardController="Booking__c" renderAs="pdf">
+<html>
+    <head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        td{
+        text-align: left;
+        width:20%;
+        
+        }
+        </style>
+    </head>
+    <body>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Date : _________________</p>
+        <br/>
+        
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">From:</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;"><b>Main Applicant Name</b></p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Address 1</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Address 2</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">City, PinCode,</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Contact No.</p>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">To,</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;"></p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">]</p>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;">Kalyan Shil Road, Dombivali East 421203</p>
+
+        <br/>
+        <p style="margin-left : 55px;font-family:sans-serif;font-size: 15px;text-align: justify;"><b>Re: TDS payment in respect of Residential Apartment No.________, floor ____, in Building No.________________ in the Complex “” at Kalyan Murbad Road, Ulhasnagar.</b></p>
+        
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">Dear Sir,</p>
+        
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">I/We have been allotted Residential Apartment No.____, floor ___, in Building No.____________ in the Complex <b>“”</b> at Kalyan Murbad Road, Ulhasnagar under a Booking Form/Allotment Letter / Agreement for Sale</p>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">As per the agreement for sale the Allottees are responsible to deduct the applicable Tax Deduction at Source(TDS) at the time of making actual payments to the Developer as per Section 194-IA of Income Tax Act 1961.</p>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">I/We hereby request and authorize you () to deduct TDS on payments payable as per allotment letter / agreement for sale. and deposit the same with Income Tax department on our behalf.</p>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;">Kindly do the needful.</p>
+        <br/>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;"><b>Main Applicant</b></p>
+        <br/>
+        <br/>
+        <p style="margin-left : 25px;font-family:sans-serif;font-size: 15px;text-align: justify;"><b>Co-Applicant</b></p>
+    </body>
+</html>
+</apex:page>

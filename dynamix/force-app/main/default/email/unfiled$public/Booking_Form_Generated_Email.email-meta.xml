@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Booking Form Generated Email</name>
+    <style>none</style>
+    <subject>Booking Form Generated</subject>
+    <textOnly>Hi {!SM},  
+
+Booking Form has been generated Successfully for Booking: {!Booking__c.Name}  
+
+
+Thank you, 
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

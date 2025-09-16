@@ -1,0 +1,140 @@
+<apex:page standardController="Booking__c" extensions="ChangeNoteController" renderAs="pdf" applyHtmlTag="true" showHeader="false" >
+    <html>
+       <style>
+           table
+           {
+                font-family:Calibri (Body);
+           }
+       </style>
+       <body>
+           
+            <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+               <tr>
+                    <td bgcolor="#800000" style="font-size:20px;text-align:center;color:white;font-family:Arial, Helvetica, sans-serif" ><b>Name Change Note</b></td>
+                </tr>
+            </table>
+            <br/>
+            <table Width="100%" border="1" cellspacing="0" cellpadding="">
+                <tr>
+                    <td style="font-family:Arial, Helvetica, sans-serif;"><b>Customer Name:</b></td>
+                    <td colspan="4">{!booking.Primary_Applicant__r.Name}</td>
+                </tr>
+                <tr>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Booking Date</b></td>
+                    <td colspan="4">
+                    
+                    <apex:outputText value="{0,date,dd/MM/yy}"> 
+                        <apex:param value="{!booking.Booking_Date__c}" />
+                    </apex:outputText>
+                    </td>
+                </tr>
+                 <tr > 
+                    <td rowspan="2" style="font-family:Arial, Helvetica, sans-serif"><b>Flat Details:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Building No. And Name</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Flat No.</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Agreement Value</b></td>
+                   
+                </tr>
+                <tr>
+                   <td style="height:30px;">{!booking.Tower_Name__r.Building_Type__c} {!properties.Name}</td>
+                    <td >{!properties.Floor__c}</td>
+                    <td >{!booking.Agreement_Value__c}</td>
+                   
+                </tr>
+            </table>
+               
+           <br/>
+           <!--table 2-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;font-family:Arial, Helvetica, sans-serif" ><b><i>Proposed Changes</i></b></td>
+                </tr> 
+                <tr>    
+                    <td  colspan="1" Width="25%" style="padding:5px;font-family:Arial, Helvetica, sans-serif"><b>Main Applicant Name</b></td>
+                    <td  colspan="3"></td>                   
+                </tr>
+                <tr>    
+                    <td  style="padding:30px;"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Contact No:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>PAN No : </b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Aadhar No. </b></td>                 
+                </tr>
+                  
+                <tr>    
+                    <td  style="padding:5px;"><b>Applicant Name</b></td>
+                   <td  style="font-family:Arial, Helvetica, sans-serif" colspan="3"></td>                   
+                </tr>
+                <tr>    
+                    <td style="padding:30px;"><b>Relation:</b></td>
+                    <td style="padding-left:3px;"><b>Contact No:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>PAN No :</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Aadhar No.</b></td>                 
+                </tr>
+               
+                <tr>    
+                    <td  style="padding:5px;"><b>Second Applicant Name</b></td>
+                    <td  style="font-family:Arial, Helvetica, sans-serif" colspan="3"></td>                   
+                </tr>
+                <tr>    
+                    <td style="padding:30px;"><b>Relation:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif" ><b>Contact No:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>PAN No</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Aadhar No.</b></td>                 
+                </tr>
+                <tr>    
+                    <td  style="padding:5px;"><b>Third Applicant Name</b></td>
+                    <td  style="font-family:Arial, Helvetica, sans-serif" colspan="3"></td>                   
+                </tr>
+                <tr>    
+                    <td style="padding:30px;"><b>Relation:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Contact No:</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>PAN No</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Aadhar No.</b></td>                 
+                </tr>
+                
+                
+            </table>
+           <br/>
+           
+           <!--table 3-->
+           <table Width="100%" border="1" cellspacing="0" cellpadding="3">
+                
+                <tr>
+                    <td colspan="4"  bgcolor="#800000" style="font-size:14px;color:white;" ><b><i>Checked By</i></b></td>
+                </tr> 
+                <tr>
+                    <td ></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif;" ><b>Name</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Date</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"><b>Signature</b></td>
+                </tr>
+                <tr>
+                    <td style="font-family:Arial, Helvetica, sans-serif;height:44px;"><b>RM Name</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                </tr>
+                <tr>
+                    <td style="font-family:Arial, Helvetica, sans-serif;height:44px;"><b>Checked By</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                </tr>
+                <tr>
+                     <td style="font-family:Arial, Helvetica, sans-serif;height:44px;"><b>Verified By</b></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                    <td style="font-family:Arial, Helvetica, sans-serif"></td>
+                </tr>
+                
+           </table><br/>
+          
+          
+           <br/>
+           <p style="font-family:Arial, Helvetica, sans-serif">
+               <b>Remarks:&nbsp;</b>
+           </p>
+        </body>
+    </html>
+</apex:page>

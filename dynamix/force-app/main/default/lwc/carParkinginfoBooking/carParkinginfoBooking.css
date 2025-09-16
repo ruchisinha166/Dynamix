@@ -1,0 +1,10 @@
+.slds-hide {
+    display: none;
+}
+
+.slds-show {
+    display: block;
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+}

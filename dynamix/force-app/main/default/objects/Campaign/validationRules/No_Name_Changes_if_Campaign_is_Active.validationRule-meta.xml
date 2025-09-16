@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Name_Changes_if_Campaign_is_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( IsActive &amp;&amp; ISCHANGED(  Name ) , TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Campaign Name Cannot be Changed for an active Campaign.</errorMessage>
+</ValidationRule>

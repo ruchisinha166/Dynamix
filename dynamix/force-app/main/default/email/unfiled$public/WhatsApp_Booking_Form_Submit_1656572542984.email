@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Hi&nbsp;{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}<br />
+<br />
+Your Digital Application Form for your apartment at&nbsp;{{{Booking__c.Project_Name_Formulla__c}}} has been submitted successfully. Congratulations on booking your dream home and welcome to the Dynamix Family.&nbsp;<br />
+<br />
+For queries contact&nbsp;&nbsp;{{{Booking__c.Booking_Owner_Email__c}}}
+</body></html>

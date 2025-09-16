@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Payment Notification" recipientType="Contact" relatedToType="Booking__c">
+                <messaging:htmlEmailBody >
+                  <c:GeneratePaymentNotification PayMId="{!relatedTo.Id}"  />
+                </messaging:htmlEmailBody>
+</messaging:emailTemplate>

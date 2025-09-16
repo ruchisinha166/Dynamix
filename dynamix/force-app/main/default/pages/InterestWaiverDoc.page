@@ -1,0 +1,154 @@
+<apex:page standardController="Payment_Milestones__c" extensions="InterestWaiverExtention" readOnly="advanced_pdf" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false"
+           sidebar="false" showHeader="false" cache="false" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style>
+                @page
+                {
+                margin-top: 25%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+            </style>
+        </head>
+        <apex:pageBlock >
+        <body> 
+            
+             <div class="footer">
+             <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectFooter}" width="700" height="50" />    
+            </div>
+            <div width = "100%" class="header">
+              <apex:image url="/sfc/servlet.shepherd/version/download/{!ProjectHeader}" style="margin-top: 20px;margin-left: 10px;" width="700" height="140" />
+              <div style ="margin-top: 20px;font-size: 11px;font-family: Helvetica, sans-serif;text-align: center;"><b>ON L.H. of ACCPL</b></div>
+            </div> 
+
+            
+            
+            <div  style = "font-family: Helvetica, sans-serif;font-size: 11px;margin-top: 70px;margin-left: 0px;margin-right: 0%;" width="100%">
+               
+                 <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                    <tr><td width = "50%">To,</td>
+                        <td  width = "50%" style="text-align: right;">Date:&nbsp;<apex:outputText style="text-align: right;" value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!TODAY()}" /></apex:outputText></td></tr>
+                     <tr></tr>
+                     <tr><td style="font-size: 11px;font-family: Helvetica, sans-serif;"><b>{!booking.Primary_Applicant__r.Name}</b></td></tr>
+                     <tr><td><b>{!booking.Primary_Applicant__r.PersonMailingStreet}, {!booking.Primary_Applicant__r.PersonMailingCity},</b></td></tr>
+                     <tr><td><b>{!booking.Primary_Applicant__r.PersonMailingState} - {!booking.Primary_Applicant__r.PersonMailingPostalCode},</b></td></tr>
+                    <tr><td><b>{!booking.Primary_Applicant__r.PersonMailingCountry}</b></td></tr>
+                     <tr><td><b>Mob No.: {!accountObject.PersonMobilePhone} </b></td></tr>
+                </table>
+                <div style = "text-align:justify;font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 40px">Re: Waiver of Interest due with respect to a residential Apartment bearing No. {!properties.Name} admeasuring approximately {!properties.RERA_Carpet_Area_in_sqmtr__c} Sq. Mts. Carpet Area (as per RERA) as per Approved Typical Plan (admeasuring approximately {!properties.RERA_Carpet_Area_in_sqmtr__c} Sq. Mts. Carpet Area (as per RERA) as per Proposed Typical Plan) on the {!properties.Floor__c}<sup>{!floor}</sup> floor of ( {!project.name} Real Estate Project) (hereinafter referred to as the "said Apartment") situated at {!project.city__c}, {!project.state__c} - {!project.Postal_Code__c} as per the terms and conditions of the Application Form/ Agreement for Sale (as the case may be).</div>
+                
+                <div style = "font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px"><p>Dear {!booking.Primary_Applicant__r.Salutation} <b>{!booking.Primary_Applicant__r.Name}</b><br/><br/>
+                    <p style="text-align:justify;font-family: Helvetica, sans-serif;font-size:11px;">We refer to the Application Form dated&nbsp; 
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                        <apex:param value="{!booking.Booking_Date__c}" />
+                        </apex:outputText> ("Form") and/ or Agreement for Sale dated 
+                        <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                        <apex:param value="{!booking.Registration_Date__c}" />
+                    </apex:outputText> ("Agreement") pertaining to the allotment of the captioned Apartment.</p>
+                   <!-- <p style="text-align:justify;font-family: Helvetica, sans-serif;font-size:11px;">We hereby confirm the Allotment of the captioned Apartment along with the said<apex:outputText rendered="{!if(noOfCarParking != null,true,false)}" value=" Car" />&nbsp;Parking Space/s in your favour on the terms and conditions as agreed under the captioned Application Form dated <b><apex:outputText value="{0,date,dd/MM/yy}"> <apex:param value="{!booking.Booking_Date__c}" /> </apex:outputText></b>, a copy of which is enclosed as countersigned by us</p>-->
+                    
+                    <ol type="1" style="text-align:justify;font-family: Helvetica, sans-serif;font-size:11px;">
+                        <li class="marginBottom">
+                            <p>This is to inform you that inspite of 3 reminders vide letters and emails dated Reminder 1 date&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pm.First_Payment_Email_Reminder_Date__c}" /></apex:outputText>, Reminder 2 date &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pm.Second_Payment_Email_Reminder_Date__c}" /></apex:outputText>, Reminder 3 date &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pm.Third_Payment_Email_Reminder_Date__c}" /></apex:outputText> ("said Letters") and consecutive follow ups, you have failed to make necessary payments as due to us, in accordance with the Form / Agreement.</p>
+                        </li>
+                        <li class="marginBottom">
+                            <p>As per clause 7.2 of Form and/or clause 8(iv) of Agreement, you are liable to pay and we are entitled to receive the principal instalment amount of Rs. {!pm.Milestone_Amount1__c}/- as mentioned in the Payment Schedule as Annexed to the Form/ Agreement plus the interest as mentioned in the clause aforesaid.</p>
+                        </li>
+                        <li class="marginBottom">
+                            <p>As per clause 7.2 of Form and/or clause 8(iv) of Agreement, we are entitled to receive interest amounting to Rs. {!pm.Total_Interest_Amount__c} from you, for the period from&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!pm.Milestone_Activation_Date__c  }" /></apex:outputText>● to&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!today()}" /></apex:outputText> ● (●{!monthDiff} Months  /  ●{!factor} Days ) ("said Period").</p>
+                        </li>
+                        <li class="marginBottom"><p>By your letter/email dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!pm.Letter_Email_Date__c}" /></apex:outputText> you have requested us to waive the aforesaid interest.</p></li>
+
+                        <li class="marginBottom"><p>You are also aware that in the event we fail to deliver the Possession of the captioned Apartment as on the Possession Date as mentioned in the Form / Agreement, then you shall be entitled to receive interest / compensation under RERA.</p></li>
+                    
+                        <li class="marginBottom"><p>As discussed with you, it is mutually agreed that we shall not terminate the booking on account of your delay in making the payment of the above principal installment and shall also waive the interest amount of Rs. {!booking.Hidden_Interest_Wave_Off_Amount__c}/- due from you and you shall waive your right to terminate the booking and /or receive any interest or compensation under RERA for a time period which is equivalent to the number of days of the said Period post the Possession Date.</p></li>
+                    
+                        <li class="marginBottom"><p>The provisions of this letter shall take effect only if the payment of the principal instalment as stated above is received by us from you on or before and only once it is countersigned by you and the original delivered to us.</p></li>
+                    
+                        <li class="marginBottom"><p>It is expressly mentioned herein that this ex-gratia waiver cannot be assumed to be continuing or applicable to any further instalments or payments which fall due from you to us, as per the terms of the Form / Agreement. As agreed by you in the event the statutory authority imposes any interest and/or penalty on any GST amount due on account of any delayed payment of the aforesaid principal instalment, then such interest and/or penalty shall be borne and paid by you.</p></li>
+                        
+                        <li class="marginBottom"><p style="page-break-after:always;">This arrangement shall supersede the terms and conditions as captured under the Form/ Agreement to the extent mentioned herein</p></li>
+                        
+                    </ol>
+                    <p style="text-align:justify;font-family: Helvetica, sans-serif;font-size:11px;">In case you have any queries whatsoever or need any assistance, please feel free to get in touch with our customer relations team on {!project.Project_Phone__c} or email us at {!project.Project_Email__c}.</p>
+                    
+                    <br/><br/>
+                    </p>
+                    
+                    
+                  <!--  <hr style="width:30%;text-align:left;margin-left:0" /><hr style="width:30%;text-align:left;margin-left:0"/>
+                    Authorised Signatory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applicant(s)/ Allottee(s) 
+                    
+                <table width = "100%" style="font-size: 11px;font-family: Helvetica, sans-serif;margin-top: 20px;border-collapse: collapse">
+                        <tr><td><b><hr style="width:30%;text-align:left;margin-left:0" /><br/>Authorised Signatory</b></td>
+                        <td style="margin-right: 20%;float: right;"><hr style="width:30%;text-align:left;margin-left:0" />Applicant(s)/ Allottee(s)</td></tr>
+                    </table> -->
+               
+               <table style="width:100%;">
+               <tr>
+               <td style="text-align:left;">
+               Yours truly,
+               </td>
+               <td style="text-align:right;">
+               I/we accept 
+               </td>
+               
+               </tr>
+               <tr>
+               <td style="text-align:left;"> 
+               <br/>
+               For {!project.Builder_Organization__r.name}
+               </td>
+               <td style="text-align:right;">
+               
+               </td>
+               
+               </tr>
+               <tr>
+               <td style="text-align:left;">
+               <br/>
+               <br/>
+               <hr style="width:25%;text-align:left;margin-left:0" /><br/>
+                    <b>Authorised Signatory</b>
+               </td>
+               <td style="text-align:right;">
+                   <br/>
+                   <br/>
+                   <hr style="width:50%;margin-right:0" /><br/>
+                    <b>Applicant(s)/ Allottee(s)</b>
+               </td>
+               
+               </tr>
+               </table>
+                </div>
+            </div>
+        </body>
+        </apex:pageBlock>
+    </html>
+</apex:page>

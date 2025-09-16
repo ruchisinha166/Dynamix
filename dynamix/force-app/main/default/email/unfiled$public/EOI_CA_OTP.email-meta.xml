@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>EOI/CA OTP</name>
+    <style>none</style>
+    <subject>OTP</subject>
+    <textOnly>Dear {{customerName}},
+
+{{OTP}} is OTP for Expression of Interest for the {{projectName}}.
+Kindly use it to validate you digital  {{EOI_CA_Number}}.
+
+This OTP is valid for 5 min.
+
+Regards,
+Dynamix</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

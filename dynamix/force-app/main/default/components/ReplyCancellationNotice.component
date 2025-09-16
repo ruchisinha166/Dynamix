@@ -1,0 +1,146 @@
+<apex:component controller="ReplyCancellationNoticeClass" access="global">
+  <apex:attribute name="PayMId" type="Id" description="account id of the case" assignTo="{!PMId}"/>
+  
+  <html>
+    <head>
+       <style>
+               @page
+                {
+                margin-top: 20%;
+                margin-bottom: 10%;
+                @top-center {
+                content: element(header);
+                }
+                @bottom-center {
+                content: element(footer);
+                }
+                @bottom-left {
+                content: element(pagen);
+                }  
+                }
+                div.header 
+                {
+                position: running(header);
+                }
+                div.footer 
+                {
+                position: running(footer);
+                }
+                .pagenumber:before 
+                {
+                content: counter(page);
+                }
+                .pagecount:before 
+                {
+                content: counter(pages);
+                }
+          
+           .float-container {
+            border: 3px solid #fff;
+            padding: 20px;
+            }
+
+            .float-child1 {
+                width: 5%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            }  
+             .float-child2 {
+                width: 95%;
+                float: left;
+                padding: 20px;
+                border: 2px solid red;
+            } 
+            </style>
+        
+       
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        td{
+        text-align: left;
+        width:20%;
+        
+        }
+            .marginBottom{
+            margin-bottom: 10px;
+            }
+            .marginTop{
+            margin-top: 10px;
+            }
+            body {
+              font-family: Helvetica, sans-serif;
+              font-size: 11px;
+            }
+        </style>
+        
+    </head>
+    <body>
+   <center>
+       <apex:image url="{!sfdcBaseURL}/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId={!ProjectHeader}&operationContext=CHATTER" width="730" height="170" />
+       </center>  
+           <br/><span style="text-align:right; font-family:Helvetica, sans-serif;font-size: 11px;padding-left:30px;">To </span><br/>
+        <div style="font-family:Helvetica, sans-serif;font-size: 11px;padding-left:30px;">
+            <span style="text-align:right; font-family:Helvetica, sans-serif;font-size: 11px;">
+                {!booking.Primary_Applicant__r.Name}<br/>
+                {!accountObject.PersonMailingStreet},
+                {!accountObject.PersonMailingCity}, <br/>
+                {!accountObject.PersonMailingState} ,
+                {!accountObject.PersonMailingPostalCode},
+                {!accountObject.PersonMailingCountry}<br/>
+                <br/>
+                Date: <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!TODAY()}" /></apex:outputText>
+                
+                
+            </span>
+        </div>
+          <p style="padding-left:30px; font-family:Helvetica, sans-serif;font-size: 11px;">
+            Sir/ Ma’am,
+         </p>
+          <ol type="1" style="font-family:Helvetica, sans-serif;font-size: 11px;text-align: justify;">
+        <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+            We refer to your letter/ email dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}">
+            &nbsp;<apex:param value="{!booking.Cancel_or_Termination_date__c}" /></apex:outputText>&nbsp;and we write you as under:
+        </li>
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+             As per your letter/ email dated &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Cancel_or_Termination_date__c}" /></apex:outputText>, you have requested us, as a result of some personal reasons experienced at your end,
+             to cancel your allotment in respect to Flat/ Apartment No. {!sPropertyobj.Unit__r.name} (<b>“said Flat”</b>), under the dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+             <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText>, 
+             Letter of Confirmation of dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+             <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText>, Agreement for Sale dated &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+             <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText> registered vide No {!booking.Registration_Number__c} and any writings 
+             pursuant thereto (<b>“Transaction Documents”</b>) (Copies Annexed hereto at <b>“Annexure A”</b>) in “{!booking.Tower_Name__r.Name}” Wing, of the {!booking.Project_Name__r.Name}
+             Project, situated at {!project.Sublocation__c}, {!project.Location__c}, {!project.City__c}-{!project.Postal_Code__c}. 
+             The aforementioned request letter / email dated &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Cancel_or_Termination_date__c}" /></apex:outputText> shall be referred to as the <b>“said Cancellation Request”</b>.
+        </li>
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+           Pursuant to the said Cancellation Request, we hereby agree to cancel the transaction contemplated under the 
+           Transaction Documents with immediate effect as provided in Clause 8.8 of the Application Form.
+        </li>
+         <li style="font-family:Helvetica, sans-serif;font-size: 11px;margin-Bottom: 8px;">
+           We agree to refund the balance amounts, if any, subject to clause 8.8 of the  
+           dated &nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Booking_Date__c}" /></apex:outputText>/ clause 8(vi) of the Agreement for Sale dated&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"> 
+        <apex:param value="{!booking.Registration_Date__c}" /></apex:outputText> registered vide No. {!booking.Registration_Number__c}.
+        </li>
+         
+    </ol> 
+    <p style="padding-left:30px;font-family:Helvetica, sans-serif;font-size:11px;">
+        Thanking you,
+        <br/> <br/>
+        Yours Truly, <br/> <br/>
+        For {!project.Builder_Organization__r.name} <br/>
+       Authorised Signatory
+        </p>  
+      <center>
+        <apex:image url="{!sfdcBaseURL}/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId={!ProjectFooter}&operationContext=CHATTER" width="700" height="50"  />
+        </center>
+      </body>  
+</html>
+</apex:component>

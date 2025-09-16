@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stop_change_status_after_Rejected</fullName>
+    <active>true</active>
+    <description>prevent user from change status after status is rejected.</description>
+    <errorConditionFormula>AND(
+ ISPICKVAL( PRIORVALUE (Payment_Status__c), &quot;Rejected&quot;),
+ OR(ISPICKVAL(Payment_Status__c, &quot;Pending&quot;), ISPICKVAL(Payment_Status__c, &quot;Approved&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Payment_Status__c</errorDisplayField>
+    <errorMessage>You can not change payment status after Rejected status.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;">Dear&nbsp; {{{Recipient.Name}}}<br />
+<br />
+<br />
+We are pleased to confirm receipt of the entire Application Moniestogether with the applicable Tax(es) in respect of the&nbsp; {{{Booking__c.Unit_Number__c}}}&nbsp;(Apt. No.) at&nbsp; {{{Booking__c.Project_Name_Formulla__c}}}&nbsp;(MahaRERA No.&nbsp; {{{Booking__c.RERA_Number__c}}}) in accordance with the Application Form dated&nbsp; {{{Booking__c.Booking_Date__c}}}.<br />
+<br />
+<br />
+We hereby confirm the Allotment of the captioned Apartment in your favour on the terms and conditions as agreed under the Application Form. A copy of the Letter of Confirmation of Allotment of the captioned Apartment has been sent to you over email.<br />
+<br />
+In case you have any queries whatsoever or needany assistance in relation to theallotment of the captioned Apartment, please feel free to get in touch with your relationship manager on {{{Booking__c.Project_Phone__c}}} at&nbsp; {{{Booking__c.Project_Phone__c}}} or over email at&nbsp;&nbsp;{{{Booking__c.Project_Email__c}}}.<br />
+&nbsp;</body></html>

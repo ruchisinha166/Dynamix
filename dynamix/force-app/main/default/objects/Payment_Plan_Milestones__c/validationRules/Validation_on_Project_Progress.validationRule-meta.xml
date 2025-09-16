@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validation_on_Project_Progress</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL( Milestone_Activation__c ,&apos;Project Progress&apos;), ISBLANK( Project_Progress__c ))</errorConditionFormula>
+    <errorDisplayField>Project_Progress__c</errorDisplayField>
+    <errorMessage>&apos;Project Progress&apos; Field is mandatory. [As Milestone Activation is &apos;Project Progress&apos;]</errorMessage>
+</ValidationRule>

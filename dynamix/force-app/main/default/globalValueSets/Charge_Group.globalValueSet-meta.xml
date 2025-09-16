@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Agreement</fullName>
+        <default>false</default>
+        <label>Agreement</label>
+    </customValue>
+    <customValue>
+        <fullName>Floor Rise</fullName>
+        <default>false</default>
+        <label>Floor Rise</label>
+    </customValue>
+    <customValue>
+        <fullName>Stamp Duty</fullName>
+        <default>false</default>
+        <label>Stamp Duty</label>
+    </customValue>
+    <customValue>
+        <fullName>Registration Charge</fullName>
+        <default>false</default>
+        <label>Registration Charge</label>
+    </customValue>
+    <customValue>
+        <fullName>Others</fullName>
+        <default>false</default>
+        <label>Others</label>
+    </customValue>
+    <masterLabel>Charge Group</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

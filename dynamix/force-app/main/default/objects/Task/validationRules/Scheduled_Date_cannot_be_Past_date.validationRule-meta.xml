@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scheduled_Date_cannot_be_Past_date</fullName>
+    <active>true</active>
+    <errorConditionFormula>Date_and_Time_of_Site_Visit__c &lt;  CreatedDate</errorConditionFormula>
+    <errorDisplayField>Date_and_Time_of_Site_Visit__c</errorDisplayField>
+    <errorMessage>Date cannot be Past Date!!!</errorMessage>
+</ValidationRule>
