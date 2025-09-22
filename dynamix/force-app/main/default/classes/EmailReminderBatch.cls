@@ -4,15 +4,7 @@ public class EmailReminderBatch implements Database.Batchable<sObject>,Database.
    }
    
    public Database.QueryLocator start(Database.BatchableContext BC){
-      list<Payment_Milestones__c >pmList =[SELECT Id,Name,booking__c,Milestone_Status__c,First_Payment_Email_Reminder_Date__c,
-                                           forth_Payment_Email_Reminder_Date__c,Third_Payment_Email_Reminder_Date__c,
-                                           Second_Payment_Email_Reminder_Date__c,Due_Date__c,Remaining_GST__c,
-                                           Remaining_Amount__c  FROM Payment_Milestones__c 
-                                           where ((First_Payment_Email_Reminder_Date__c=:Date.today() 
-                                                   OR Third_Payment_Email_Reminder_Date__c=:Date.today() 
-                                                   OR forth_Payment_Email_Reminder_Date__c=:Date.today() 
-                                                   OR Second_Payment_Email_Reminder_Date__c=:Date.today()) 
-                                                  AND Remaining_Amount__c > 0 and Milestone_Status__c ='Active')];
+      list<Payment_Milestones__c >pmList =[SELECT Id,Name,booking__c,Milestone_Status__c,First_Payment_Email_Reminder_Date__c,forth_Payment_Email_Reminder_Date__c,Third_Payment_Email_Reminder_Date__c,Second_Payment_Email_Reminder_Date__c,Due_Date__c,Remaining_GST__c,Remaining_Amount__c  FROM Payment_Milestones__c where ((First_Payment_Email_Reminder_Date__c=:Date.today() OR Third_Payment_Email_Reminder_Date__c=:Date.today() OR forth_Payment_Email_Reminder_Date__c=:Date.today() OR Second_Payment_Email_Reminder_Date__c=:Date.today()) AND Remaining_Amount__c > 0 and Milestone_Status__c ='Active')];
       system.debug('pmList=='+pmList );
       return Database.getQueryLocator([SELECT Id,Name,booking__c,Milestone_Status__c,First_Payment_Email_Reminder_Date__c,forth_Payment_Email_Reminder_Date__c,Third_Payment_Email_Reminder_Date__c,Second_Payment_Email_Reminder_Date__c,Due_Date__c,Remaining_GST__c,Remaining_Amount__c  FROM Payment_Milestones__c where ((First_Payment_Email_Reminder_Date__c=:Date.today() OR Third_Payment_Email_Reminder_Date__c=:Date.today() OR forth_Payment_Email_Reminder_Date__c=:Date.today() OR Second_Payment_Email_Reminder_Date__c=:Date.today()) AND Remaining_Amount__c > 0 and Milestone_Status__c ='Active')]);
    }

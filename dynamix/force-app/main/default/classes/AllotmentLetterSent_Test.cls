@@ -32,26 +32,32 @@ public class AllotmentLetterSent_Test {
             accountObject.BillingCountry = 'India';
             accountObject.Phone = '1234567890';
             accountObject.RecordTypeId = PersonRecId;
-            accountObject.PersonMobilePhone = '4555465612';
             accountObject.PersonEmail = 'dynamix.project@gmail.com';
             accountObject.Aadhar_No__pc = '458785698547';
             accountObject.PAN_No__c = 'ABCTY1234D';
             accountObject.Aadhar_Uploaded__pc = true;
             accountObject.PAN_Card_Uploaded__pc = true;
+            accountObject.PersonMobilePhone = '5654654345';
             insert accountObject;
             
             Project__c projectObject = new Project__c();
             projectObject.Name = 'Test Project';
             projectObject.Project_Email__c= 'nishi@manras.com';
+            projectObject.Project_Carpet_Area__c = '475 - 1 BHK;900 - 3 BHk';
+            projectObject.Budgets__c = 'Under 75 lakhs';
+            projectObject.Configuration__c ='3 BHK';
             insert projectObject;
             
             Opportunity oppoObject = new Opportunity();
             oppoObject.AccountId = accountObject.Id;
             oppoObject.Name = 'test Opportunity';
-            oppoObject.Project__c = projectObject.id;
             oppoObject.StageName = 'Site Visit';
             oppoObject.CloseDate = System.Today()+3;
+            oppoObject.Project__c = projectObject.Id;
+            oppoObject.Walk_in_Source__c = 'Hoarding';
             insert oppoObject;
+            
+
             
             Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
             pricingPlanObject.Name = 'Pricing Plan Test';
@@ -128,6 +134,7 @@ public class AllotmentLetterSent_Test {
             projectAddbject1.Name = 'Stilt';
             insert projectAddbject1;
             
+            
             Add_On__c addOn = new Add_On__c();
             addOn.Opportunity__c = oppoObject.Id;
             addOn.Project_Add_On_Charges__c = projectAddbject1.Id;
@@ -194,6 +201,7 @@ public class AllotmentLetterSent_Test {
             planComponentObject1.Pricing_Plan__c = propertyObject.Property_Price_Slab__c;
             insert planComponentObject1;
             
+            
             Booking__c booking = new Booking__c();
             booking.Primary_Applicant__c = accountObject.Id;
             booking.Related_Opportunity__c = oppoObject.Id;
@@ -201,6 +209,8 @@ public class AllotmentLetterSent_Test {
             booking.Project_Name__c = projectObject.Id;
             booking.OwnerId = testUserRcd1.Id;
             insert booking;
+            
+            
             
             Booking_Line_Items__c bookingLineObjects = new Booking_Line_Items__c();
             bookingLineObjects.Booking__c = booking.Id;
@@ -236,12 +246,12 @@ public class AllotmentLetterSent_Test {
             BLD.Booking__c = booking.Id;
             Insert BLD;
             
+            
             AllotmentLetterSent.Request allObj = new AllotmentLetterSent.Request();
             allObj.bookingId = booking.Id;
             List<AllotmentLetterSent.Request> Requests = new List<AllotmentLetterSent.Request>();
             Requests.add(allObj);
             AllotmentLetterSent.execute(Requests);
-            Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
         }
     }
 }

@@ -38,18 +38,38 @@ public class PaymentMileStoneActiveMsg_Test{
             accountObject.PAN_Card_Uploaded__pc = true;
             insert accountObject;
             
+     Project__c projectObject = new Project__c();
+            projectObject.Name = 'Test Project';
+            projectObject.Project_Email__c= 'divum@dynamixgroup.co.in';
+            projectObject.Project_Carpet_Area__c = '475 - 1 BHK';
+            projectObject.Budgets__c = 'Under 75 lakhs';
+            projectObject.Configuration__c ='1 BHK';
+            projectObject.Project_Head__c = testUserRcd1.Id;
+            projectObject.Site_Head__c = testUserRcd1.id;
+            projectObject.OTP_Disable_Till__c = System.now().addDays(1);
+            projectObject.Project_Header__c = 'abc.com';
+            insert projectObject;
+            
             Opportunity oppoObject = new Opportunity();
             oppoObject.AccountId = accountObject.Id;
-            oppoObject.Name = 'test Opportunity';
+            oppoObject.Budget1__c = 'Under 75 lakhs';
+            oppoObject.Construction_Status__c = 'RTMI';
+            oppoObject.Interested_Configuration__c = '1 BHK';
+            oppoObject.Nature_of_Use__c ='';
+            oppoObject.Source_of_Funding__c = '';
+            oppoObject.Carpet_Area_in_sq_mts__c = 89.77;
+            oppoObject.AccountId = accountObject.Id;
+            oppoObject.Name = 'Test1';
             oppoObject.StageName = 'Site Visit';
             oppoObject.CloseDate = System.Today()+3;
+            oppoObject.Email_Id__c = 'TEst@gmail.com';
+            oppoObject.Phone__c = '8987676568';
+            oppoObject.Project__c = projectObject.Id;
+            oppoObject.Sales_Manager__c = testUserRcd1.Id;
+            oppoObject.Date_of_Site_Visit__c = System.today();
+            oppoObject.Walk_in_Source__c = 'Referred by Existing Customer';
+            oppoObject.Referral_By_Customer__c = accountObject.id;
             insert oppoObject;
-            
-            Project__c projectObject = new Project__c();
-            projectObject.Name = 'Test Project';
-            projectObject.Project_Email__c= 'nishi@manras.com';
-            projectObject.Site_Head__c = testUserRcd1.Id;
-            insert projectObject;
             
             Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
             pricingPlanObject.Name = 'Pricing Plan Test';

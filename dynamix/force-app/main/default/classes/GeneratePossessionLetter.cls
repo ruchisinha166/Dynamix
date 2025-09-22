@@ -1,4 +1,4 @@
-public with sharing class GeneratePossessionLetter {
+public without sharing class GeneratePossessionLetter {
     public boolean data;
     @InvocableMethod(label='Generate Possession Letter')
     public static List<String> execute( List<Requests> requestLst){

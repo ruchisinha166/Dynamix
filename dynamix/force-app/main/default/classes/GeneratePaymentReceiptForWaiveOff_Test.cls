@@ -140,7 +140,7 @@ public class GeneratePaymentReceiptForWaiveOff_Test {
         rct.Name = 'Test Receipt';
         rct.LastReceiptNumber__c = 12345;
         insert rct;
-        
+
         Payment__c  PaymentObj = New Payment__c();
         PaymentObj.Date__c = date.today();
         PaymentObj.BankName__c = Bank.Id;

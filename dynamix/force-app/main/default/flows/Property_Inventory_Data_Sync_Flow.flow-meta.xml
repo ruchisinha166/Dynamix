@@ -15,7 +15,6 @@
             </value>
         </inputParameters>
         <nameSegment>calloutProperty</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>Callout_Property_Class_on_Update</name>
@@ -32,7 +31,6 @@
             </value>
         </inputParameters>
         <nameSegment>calloutProperty</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -61,8 +59,8 @@
     <decisions>
         <name>Check_if_Pending_Data_Sync_Exists_for_Update</name>
         <label>Check if Pending Data Sync Exists for Update</label>
-        <locationX>720</locationX>
-        <locationY>755</locationY>
+        <locationX>918</locationX>
+        <locationY>647</locationY>
         <defaultConnectorLabel>Exists</defaultConnectorLabel>
         <rules>
             <name>Copy_1_of_Not_Exist</name>
@@ -75,7 +73,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Data_Sync_on_Update</targetReference>
+                <targetReference>Field_Conditions_to_Trigger_API_on_Update</targetReference>
             </connector>
             <label>Not Exist</label>
         </rules>
@@ -112,8 +110,8 @@
     <decisions>
         <name>Field_Conditions_to_Trigger_API_on_Update</name>
         <label>Field Conditions to Trigger API on Update</label>
-        <locationX>918</locationX>
-        <locationY>539</locationY>
+        <locationX>720</locationX>
+        <locationY>755</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>If_only_those_fields_Updated</name>
@@ -217,7 +215,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Related_Data_Sync_on_Update</targetReference>
+                <targetReference>Create_Data_Sync_on_Update</targetReference>
             </connector>
             <label>If only those fields Updated</label>
         </rules>
@@ -228,7 +226,7 @@
         <locationX>555</locationX>
         <locationY>431</locationY>
         <defaultConnector>
-            <targetReference>Field_Conditions_to_Trigger_API_on_Update</targetReference>
+            <targetReference>Get_Related_Data_Sync_on_Update</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Update</defaultConnectorLabel>
         <rules>
@@ -368,13 +366,6 @@
                 <stringValue>Pending</stringValue>
             </value>
         </filters>
-        <filters>
-            <field>Event_Type__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Property</stringValue>
-            </value>
-        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Data_Sync__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -382,8 +373,8 @@
     <recordLookups>
         <name>Get_Related_Data_Sync_on_Update</name>
         <label>Get Related Data Sync on Update</label>
-        <locationX>720</locationX>
-        <locationY>647</locationY>
+        <locationX>918</locationX>
+        <locationY>539</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_if_Pending_Data_Sync_Exists_for_Update</targetReference>
@@ -401,13 +392,6 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Pending</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Event_Type__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Property Update</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -428,23 +412,9 @@
                 <stringValue>Booked</stringValue>
             </value>
         </filters>
-        <filters>
-            <field>Flat_Type__c</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>CAR PARKING</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Flat_Type__c</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>BIKE PARKING</stringValue>
-            </value>
-        </filters>
         <object>Property__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

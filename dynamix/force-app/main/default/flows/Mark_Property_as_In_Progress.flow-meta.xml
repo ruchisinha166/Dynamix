@@ -390,7 +390,7 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>Payment_Received_from_Customer__c</field>
+            <field>null__NotFound</field>
             <value>
                 <stringValue>No</stringValue>
             </value>
@@ -411,7 +411,7 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>Payment_Received_from_Customer__c</field>
+            <field>null__NotFound</field>
             <value>
                 <stringValue>Yes</stringValue>
             </value>
@@ -663,7 +663,7 @@
             <targetReference>Get_Current_Reserved_Properties</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>InvalidDraft</status>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

@@ -26,15 +26,11 @@ public with sharing class PropertyGraphicalViewWrapper {
 
         @AuraEnabled
         public List<Property> properties;
-        
-        @AuraEnabled
-        public String parkingType;
 
         public Floor(Property__c prop){
             this.name = prop.Floor__c;
             this.properties = new List<Property>();
             this.properties.add(new Property(prop));
-            this.ParkingType = prop.Parking_Type__c;
         }
     }
 
@@ -42,9 +38,6 @@ public with sharing class PropertyGraphicalViewWrapper {
         
         @AuraEnabled
         public String id;
-        
-        @AuraEnabled
-        public String bookingNumber;
 
         @AuraEnabled
         public String name;
@@ -99,20 +92,7 @@ public with sharing class PropertyGraphicalViewWrapper {
 
         @AuraEnabled
         public Decimal UtilityArea;
-        
-        @AuraEnabled
-        public String SnagStatus;
-        
-        @AuraEnabled
-        public String ParkingType;
-        
-        @AuraEnabled
-        public Decimal noOfCarParking;
-        
-         @AuraEnabled
-        public Decimal noOfbikeParking;
-        
-//ParkingSlotsCount
+
         public Property(Property__c prop){
             this.id = prop.Id;
             this.name = prop.Name;
@@ -120,15 +100,11 @@ public with sharing class PropertyGraphicalViewWrapper {
             this.unitType = prop.Flat_Type__c;
             this.tower = prop.Tower__r.Name;
             this.floor = prop.Floor__c;
-            this.ParkingType = prop.Parking_Type__c;
             this.totalArea = prop.Total_Area__c;
             this.RERACarpetArea = prop.RERA_Carpet_Area__c;
             this.DeckCarpetArea = prop.Deck_Carpet_Area__c;
             this.UtilityArea = prop.Utility_Area__c;
-            this.SnagStatus = prop.Snag_Status__c;
             this.preferredLocation = '';
-            this.noOfCarParking = prop.No_of_car_Parking__c;
-            this.noOfbikeParking = prop.No_of_Bike_Parking__c;
             
             if(prop.Properties_Add_On__r.size() > 0){
                 List<String> plcs = new List<String>();
@@ -179,16 +155,10 @@ public with sharing class PropertyGraphicalViewWrapper {
 
             if(prop.Booking_Line_Items__r.size() > 0){
                 for(Booking_Line_Items__c booking: prop.Booking_Line_Items__r){
-                    if(booking.Booking__r.Stage__c != 'Booking Cancelled -- Refund Done' && booking.Booking__r.Stage__c != 'Terminated	' &&
-                      booking.Booking__r.Stage__c != 'Booking Cancelled – Refund Ready'	&& booking.Booking__r.Stage__c != 'Booking Cancelled – Refund Pending'		)
-                    {
-                        this.bookedBy = booking.Booking__r.Primary_Applicant__r.FirstName + ' ' + booking.Booking__r.Primary_Applicant__r.LastName;
-                        this.salesManager = booking.Booking__r.Sales_Manager__r.Name;
-                        this.bookingDate = booking.Booking__r.Booking_Date__c;
-                        this.bookingId = booking.Booking__c;
-                        this.bookingNumber = booking.Booking__r.name;
-                    }
-                    
+                    this.bookedBy = booking.Booking__r.Primary_Applicant__r.FirstName + ' ' + booking.Booking__r.Primary_Applicant__r.LastName;
+                    this.salesManager = booking.Booking__r.Sales_Manager__r.Name;
+                    this.bookingDate = booking.Booking__r.Booking_Date__c;
+                    this.bookingId = booking.Booking__c;
                 }
             }
         }

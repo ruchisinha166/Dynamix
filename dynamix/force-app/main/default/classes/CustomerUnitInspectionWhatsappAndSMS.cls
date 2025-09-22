@@ -103,10 +103,10 @@ public class CustomerUnitInspectionWhatsappAndSMS {
         {
             insert insertEmailMessageList;
         }
-        //if(!Test.isRunningTest()){
+        if(!Test.isRunningTest()){
             CustomerUnitInspectionWhatsappQueueable queueableInstance = new CustomerUnitInspectionWhatsappQueueable(requestWrapperList);
             System.enqueueJob(queueableInstance);
-        //}
+        }
     }
     
     

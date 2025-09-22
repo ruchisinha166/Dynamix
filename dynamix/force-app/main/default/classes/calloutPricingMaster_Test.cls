@@ -18,7 +18,7 @@ public class calloutPricingMaster_Test {
         proj.Project_Head__c = testUser.id;
         proj.Site_Head__c = testUser.id;
         proj.Configuration__c = '2 BHK';
-        proj.Budgets__c = '3 Cr & Above';
+        proj.Budgets__c = '1.75 cr - 2.25 cr';
         proj.Project_Carpet_Area__c = '750 – 800 sq.ft.' ;
         Insert proj;
         

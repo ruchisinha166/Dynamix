@@ -1319,9 +1319,9 @@ ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: Ple
             try{
                List<Messaging.SendEmailResult> sendResults = Messaging.sendEmail(emailMessages);
             }
-            Catch(Exception ex)
+            Catch(Exception Ex)
             {
-                system.debug('Error '+ex.getMessage());
+                system.debug('Error '+Ex.getMessage());
             }
         }
         

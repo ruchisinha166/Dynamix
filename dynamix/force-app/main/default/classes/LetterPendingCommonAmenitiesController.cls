@@ -1,4 +1,4 @@
-public class LetterPendingCommonAmenitiesController{
+public without sharing class LetterPendingCommonAmenitiesController{
     public Account accountObject{get;set;}
     public List<Payment__c> paymentList{get;set;}
     public List<Add_On__c> addOnList{get;set;}

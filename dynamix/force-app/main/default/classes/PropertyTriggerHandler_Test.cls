@@ -5,7 +5,7 @@ public class PropertyTriggerHandler_Test {
     @isTest  
     public static void Method1(){
         
-        Test.startTest();
+        
         Profile pId = [select Id,Name From Profile Where Name = 'System Administrator' Limit 1];
         UserRole roleId = [select Id,Name From UserRole Where DeveloperName = 'SFDC_Admin' Limit 1];
         String uniqueUserName = 'standarduser' + DateTime.now().getTime() + '@testorg.com';
@@ -25,7 +25,7 @@ public class PropertyTriggerHandler_Test {
         insert testUserRcd1;
         
         System.runAs(testUserRcd1){
-            
+            Test.startTest();
             Id ChargesId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Charges').getRecordTypeId();
             Id parkingId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Parking').getRecordTypeId();
             Id preferredLocationId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Preferred Location').getRecordTypeId();
@@ -42,19 +42,29 @@ public class PropertyTriggerHandler_Test {
             accountObject.PAN_No__c = 'ABCTY1234D';
             accountObject.Aadhar_Uploaded__pc = true;
             accountObject.PAN_Card_Uploaded__pc = true;
+            accountObject.PersonMobilePhone = '5657824685';
             insert accountObject;
+                        
+            Project__c projectObject = new Project__c();
+            projectObject.Name = 'Test Project';
+            projectObject.Project_Email__c= 'nishi@manras.com';
+            projectObject.Project_Carpet_Area__c = '475 - 1 BHK;900 - 3 BHk';
+            projectObject.Budgets__c = 'Under 75 lakhs';
+            projectObject.Configuration__c ='3 BHK';
+            projectObject.GPS_location__c = 'www.testLocation.com';
+            projectObject.Project_Phone__c = '9090123567';
+            projectObject.FM_Head__c = testUserRcd1.id;
+            insert projectObject;
             
             Opportunity oppoObject = new Opportunity();
             oppoObject.AccountId = accountObject.Id;
             oppoObject.Name = 'test Opportunity';
             oppoObject.StageName = 'Site Visit';
             oppoObject.CloseDate = System.Today()+3;
+            oppoObject.Project__c = projectObject.Id;
+            oppoObject.Walk_in_Source__c = 'Hoarding';
             insert oppoObject;
-            
-            Project__c projectObject = new Project__c();
-            projectObject.Name = 'Test Project';
-            projectObject.Project_Email__c= 'nishi@manras.com';
-            insert projectObject;
+
             
             Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
             pricingPlanObject.Name = 'Pricing Plan Test';
@@ -66,36 +76,9 @@ public class PropertyTriggerHandler_Test {
             propertyObject.Project__c = projectObject.Id;
             propertyObject.Property_Price_Slab__c = pricingPlanObject.Id;
             propertyObject.Floor__c= '5';
+            propertyObject.Flat_Type__c = '2 BHK';
+            propertyObject.FM_User__c = testUserRcd1.id;
             insert propertyObject;
-            
-            Property__c propertyObject1 = new Property__c();
-            propertyObject1.Name = 'test property3';
-            propertyObject1.Project__c = projectObject.Id;
-            propertyObject1.Property_Price_Slab__c = pricingPlanObject.Id;
-            propertyObject1.Floor__c= '2';
-            insert propertyObject1;
-            
-            Property__c propertyObject2 = new Property__c();
-            propertyObject2.Name = 'test property1';
-            propertyObject2.Project__c = projectObject.Id;
-            propertyObject2.Property_Price_Slab__c = pricingPlanObject.Id;
-            propertyObject2.Floor__c= '3';
-            insert propertyObject2;
-            
-            Property__c propertyObject3 = new Property__c();
-            propertyObject3.Name = 'test property2';
-            propertyObject3.Project__c = projectObject.Id;
-            propertyObject3.Property_Price_Slab__c = pricingPlanObject.Id;
-            propertyObject3.Floor__c= '4';
-            propertyObject3.Index__c = 3;
-            insert propertyObject3;
-            
-            Suggested_Property__c suggestedProperty = new Suggested_Property__c();
-            suggestedProperty.Opportunity__c = oppoObject.Id;
-            suggestedProperty.Unit__c = propertyObject.Id;
-            suggestedProperty.Discount__c = 10;
-            insert suggestedProperty;
-            
             Project_Add_On_Charges__c projectAddbject= new Project_Add_On_Charges__c();
             projectAddbject.Charge_Type__c = 'Fixed';
             projectAddbject.Charge_Group__c = 'Floor Rise';
@@ -190,6 +173,50 @@ public class PropertyTriggerHandler_Test {
             planComponentObject1.Pricing_Plan__c = propertyObject.Property_Price_Slab__c;
             insert planComponentObject1;
             
+            Property__c propertyObject1 = new Property__c();
+            propertyObject1.Name = 'test property3';
+            propertyObject1.Project__c = projectObject.Id;
+            propertyObject1.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject1.Floor__c= '2';
+            insert propertyObject1;
+            
+            Property__c propertyObject2 = new Property__c();
+            propertyObject2.Name = 'test property1';
+            propertyObject2.Project__c = projectObject.Id;
+            propertyObject2.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject2.Floor__c= '3';
+            insert propertyObject2;
+            
+            Property__c propertyObject3 = new Property__c();
+            propertyObject3.Name = 'test property2';
+            propertyObject3.Project__c = projectObject.Id;
+            propertyObject3.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject3.Floor__c= '4';
+            propertyObject3.Index__c = 3;
+            insert propertyObject3;
+            
+            Suggested_Property__c suggestedProperty = new Suggested_Property__c();
+            suggestedProperty.Opportunity__c = oppoObject.Id;
+            suggestedProperty.Unit__c = propertyObject.Id;
+            suggestedProperty.Discount__c = 10;
+            suggestedProperty.Site_Head__c = testUserRcd1.id;
+            insert suggestedProperty;
+            
+            
+            
+            Project_Snag__c testProjSnag = new Project_Snag__c();
+            testProjSnag.Project__c = projectObject.Id;
+            testProjSnag.Unit_Type__c = '2 BHK';
+            testProjSnag.Area__c = 'KITCHEN';
+            testProjSnag.Questions__c = 'Is Flooring Done?';
+            insert testProjSnag;
+            
+            PreventRecursionClass.bookflag10 = true;
+            PreventRecursionClass.bookflag3 = true;
+            PreventRecursionClass.bookflag5 = true;
+            PreventRecursionClass.bookflag4 = true;
+            PreventRecursionClass.bookflag14 = true; 
+            
             Booking__c booking = new Booking__c();
             booking.Primary_Applicant__c = accountObject.Id;
             booking.Related_Opportunity__c = oppoObject.Id;
@@ -209,6 +236,9 @@ public class PropertyTriggerHandler_Test {
             booking.Source_of_Finance__c = 'Self Funded';
             insert booking;
                         
+            propertyObject.Customer_Unit_Inspection_Scheduled_Date__c = system.today().addDays(10);
+            update propertyObject;
+            
             Booking_Line_Items__c bookingLineObjects = new Booking_Line_Items__c();
             bookingLineObjects.Booking__c = booking.Id;
             bookingLineObjects.Project_Add_On_Charges__c = projectAddbject.Id;
@@ -236,15 +266,16 @@ public class PropertyTriggerHandler_Test {
             Bank.Name = 'PNB Bank';
             insert Bank; 
             
-            Bank_Loan_Details__c BLD = New Bank_Loan_Details__c();
+            /*Bank_Loan_Details__c BLD = New Bank_Loan_Details__c();
             BLD.Home_LoanInstitution__c = Bank.Id;
             BLD.Booking__c = booking.Id;
-            Insert BLD;  
+            Insert BLD; */ 
                         
             
             propertyObject3.Index__c = 31;
             update propertyObject3;
             Test.stopTest();
         }
+        
     }
 }

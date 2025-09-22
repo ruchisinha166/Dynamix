@@ -81,7 +81,16 @@ private class PaymentMileStoneHandler_Test {
         paymentMile.Sap_Code__c = 'Z111';
         paymentMile.Milestone_Amount1__c = 3500000;
         Insert paymentMile;
-       
+          
+        List<Payment_Milestones__c> pm = new List<Payment_Milestones__c>();
+        Payment_Milestones__c paymentMile2 = new Payment_Milestones__c();
+        paymentMile2.id = paymentMile.Id;
+        pm.add(paymentMile2);
+        Delete pm;
+        
+        Test.startTest();
+        PaymentMileStoneHandler.updateMilestonePercentOnBookingOnDelete(pm);
+        Test.stopTest();
         
         Payment_Milestones__c paymentMile1 = new Payment_Milestones__c();
         paymentMile1.Name = 'Booking Value';
@@ -96,16 +105,13 @@ private class PaymentMileStoneHandler_Test {
         
         paymentMile1.Milestone_Status__c = 'Active';
         update paymentMile1;
-           
-        List<Payment_Milestones__c> pm = new List<Payment_Milestones__c>();
-        Payment_Milestones__c paymentMile2 = new Payment_Milestones__c();
-        paymentMile2.id = paymentMile.Id;
-        pm.add(paymentMile2);
-        Delete pm;
+      
+       
         
-        Test.startTest();
-        PaymentMileStoneHandler.updateMilestonePercentOnBookingOnDelete(pm);
-        Test.stopTest();
+        
+        
+        
+        
         
     }
 

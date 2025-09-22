@@ -1,5 +1,56 @@
 public class BookingTriggerHandler {
     
+public static void assignBrokerageLadder(List<Booking__c> newBookings) {
+    Set<Date> bookingDates = new Set<Date>();
+    Set<Id> projectIds = new Set<Id>();
+	Set<Id>	ChannelPartnerIds = new Set <Id> ();
+   
+    for (Booking__c bk : newBookings) {
+        if (bk.Booking_Date__c != null) {
+            bookingDates.add(bk.Booking_Date__c);
+        }
+        if (bk.Project_Name__c != null) {
+            projectIds.add(bk.Project_Name__c);
+        }
+         if (bk.Channel_Partner__c != null) {
+            ChannelPartnerIds.add(bk.Channel_Partner__c);
+        }
+         
+    }
+    if (bookingDates.isEmpty() || projectIds.isEmpty() || ChannelPartnerIds.isEmpty()) return;
+
+   
+    List<Brokerage_Ladder__c> ladders = [
+        SELECT Id, Start_Date__c, End_Date__c, Project__c, Active__c, Percentage__c,Ladder_Type__c
+        FROM Brokerage_Ladder__c
+        WHERE Project__c IN :projectIds AND Ladder_Type__c != 'NRI'
+    ];
+
+  
+    Map<String, Brokerage_Ladder__c> projectDateToLadderMap = new Map<String, Brokerage_Ladder__c>();
+    for (Date dt : bookingDates) {
+        for (Brokerage_Ladder__c bl : ladders) {
+            if (dt >= bl.Start_Date__c && dt <= bl.End_Date__c &&  bl.Active__c == true) {
+              
+                String key = bl.Project__c + '_' + dt;
+                projectDateToLadderMap.put(key, bl);
+            }
+        }
+    }
+
+    
+    for (Booking__c bk : newBookings) {
+        if (bk.Booking_Date__c != null && bk.Project_Name__c != null && bk.Channel_Partner__c != null ) {
+            String key = bk.Project_Name__c + '_' + bk.Booking_Date__c;
+            if (projectDateToLadderMap.containsKey(key)) {
+                Brokerage_Ladder__c matchedLadder = projectDateToLadderMap.get(key);
+                bk.Brokerage_Ladder__c = matchedLadder.Id;
+				bk.Brokerage_Percentage__c = matchedLadder.Percentage__c;
+            }
+        }
+    }
+}
+
     public static void kycDetailsProvidedNotificationToRM(List<Booking__c> listOfBooking,Map<Id,Booking__c> oldMapBooking){
         if(!PreventRecursionClass.bookflag15){
             PreventRecursionClass.bookflag15 = true; 
@@ -976,260 +1027,6 @@ null
             }
         } 
         update bookingMap.values(); 
-    }
-    public static void carPark(List<Booking__c> bookList,Map<Id,Booking__c> oldBookMap){
-        Set<Id> bookingIdSet = new Set<Id>();
-        Set<Id> projectIdSet = new Set<Id>();
-        Set<Id> UnitIdSet = new Set<Id>();
-        Set<Id> carParkId = new set<Id>();
-        Set<Id> preAllotCarparkId= new Set<Id>();
-        Map<String,Integer> carParkingPreAllotedMap = New Map<String,Integer> ();
-        Map<String,Integer> bikeParkingPreAllotedMap = New Map<String,Integer> ();
-        Map<String,Property__c> carInventoryMap = New Map<String,Property__c> ();
-        Map<String,Property__c> bikeInventoryMap = New Map<String,Property__c> ();
-        Map<String,String> newPreAllotedInventoryMap = New Map<String,String> ();
-        List<Property__c> carParkToUpdate = new List<Property__c>();
-        Map<id,Property__c> updateNewPreAllotedCarPArking = New  Map<id,Property__c>();
-        List<Property__c> PreAllotCarParkToUpdate = new List<Property__c>();
-        List<Project_Add_On_Charges__c> projAddOnAdd = new List<Project_Add_On_Charges__c>();
-        List<Property_Add_On__c> propAddOnAdd = new List<Property_Add_On__c>();
-        Id ProjAddOnRecordTypeId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Parking').getRecordTypeId();
-        if(!bookList.isEmpty()){
-            for(Booking__c booking:bookList){
-                if((booking.Cancellation_Approval_Status__c == 'Approved') && (oldBookMap.get(booking.Id).Cancellation_Approval_Status__c != booking.Cancellation_Approval_Status__c)){
-                    bookingIdSet.add(booking.id);
-                    projectIdSet.add(booking.Project_Name__c);
-                    //UnitIdSet.add(booking.Related_Suggested_Property__r.Unit__c);
-                }
-            }
-        }
-        if(!bookingIdSet.isEmpty()){
-            List<Booking__c> ListBooking = [Select Id,Name,Related_Suggested_property__r.unit__c,No_of_car_Parking__c 
-                                            From Booking__c WHere Id In :bookingIdSet];
-            system.debug('ListBooking----'+ListBooking);    
-            if(!ListBooking.isEmpty()){
-                for(Booking__c booking:ListBooking){
-                    UnitIdSet.add(booking.Related_Suggested_Property__r.Unit__c);
-                    
-                }
-            }
-            
-            List<Property__c> inventoryList = [SELECT Id, Name, Property_Status__c, Flat_Type__c, 
-                                               No_of_car_Parking__c, Project__c,No_of_Bike_Parking__c
-                                               FROM Property__c 
-                                               WHERE (Booking__c IN :bookingIdSet AND Flat_Type__c  IN ('CAR PARKING','BIKE PARKING')) OR Id IN:UnitIdSet
-                                              ];
-            if(!inventoryList.isEmpty()){
-                for(Property__c property:inventoryList){
-                    if((property.Flat_Type__c == 'CAR PARKING' || property.Flat_Type__c == 'BIKE PARKING')
-                       && property.Property_Status__c == 'Allotted')
-                    {
-                        property.Property_Status__c = 'Available';
-                        property.Registration_Status__c ='';
-                        property.Registration_Date__c = null;
-                        property.Registration_Schedule_Date__c =null;
-                        property.Booking__c = null;
-                        carParkToUpdate.add(property);
-                    }
-                    else
-                    {
-                        if(property.No_of_car_Parking__c != null && property.No_of_car_Parking__c > 0)
-                        {
-                            bikeParkingPreAllotedMap.put(property.id,Integer.Valueof(property.No_of_Bike_Parking__c));
-                            carParkingPreAllotedMap.put(property.id,Integer.Valueof(property.No_of_car_Parking__c));
-                        }
-                        
-                    }
-                    system.debug('carParkToUpdate----'+carParkToUpdate);
-                }
-                IF(!carParkToUpdate.isEmpty())
-                {
-                    update carParkToUpdate;
-                }
-                
-            }
-            
-            List<Property_Add_On__c>propertyAddOnList = [SELECT Id, Project_Add_On__c,Project_Add_On__r.Name,Property__c,
-                                                         Car_Parking__c,Car_Parking__r.Flat_Type__c
-                                                         FROM Property_Add_On__c
-                                                         WHERE (Project_Add_On__r.Name Like 'Car Parking %' OR
-                                                                Project_Add_On__r.Name Like '%Wheel%')
-                                                         AND Property__c IN: UnitIdSet AND Property__c != null
-                                                         AND Car_Parking__c != null AND
-                                                         Car_Parking__r.Flat_Type__c  IN ('CAR PARKING','BIKE PARKING') ];
-            
-            if(!propertyAddOnList.isEmpty()){
-                for(Property_Add_On__c thisPAO : propertyAddOnList)
-                {
-                    IF(thisPAO.Car_Parking__r.Flat_Type__c == 'CAR PARKING'){
-                        if(carParkingPreAllotedMap.containsKey(thisPAO.Property__c))
-                        {
-                            if(carParkingPreAllotedMap.get(thisPAO.Property__c)>0)
-                            {
-                                carParkingPreAllotedMap.put(thisPAO.Property__c,carParkingPreAllotedMap.get(thisPAO.Property__c)-1);
-                                System.debug('carParkingPreAllotedMap'+carParkingPreAllotedMap);
-                            }
-                        }
-                    }
-                    IF(thisPAO.Car_Parking__r.Flat_Type__c == 'BIKE PARKING'){
-                        if(bikeParkingPreAllotedMap.containsKey(thisPAO.Property__c))
-                        {
-                            if(bikeParkingPreAllotedMap.get(thisPAO.Property__c)>0)
-                            {
-                                bikeParkingPreAllotedMap.put(thisPAO.Property__c,bikeParkingPreAllotedMap.get(thisPAO.Property__c)-1);
-                                System.debug('bikeParkingPreAllotedMap'+bikeParkingPreAllotedMap);
-                            }
-                        }
-                    }
-                }
-            }
-            System.debug('bikeParkingPreAllotedMap'+bikeParkingPreAllotedMap);
-            System.debug('carParkingPreAllotedMap'+carParkingPreAllotedMap);
-            List<Property__c> AvailCarParkList = [Select Id,Name,Project__c,Property_Status__c,Flat_Type__c 
-                                                  From Property__c 
-                                                  Where Property_Status__c = 'Available' 
-                                                  AND Flat_Type__c IN ('CAR PARKING','BIKE PARKING') 
-                                                  Order By Property_Status__c Desc   LIMIT 1000];
-            System.debug('AvailCarParkList'+AvailCarParkList);
-            if(!AvailCarParkList.isEmpty())
-            {  Integer c=1;
-             Integer b=1;
-             for(Property__c AvailCarPark:AvailCarParkList){
-                 if(AvailCarPark.Flat_Type__c == 'CAR PARKING')
-                 {
-                     String key = AvailCarPark.Project__c + String.valueof(c);
-                     carInventoryMap.put(key,AvailCarPark);
-                     c++;
-                 }
-                 if(AvailCarPark.Flat_Type__c == 'BIKE PARKING')
-                 {
-                     String key = AvailCarPark.Project__c + String.valueof(b);
-                     bikeInventoryMap.put(key,AvailCarPark);
-                     b++;
-                 }
-                 
-             }
-             System.debug('carInventoryMap'+carInventoryMap);
-             System.debug('bikeInventoryMap'+bikeInventoryMap);
-             //insert projAddOnAdd;
-             List<Project_Add_On_Charges__c> projectAddonList = [SELECT Id, Name
-                                                                 FROM Project_Add_On_Charges__c
-                                                                 WHERE Name Like 'Car Parking %' OR Name Like '%Wheel%'];
-             Integer j=1;
-             for(Property__c property:inventoryList){
-                 if(property.Flat_Type__c != 'CAR PARKING' && property.Flat_Type__c != 'BIKE PARKING')
-                 {
-                     if(carParkingPreAllotedMap.ContainsKey(property.id))
-                     {
-                         system.debug('carParkingPreAllotedMap.get(property.id)'+carParkingPreAllotedMap.get(property.id));
-                         for(Integer K = 0;  K <carParkingPreAllotedMap.get(property.id) ;K++ ){
-                             String key = property.Project__c + String.valueof(j);
-                             if(carParkingPreAllotedMap.get(property.id)>0 && carInventoryMap.ContainsKey(key)){
-                                 
-                                 system.debug('carParkingPreAllotedMap.get(property.id)'+carParkingPreAllotedMap.get(property.id));
-                                 system.debug('carInventoryMap.get(key).Flat_Type__c'+carInventoryMap.get(key).Flat_Type__c);
-                                 
-                                 if(carInventoryMap.get(key).Flat_Type__c == 'CAR PARKING'){
-                                     
-                                     //  AvailCarPark.Property_Status__c = 'Pre - Allotted';
-                                     Property_Add_On__c  propAddOn = new Property_Add_On__c();
-                                     propAddOn.Car_Parking__c = carInventoryMap.get(key).id;
-                                     if(!projectAddonList.isEmpty())
-                                     {
-                                         propAddOn.Project_Add_On__c = projectAddonList[0].Id;
-                                     }
-                                     Property__c updateProperty = New Property__c();
-                                     updateProperty.Property_Status__c = 'Available';
-                                     updateProperty.id = carInventoryMap.get(key).id;
-                                     updateNewPreAllotedCarPArking.put(updateProperty.id,updateProperty);
-                                     propAddOn.Property__c = property.id;
-                                     carInventoryMap.remove(key);
-                                     propAddOnAdd.add(propAddOn);
-                                     j++;
-                                 }
-                             }
-                         }
-                     }
-                     
-                     
-                     if(bikeParkingPreAllotedMap.ContainsKey(property.id))
-                     {
-                         system.debug('bikeParkingPreAllotedMap.get(property.id)'+bikeParkingPreAllotedMap.get(property.id));
-                         for(Integer K = 0;  K <bikeParkingPreAllotedMap.get(property.id) ;K++ ){
-                             String key = property.Project__c + String.valueof(j);
-                             if(bikeParkingPreAllotedMap.get(property.id)>0 && bikeInventoryMap.ContainsKey(key)){
-                                 
-                                 system.debug('bikeParkingPreAllotedMap.get(property.id)'+bikeParkingPreAllotedMap.get(property.id));
-                                 system.debug('bikeInventoryMap.get(key).Flat_Type__c'+bikeInventoryMap.get(key).Flat_Type__c);
-                                 
-                                 if(bikeInventoryMap.get(key).Flat_Type__c == 'BIKE PARKING'){
-                                     Property__c updateProperty = New Property__c();
-                                     updateProperty.Property_Status__c = 'Available';
-                                     updateProperty.id = bikeInventoryMap.get(key).id;
-                                     updateNewPreAllotedCarPArking.put(updateProperty.id,updateProperty);
-                                     //  AvailCarPark.Property_Status__c = 'Pre - Allotted';
-                                     Property_Add_On__c  propAddOn = new Property_Add_On__c();
-                                     propAddOn.Car_Parking__c = bikeInventoryMap.get(key).id;
-                                     if(!projectAddonList.isEmpty())
-                                     {
-                                         propAddOn.Project_Add_On__c = projectAddonList[0].Id;
-                                     }
-                                     propAddOn.Property__c = property.id;
-                                     bikeInventoryMap.remove(key);
-                                     propAddOnAdd.add(propAddOn);
-                                     j++;
-                                 }
-                             }
-                         }
-                     }
-                     
-                     
-                     
-                 }
-             }
-             
-             System.debug('propAddOnAdd'+propAddOnAdd);
-             if(!propAddOnAdd.isEmpty())
-             {
-                 insert propAddOnAdd;
-             }
-             if(!updateNewPreAllotedCarPArking.isEmpty())
-             {
-                 update updateNewPreAllotedCarPArking.values();
-             }
-             
-            }
-        }
-        
-    }
-    Public static void updateBookingAfterRegistraion(List<Booking__c> bookList,Map<Id,Booking__c> oldBookMap)
-    {
-        Set<Id> bookingIdSet = new Set<Id>();
-        List<Property__c> carParkToUpdate = new List<Property__c>();
-        for(Booking__c booking:bookList){
-            if((booking.Registration_Status__c == 'Completed') && (oldBookMap.get(booking.Id).Registration_Status__c != booking.Registration_Status__c)){
-                bookingIdSet.add(booking.id);
-            }
-        }
-        if(!bookingIdSet.isEmpty()){
-            List<Property__c> inventoryList = [SELECT Id, Name, Property_Status__c, Flat_Type__c, No_of_car_Parking__c, Project__c
-                                               FROM Property__c 
-                                               WHERE Booking__c IN :bookingIdSet AND Flat_Type__c  IN ('CAR PARKING','BIKE PARKING')
-                                              ];
-            if(!inventoryList.isEmpty()){
-                for(Property__c thisProperty :inventoryList)
-                {
-                    thisProperty.Registration_Status__c ='Completed';
-                    thisProperty.Registration_Date__c = system.today();
-                    thisProperty.Registration_Schedule_Date__c = system.today();
-                    carParkToUpdate.add(thisProperty);
-                }
-            }
-            if(!carParkToUpdate.isEmpty())
-            {
-                update carParkToUpdate;
-            }
-        }
     }
     // Converted the flow "Booking Agreement 10% Amount Received" into apex Method
     public static void generateAllotmentLetter(List<Booking__c> bookList, Map<Id,Booking__c> oldBookMap){

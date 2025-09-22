@@ -6,7 +6,7 @@ public class GeneratePaymentReceiptForWaiveOff {
         PageReference ref = Page.Payment_Receipt;
         ref.getParameters().put('id', paymentId);
         
-        Payment__c paymentRec = [Select Id,Receipt_No__c,Project_Name__c, Booking__c from Payment__c where Id =:paymentId];
+        Payment__c paymentRec = [Select Id,Receipt_No__c,Payment_Type__c,Project_Name__c, Booking__c from Payment__c where Id =:paymentId];
         system.debug('paymentRec----->' +paymentRec);
         
         Blob body; 
@@ -19,15 +19,14 @@ public class GeneratePaymentReceiptForWaiveOff {
         }
         
         ContentVersion conVer = new ContentVersion();
-        conVer.ContentLocation = 'S';
+        conVer.ContentLocation = 'S'; 
         conVer.PathOnClient =  paymentRec.Receipt_No__c+'.pdf';
         conVer.Title =  paymentRec.Receipt_No__c+'.pdf';
         conVer.VersionData = body;
         conVer.SObjectType__c = 'Booking__c';
         conVer.BookingId__c = paymentRec.Booking__c;
         conVer.Document_Type__c = 'Payment Receipt';
-        conVer.BookingId__c = bookingld;
-        insert conVer;    
+        insert conVer; 
         System.debug('conVer--------->'+conVer);
         
         /* ContentVersion conVer2 = new ContentVersion();
@@ -45,17 +44,24 @@ System.debug('conVer--------->'+conVer2);*/
         System.debug('conDoc----------->'+conDoc);
         
         ContentDocumentLink conDocLink = New ContentDocumentLink();
-        conDocLink.LinkedEntityId = bookingld;
-        conDocLink.ContentDocumentId = conDoc;
+        conDocLink.LinkedEntityId = bookingld; 
+        conDocLink.ContentDocumentId = conDoc;  
         conDocLink.shareType = 'V';
         insert conDocLink;
         
         ContentDocumentLink conDocLink1 = New ContentDocumentLink();
-        conDocLink1.LinkedEntityId = paymentId;
-        conDocLink1.ContentDocumentId = conDoc;
+        conDocLink1.LinkedEntityId = paymentId; 
+        conDocLink1.ContentDocumentId = conDoc; 
         conDocLink1.shareType = 'V';
         insert conDocLink1;
-        SendEmail(conDocLink1,bookingld,paymentId);
+        Boolean checkEmailSending = Boolean.valueOf(System.Label.Credit_Note_Receipt_Email);
+        Boolean checkCondition = Boolean.valueOf(System.Label.Payment_Receipt_Send_to_Cusomer);
+        if(paymentRec.Payment_Type__c=='SAP Credit Note' && checkEmailSending){
+            SendEmail(conDocLink1,bookingld,paymentId);
+        }
+        else if(paymentRec.Payment_Type__c!='SAP Credit Note' && checkCondition){
+            SendEmail(conDocLink1,bookingld,paymentId);
+        }
     }
     public static void SendEmail(ContentDocumentLink conDocLink1, Id bkid, id payId){
         List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>();
@@ -65,20 +71,6 @@ System.debug('conVer--------->'+conVer2);*/
                               Primary_Applicant__r.PersonContactId
                               from Booking__c where id=: bkid];
         System.debug('booking----->'+booking);
-        
-        List<co_Applicant__c> coAppList = [SELECT Id, Name,Booking__c,Account__r.PersonEmail
-                                           FROM Co_Applicant__c
-                                           Where Booking__c =: bkid];
-        
-        List<String> ccAddress = new List<String>();
-        String personEmail;
-        for(co_Applicant__c coApp : coAppList){
-            personEmail = coApp.Account__r.PersonEmail;
-         if(coApp.Account__r.PersonEmail != '' &&  coApp.Account__r.PersonEmail != null){
-        ccAddress.add(personEmail);
-        }
-    }
-    
         
         Suggested_Property__c suggestedProperty = [Select Id, Unit__c,Unit__r.Name from Suggested_Property__c where Id =:booking.Related_Suggested_Property__c ];
         
@@ -95,7 +87,7 @@ System.debug('conVer--------->'+conVer2);*/
             attachments.add(efa);
             System.debug('efa:--------' +efa);
         }
-        system.debug('attachments'+attachments);
+        system.debug('attachments'+attachments);  
         
         EmailTemplate emailTemplate = [SELECT Id, Subject, Description, HtmlValue, DeveloperName, Body FROM EmailTemplate WHERE Name = 'Generate Payment Notification'];	//Receipt'];
         System.debug('emailTemplate---------->'+emailTemplate);
@@ -118,34 +110,34 @@ System.debug('conVer--------->'+conVer2);*/
         Subject = Subject.replace('{!bookingFormLink}', bookingFormLink);      
         
         List<Messaging.SingleEmailMessage> emailMsgList = New List<Messaging.SingleEmailMessage>();
-        //if(booking.Disable_All_Reminders__c == false)
-        if(booking.Primary_Applicant__r.PersonEmail != '' &&  booking.Primary_Applicant__r.PersonEmail != null)
-        {
-            List<Id> idList = new List<Id>();
-            for (Contentversion con : conlist) {
-                idList.add(con.Id);
-            }
-            toMailList.add(booking.Primary_Applicant__r.PersonEmail);
-            Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(String.Valueof(emailTemplate.Id), null, booking.id);
-            // email.setTargetObjectId(booking.Primary_Applicant__r.PersonContactId);
-            email.setOrgWideEmailAddressId(orgEmail.Id);
-            email.setccAddresses(ccAddress);
-            email.setToAddresses(toMailList);
-            email.setEntityAttachments(new List<Id>(idList));
-            email.setSubject(Subject);
-            emailMsgList.add(email);
-        }
-        if (emailMsgList.size() > 0) 
-        {
-            Messaging.SendEmailResult[] results = Messaging.sendEmail(emailMsgList);
-            if(results[0].success)
+        Boolean checkCondition = Boolean.valueOf(System.Label.Payment_Receipt_Send_to_Cusomer);
+        if(checkCondition){
+            if(booking.Primary_Applicant__r.PersonEmail != '' &&  booking.Primary_Applicant__r.PersonEmail != null)
             {
-                System.debug('The email was sent successfully.');
+                List<Id> idList = new List<Id>();
+                for (Contentversion con : conlist) {
+                    idList.add(con.Id);
+                }
+                toMailList.add(booking.Primary_Applicant__r.PersonEmail);
+                Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(String.Valueof(emailTemplate.Id), null, booking.id);
+                // email.setTargetObjectId(booking.Primary_Applicant__r.PersonContactId);
+                email.setOrgWideEmailAddressId(orgEmail.Id);
+                email.setToAddresses(toMailList);
+                email.setEntityAttachments(new List<Id>(idList));
+                email.setSubject(Subject);
+                emailMsgList.add(email);
             }
-            else {
-                System.debug('The email failed to send: ' +  results[0].errors[0].message);
-            } 
+            if (emailMsgList.size() > 0) 
+            {
+                Messaging.SendEmailResult[] results = Messaging.sendEmail(emailMsgList);
+                if(results[0].success)
+                {
+                    System.debug('The email was sent successfully.');
+                }
+                else {
+                    System.debug('The email failed to send: ' +  results[0].errors[0].message);
+                } 
+            }
         }
-        
     }
 }

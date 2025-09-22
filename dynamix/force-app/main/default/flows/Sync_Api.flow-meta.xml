@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>calloutBookingCancellation</name>
-        <label>calloutBookingCancellation</label>
-        <locationX>4274</locationX>
-        <locationY>674</locationY>
-        <actionName>calloutBookingCancellation</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>bookingId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutBookingCancellation</nameSegment>
-    </actionCalls>
-    <actionCalls>
         <name>calloutBookingCreation</name>
         <label>calloutBookingCreation</label>
         <locationX>314</locationX>
@@ -27,42 +11,10 @@
         <inputParameters>
             <name>bookingIds</name>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </inputParameters>
         <nameSegment>calloutBookingCreation</nameSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>calloutBrokerMaster</name>
-        <label>calloutBrokerMaster</label>
-        <locationX>2954</locationX>
-        <locationY>890</locationY>
-        <actionName>calloutBrokerMaster</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>accountId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutBrokerMaster</nameSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>calloutBrokerMasterUpdate</name>
-        <label>calloutBrokerMasterUpdate</label>
-        <locationX>3746</locationX>
-        <locationY>674</locationY>
-        <actionName>calloutBrokerMaster</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>accountId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutBrokerMaster</nameSegment>
     </actionCalls>
     <actionCalls>
         <name>callOutCustomerCreation</name>
@@ -81,72 +33,6 @@
         <nameSegment>callOutCustomerCreation</nameSegment>
     </actionCalls>
     <actionCalls>
-        <name>calloutEOI_CACustomerCancellation</name>
-        <label>calloutEOI_CACustomerCancellation</label>
-        <locationX>5770</locationX>
-        <locationY>782</locationY>
-        <actionName>calloutEOI_CACustomerCreation</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>accountId</name>
-            <value>
-                <elementReference>Get_Opportunity_for_EOI_Cancellation.AccountId</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>cancellationFlag</name>
-            <value>
-                <stringValue>01</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>opportunityId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutEOI_CACustomerCreation</nameSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>calloutEOI_CACustomerCreation</name>
-        <label>calloutEOI_CACustomerCreation</label>
-        <locationX>4802</locationX>
-        <locationY>782</locationY>
-        <actionName>calloutEOI_CACustomerCreation</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>accountId</name>
-            <value>
-                <elementReference>Get_Opportunity.AccountId</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>opportunityId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutEOI_CACustomerCreation</nameSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>calloutEOI_CAPayment</name>
-        <label>calloutEOI_CAPayment</label>
-        <locationX>5330</locationX>
-        <locationY>674</locationY>
-        <actionName>calloutEOI_CAPayment</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>paymentId</name>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>calloutEOI_CAPayment</nameSegment>
-    </actionCalls>
-    <actionCalls>
         <name>calloutPricingMaster</name>
         <label>calloutPricingMaster</label>
         <locationX>1370</locationX>
@@ -157,7 +43,7 @@
         <inputParameters>
             <name>prPlanComponentIds</name>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </inputParameters>
         <nameSegment>calloutPricingMaster</nameSegment>
@@ -173,7 +59,7 @@
         <inputParameters>
             <name>propertyIds</name>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </inputParameters>
         <nameSegment>calloutProperty</nameSegment>
@@ -189,7 +75,7 @@
         <inputParameters>
             <name>propertyIds</name>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </inputParameters>
         <nameSegment>calloutProperty</nameSegment>
@@ -205,7 +91,7 @@
         <inputParameters>
             <name>transactionId</name>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </inputParameters>
         <nameSegment>ReceiptPosting</nameSegment>
@@ -221,7 +107,7 @@
             <assignToReference>bookingIds</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
+                <elementReference>gET_DATA_sYNC.RecordId__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -247,7 +133,7 @@
     <decisions>
         <name>Check_Event_Type</name>
         <label>Check Event Type</label>
-        <locationX>3174</locationX>
+        <locationX>1502</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>ErrorMessage</targetReference>
@@ -257,7 +143,7 @@
             <name>if_Customer_Creation</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Co_Applicant__c</stringValue>
@@ -272,7 +158,7 @@
             <name>If_Booking_Creation</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Booking</stringValue>
@@ -287,7 +173,7 @@
             <name>If_Payment</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Payment</stringValue>
@@ -302,7 +188,7 @@
             <name>If_Pricing_Plan_Component</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Pricing Plan Component</stringValue>
@@ -317,7 +203,7 @@
             <name>If_Property</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Property</stringValue>
@@ -332,7 +218,7 @@
             <name>If_Property_Update</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
+                <leftValueReference>gET_DATA_sYNC.Event_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Property Update</stringValue>
@@ -342,143 +228,6 @@
                 <targetReference>Copy_4_of_Update_Data_Sync_Status</targetReference>
             </connector>
             <label>If Property Update</label>
-        </rules>
-        <rules>
-            <name>If_Channel_Partner</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Channel Partner</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Channel_Partner_Record</targetReference>
-            </connector>
-            <label>If Channel Partner</label>
-        </rules>
-        <rules>
-            <name>If_Channel_Partner_Update</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Channel Partner Update</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_6_of_Update_Data_Sync_Status</targetReference>
-            </connector>
-            <label>If Channel Partner Update</label>
-        </rules>
-        <rules>
-            <name>If_Booking_Cancellation</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Booking Cancellation</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_7_Of_Update_Data_Sync_Status</targetReference>
-            </connector>
-            <label>If Booking Cancellation</label>
-        </rules>
-        <rules>
-            <name>If_EOI_Customer</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>EOI/CA Customer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Opportunity</targetReference>
-            </connector>
-            <label>If EOI Customer</label>
-        </rules>
-        <rules>
-            <name>If_EOI_Payment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>EOI/CA Payment</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_10_of_Update_Data_Sync_Status</targetReference>
-            </connector>
-            <label>If EOI Payment</label>
-        </rules>
-        <rules>
-            <name>If_EOI_Cancellation</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GET_DATA_SYNC.Event_Type__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>EOI/CA Cancellation</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Opportunity_for_EOI_Cancellation</targetReference>
-            </connector>
-            <label>If EOI Cancellation</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Check_If_Channel_Partner_is_already_synced</name>
-        <label>Check If Channel Partner is already synced?</label>
-        <locationX>3284</locationX>
-        <locationY>458</locationY>
-        <defaultConnector>
-            <targetReference>Already_Synced_Message</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Yes</defaultConnectorLabel>
-        <rules>
-            <name>Not_Synced</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Channel_Partner_Record.Partner_Id__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_5_of_Update_Data_Sync_Status</targetReference>
-            </connector>
-            <label>Not Synced</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_10_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>5462</locationX>
-        <locationY>566</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_10_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_EOIPayment</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutEOI_CAPayment</targetReference>
-            </connector>
-            <label>Sync Api</label>
         </rules>
     </decisions>
     <decisions>
@@ -570,116 +319,6 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Copy_5_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>3086</locationX>
-        <locationY>782</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_5_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_ChannelPartner</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutBrokerMaster</targetReference>
-            </connector>
-            <label>Sync Api</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_6_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>3878</locationX>
-        <locationY>566</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_6_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_ChannelPartnerUpdate</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutBrokerMasterUpdate</targetReference>
-            </connector>
-            <label>Sync Api</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_7_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>4406</locationX>
-        <locationY>566</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_7_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_BookingCancellation</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutBookingCancellation</targetReference>
-            </connector>
-            <label>Sync Api</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_8_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>4934</locationX>
-        <locationY>674</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_8_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_EOICustomer</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutEOI_CACustomerCreation</targetReference>
-            </connector>
-            <label>Sync Api</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_9_of_If_Yes</name>
-        <label>If Yes</label>
-        <locationX>5902</locationX>
-        <locationY>674</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Copy_9_of_Sync_Api</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Do_you_want_to_re_sync_EOICancellation</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>calloutEOI_CACustomerCancellation</targetReference>
-            </connector>
-            <label>Sync Api</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>If_Yes</name>
         <label>If Yes</label>
         <locationX>446</locationX>
@@ -724,30 +363,9 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Channel_Partner_Record</name>
-        <label>Get Channel Partner Record</label>
-        <locationX>3284</locationX>
-        <locationY>350</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Check_If_Channel_Partner_is_already_synced</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GET_DATA_SYNC</name>
-        <label>GET DATA SYNC</label>
-        <locationX>3174</locationX>
+        <name>gET_DATA_sYNC</name>
+        <label>gET DATA sYNC</label>
+        <locationX>1502</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -765,72 +383,6 @@
         <object>Data_Sync__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
-        <locationX>4934</locationX>
-        <locationY>350</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Copy_8_of_Update_Data_Sync_Status</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Opportunity_for_EOI_Cancellation</name>
-        <label>Get Opportunity for EOI Cancellation</label>
-        <locationX>5902</locationX>
-        <locationY>350</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Copy_9_of_Update_Data_Sync_Status</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.RecordId__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>Copy_10_of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>5462</locationX>
-        <locationY>350</locationY>
-        <connector>
-            <targetReference>Copy_10_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
     <recordUpdates>
         <name>Copy_1_of_Update_Data_Sync_Status</name>
         <label>Update Data Sync Status</label>
@@ -844,7 +396,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
+                <elementReference>gET_DATA_sYNC.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -868,7 +420,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
+                <elementReference>gET_DATA_sYNC.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -892,7 +444,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
+                <elementReference>gET_DATA_sYNC.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -916,127 +468,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_5_of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>3086</locationX>
-        <locationY>566</locationY>
-        <connector>
-            <targetReference>Copy_5_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_6_of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>3878</locationX>
-        <locationY>350</locationY>
-        <connector>
-            <targetReference>Copy_6_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_7_Of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>4406</locationX>
-        <locationY>350</locationY>
-        <connector>
-            <targetReference>Copy_7_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_8_of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>4934</locationX>
-        <locationY>458</locationY>
-        <connector>
-            <targetReference>Copy_8_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Data_Sync__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_9_of_Update_Data_Sync_Status</name>
-        <label>Update Data Sync Status</label>
-        <locationX>5902</locationX>
-        <locationY>458</locationY>
-        <connector>
-            <targetReference>Copy_9_of_Confirm</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
+                <elementReference>gET_DATA_sYNC.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -1060,7 +492,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GET_DATA_SYNC.Id</elementReference>
+                <elementReference>gET_DATA_sYNC.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -1071,30 +503,6 @@
         </inputAssignments>
         <object>Data_Sync__c</object>
     </recordUpdates>
-    <screens>
-        <name>Already_Synced_Message</name>
-        <label>Already Synced Message</label>
-        <locationX>3482</locationX>
-        <locationY>566</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>Message</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;This Channel Partner is Already Synced with a Partner Id : {!Get_Channel_Partner_Record.Partner_Id__c}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <screens>
         <name>Confirm</name>
         <label>Confirm</label>
@@ -1118,63 +526,6 @@
                     <dataType>String</dataType>
                     <fieldText>Do you want to re-sync?</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_10_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>5462</locationX>
-        <locationY>458</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_10_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_10_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_10_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_EOIPayment</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -1230,7 +581,6 @@
                     <dataType>String</dataType>
                     <fieldText>Do you want to re-sync?</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -1286,7 +636,6 @@
                     <dataType>String</dataType>
                     <fieldText>Do you want to re-sync?</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -1342,7 +691,6 @@
                     <dataType>String</dataType>
                     <fieldText>Do you want to re-sync?</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -1398,287 +746,6 @@
                     <dataType>String</dataType>
                     <fieldText>Do you want to re-sync?</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_5_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>3086</locationX>
-        <locationY>674</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_5_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_5_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_5_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_ChannelPartner</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_6_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>3878</locationX>
-        <locationY>458</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_6_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_6_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_6_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_ChannelPartnerUpdate</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_7_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>4406</locationX>
-        <locationY>458</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_7_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_7_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_7_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_BookingCancellation</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_8_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>4934</locationX>
-        <locationY>566</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_8_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_8_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_8_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_EOICustomer</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>12</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_9_of_Confirm</name>
-        <label>Confirm?</label>
-        <locationX>5902</locationX>
-        <locationY>566</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_9_of_If_Yes</targetReference>
-        </connector>
-        <fields>
-            <name>Copy_9_of_Confirm_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Copy_9_of_Confirm_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Do_you_want_to_re_sync_EOICancellation</name>
-                    <choiceReferences>Yes</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Do you want to re-sync?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -1714,14 +781,14 @@
     <screens>
         <name>ErrorMessage</name>
         <label>ErrorMessage</label>
-        <locationX>6298</locationX>
+        <locationX>2954</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
             <name>errormEssage2</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(228, 56, 56);&quot;&gt;Api with Event type &quot;{!GET_DATA_SYNC.Event_Type__c}&quot; Not available for resync from this button&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(228, 56, 56);&quot;&gt;Api with Event type &quot;{!gET_DATA_sYNC.Event_Type__c}&quot; Not available for resync from this button&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1736,13 +803,13 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>3048</locationX>
+        <locationX>1376</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GET_DATA_SYNC</targetReference>
+            <targetReference>gET_DATA_sYNC</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>bookingIds</name>
         <dataType>String</dataType>

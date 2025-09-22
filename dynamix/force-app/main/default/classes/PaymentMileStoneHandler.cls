@@ -22,10 +22,10 @@ public class PaymentMileStoneHandler {
                 system.debug('pm.Due_Date__c=='+ pm.Due_Date__c);
             }
             if(pm.Project_Progress__c==NULL && pm.Milestone_Activation_Date__c==date.today()){
-                pm.Milestone_Status__c = 'Active';
+                /*pm.Milestone_Status__c = 'Active';
                 pm.Due_Date__c = System.today() + intValue;
                 pm.Milestone_Activation_Date__c=system.today();
-                system.debug('pm.Due_Date__c second condition=='+ pm.Due_Date__c);
+                system.debug('pm.Due_Date__c second condition=='+ pm.Due_Date__c);*/
             }
         }
     }
@@ -93,7 +93,7 @@ public class PaymentMileStoneHandler {
             update parentsToUpdate;
         }
     }
-    Public Static void LastDemandGenerationSendSMStoCustomer(List<Payment_Milestones__c> milestoneList,Map<Id,Payment_Milestones__c> oldPaymentMilestone)
+    /*Public Static void LastDemandGenerationSendSMStoCustomer(List<Payment_Milestones__c> milestoneList,Map<Id,Payment_Milestones__c> oldPaymentMilestone)
     {
         List<Payment_Milestones__c> paymentMilestoneList = New List<Payment_Milestones__c>();
         Set<Id> bookingIdSet = New Set<Id>();
@@ -234,10 +234,5 @@ public class PaymentMileStoneHandler {
             }
         }
         
-    }
-    public static void syncMilestonesToSAP(List<Payment_Milestones__c> milestoneList,Map<Id,Payment_Milestones__c> oldPaymentMilestone){
-        for(Payment_Milestones__c milestone:milestoneList){
-            calloutPaymentMilestone.exposePaymentMilestonesToSAP(milestone.Booking__c, milestone.Id, 'U');
-        }
-    }
+    }*/
 }

@@ -97,6 +97,9 @@ public class SendSMSUtility_Test{
             Test.setMock(HttpCalloutMock.class, new SendSMSMock());  
             SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYMXGP'); 
             SendSMSUtility.sendSMSMethod( templateBody,mobileNumber,'DYMXGP',  'Test1234');
+            Map<String,String> templateBodyMap = New Map<String,String> ();
+            templateBodyMap.put(booking.Primary_Applicant__r.PersonMobilePhone,templateBody);
+            SendSMSUtility.sendBulkSMSMethod(templateBodyMap,new List<string>{booking.Primary_Applicant__r.PersonMobilePhone},'DYMXGP',  'Test1234');
         }   
     }
 }

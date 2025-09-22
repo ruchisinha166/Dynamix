@@ -37,20 +37,28 @@ public class SendEmailForBookingFormSubmitted_Test {
             accountObject.PAN_No__c = 'ABCTY1234D';
             accountObject.Aadhar_Uploaded__pc = true;
             accountObject.PAN_Card_Uploaded__pc = true;
+            accountObject.PersonMobilePhone = '5767864376';
             insert accountObject;
+            
+            Project__c projectObject = new Project__c();
+            projectObject.Name = 'Test Project';
+            projectObject.Project_Email__c= 'nishi@manras.com';
+            projectObject.Site_Head__c = testUserRcd1.Id;
+            projectObject.Project_Carpet_Area__c = '475 - 1 BHK;900 - 3 BHk';
+            projectObject.Budgets__c = 'Under 75 lakhs';
+            projectObject.Configuration__c ='3 BHK';
+            insert projectObject;
             
             Opportunity oppoObject = new Opportunity();
             oppoObject.AccountId = accountObject.Id;
             oppoObject.Name = 'test Opportunity';
             oppoObject.StageName = 'Site Visit';
             oppoObject.CloseDate = System.Today()+3;
+            oppoObject.Project__c = projectObject.Id;
+            oppoObject.Walk_in_Source__c = 'Hoarding';
             insert oppoObject;
             
-            Project__c projectObject = new Project__c();
-            projectObject.Name = 'Test Project';
-            projectObject.Project_Email__c= 'nishi@manras.com';
-            projectObject.Site_Head__c = testUserRcd1.Id;
-            insert projectObject;
+            
             
             Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
             pricingPlanObject.Name = 'Pricing Plan Test';

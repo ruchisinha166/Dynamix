@@ -1,4 +1,21 @@
 trigger TriggerOnPaymentMileStone on Payment_Milestones__c (before insert,after insert, after update, after delete) {
+ /*if(Trigger.isBefore && Trigger.isInsert)
+    {
+        PaymentMileStoneHandler.onBeforeHandler(Trigger.New);
+    }
+    if(Trigger.isAfter){
+        if(Trigger.isInsert || Trigger.isUpdate){
+            PaymentMileStoneHandler.updateMilestonePercentOnBooking(Trigger.new);
+            
+        }
+        if(Trigger.isUpdate){
+            //PaymentMileStoneHandler.LastDemandGenerationSendSMStoCustomer(Trigger.new,Trigger.oldMap);
+            
+        }
+        if(Trigger.isDelete){
+            PaymentMileStoneHandler.updateMilestonePercentOnBooking(Trigger.old);
+        }
+    }*/
     Boolean checkCondition = Boolean.valueOf(System.Label.TriggerOnPaymentMileStone);
     if(checkCondition){
         if(Trigger.isBefore && Trigger.isInsert)
@@ -23,8 +40,7 @@ trigger TriggerOnPaymentMileStone on Payment_Milestones__c (before insert,after 
                 }
             }
             if(Trigger.isUpdate){
-                PaymentMileStoneHandler.syncMilestonesToSAP(Trigger.new,Trigger.oldMap);
-                PaymentMileStoneHandler.LastDemandGenerationSendSMStoCustomer(Trigger.new,Trigger.oldMap);
+            //    PaymentMileStoneHandler.LastDemandGenerationSendSMStoCustomer(Trigger.new,Trigger.oldMap);
                 
             }
             if(Trigger.isDelete){

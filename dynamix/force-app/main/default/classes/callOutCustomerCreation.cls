@@ -198,10 +198,10 @@ public class callOutCustomerCreation {
         HttpRequest request = new HttpRequest();
         HttpResponse response = new HttpResponse();
         Http http = new Http();
-        request.setEndpoint('callout:Sap_Coapplicant'); //https://dynamix-cpi-non-prod-4d56retv.it-cpi023-rt.cfapps.eu20-001.hana.ondemand.com/http/Dynamix/SFDCcustomerdetails
+        request.setEndpoint('callout:Sap_Coapplicant'); ///sap/opu/odata/SAP/ZCUSTOMER_CREATION_SRV/CustomerDetailSet?sap-client=110
         request.setMethod('POST');
         request.setHeader('Accept', 'application/json');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setHeader('Content-Type', 'application/json');
         request.setBody(jsonString);
         List<Co_Applicant__c> coAppToUpdate=new List<Co_Applicant__c>();

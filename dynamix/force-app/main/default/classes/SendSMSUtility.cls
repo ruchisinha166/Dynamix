@@ -102,6 +102,72 @@ public class SendSMSUtility {
             System.debug('SMS Sending Error ==>'+errorMsg);
         }
     }
+    @future(callout=true)
+    Public static void sendBulkSMSMethod(Map<String,String> templateBody,List<String> mobileNumber,String senderId, string templateId){
+        //get value From Custom Meta data
+        List<BookingForm_OTP_Data__mdt> otpContent = BookingForm_OTP_Data__mdt.getAll().values();
+        System.debug('otpContent:'+otpContent);
+        senderId = 'DYNAMX';
+        String bearerToken= otpContent[0].Bearer_Token__c;
+        System.debug('BearerToken:'+BearerToken);
+        String endPoint= otpContent[0].End_Point__c;
+        System.debug('endPoint:'+endPoint);
+        String contentTypeHeader= otpContent[0].Content_Type_Header__c;
+        System.debug('contentTypeHeader:'+contentTypeHeader);  
+        String authorizationHeader= otpContent[0].Authorization_Header__c;
+        System.debug('authorizationHeader:'+authorizationHeader);  
+        String msgBody= 'templateBody';
+        System.debug('msgBody:'+msgBody);  
+        String mobileNo= 'mobileNumber';
+       // mobileNo= '9728185517';
+        Map<String, Object> payload = new Map<String, Object>();
+        HttpRequest request = new HttpRequest();
+        List<Vapp_SMS__mdt> vappSMSData = Vapp_SMS__mdt.getAll().values();
+        Map<String, Map<String,String>> jsonMap = New Map<String,Map<String,String>>();
+        Map<String,string> credentialsMap = New Map<String,string>();
+        credentialsMap.put('user',vappSMSData[0].User__c);
+        credentialsMap.put('password',vappSMSData[0].Password__c);
+        payload.put('credentials',credentialsMap);
+        
+        Map<String,string> optionsMap = New Map<String,string>();
+        optionsMap.put('dltPrincipalEntityId',vappSMSData[0].dltPrincipalEntityId__c);
+       
+        payload.put('options',optionsMap);
+        payload.put('from',senderId);
+        Map<String,string> shortMessagesMap = New Map<String,string>();
+        
+        shortMessagesMap.put('dltContentId',templateId);
+        List<Map<String,string>> shortMessagesList = New List<Map<String,string>>();
+        for(String Mob:mobileNumber){
+            String uuid = new Uuid().getValue();
+            shortMessagesMap.put('corelationId',uuid);
+            shortMessagesMap.put('message',templateBody.get(Mob));
+            shortMessagesMap.put('recipient',Mob);
+            shortMessagesList.add(shortMessagesMap);
+        }
+
+        payload.put('shortMessages',shortMessagesList);
+        payload.put('unicode', 'false');
+        
+        system.debug('payload'+payload);
+        request.setEndpoint(vappSMSData[0].End_Point__c);
+        request.setMethod('POST');
+        // request.setHeader('Authorization', authorizationHeader);
+        request.setHeader('Content-Type', 'application/json'); 
+        String payloadJson = JSON.serialize(payload);
+        request.setBody(payloadJson);
+        system.debug('payloadJson'+payloadJson);
+        Http http = new Http();
+        HTTPResponse response = http.send(request); 
+        system.debug('response'+response.getbody());
+        if(response.getStatusCode() == 200){
+            System.debug('SMS Sent');
+        } 
+        else{
+            String errorMsg = string.valueOf(response.getStatus());
+            System.debug('SMS Sending Error ==>'+errorMsg);
+        }
+    }
     
   
 }

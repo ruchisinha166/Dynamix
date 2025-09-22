@@ -1080,7 +1080,6 @@
             <dataType>String</dataType>
             <fieldText>Select a Property</fieldText>
             <fieldType>RadioButtons</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1098,7 +1097,6 @@
             <dataType>String</dataType>
             <fieldText>Choose a Payment Plan</fieldText>
             <fieldType>RadioButtons</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1117,7 +1115,6 @@
             </defaultValue>
             <fieldText>Discount</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <scale>0</scale>
             <styleProperties>

@@ -15,6 +15,24 @@
             </value>
         </inputParameters>
         <nameSegment>calloutBookingUpdate</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>Copy_1_of_Call_Update_API</name>
+        <label>Copy 1 of Call Update API</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <actionName>calloutBookingUpdate</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>bookingIds</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>calloutBookingUpdate</nameSegment>
+        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -26,14 +44,7 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>IF_True</name>
-            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17)</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Cancellation_Reasons__c</leftValueReference>
-                <operator>IsChanged</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Sales_Manager__c</leftValueReference>
                 <operator>IsChanged</operator>
@@ -157,6 +168,9 @@
         <label>Copy 1 of Check if Related DataSync record exists</label>
         <locationX>182</locationX>
         <locationY>539</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Call_Update_API</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Copy_1_of_If_Not</name>
@@ -212,7 +226,7 @@
         <inputAssignments>
             <field>Event_Type__c</field>
             <value>
-                <stringValue>Booking</stringValue>
+                <stringValue>Booking Update</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -258,6 +272,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Pending</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Event_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Booking Update</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>

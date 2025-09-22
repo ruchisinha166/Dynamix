@@ -19,7 +19,6 @@ public with sharing class calloutBookingCreation{
         Set<String> projectAddonIds = new Set<String>();
         Set<String> propertyPriceSlab = new Set<String>();
         Map<String,Price_Details__c> pdMapCarParking = new Map<String,Price_Details__c>();
-        Map<String,List<Property__c>> parkingInventoryMap = new Map<String,List<Property__c>>();
         Map<String,Price_Details__c> pdMapBrokerage = new Map<String,Price_Details__c>();
         Map<String,Price_Details__c> pdMapStampDuty = new Map<String,Price_Details__c>();
         List<Price_Details__c> priceDetailList = new List<Price_Details__c>();
@@ -41,7 +40,7 @@ public with sharing class calloutBookingCreation{
                 Related_Suggested_Property__r.Discount__c,Discount__c,
                 Sales_Manager__r.Name,Related_Opportunity__r.No_of_Parking_s_Spots_Required__c,
                 Bank_Approved_ROC__c,Channel_Partner__r.Partner_Id__c,
-                (Select Id,Booking__c,Amount__c,Discount__c,Name,Charge_Group__c,Parking__c
+                (Select Id,Booking__c,Amount__c,Discount__c,Name,Charge_Group__c 
                  From Price_Details__r),
                 Related_Suggested_Property__r.Unit__c,
                 Related_Suggested_Property__r.Unit__r.SAP_Code__c,Related_Suggested_Property__r.Unit__r.Property_Price_Slab__c,
@@ -49,14 +48,13 @@ public with sharing class calloutBookingCreation{
                  Project_Progress__c,Milestone_Activation_Date__c,Milestone_Master__r.Sap_Code__c,
                  Sap_Code__c,Milestone_age__c,Milestone_Amount1__c,Payment_Term_Code__c 
                  From Payment_Milestones__r 
-                 Where Name !='Possession/Handover(Other) Charge' Order By Sequence_No__c),
+                 Where Name !='Possession/Handover(Other) Charge'),
                 (Select id,Name,Property__c,Booking__c,Sap_Code__c,Project_Add_On_Charges__c 
                  From Booking_Line_Items__r
                 ),Payment_Plan__c,
                 (Select id,Account_Name__c,Booking__c,Sap_Code__c,Role__c
                  From Co_Applicant__r 
                  Where Role__c ='Primary'),
-                (Select Id,Property_Status__c,SAP_Code__c,Booking__c from Properties__r),
                 Project_Name__r.Project_Type__c,Channel_Partner__c,Stamp_Duty_Status__c,
                 Agreement_Date__c,Source_of_Finance__c,
                 Primary_Loan_Details__r.Home_LoanInstitution__r.Name,
@@ -87,8 +85,8 @@ public with sharing class calloutBookingCreation{
                                 priceDetailMap.put(pd.Booking__c,new List<Price_Details__c>{pd});    
                             }
                             system.debug('priceDetailMap..'+priceDetailMap);
-                        }else if(pd.Parking__c !=null){
-                            pdMapCarParking.put(pd.Parking__c,pd);
+                        }else if(pd.Name == 'Car Parking Space'){
+                            pdMapCarParking.put(pd.Booking__c,pd);
                         }else if(pd.Name == 'Brokerage'){
                             pdMapBrokerage.put(pd.Booking__c,pd);
                         }
@@ -97,15 +95,7 @@ public with sharing class calloutBookingCreation{
                         }
                     }
                 }
-                system.debug('Parking--> '+bukList.Properties__r);
-                if(bukList.Properties__r != null){
-                    if(!parkingInventoryMap.containsKey(bukList.Id)){
-                        parkingInventoryMap.put(bukList.Id,bukList.Properties__r);
-                    }
-                    else{
-                        parkingInventoryMap.get(bukList.Id).addAll(bukList.Properties__r);
-                    }
-                }
+                
             }
             
             for(Co_Applicant__c coapp:[Select id,Account_Name__c,Booking__c,Sap_Code__c,Role__c
@@ -170,28 +160,18 @@ public with sharing class calloutBookingCreation{
                     jsonGenerator1.writeStringField('POSNR',string.valueOf(index));
                     jsonGenerator1.writeStringField('MATNR',buking.Related_Suggested_Property__r!=null?buking.Related_Suggested_Property__r.Unit__r!=null ?buking.Related_Suggested_Property__r.Unit__r.SAP_Code__c!=null? buking.Related_Suggested_Property__r.Unit__r.SAP_Code__c:'':'':'');
                     String priceCode; 
-                    Decimal priceAmount=0;
-                    for(Property__c parkInventory: parkingInventoryMap.get(buking.Id)){
-                        if(parkInventory.Property_Status__c == 'Pre - Allotted'){
-                            priceCode = 'ZCPR';
-                            priceAmount += 0;
-                        }
-                        else if(parkInventory.Property_Status__c == 'Allotted'){
-                            priceCode = 'ZCPR';
-                            priceAmount += pdMapCarParking.get(parkInventory.Id).Amount__c;
-                        }
-                        
-                    }
-                    /*if(pdMapCarParking.containsKey(buking.Id)){
+                    if(pdMapCarParking.containsKey(buking.Id)){
                         String BukName = pdMapCarParking.get(buking.Id).Name.toUpperCase();
                         if(priceMetaData.containsKey(BukName)){
                             priceCode=priceMetaData.get(BukName).Key__c;
                         }
                     }
+                    jsonGenerator1.writeStringField('KSCHL1',priceCode !=null ? priceCode:'');
+                    Decimal priceAmount=0;
                     if(pdMapCarParking.containsKey(buking.Id)){
                         priceAmount = pdMapCarParking.get(buking.Id).Amount__c; 
-                    }*/
-                    jsonGenerator1.writeStringField('KSCHL1',priceCode !=null ? priceCode:'');
+                    }
+                    
                     jsonGenerator1.writeStringField('KWERT1',priceAmount !=0 ? string.valueOf(priceAmount):'');
                     String pCode1;
                     if(pdMapBrokerage.containsKey(buking.Id)){
@@ -227,7 +207,7 @@ public with sharing class calloutBookingCreation{
                     if(pdMapStampDuty.containsKey(buking.Id)){
                         priceAmount4=pdMapStampDuty.get(buking.Id).Amount__c;
                     }
-                    jsonGenerator1.writeStringField('KWERT4',priceAmount4!=null ?string.valueOf(priceAmount4.setscale(2)):'');
+                    jsonGenerator1.writeStringField('KWERT4',priceAmount4!=null ?string.valueOf(priceAmount4):'');
                     jsonGenerator1.writeStringField('KSCHL5','');
                     jsonGenerator1.writeStringField('KWERT5','');
                     jsonGenerator1.writeEndObject();
@@ -247,39 +227,6 @@ public with sharing class calloutBookingCreation{
                         }
                         jsonGenerator1.writeStringField('KSCHL1',priceCode1 !=null ? priceCode1:'');
                         jsonGenerator1.writeStringField('KWERT1',string.valueOf(bukLine.Amount__c));//bukLine.Amount__c !=0 || bukLine.Amount__c !=null ? string.valueOf(bukLine.Amount__c):
-                        jsonGenerator1.writeStringField('KSCHL2','');
-                        jsonGenerator1.writeStringField('KWERT2','');
-                        jsonGenerator1.writeStringField('KSCHL3','');
-                        jsonGenerator1.writeStringField('KWERT3','');
-                        jsonGenerator1.writeStringField('KSCHL4','');
-                        jsonGenerator1.writeStringField('KWERT4','');
-                        jsonGenerator1.writeStringField('KSCHL5','');
-                        jsonGenerator1.writeStringField('KWERT5','');
-                        jsonGenerator1.writeEndObject();
-                        indexxx++;
-                    }
-                    for(Property__c parkInventory: parkingInventoryMap.get(buking.Id)){
-                        jsonGenerator1.writeStartObject();
-                        jsonGenerator1.writeStringField('POSNR',string.valueOf(indexxx));
-                        String MatnrName;
-                        if(parkInventory.SAP_Code__c != null){
-                            MatnrName=parkInventory.SAP_Code__c;
-                        }
-                        jsonGenerator1.writeStringField('MATNR',MatnrName!=null ? MatnrName:'');
-                        String priceCode1;
-                        String parkingPrice;
-                        if(parkInventory.Property_Status__c == 'Pre - Allotted'){
-                            priceCode1 = 'ZCPR';
-                            parkingPrice = '0.00';
-                        }
-                        else if(parkInventory.Property_Status__c == 'Allotted'){
-                            //priceCode1 = 'ZCPA';
-                            //parkingPrice = string.valueOf(pdMapCarParking.get(parkInventory.Id).Amount__c);
-                            priceCode1 = 'ZCPR';
-                            parkingPrice = '0.00';
-                        }
-                        jsonGenerator1.writeStringField('KSCHL1',priceCode1 !=null ? priceCode1:'');
-                        jsonGenerator1.writeStringField('KWERT1',parkingPrice!=null ? parkingPrice:'0.00');//bukLine.Amount__c !=0 || bukLine.Amount__c !=null ? string.valueOf(bukLine.Amount__c):
                         jsonGenerator1.writeStringField('KSCHL2','');
                         jsonGenerator1.writeStringField('KWERT2','');
                         jsonGenerator1.writeStringField('KSCHL3','');
@@ -316,8 +263,7 @@ public with sharing class calloutBookingCreation{
                             jsonGenerator1.writeStringField('MILESTONE_DATE',pm.Invoice_Date__c !=null ?dateFormat(string.valueOf(pm.Invoice_Date__c)):'');
                         }
                         jsonGenerator1.writeStringField('MILESTONE_DESC',pm.Name!=null ?pm.Name:'');
-                        Decimal milestomePercentage = pm.Milestone_age__c;
-                        jsonGenerator1.writeStringField('PERCENTAGE',pm.Milestone_age__c !=null ? string.valueOf(milestomePercentage.setscale(2,RoundingMode.HALF_UP)):'');
+                        jsonGenerator1.writeStringField('PERCENTAGE',pm.Milestone_age__c !=null ? string.valueOf(pm.Milestone_age__c):'');
                         jsonGenerator1.writeStringField('AMOUNT',pm.Milestone_Amount1__c !=null ? string.valueOf(pm.Milestone_Amount1__c.setscale(2)):'');
                         if(pm.Sequence_No__c == 1){
                             jsonGenerator1.writeStringField('PAYMENT_TERM','Z030');
@@ -358,9 +304,10 @@ System.debug('Exception:Number>> ' + e.getLineNumber());
         request.setEndpoint('callout:Sap_Callout');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setBody(jsonString);
         request.setTimeout(120000);
+        
         try {
             response = http.send(request);
             ResponseAPIClass.getResponse(response);

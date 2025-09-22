@@ -7,6 +7,7 @@ public class PreventRecursionClass {
     public static Boolean flag51 = false;
     public static Boolean flag11 = false;
     public static Boolean flag21 = false;
+    public static Boolean bookingBrokerageProcessed = false;
     public static Boolean bookflag1 = false;
     public static Boolean bookflag2 = false;
     public static Boolean bookflag3 = false;

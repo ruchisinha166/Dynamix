@@ -12,7 +12,7 @@ public with sharing class UpdateBookingPaymentMilestones{
         String[] VarIds;
         if(requestLst[0].DeleteIdsOfPM != null)
         {
-            // paymentMilestoneIdforDelete =+ requestLst[0].DeleteIdsOfPM;
+           // paymentMilestoneIdforDelete =+ requestLst[0].DeleteIdsOfPM;
             VarIds = requestLst[0].DeleteIdsOfPM;
         }
         system.debug('paymentMilestoneIdforDelete ==> ' + paymentMilestoneIdforDelete );
@@ -24,36 +24,36 @@ public with sharing class UpdateBookingPaymentMilestones{
         system.debug('===> paymentMilestoneId ' + paymentMilestoneId);
         
         List<Payment_Milestones__c> paymentMilestones = (List<Payment_Milestones__c>)JSON.deserialize(requestLst[0].JsonMilestone, List<Payment_Milestones__c>.class);
-        
+
         for(Payment_Milestones__c ppm : paymentMilestones){
-            if(ppm.Name != 'Possession/Handover(Other) Charge'){
-                ppm.Milestone_age__c = (ppm.Milestone_Amount1__c/newAgreementValue)*100;
-            }
+            
+            ppm.Milestone_age__c = (ppm.Milestone_Amount1__c/newAgreementValue)*100;
+            
             if(ppm.id == null)
             {
-                ppm.Booking__c = bookingId;
+             ppm.Booking__c = bookingId;
             }
             ppm.Name = ppm.Name;
             ppm.Sequence_No__c = ppm.Sequence_No__c;
             
-            
+           
         }
-        
+
         if(paymentMilestones.size() > 0)
         {
             upsert paymentMilestones;
         }
-        //system.debug('===> updatePaymentMilestoneLst' + updatePaymentMilestoneLst);
-        
-        // For Payment Milestones Delete
-        List<Payment_Milestones__c> DeletePaymentMilestoneLst = new List<Payment_Milestones__c>();
-        DeletePaymentMilestoneLst = [select id from Payment_Milestones__c where Id IN : VarIds];
-        system.debug('==> var id ' + DeletePaymentMilestoneLst);
-        if(DeletePaymentMilestoneLst.size() > 0)
-        {
-            delete DeletePaymentMilestoneLst;
-        }
-        
+       //system.debug('===> updatePaymentMilestoneLst' + updatePaymentMilestoneLst);
+       
+       // For Payment Milestones Delete
+       List<Payment_Milestones__c> DeletePaymentMilestoneLst = new List<Payment_Milestones__c>();
+       DeletePaymentMilestoneLst = [select id from Payment_Milestones__c where Id IN : VarIds];
+       system.debug('==> var id ' + DeletePaymentMilestoneLst);
+       if(DeletePaymentMilestoneLst.size() > 0)
+       {
+           delete DeletePaymentMilestoneLst;
+       }
+       
         
         
     }
@@ -62,14 +62,14 @@ public with sharing class UpdateBookingPaymentMilestones{
         @InvocableVariable(label='Booking Id' required=true)
         public String bookingId;
         
-        @InvocableVariable(label='JsonString' required=true)
+       @InvocableVariable(label='JsonString' required=true)
         public String JsonMilestone;
         
         @InvocableVariable(label='DeleteIdsOfPM' required=true)
         public String[] DeleteIdsOfPM;
         
-        @InvocableVariable(label='New Agreement Value' required=true)
+         @InvocableVariable(label='New Agreement Value' required=true)
         public Decimal newAgreementValue;
-        
+
     }
 }

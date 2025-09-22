@@ -4,7 +4,7 @@
         <name>GetCurrentBookingPlan</name>
         <label>GetCurrentBookingPlan</label>
         <locationX>176</locationX>
-        <locationY>134</locationY>
+        <locationY>158</locationY>
         <actionName>BookingPaymentPlan</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -35,7 +35,7 @@
         <name>Update_Payment_Milestones</name>
         <label>Update Payment Milestones</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>638</locationY>
         <actionName>UpdateBookingPaymentMilestones</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -60,7 +60,7 @@
         <inputParameters>
             <name>newAgreementValue</name>
             <value>
-                <elementReference>NewAgreementValueWithAdditionalCarParking</elementReference>
+                <elementReference>NewAgreementValue</elementReference>
             </value>
         </inputParameters>
         <nameSegment>UpdateBookingPaymentMilestones</nameSegment>
@@ -71,7 +71,7 @@
         <name>Update_Milestone_Assignment</name>
         <label>Update Milestone Assignment</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>518</locationY>
         <assignmentItems>
             <assignToReference>UpdatedMilestone</assignToReference>
             <operator>Add</operator>
@@ -83,13 +83,6 @@
             <targetReference>Update_Payment_Milestones</targetReference>
         </connector>
     </assignments>
-    <environments>Default</environments>
-    <formulas>
-        <name>NewAgreementValueWithAdditionalCarParking</name>
-        <dataType>Currency</dataType>
-        <expression>{!Get_Booking_Record.Payment_Milestone_Amount__c}+{!Get_Booking_Record.Additional_Car_Parking__c}</expression>
-        <scale>2</scale>
-    </formulas>
     <interviewLabel>Manage Payment Plan - Booking {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Manage Payment Plan - Booking</label>
     <processMetadataValues>
@@ -115,7 +108,7 @@
         <name>Get_Booking_Record</name>
         <label>Get Booking Record</label>
         <locationX>176</locationX>
-        <locationY>242</locationY>
+        <locationY>278</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Payment_Milestones</targetReference>
@@ -136,7 +129,7 @@
         <name>Payment_Milestones</name>
         <label>Payment Milestones</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>398</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -162,7 +155,7 @@
             <inputParameters>
                 <name>newAgreementValue</name>
                 <value>
-                    <elementReference>NewAgreementValueWithAdditionalCarParking</elementReference>
+                    <elementReference>NewAgreementValue</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>

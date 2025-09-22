@@ -430,10 +430,11 @@ Public without Sharing class OpportunityFormController {
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: First Name Can only contains alphabets.'));
             
         }
-        if(primaryAccountMiddleName != '' && primaryAccountMiddleName.isAlphaSpace() == false)
+        if(String.isNotBlank(primaryAccountMiddleName))
         {
-            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: Middle Name Can only contains alphabets.'));
-            
+            if(primaryAccountMiddleName.isAlphaSpace() == false){
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: Middle Name Can only contains alphabets.'));
+            }
         }
         if(primaryAccountLastName.isAlphaSpace() == false)
         {
@@ -474,7 +475,7 @@ Public without Sharing class OpportunityFormController {
             acc.PersonMobilePhone = primaryAccountMobileNo;
             acc.PersonEmail = primaryAccountEmail;
             acc.FirstName =  primaryAccountFirstName.subString(0 ,1).ToUpperCase() +primaryAccountFirstName.subString(1);
-            if(primaryAccountMiddleName != '' && primaryAccountMiddleName.isAlphaSpace() == true){
+            if(String.isNotBlank(primaryAccountMiddleName) && primaryAccountMiddleName.isAlphaSpace() == true){
                 acc.MiddleName = primaryAccountMiddleName.subString(0 ,1).ToUpperCase() +primaryAccountMiddleName.subString(1);
             }
             acc.LastName = primaryAccountLastName.subString(0 ,1).ToUpperCase() +primaryAccountLastName.subString(1);
@@ -759,10 +760,11 @@ Public without Sharing class OpportunityFormController {
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: First Name Can only contains alphabets.'));
             
         }
-        if(primaryAccountMiddleName != '' && primaryAccountMiddleName.isAlphaSpace() == false)
+        if(String.isNotBlank(primaryAccountMiddleName))
         {
-            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: Middle Name Can only contains alphabets.'));
-            
+            if(primaryAccountMiddleName.isAlphaSpace() == false){
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.Error, 'Error: Middle Name Can only contains alphabets.'));
+            }
         }
         if(primaryAccountLastName.isAlphaSpace() == false)
         {
@@ -867,7 +869,7 @@ Project__c =: projectId AND Stage__c != 'Lost' && Stage__c != 'Site Visit Done' 
             acc.PersonMobilePhone = primaryAccountMobileNo;
             acc.PersonEmail = primaryAccountEmail;
             acc.FirstName =  primaryAccountFirstName.subString(0 ,1).ToUpperCase() +primaryAccountFirstName.subString(1);
-            if(primaryAccountMiddleName != '' && primaryAccountMiddleName.isAlphaSpace() == true){
+            if(String.isNotBlank(primaryAccountMiddleName) && primaryAccountMiddleName.isAlphaSpace() == true){
                 acc.MiddleName = primaryAccountMiddleName.subString(0 ,1).ToUpperCase() +primaryAccountMiddleName.subString(1);
             }
             acc.LastName = primaryAccountLastName.subString(0 ,1).ToUpperCase() +primaryAccountLastName.subString(1);

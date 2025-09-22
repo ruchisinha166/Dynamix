@@ -3,6 +3,7 @@ public class Allotmntlett2ndEscalationEmailBatch_Test {
     static testMethod void testMethod1(){
         String personAccRcdTypeId  = Schema.getGlobalDescribe().get('Account').getDescribe().getRecordTypeInfosByName().get('Person Account').getRecordTypeId();
         
+        //test account record
         Account testAccRcd = new Account();
         testAccRcd.Salutation='Mr.';
         testAccRcd.FirstName='Test FName';
@@ -12,25 +13,26 @@ public class Allotmntlett2ndEscalationEmailBatch_Test {
         testAccRcd.RecordTypeId=personAccRcdTypeId;         
         insert testAccRcd;
         
-         
-        Project__c testProjectRcd = new Project__c();
-        testProjectRcd.Name = 'Test Project';
-        insert testProjectRcd;
-        
+        //test opportunity record
         Opportunity testOppRcd = new Opportunity();
         testOppRcd.AccountId = testAccRcd.Id;
         testOppRcd.Name = 'Test Opportunity';
         testOppRcd.StageName = 'Site Visit';
-        testOppRcd.Project__c = testProjectRcd.id;
         testOppRcd.CloseDate = System.Today()+3;
         insert testOppRcd;
-       
         
+        //test project record
+        Project__c testProjectRcd = new Project__c();
+        testProjectRcd.Name = 'Test Project';
+        insert testProjectRcd;
+        
+        //test pricing Plan record
         Pricing_Plan__c testPricingPlanRcd = new Pricing_Plan__c();
         testPricingPlanRcd.Name = 'Pricing Plan Test';
         testPricingPlanRcd.Project__c = testProjectRcd.Id;
         insert testPricingPlanRcd;
         
+        //test Property record
         Property__c testPropertyRcd = new Property__c();
         testPropertyRcd.Name = 'test property';
         testPropertyRcd.Project__c = testProjectRcd.Id;
@@ -38,18 +40,21 @@ public class Allotmntlett2ndEscalationEmailBatch_Test {
         testPropertyRcd.Floor__c= '5';
         insert testPropertyRcd;
         
+        //test suggested property record
         Suggested_Property__c testSuggPropertyRcd = new Suggested_Property__c();
         testSuggPropertyRcd.Opportunity__c = testOppRcd.Id;
         testSuggPropertyRcd.Unit__c = testPropertyRcd.Id;
         testSuggPropertyRcd.Discount__c = 10;
         insert testSuggPropertyRcd;
         
+        //test booking record
         TimeZone tz = UserInfo.getTimeZone();
         DateTime dt = Datetime.now();
         Id businessHourId = [SELECT Id FROM BusinessHours WHERE IsDefault = true].Id;
         Integer hours = -56;
         Datetime allotmentLettGenDate=BusinessHours.add(businessHourId,dt, hours * 60 * 60 * 1000L);
         
+        //test booking record
         Booking__c testBookingRcd = new Booking__c();
         testBookingRcd.Primary_Applicant__c = testAccRcd.Id;
         testBookingRcd.Related_Opportunity__c = testOppRcd.Id;

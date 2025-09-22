@@ -3,7 +3,12 @@ trigger TaskTrigger on Task (after insert,after update,before update, before ins
     if(checkCondition){
         if(Trigger.isAfter && Trigger.isInsert){
             TaskTriggerHandler.sendEmailToRMCRMWhenWelcomeCallTaskCreated(Trigger.New);
-            SentSMSToCustomerForNewEnquiry.SentSMSInCaseOfMissedCall(Trigger.New);
+            if(!SentSMSToCustomerForNewEnquiry.PreventRecursionOnSentSMSInCaseOfMissedCall)
+            {
+                SentSMSToCustomerForNewEnquiry.PreventRecursionOnSentSMSInCaseOfMissedCall = true;
+                SentSMSToCustomerForNewEnquiry.SentSMSInCaseOfMissedCall(Trigger.New);
+            }
+        
             TaskTriggerHandler1.calculateTargetForChannelPartnerMeetings(Trigger.New);
             if(!TaskTriggerHandlerForEnquiry.preventRecursionOnTask)
             { 
@@ -22,12 +27,16 @@ trigger TaskTrigger on Task (after insert,after update,before update, before ins
                 TaskTriggerHandler.updateStatusAndSendEmailToRM(Trigger.New,Trigger.oldMap);
                 TaskTriggerHandler.WelcomeStatusClosedSendEmailToCustomer(Trigger.New,Trigger.oldMap);
                 TaskTriggerHandler.whenWelcomeTaskClosedCreateAgreementTask(Trigger.New,Trigger.oldMap);
+                TaskTriggerHandler1.deepCleaningTask(Trigger.New,Trigger.oldMap);
+                TaskTriggerHandler1.internalSnaggingEmail(Trigger.New,Trigger.oldMap);
+                
+
             }
             if(!TaskTriggerHandler.updateCallLogs)
-            { 
-                TaskTriggerHandler.updateCallLogs = true;
-                TaskTriggerHandler.updateLastCallDetails(Trigger.New);
-            }
+                { 
+                    TaskTriggerHandler.updateCallLogs = true;
+                    TaskTriggerHandler.updateLastCallDetails(Trigger.New);
+                }
             if(!TaskTriggerHandler.PreventRecursionenquiryStageChange)
             {
                 TaskTriggerHandler.PreventRecursionenquiryStageChange = true;
@@ -38,7 +47,7 @@ trigger TaskTrigger on Task (after insert,after update,before update, before ins
                 EnquiryStateChangeHandler.PreventRecursiononEnquiryStage = true;
                 EnquiryStateChangeHandler.main(trigger.new,trigger.oldMap);
             }
-            
+
             if(!TaskTriggerHandlerForEnquiry.preventRecursionOnTask)
             { 
                 TaskTriggerHandlerForEnquiry.preventRecursionOnTask = true;
@@ -49,11 +58,12 @@ trigger TaskTrigger on Task (after insert,after update,before update, before ins
             TaskTriggerHandler1.setAndValidateDueDate(trigger.new);
             TaskTriggerHandler.validationOnCompletionTask(Trigger.New);
             TaskTriggerHandler.calculateTargetForConnectedCalls(trigger.new);
-            if(!TaskTriggerHandler.PreventRecursionOnThrowValidation)
+        if(!TaskTriggerHandler.PreventRecursionOnThrowValidation)
             {
                 TaskTriggerHandler.PreventRecursionOnThrowValidation =true;
                 TaskTriggerHandler.ThrowValidationOnCompletionTask(Trigger.New,trigger.oldMap);
             }
+            TaskTriggerHandler1.errorForSnag(Trigger.New,trigger.oldMap);
             
         }
         if(Trigger.isBefore && Trigger.isInsert){
@@ -61,6 +71,7 @@ trigger TaskTrigger on Task (after insert,after update,before update, before ins
             TaskTriggerHandler.assignEnquiryonTask(trigger.new);
             TaskTriggerHandler.calculateTargetForConnectedCalls(trigger.new);
             TaskTriggerHandler.ThrowValidationOnCompletionTask(Trigger.New,trigger.oldMap);
+        // TaskTriggerHandler1.errorForSnag(Trigger.New,trigger.oldMap);
         }
     }
 }

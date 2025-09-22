@@ -42,7 +42,7 @@ public class SendDemandLetterrToCustomer_Test {
             
             Project__c projectObject = new Project__c();
             projectObject.Name = 'Test Project';
-            projectObject.Project_Email__c= 'divum@dynamixgroup.co.in';
+            projectObject.Project_Email__c= 'nishi@manras.com';
             projectObject.Site_Head__c = testUserRcd1.Id;
             insert projectObject;
             
@@ -229,10 +229,10 @@ public class SendDemandLetterrToCustomer_Test {
             allObj.demandId = dm.Id;
             List<SendDemandLetterrToCustomer.Request> Requests = new List<SendDemandLetterrToCustomer.Request>();
             Requests.add(allObj);
-            test.startTest();
+            Test.startTest();
             Test.setMock(HttpCalloutMock.class, new callOutBookingCreationTestMock());
             SendDemandLetterrToCustomer.execute(Requests);
-            test.stopTest();
+            Test.stopTest();
         }
     }
 }

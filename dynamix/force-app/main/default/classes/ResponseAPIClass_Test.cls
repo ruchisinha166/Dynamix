@@ -155,7 +155,7 @@ private class ResponseAPIClass_Test {
         HttpResponse res = new HttpResponse();
         res.setBody('{"item":[{"SFDC_ID":"'+acc.Id+'","LIFNR":"2400000054","STATUS":"Success","MESSAGE":"Broker Created Successfully"}]}');
        	Test.startTest();
-        ResponseAPIClass.getResponse(res); 
+        ResponseAPIClass.getResponse(res);
         Test.stopTest();
     }
 }

@@ -4,12 +4,9 @@
         <name>Send_Customer_Unit_Inspection_Whatsapp_And_SMS</name>
         <label>Send Customer Unit Inspection Whatsapp And SMS</label>
         <locationX>226</locationX>
-        <locationY>1622</locationY>
+        <locationY>1838</locationY>
         <actionName>CustomerUnitInspectionWhatsappAndSMS</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <targetReference>update_Booking</targetReference>
-        </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>bookingId</name>
@@ -106,7 +103,7 @@
     <decisions>
         <name>NDC_Document</name>
         <label>NDC Document</label>
-        <locationX>1348</locationX>
+        <locationX>1612</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Copy_2_of_Input</targetReference>
@@ -122,10 +119,54 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>get_Booking.Related_Suggested_Property__r.Unit__r.Pre_OC_End_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_Booking.Related_Suggested_Property__r.Unit__r.Post_OC_End_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Task_Condition</targetReference>
             </connector>
             <label>NDC Document Uploaded</label>
+        </rules>
+        <rules>
+            <name>Pre_oc_not_completed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_Booking.Related_Suggested_Property__r.Unit__r.Pre_OC_End_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Copy_1_of_Copy_2_of_Input</targetReference>
+            </connector>
+            <label>Pre-oc not completed</label>
+        </rules>
+        <rules>
+            <name>Post_Oc_not_Completed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_Booking.Related_Suggested_Property__r.Unit__r.Post_OC_End_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Copy_1_of_Copy_2_of_Input</targetReference>
+            </connector>
+            <label>Post Oc not Completed</label>
         </rules>
     </decisions>
     <decisions>
@@ -262,7 +303,10 @@
         <name>Event</name>
         <label>Event</label>
         <locationX>226</locationX>
-        <locationY>1838</locationY>
+        <locationY>1730</locationY>
+        <connector>
+            <targetReference>Send_Customer_Unit_Inspection_Whatsapp_And_SMS</targetReference>
+        </connector>
         <faultConnector>
             <targetReference>Error_Screen</targetReference>
         </faultConnector>
@@ -336,7 +380,7 @@
     <recordLookups>
         <name>get_Booking</name>
         <label>get Booking</label>
-        <locationX>1348</locationX>
+        <locationX>1612</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -361,7 +405,7 @@
         <locationY>1514</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Send_Customer_Unit_Inspection_Whatsapp_And_SMS</targetReference>
+            <targetReference>update_Booking</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -434,7 +478,7 @@
     <recordLookups>
         <name>Task</name>
         <label>Task</label>
-        <locationX>1348</locationX>
+        <locationX>1612</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -497,7 +541,7 @@
         <name>update_Booking</name>
         <label>update Booking</label>
         <locationX>226</locationX>
-        <locationY>1730</locationY>
+        <locationY>1622</locationY>
         <connector>
             <targetReference>Event</targetReference>
         </connector>
@@ -527,9 +571,34 @@
         <object>Booking__c</object>
     </recordUpdates>
     <screens>
+        <name>Copy_1_of_Copy_1_of_Copy_2_of_Input</name>
+        <label>Copy 1 of Copy 1 of Copy 2 of Input</label>
+        <locationX>1810</locationX>
+        <locationY>458</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Copy_1_of_Copy_1_of_Copy_2_of_Error</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(141, 0, 0);&quot;&gt;Pre-OC should be completed before scheduling Customer Unit Inspection.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>OK</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Copy_1_of_Copy_2_of_Input</name>
         <label>Copy 1 of Copy 2 of Input</label>
-        <locationX>1810</locationX>
+        <locationX>2338</locationX>
         <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -555,7 +624,7 @@
         <name>Copy_1_of_Error_Screen</name>
         <label>Copy 1 of Error Screen</label>
         <locationX>1018</locationX>
-        <locationY>1838</locationY>
+        <locationY>1730</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -587,6 +656,31 @@
         <fields>
             <name>Copy_1_of_Error</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(160, 0, 0);&quot;&gt;Please select different time slot.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>OK</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Copy_2_of_Copy_1_of_Copy_2_of_Input</name>
+        <label>Copy 2 of Copy 1 of Copy 2 of Input</label>
+        <locationX>2074</locationX>
+        <locationY>458</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Copy_2_of_Copy_1_of_Copy_2_of_Error</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(141, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Post-OC should be completed before scheduling Customer Unit Inspection.&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -655,7 +749,7 @@
         <name>Error_Screen</name>
         <label>Error Screen</label>
         <locationX>754</locationX>
-        <locationY>1946</locationY>
+        <locationY>1838</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -720,6 +814,7 @@
             <dataType>DateTime</dataType>
             <fieldText>Customer Unit Inspection Scheduled Date &amp; Time</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -735,7 +830,7 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>1222</locationX>
+        <locationX>1486</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>get_Booking</targetReference>

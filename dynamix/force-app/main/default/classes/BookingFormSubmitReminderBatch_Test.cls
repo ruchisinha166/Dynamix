@@ -20,21 +20,27 @@ public class BookingFormSubmitReminderBatch_Test {
         Id businessHourId = [SELECT Id FROM BusinessHours WHERE IsDefault = true].Id;
         Integer hours = -24;
         Datetime bookingFormShareToCustDateTime=BusinessHours.add(businessHourId,dt, hours * 60 * 60 * 1000L);
-        Date bookingFormShareToCustDate=bookingFormShareToCustDateTime.date();
+        Date bookingFormShareToCustDate=system.today().AddDays(1);
+        
+        //test project record
+        Project__c testProjectRcd = new Project__c();
+        testProjectRcd.Name = 'Test Project';
+        testProjectRcd.Project_Carpet_Area__c = '475 - 1 BHK;900 - 3 BHk';
+        testProjectRcd.Budgets__c = 'Under 75 lakhs';
+        testProjectRcd.Configuration__c ='3 BHK';
+        insert testProjectRcd;
         
         Opportunity testOppRcd = new Opportunity();
         testOppRcd.AccountId = testAccRcd.Id;
         testOppRcd.Name = 'Test Opportunity';
         testOppRcd.StageName = 'Site Visit';
         testOppRcd.CloseDate = System.Today()+3;
-        testOppRcd.Booking_Form_Shared_to_Customer_Date__c=bookingFormShareToCustDate;
+        testOppRcd.Booking_Form_Shared_to_Customer_Date__c = bookingFormShareToCustDate;
         testOppRcd.Is_Booking_Form_Submitted_by_Customer__c=false;
+        testOppRcd.Project__c = testProjectRcd.Id;
+        testOppRcd.Walk_in_Source__c = 'Hoarding';
         insert testOppRcd;
         
-        //test project record
-        Project__c testProjectRcd = new Project__c();
-        testProjectRcd.Name = 'Test Project';
-        insert testProjectRcd;
         
         //test pricing Plan record
         Pricing_Plan__c testPricingPlanRcd = new Pricing_Plan__c();

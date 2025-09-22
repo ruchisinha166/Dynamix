@@ -48,19 +48,19 @@ public class TaskTriggerHandler1 {
         system.debug('accountIdSet----'+accountIdSet);
         Map<String,String> mapOfContactId =  New  Map<String,String>();
         if(!accountIdSet.isEmpty()){
-        List<Contact> contactList = [SELECT id, AccountId, Name from Contact WHERE AccountId IN: accountIdSet];
-        //system.debug('contactList----'+contactList);
-        if(!contactList.isEmpty()){
-            /* for (Id accountId : accountIdSet) {
+            List<Contact> contactList = [SELECT id, AccountId, Name from Contact WHERE AccountId IN: accountIdSet];
+            //system.debug('contactList----'+contactList);
+            if(!contactList.isEmpty()){
+                /* for (Id accountId : accountIdSet) {
 Contact con = new Contact();
 con.Id = accountId;
 contactList.add(con);
 }*/
-            for(Contact thisContact :contactList){
-                mapOfContactId.put(thisContact.accountId,thisContact.id);
+                for(Contact thisContact :contactList){
+                    mapOfContactId.put(thisContact.accountId,thisContact.id);
+                }
             }
         }
-    }
         system.debug('mapOfContactId----'+mapOfContactId);
         for(Enquiry__c thisEnquiry :enquiryList){
             if(mapOfContactId.containsKey(thisEnquiry.Contact_Person__c))
@@ -140,14 +140,19 @@ contactList.add(con);
     }
     public static Void calculateTargetForChannelPartnerMeetings(List<Task> TaskList)
     {
-        Set<Id> ownerId = New Set<Id>();
+        Set<Id> ownerIdSet = New Set<Id>();
         Set<Id> projectId = New Set<Id>();
         Set<Id> accountId = New Set<Id>();
+        Map<String, Integer> mapOfOutboundTaskCount = New Map<String, Integer>();
+        Map<String, Integer> mapOfOutboundTargetCount = New Map<String, Integer>();
+         Map<String, Integer> mapOfInboundTaskCount = New Map<String, Integer>();
+        Map<String, Integer> mapOfInboundTargetCount = New Map<String, Integer>();
         Map<String, Integer> mapUserForCountTask = New Map<String, Integer>();
+         Map<ID, Task_Target__c> updateTaskTarget = New Map<ID, Task_Target__c>();
         for(Task thisTask :TaskList)
         {
             System.debug('thisTask.whatId---------->'+thisTask.whatId);
-            if(thisTask.whatId != null)
+            if(thisTask.whatId != null && ( thisTask.Subject == 'Outbound Meeting' || thisTask.Subject == 'Inbound Meeting' ))
             {
                 System.debug('thisTask.whatId---------->'+thisTask.whatId);
                 String objectName = thisTask.WhatId.getSObjectType().getDescribe().getName();
@@ -163,190 +168,99 @@ contactList.add(con);
                 {
                     projectId.add(thisTask.Project__c);
                 }
+                ownerIdSet.add(thisTask.OwnerId);
             }
         }
-        Map<String,Channel_Partner_Project__c> mapOfChannelPartnerProject = New Map<String,Channel_Partner_Project__c>();
-        Map<String,Channel_Partner_Project__c> updateChannelPartnerProject = New Map<String,Channel_Partner_Project__c>();
-        if(!accountId.isEmpty())
-        {
-            Id channelPartnerRecordType = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Channel Partner').getRecordTypeId();
-            System.debug('channelPartnerRecordType-------->'+channelPartnerRecordType);
-            List<Account> accountList  = [Select id, name,OwnerId  from Account Where Id IN: accountId AND  RecordTypeId =: channelPartnerRecordType ];
-            System.debug('accountList-------->'+accountList);
-            for(Account thisAccount:accountList)
-            {
-                ownerId.add(thisAccount.OwnerId );
-                System.debug('ownerId------->'+thisAccount.OwnerId);
-                
-            }System.debug('Number of queries -------------->'+ Limits.getLimitQueries());
-            List<Channel_Partner_Project__c> cPPList = [SELECT ID, Channel_Partner__c, Project__c,Unique_Inbound_Meeting_Date__c,
-                                                        Project__r.Site_Head__r.email, Unique_Outbound_Meeting_Date__c 
-                                                        FROM Channel_Partner_Project__c WHERE Channel_Partner__c IN: accountId
-                                                        AND Project__c IN :projectId];
-            
-            for(Channel_Partner_Project__c cpp :cPPList)
-            {
-                String Key = cpp.Channel_Partner__c+'-'+cpp.Project__c;
-                mapOfChannelPartnerProject.put(Key,cpp);
-            }
-            
-        }
-        System.debug('Number of queries -------------->'+ Limits.getLimitQueries());
-        system.debug('ownerId'+ownerId);
-        Date todayDate = Date.today() ;
-        system.debug('todayDate----'+todayDate);
-        system.debug('projectId----'+projectId);
-        System.debug('String.valueof(System.today().year()) -------------->'+ String.valueof(System.today().year()));
-        System.debug('System.now().format -------------->'+ System.now().format('MMMMM'));
+        List<Task> allTaskList =[SELECT id,Subject, OwnerId, Project__c, WhatId 
+                                 FROM Task
+                                 WHERE (Subject =: 'Outbound Meeting' OR Subject =: 'Inbound Meeting') AND Project__c IN: projectId 
+                                 AND OwnerId IN: ownerIdSet AND ActivityDate = THIS_MONTH 
+                                 AND Type_Of_Call__c = 'Sourcing' And Project__c != null AND WhatId != null];
         List<Task_Target__c> taskTargetList = [SELECT Id, Name, User__c, Month__c,Type__c,
                                                Year__c, Number_of_Targets_Achievement__c,
                                                X1st_Week__c, X2nd_Week__c, X3rd_Week__c,
                                                X4th_Week__c, X5th_Week__c, Project__c,
                                                Number_of_Connected_Call__c, No_of_Walk_ins__c, No_of_Follow_Ups__c
                                                FROM Task_Target__c
-                                               WHERE User__c IN :ownerId  AND Year__c = :String.valueof(System.today().year()) 
+                                               WHERE User__c IN :ownerIdSet  AND Year__c = :String.valueof(System.today().year()) 
                                                AND Month__c =: System.now().format('MMMMM')
-                                               AND Project__c IN: projectId];
-        system.debug('taskTargetList----'+taskTargetList);
-        System.debug('Number of queries -------------->'+ Limits.getLimitQueries());
-        Map<String, Task_Target__c> updateTaskTarget = New Map<String, Task_Target__c>();
-        Map<String, Task_Target__c> mapOfUserToGetTaskTargetId = New Map<String, Task_Target__c>();
-        Map<String, Integer> mapUserForOutboundTask = New Map<String, Integer>();
-        Map<String, Integer> mapUserForInboundTask = New Map<String, Integer>();
-        Map<String, Integer> mapUserForEventTask = New Map<String, Integer>();
-        for(Task_Target__c taskTarget : taskTargetList)
+                                               AND Project__c IN: projectId AND (Type__c = 'Unique Inbound' OR Type__c = 'Unique Outbound')];
+        Integer yr = System.today().year();
+        System.debug('Year is' + yr);
+        string month = System.now().format('MMMMM');
+        System.debug('Month is' + month);
+        for(Task thisTask:allTaskList)
         {
+            if(thisTask.Subject == 'Outbound Meeting')
+            {
+                String Key = thisTask.WhatId +'-' +thisTask.Project__c +'-'+thisTask.OwnerId;
+                String targetKey = month+'-'+String.valueOf(yr)+'-'+String.valueOf( thisTask.Project__c)+'-'+String.valueOf(thisTask.OwnerId)+'-'+'Unique Outbound';
+                
+                if(!mapOfOutboundTaskCount.containsKey(Key))
+                {
+                    mapOfOutboundTaskCount.put(Key,1);
+                    if(mapOfOutboundTargetCount.containsKey(targetKey))
+                    {
+                        mapOfOutboundTargetCount.put(targetKey,mapOfOutboundTargetCount.get(targetKey)+1);
+                    }
+                    else
+                    {
+                        mapOfOutboundTargetCount.put(targetKey,1);
+                    }
+                    
+                }
+            }
+            if(thisTask.Subject == 'Inbound Meeting')
+            {
+                String Key = thisTask.WhatId +'-' +thisTask.Project__c +'-'+thisTask.OwnerId;
+                String targetKey = month+'-'+String.valueOf(yr)+'-'+String.valueOf( thisTask.Project__c)+'-'+String.valueOf(thisTask.OwnerId)+'-'+'Unique Inbound';
+                
+                if(!mapOfInboundTaskCount.containsKey(Key))
+                {
+                    mapOfInboundTaskCount.put(Key,1);
+                    if(mapOfInboundTargetCount.containsKey(targetKey))
+                    {
+                        mapOfInboundTargetCount.put(targetKey,mapOfInboundTargetCount.get(targetKey)+1);
+                    }
+                    else
+                    {
+                        mapOfInboundTargetCount.put(targetKey,1);
+                    }
+                    
+                }
+            }
+         
+        }
+        system.debug('mapOfInboundTargetCount'+mapOfInboundTargetCount);
+        for(Task_Target__c taskTarget : taskTargetList)
+        { 
             
             String Key = taskTarget.Month__c+'-'+taskTarget.Year__c+'-'+String.valueOf(taskTarget.Project__c)+'-'+String.valueOf(taskTarget.User__c)+'-'+taskTarget.Type__c;
-            mapOfUserToGetTaskTargetId.put(Key,taskTarget);
-            system.debug('Task Target---');
-            System.debug('Key' + Key);
+            system.debug('Key'+Key);
             if( taskTarget.Type__c == 'Unique Outbound'){
-                if(taskTarget.Number_of_Targets_Achievement__c == null)
+                if(mapOfOutboundTargetCount.containsKey(Key))
                 {
-                    mapUserForOutboundTask.put(Key,0);
-                }
-                else
-                {
-                    system.debug('Integer.valueof(taskTarget.Number_of_Targets_Achievement__c)'+Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
-                    mapUserForOutboundTask.put(Key,Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
+                    taskTarget.Number_of_Targets_Achievement__c = mapOfOutboundTargetCount.get(Key);
+                    updateTaskTarget.put(taskTarget.id,taskTarget);                       
                 }
             }
-            if( taskTarget.Type__c == 'Event'){
-                if(taskTarget.Number_of_Targets_Achievement__c == null)
+             if( taskTarget.Type__c == 'Unique Inbound'){
+                 
+                if(mapOfInboundTargetCount.containsKey(Key))
                 {
-                    mapUserForEventTask.put(Key,0);
-                }
-                else
-                {
-                    system.debug('Integer.valueof(taskTarget.Number_of_Targets_Achievement__c)'+Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
-                    mapUserForEventTask.put(Key,Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
+                    taskTarget.Number_of_Targets_Achievement__c = mapOfInboundTargetCount.get(Key);
+                    updateTaskTarget.put(taskTarget.id,taskTarget);                       
                 }
             }
-            if( taskTarget.Type__c == 'Unique Inbound'){
-                if(taskTarget.Number_of_Targets_Achievement__c == null)
-                {
-                    mapUserForInboundTask.put(Key,0);
-                }
-                else
-                {
-                    system.debug('Integer.valueof(taskTarget.Number_of_Targets_Achievement__c)'+Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
-                    mapUserForInboundTask.put(Key,Integer.valueof(taskTarget.Number_of_Targets_Achievement__c));
-                }
-            }
-            
         }
-        List<Task> updateTaskList = New List<Task>();
-        for(Task thisTask :TaskList)
+         system.debug('updateTaskTarget'+updateTaskTarget);
+        if(!updateTaskTarget.values().IsEmpty())
         {
-            if(thisTask.whatId != null)
-            {
-                String objectName = thisTask.WhatId.getSObjectType().getDescribe().getName();
-                if(objectName == 'Account'){
-                    String cPKey = thisTask.WhatId+'-'+thisTask.Project__c;
-                    Date myDate = Date.today(); // Replace with your desired date
-                    Integer weekNumber = myDate.day() / 7 + 1;
-                    System.debug('Week Number: ' + weekNumber);
-                    
-                    if(mapOfChannelPartnerProject.containsKey(cPKey) &&thisTask.ActivityDate != null){
-                        Channel_Partner_Project__c thisCPP = mapOfChannelPartnerProject.get(cPKey);
-                        Integer yr = System.today().year();
-                        System.debug('Year is' + yr);
-                        string month = System.now().format('MMMMM');
-                        System.debug('Month is' + month);
-                        // Datetime activityDate = datetime.valueof(thisTask.ActivityDate);
-                        //string createdDateMonth = thisTask.createddate.format('MMMMM');
-                        System.debug('Month is' + month);
-                        Integer outboundMeetingYear = 0;
-                        string outboundMeetingMonth; 
-                        if(thisCPP.Unique_Outbound_Meeting_Date__c != null)
-                        {
-                            outboundMeetingYear = thisCPP.Unique_Outbound_Meeting_Date__c.year();
-                            //outboundMeetingMonth = datetime.valueof(thisCPP.Unique_Outbound_Meeting_Date__c).format('MMMMM');
-                        }
-                        Integer inboundMeetingYear = 0;
-                        string inboundMeetingMonth; 
-                        if(thisCPP.Unique_Inbound_Meeting_Date__c != null)
-                        {
-                            inboundMeetingYear = mapOfChannelPartnerProject.get(cPKey).Unique_Inbound_Meeting_Date__c.year();
-                            //inboundMeetingMonth = thisCPP.Unique_Inbound_Meeting_Date__c).format('MMMMM');
-                        }
-                        System.debug('Month is' + month);
-                        string KeyInbound = month+'-'+String.valueOf(yr)+'-'+thisTask.Project__c+'-'+String.valueOf(thisTask.OwnerId)+'-'+'Unique Inbound';
-                        string keyOutbound = month+'-'+String.valueOf(yr)+'-'+thisTask.Project__c+'-'+String.valueOf(thisTask.OwnerId)+'-'+'Unique Outbound';
-                        System.debug('keyOutbound'+keyOutbound);
-                        
-                        if(thisTask.Subject=='Outbound Meeting' && mapOfUserToGetTaskTargetId.containsKey(keyOutbound)
-                           && mapUserForOutboundTask.containsKey(keyOutbound) 
-                           && (thisCPP.Unique_Outbound_Meeting_Date__c == null ||
-                               month != outboundMeetingMonth))
-                        {
-                            System.debug('outboundMeetingMonth');
-                            Task_Target__c taskTarget = New Task_Target__c();
-                            taskTarget.id = mapOfUserToGetTaskTargetId.get(keyOutbound).id;
-                            mapUserForOutboundTask.put(keyOutbound, mapUserForOutboundTask.get(keyOutbound)+1);
-                            taskTarget.Number_of_Targets_Achievement__c = mapUserForOutboundTask.get(keyOutbound);
-                            System.debug('outboundMeetingMonth'+mapOfUserToGetTaskTargetId.get(keyOutbound).id);
-                            updateTaskTarget.put(taskTarget.id,taskTarget);
-                            thisCPP.Unique_Outbound_Meeting_Date__c = system.today();
-                            updateChannelPartnerProject.put(thisCPP.id,thisCPP);
-                            System.debug('inboundMeetingMonth'+mapOfUserToGetTaskTargetId.get(keyOutbound).id);
-                        }
-                        System.debug('inboundMeetingMonth'+inboundMeetingMonth);
-                        
-                        
-                        System.debug('inboundMeetingMonthDate'+thisCPP.Unique_Inbound_Meeting_Date__c );
-                        if(thisTask.Subject=='Inbound Meeting' && mapOfUserToGetTaskTargetId.containsKey(KeyInbound)
-                           && mapUserForInboundTask.containsKey(KeyInbound)
-                           && (thisCPP.Unique_Inbound_Meeting_Date__c == null ||
-                               month != inboundMeetingMonth ))
-                        {
-                            System.debug('yes');
-                            Task_Target__c taskTarget = New Task_Target__c();
-                            taskTarget.id = mapOfUserToGetTaskTargetId.get(KeyInbound).id;
-                            mapUserForInboundTask.put(KeyInbound, mapUserForInboundTask.get(KeyInbound)+1);
-                            taskTarget.Number_of_Targets_Achievement__c = mapUserForInboundTask.get(KeyInbound);
-                            thisCPP.Unique_Inbound_Meeting_Date__c = system.today();
-                            updateTaskTarget.put(taskTarget.id,taskTarget);
-                            updateChannelPartnerProject.put(thisCPP.id,thisCPP);
-                        }
-                        
-                    }
-                }
-                
-            }
-            if(!updateTaskTarget.values().IsEmpty())
-            {
-                update updateTaskTarget.values();
-            }
-            if(!updateChannelPartnerProject.values().IsEmpty())
-            {
-                update updateChannelPartnerProject.values();
-            }
-            
-            
+            update updateTaskTarget.values();
         }
+        
     }
+
     
     public static Void deepCleaningTask(List<Task> taskList,Map<Id,Task> oldMap)
     {
@@ -371,13 +285,13 @@ contactList.add(con);
                 }
                 if(objectName == 'Property__c')
                 {
-                     propertyIdSet.add(thisTask.WhatId);
+                    propertyIdSet.add(thisTask.WhatId);
                 }
             }
         }
         if(!deepCleaningTaskList.isEmpty())
         {
-             Map<Id,Booking__c> mapOfBooking = New Map<Id,Booking__c> ();
+            Map<Id,Booking__c> mapOfBooking = New Map<Id,Booking__c> ();
             List<Booking__c> BookList = [Select Id ,Name,Primary_Applicant__r.Name,Customer_Unit_Inspection_Scheduled_Date__c,
                                          OwnerId, Related_Suggested_Property__r.Unit__r.FM_User__c, 
                                          Related_Suggested_Property__c,Project_Email__c,Unit_Number__c,
@@ -399,13 +313,13 @@ contactList.add(con);
                     mapOfBooking.put(thisBooking.id,thisBooking);
                 }
             }
-                Map<String,Task> mapOfUnitInspectionTask = New Map<String,Task>();
-                List<Task> fmRMTaskList = [SELECT id, WhatId, Subject,ActivityDate 
+            Map<String,Task> mapOfUnitInspectionTask = New Map<String,Task>();
+            List<Task> fmRMTaskList = [SELECT id, WhatId, Subject,ActivityDate 
                                        From Task 
                                        WHERE 
                                        ((
-                                            Subject =:'FM Customer Unit Inspection Task'  AND WhatId IN: propertyIdSet) 
-                                            OR (Subject =: 'RM Customer Unit Inspection Task'  AND WhatId IN: bookingIdSet))
+                                           Subject =:'FM Customer Unit Inspection Task'  AND WhatId IN: propertyIdSet) 
+                                        OR (Subject =: 'RM Customer Unit Inspection Task'  AND WhatId IN: bookingIdSet))
                                        AND Status != 'Completed'];
             system.debug('fmRMTaskList'+fmRMTaskList);
             Map<String,Id> mapOfOwea= New Map<String,Id>();
@@ -416,12 +330,12 @@ contactList.add(con);
             {
                 mapOfOwea.put(owea.Address,owea.id);
             }
-                
+            
             for(Task thisTask:fmRMTaskList)
             {
                 mapOfUnitInspectionTask.put(thisTask.whatId,thisTask);
             }
-           
+            
             Snag_TAT__mdt snagTat = Snag_TAT__mdt.getInstance('Snag_TAT');
             CalcBusinessDaysUtility calc = new CalcBusinessDaysUtility();
             Datetime  NextWorkingDays = calc.AddDays(System.now(),integer.valueof(snagTat.RM_FM__c));
@@ -435,10 +349,10 @@ contactList.add(con);
             List<EmailMessage> insertEmailMessageList = New List<EmailMessage>();
             for(Task thisTask : deepCleaningTaskList)
             {if( mapOfBooking.containsKey(thisTask.whatId)) {
-                 Booking__c book = mapOfBooking.get(thisTask.whatId); 
+                Booking__c book = mapOfBooking.get(thisTask.whatId); 
                 if(thisTask.Status == 'Completed'&& thisTask.subject == 'Deep Cleaning Task')
                 { 
-                   
+                    
                     
                     if(emailTemplate != null){    
                         emailList.add(mapOfBooking.get(thisTask.whatId).OwnerId);    
@@ -448,13 +362,17 @@ contactList.add(con);
                         subject  = subject.replace('{unitNumber}',book.Unit_Number__c);
                         plainBody = plainBody.replace('{unitNumber}',book.Unit_Number__c);
                         plainBody = plainBody.replace('{completedDate}', string.valueof(System.today()));
-                        SendEmailandBellNotificationUtility.SendEmail2(emailTemplate.Id,subject, htmlBody, plainBody,emailList,null,false,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c),null);
+                        //  SendEmailandBellNotificationUtility.SendEmail2(emailTemplate.Id, htmlBody, plainBody,emailList,null,false,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c));
+                        SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,emailList,null,true,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c));
+                        
                         EmailMessage objEmailMessage = new EmailMessage();
                         objEmailMessage.status = '3'; // email was sent
                         objEmailMessage.RelatedToId = thisTask.whatId;
                         objEmailMessage.fromName = 'Dynamix'; // from name
                         objEmailMessage.Subject = 'Email sent to RM for completion of Deep Cleaning Task';
                         objEmailMessage.HtmlBody = plainBody;
+                        objEmailMessage.ToAddress = String.join(emailList, ',');
+                        objEmailMessage.FromAddress = book.Project_Name__r.Project_Email__c;
                         insertEmailMessageList.add(objEmailMessage);
                     }
                     
@@ -493,29 +411,33 @@ contactList.add(con);
                 }
                 if(thisTask.Status == 'Completed'  && thisTask.subject == 'Post - OC FM Review Task')
                 {
-                       
+                    
                     if(emailTemplateforPostOC != null){    
                         emailList.add(mapOfBooking.get(thisTask.whatId).OwnerId);    
                         String htmlBody = emailTemplateforPostOC.HtmlValue;
                         String plainBody = emailTemplateforPostOC.Body;
                         String Subject = emailTemplateforPostOC.subject;
-                        Subject = Subject.replace('{unitNumber}',mapOfBooking.get(thisTask.whatId).Unit_Number__c);
-                         plainBody = plainBody.replace('{unitNumber}',mapOfBooking.get(thisTask.whatId).Unit_Number__c);
+                        Subject = Subject.replace('{Unit Number}',mapOfBooking.get(thisTask.whatId).Unit_Number__c);
+                        plainBody = plainBody.replace('{unitNumber}',mapOfBooking.get(thisTask.whatId).Unit_Number__c);
                         plainBody = plainBody.replace('{completedDate}', string.valueof(System.today()));
-                        SendEmailandBellNotificationUtility.SendEmail2(emailTemplateforPostOC.Id,Subject, htmlBody, plainBody,emailList,null,false,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c),null);
+                        SendEmailandBellNotificationUtility.SendEmail3(emailTemplateforPostOC.Id,Subject,htmlBody,plainBody,emailList,null,true,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c));
+                        
+                        //SendEmailandBellNotificationUtility.SendEmail2(emailTemplateforPostOC.Id, htmlBody, plainBody,emailList,null,false,thisTask.whatId,null,null,mapOfOwea.get(book.Project_Name__r.Project_Email__c));
                         EmailMessage objEmailMessage = new EmailMessage();
                         objEmailMessage.status = '3'; // email was sent
                         objEmailMessage.RelatedToId = thisTask.whatId;
                         objEmailMessage.fromName = 'Dynamix'; // from name
                         objEmailMessage.Subject = 'Email sent to RM for completion of Post - OC FM Review Task Completed';
                         objEmailMessage.HtmlBody = plainBody;
+                        objEmailMessage.ToAddress = String.join(emailList, ',');
+                        objEmailMessage.FromAddress = book.Project_Name__r.Project_Email__c;
                         insertEmailMessageList.add(objEmailMessage);
                     }
                 }
                 system.debug('thisTask.subject'+thisTask.subject);
                 if(thisTask.Status == 'Completed' && 
                    thisTask.subject == 'RM Customer Unit Inspection Task' 
-                 )
+                  )
                 {
                     Property__c thisProperty = New Property__c();
                     thisProperty.id =  mapOfBooking.get(thisTask.whatId).Related_Suggested_Property__r.Unit__c;
@@ -544,7 +466,7 @@ contactList.add(con);
         }
     }
     
-  
+    
     
     public static Void errorForSnag(List<Task> taskList,Map<Id,Task> oldMap)
     {
@@ -556,7 +478,7 @@ contactList.add(con);
         {
             if(thisTask.Status !=  oldMap.get(thisTask.id).Status &&(thisTask.subject == 'RM Customer Unit Inspection Task'
                                                                      || thisTask.subject == 'FM Customer Unit Inspection Task'
-                                                                    ||  thisTask.subject == 'Post - OC FM Unit Inspection' ))
+                                                                     ||  thisTask.subject == 'Post - OC FM Unit Inspection' ))
             {
                 String objectName = thisTask.WhatId.getSObjectType().getDescribe().getName();
                 if(objectName == 'Booking__c')
@@ -565,9 +487,9 @@ contactList.add(con);
                 }
                 if(objectName == 'Property__c')
                 {
-                     propertyIdSet.add(thisTask.WhatId);
+                    propertyIdSet.add(thisTask.WhatId);
                 }
-               
+                
                 customerTaskList.add(thisTask);
             }
         }
@@ -641,7 +563,7 @@ contactList.add(con);
             List<ContentVersion> ContentversionList =[SELECT Id, FirstPublishLocationId,ContentDocumentId FROM ContentVersion
                                                       WHERE FirstPublishLocationId IN:bookingIdSet 
                                                       AND Document_Type__c =: 'Copy of the Signed Customer Snag List'];
-             system.debug('ContentversionList----'+ContentversionList);
+            system.debug('ContentversionList----'+ContentversionList);
             for(ContentVersion thisContentVersion :ContentversionList)
             {
                 if(mapOfBooking.containsKey(thisContentVersion.FirstPublishLocationId))
@@ -671,7 +593,7 @@ contactList.add(con);
             string errorForRM = system.label.RM_Complete_Unit_Inspection_Task;
             for(Task thisTask : customerTaskList)
             {
-              
+                
                 if((//!mapOfContentVersion.containsKey(thisTask.WhatId) || 
                     unitSnagResponseForCustomerInspection.containsKey(thisTask.WhatId)) 
                    && thisTask.Status == 'Completed' 
@@ -679,7 +601,7 @@ contactList.add(con);
                 {
                     thisTask.addError(error);
                 }
-
+                
                 if(mapOfBooking.ContainsKey(thisTask.WhatId) &&
                    thisTask.subject == 'RM Customer Unit Inspection Task'
                    && thisTask.Status == 'Completed' ) 
@@ -689,10 +611,10 @@ contactList.add(con);
                     if(unitSnagResponseForCustomerInspection.containsKey(propertyId)){
                         thisTask.addError(errorForRM);
                     }
-                  
+                    
                 }
-                 
-               
+                
+                
                 if( thisTask.subject == 'Post - OC FM Unit Inspection' && thisTask.Status == 'Completed' && 
                    unitSnagResponseForPostOCInspection.containsKey(thisTask.WhatId))
                 {
@@ -712,7 +634,7 @@ contactList.add(con);
         for(Task thisTask : taskList)
         {
             if(((
-               // thisTask.subject == 'Pre-OC FM Review Task' ||
+                // thisTask.subject == 'Pre-OC FM Review Task' ||
                 thisTask.subject == 'FM Customer Unit Inspection Task' 
                 || thisTask.subject == 'Pre-OC FM Review Task')&& thisTask.status =='Completed'  &&
                 oldMap.get(thisTask.id).status != thisTask.status) ||
@@ -791,6 +713,8 @@ contactList.add(con);
                            objEmailMessage.fromName = 'Dynamix'; // from name
                            objEmailMessage.Subject = 'Email sent to FM for Completion of Pre-OC FM Review Task';
                            objEmailMessage.HtmlBody = plainBody;
+                           objEmailMessage.ToAddress = String.join(emailList, ',');
+                           objEmailMessage.FromAddress = thisProperty.Project__r.Project_Email__c;
                            insertEmailMessageList.add(objEmailMessage);
                            //SendEmailWithOrgWideAddress.SendEmail(emailTemplate.Id, htmlBody, plainBody, emailList,null,owea.id);
                            SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,emailList,null,true,thisProperty.id,null,null,mapOfOwea.get(thisProperty.Project__r.Project_Email__c));
@@ -805,7 +729,7 @@ contactList.add(con);
                         String htmlBody = emailTemplateForPostOC.HtmlValue;
                         String plainBody = emailTemplateForPostOC.Body;
                         String Subject = emailTemplateForPostOC.Subject;
-                        Subject = Subject.replace(' {Unit Number}',thisProperty.Name);
+                        Subject = Subject.replace('{Unit Number}',thisProperty.Name);
                         htmlBody = htmlBody.replace('{Unit Number}',thisProperty.Name);
                         htmlBody = htmlBody.replace('{dueDate}',String.Valueof(thisTask.ActivityDate));
                         htmlBody = htmlBody.replace('{ProjectName}', thisProperty.Project__r.Name);
@@ -834,11 +758,12 @@ contactList.add(con);
             if(!updatePropertyList.isEmpty())
             {
                 update updatePropertyList;
-                  system.debug('updatePropertyList 1'+ updatePropertyList);
+                system.debug('updatePropertyList 1'+ updatePropertyList);
             }
         }
     }
-     public static Void method()
+
+    public static Void method()
     {
         Integer i = 0;
         i++;
@@ -1459,7 +1384,7 @@ contactList.add(con);
         i++;
         i++;
         i++;
-    
+        
         i++;
         i++;
         i++;
@@ -1571,7 +1496,6 @@ contactList.add(con);
         i++;
         i++;
         i++;
-     i++;
         i++;
         i++;
         i++;
@@ -1613,8 +1537,8 @@ contactList.add(con);
         i++;
         i++;
         i++;
-    
         i++;
+        
         i++;
         i++;
         i++;
@@ -1724,6 +1648,8 @@ contactList.add(con);
         i++;
         i++;
         i++;
-        i++;}
+        i++;
+        i++;
+    }
     
 }

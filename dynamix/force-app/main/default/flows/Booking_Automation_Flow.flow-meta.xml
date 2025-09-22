@@ -3,9 +3,31 @@
     <apiVersion>54.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
+        <name>Booking_Record_Exist</name>
+        <label>Booking Record Exist</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_Booking_Exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Booking_Related_To_Opportunity</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_On_Booking</targetReference>
+            </connector>
+            <label>If Booking Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>If_KYC_Completed_Checkbox_is_true</name>
         <label>If KYC Completed Checkbox is true</label>
-        <locationX>182</locationX>
+        <locationX>336</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -23,13 +45,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Transfer_Opportunity__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -69,7 +84,7 @@
         <name>Create_Task_On_Booking</name>
         <label>Create Task On Booking</label>
         <locationX>50</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <assignRecordIdToReference>taskId</assignRecordIdToReference>
         <inputAssignments>
             <field>ActivityDate</field>
@@ -100,11 +115,11 @@
     <recordLookups>
         <name>Get_Booking_Related_To_Opportunity</name>
         <label>Get Booking Related To Opportunity</label>
-        <locationX>50</locationX>
+        <locationX>182</locationX>
         <locationY>431</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Task_On_Booking</targetReference>
+            <targetReference>Booking_Record_Exist</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -119,7 +134,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>56</locationX>
+        <locationX>210</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>If_KYC_Completed_Checkbox_is_true</targetReference>
@@ -128,7 +143,7 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>taskId</name>
         <dataType>String</dataType>

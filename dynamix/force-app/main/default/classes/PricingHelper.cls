@@ -4,14 +4,13 @@ public class PricingHelper {
         system.debug('propertyId=='+propertyId);
         system.debug('oppId=='+oppId);
         system.debug('bookingId=='+bookingId);
-        
         system.debug('discountMap=='+discountMap);
         Map<String, ADDON> addOnsMap = new Map<String, ADDON>();
         Map<String, List<String>> inclusions = new Map<String, List<String>>();
         
         for(Property_Add_On__c property_addon : [SELECT Id, Name, Project_Add_On__r.Name, Project_Add_On__r.RecordType.Name, Is_Included__c 
                                                  FROM Property_Add_On__c WHERE Property__c =: propertyId]){
-                                     system.debug('property_addon.Is_Included__c'+property_addon.Is_Included__c);                
+                                                     
                                                      addOnsMap.put(property_addon.Project_Add_On__r.Name, new ADDON(property_addon.Project_Add_On__c, property_addon.Is_Included__c,0));
                                                      
                                                      if(inclusions.containsKey(property_addon.Project_Add_On__r.RecordType.Name)){
@@ -49,8 +48,7 @@ public class PricingHelper {
                                                            WHERE Pricing_Plan__c =: property.Property_Price_Slab__c];
         for(Pricing_Plan_Components__c pPComponent: pPComponentLst){
             if(pPComponent.Project_Add_On_Charges__r.Charge_Type__c == 'Fixed'){
-                if(pPComponent.Name != '2 Wheeler Parking' && pPComponent.Name != 'Car Parking Space'){
-                system.debug('pPComponent---------'+pPComponent);
+                
                 Decimal amount = 0;
                 Boolean addAmount = false;
                 Boolean addDetails = false;
@@ -118,7 +116,6 @@ public class PricingHelper {
                     }
                 }
             }
-            }
         }
         for(Pricing_Plan_Components__c pPComponent: pPComponentLst)
         {    
@@ -126,8 +123,7 @@ public class PricingHelper {
         }
         for(Pricing_Plan_Components__c pPComponent: pPComponentLst){
             if(pPComponent.Project_Add_On_Charges__r.Charge_Type__c != 'Fixed'){
-                if(pPComponent.Name != '2 Wheeler Parking' && pPComponent.Name != 'Car Parking Space'){
-                system.debug('pPComponent---------'+pPComponent);
+                
                 Decimal amount = 0;
                 Boolean addAmount = false;
                 Boolean addDetails = false;
@@ -157,24 +153,15 @@ public class PricingHelper {
                     System.debug('%%%%%%%%%%%%%%%%%%%%%%%% amount'+amount);
                     System.debug('%%%%%%%%%%%%%%%%%%%%%%%% Index__c'+property.Index__c);
                     Decimal AgreementValue = 0;
-                    System.debug('TEST 1111'+AgreementValue);
-                    System.debug('TEST 1112'+chargeGroupMap);
                     if(chargeGroupMap.size() > 0 && chargeGroupMap.containsKey('Agreement')){
                         AgreementValue = chargeGroupMap.get('Agreement');
                     }
-                    System.debug('TEST 1113'+AgreementValue);
-                    System.debug('TEST 1114'+property);
-                    System.debug('TEST 1115'+property.Index__c);
-                    System.debug('TEST 1117'+pPComponent);
-                    System.debug('TEST 1116'+pPComponent.Price_age__c);
-                    if(pPComponent !=null && pPComponent.Price_age__c !=null ){
-                    if(property !=null && property.Index__c > AgreementValue){
+                    if(property.Index__c > AgreementValue){
                         amount = (pPComponent.Price_age__c*property.Index__c)/100;
                     } 
                     else{
                         amount = (pPComponent.Price_age__c*AgreementValue)/100;
                         
-                    }
                     }
                 }
                 
@@ -204,7 +191,6 @@ public class PricingHelper {
                         chargeGroupMap.put(chargeGroup, amount - discount);
                     }
                 }
-            }
             }
         }
         chargeGroupMap.put('GST', 0);

@@ -19,9 +19,9 @@ public with sharing class GenerateCostSheet {
         list<ContentDocumentLink> conDocListC = new list<ContentDocumentLink>();
         
         Suggested_Property__c sp = [SELECT Id, Name, Discount__c,Cost_Sheet_Provided__c, Opportunity__c,Unit__r.Tower__r.Name,Unit__r.Property_Status__c, Payment_Plan__c,
-                                    Unit__r.Property_Price_Slab__c,Unit__r.Proposed_Deck_Area_in_sq_mt__c,Unit__r.Proposed_Utility_Area_in_sq_mt__c, Unit__r.Flat_Type__c, Unit__r.Name,Site_Head__c, Payment_Plan_Detail__c 
+                                    Unit__r.Property_Price_Slab__c, Unit__r.Flat_Type__c, Unit__r.Name,Site_Head__c, Payment_Plan_Detail__c 
                                     FROM Suggested_Property__c WHERE Id =: pId];
-        collaborators = [select id from user where ((id=: sp.Site_Head__c OR Profile.Name = 'System Administrator')AND (id !=: UserInfo.getUserId()))];
+        collaborators = [select id from user where ((id=: sp.Site_Head__c OR Profile.Name = 'System Administrator')AND (id !=: UserInfo.getUserId()) AND IsActive=true)];
         List<ContentDocumentLink> cDLLst = [SELECT Id FROM ContentDocumentLink WHERE LinkedEntityId =: sp.Opportunity__c];
         
         PageReference ref = Page.CostSheet;

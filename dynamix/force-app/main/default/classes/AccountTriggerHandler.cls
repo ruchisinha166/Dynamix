@@ -7,9 +7,7 @@ public class AccountTriggerHandler {
             accountIDSet.add(accountObj.id);
         }
         // List<Opportunity> listOfOpportunities = new List<Opportunity>([Select Id,Name,AccountId From Opportunity]);
-        List<Opportunity> listOfOpportunities = [SELECT Id,Name,AccountId 
-                                                 FROM Opportunity 
-                                                 WHERE AccountId IN:accountIDSet];
+        List<Opportunity> listOfOpportunities = [Select Id,Name,AccountId From Opportunity WHERE AccountId IN:accountIDSet];
         Map<Id,Opportunity> mapAccIdToOpportunity = new Map<Id,Opportunity>();
         Set<Id> opportunityIDSet = New Set<Id>();
         if(!listOfOpportunities.isEmpty())
@@ -18,12 +16,11 @@ public class AccountTriggerHandler {
                 mapAccIdToOpportunity.put(oppObj.AccountId,oppObj);
                 opportunityIDSet.add(oppObj.id);
             }
+            
         }
         
         System.debug('Number of queries -------------->'+ Limits.getLimitQueries());
-        List<Task> listOfAgreeTasks = new List<Task>([SELECT Id,whatId,Status 
-                                                      FROM Task 
-                                                      WHERE Subject =: 'Generate Draft Agreement']);
+        List<Task> listOfAgreeTasks = new List<Task>([Select Id,whatId,Status From Task Where Subject =: 'Generate Draft Agreement']);
         System.debug('Number of queries -------------->'+ Limits.getLimitQueries());
         Map<Id,Task> mapBookIdToAgreeTask = new Map<Id,Task>();
         for(Task taskObj : listOfAgreeTasks){
@@ -32,9 +29,7 @@ public class AccountTriggerHandler {
         Map<Id,Booking__c> mapOppIdToBooking = new Map<Id,Booking__c>();
         if(!opportunityIDSet.isEmpty())
         {
-            List<Booking__c> listOfBookings = new List<Booking__c>([SELECT Id,Name,Related_Opportunity__c 
-                                                                    FROM Booking__c 
-                                                                    WHERE ID IN:opportunityIDSet ]);
+            List<Booking__c> listOfBookings = new List<Booking__c>([Select Id,Name,Related_Opportunity__c From Booking__c where ID IN:opportunityIDSet ]);
             for(Booking__c bookObj : listOfBookings){
                 mapOppIdToBooking.put(bookObj.Related_Opportunity__c,bookObj);
             }      
@@ -104,7 +99,6 @@ public class AccountTriggerHandler {
             insert conlist;
         }
     }
-    
     public Static void duplicateAccountAndAddMandatory(List<Account> accountList)
     {
         Set<String> phoneNumberSet = New Set<String>();
@@ -141,10 +135,9 @@ public class AccountTriggerHandler {
         if(!phoneNumberSet.isEmpty())
         {
             List<Account> allAccountList = [SELECT Id, PersonMobilePhone
-                                            FROM Account 
-                                            WHERE Id != :accountList 
-                                            AND RecordTypeId =: personAccRecTypeId
-                                            AND PersonMobilePhone IN :phoneNumberSet];
+                                            FROM Account WHERE Id != :accountList AND RecordTypeId =: personAccRecTypeId
+                                            AND 
+                                            PersonMobilePhone IN :phoneNumberSet];
             Map<String,Account> accountMap = new Map<String,Account>();
             for(Account thisaccount :allAccountList)
             {
@@ -155,12 +148,14 @@ public class AccountTriggerHandler {
                 if(accountMap.containsKey(thisAccount.PersonMobilePhone))
                 {
                     thisAccount.addError('Duplicate Account - Already exist with the same PersonMobilePhone');   
+                    
                 }
             }
         }
     }
     
     public static void stagevalidation (List<Account> accountlist){
+        
         For(Account accountRecord: accountlist){
             If((accountRecord.CP_Name__c == NUll || accountRecord.CP_Name__c == '' || 
                 accountRecord.CP_Firm_Name__c == NUll ||  accountRecord.CP_Firm_Name__c == '' ||
@@ -171,15 +166,19 @@ public class AccountTriggerHandler {
                 accountRecord.Rera_Certificate_Upload__c == false ||
                 accountRecord.Rera_Expiry_Date__c == null
                ) && accountRecord.CP_Empanelment_Stages__c == 'Registered'){
+                   
                    accountRecord.addError('Please add value in mandatory field for Registration');
+                   
                }
         }
+        
     }
-    
-    public static void updateRegistration(List<Account> accountList){
+    public static void updateRegistration(List<Account> accountList) {
         if (!isExecutingUpdateRegistration) {
             isExecutingUpdateRegistration = true;
             Set<id> accountId  = New Set<id> ();
+            
+            
             List<Account> recordsToUpdateList = New List<Account>();
             Set<Id> recordsToUpdate = new Set<Id>();
             for (Account account : accountList) {
@@ -197,6 +196,8 @@ public class AccountTriggerHandler {
                     recordsToUpdateList.add(account);
                     System.debug('recordsToUpdateList---->'+recordsToUpdateList);
                 }                    
+                
+                
             }
         }
     }   

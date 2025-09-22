@@ -1,9 +1,10 @@
 @RestResource(urlMapping='/interest/*')
 global class Get_Interest {
     @HttpGet
-    global static void getInterest() {
+    global static Void getInterest() {
         RestResponse res = RestContext.response;
         try {
+            List<Payment__c> paymentToUpdate=new List<Payment__c>();
             Map<String, Object> InterestObject = (Map<String, Object>)JSON.deserializeUntyped(RestContext.request.requestBody.toString());
             Map<String, Object> innerBody = (Map<String, Object>)InterestObject.get('ZSD025_SFDC_INTEREST_LEDGER');
             Map<String, Object> customerheaderMap = (Map<String, Object>)innerBody.get('CUST_HEADER');
@@ -78,7 +79,7 @@ global class Get_Interest {
                                                                   if(wr.FromDate != null && wr.FromDate != ''){
                                                                       intch.From_Date__c = Date.valueOf(dateFormat(wr.FromDate));
                                                                   }
-                                                                  // system.debug('wr.toDate--'+wr.toDate);
+                                                                 // system.debug('wr.toDate--'+wr.toDate);
                                                                   if(wr.toDate != null && wr.toDate != ''){
                                                                       intch.To_Date__c = Date.valueOf(dateFormat(wr.toDate));
                                                                   }
@@ -90,11 +91,11 @@ global class Get_Interest {
                                                                   interestCharge.Interest_Amount_GST__c=Decimal.valueOf(wr.InterestGST);
                                                                   interestCharge.Intrest_calucation_Amount__c=Decimal.valueOf(wr.InterestTotal);
                                                                   if(wr.FromDate != null && wr.FromDate != ''){
-                                                                      interestCharge.From_Date__c = Date.valueOf(dateFormat(wr.FromDate));
+                                                                  		interestCharge.From_Date__c = Date.valueOf(dateFormat(wr.FromDate));
                                                                   }
                                                                   //system.debug('wr.toDate--'+wr.toDate);
                                                                   if(wr.toDate != null && wr.toDate != ''){
-                                                                      interestCharge.To_Date__c = Date.valueOf(dateFormat(wr.toDate));
+                                                                  		interestCharge.To_Date__c = Date.valueOf(dateFormat(wr.toDate));
                                                                   }
                                                                   interestChargeList.add(interestCharge);
                                                                   //InterestChargeInsert.put(PM.Sap_Code__c,interestCharge);
@@ -105,13 +106,13 @@ global class Get_Interest {
                     }
                     system.debug('interestChargeList--> '+interestChargeList);
                     if(!interestChargeList.isEmpty()){
-                        
+                      
                         
                         Database.UpsertResult[] insertResults = Database.Upsert(interestChargeList, false); 
-                        for (Integer i = 0; i < insertResults.size(); i++) {
-                            system.debug('results=='+insertResults);
-                            
-                        }
+                   for (Integer i = 0; i < insertResults.size(); i++) {
+                      system.debug('results=='+insertResults);
+                        
+                   }
                         
                     }   
                 }

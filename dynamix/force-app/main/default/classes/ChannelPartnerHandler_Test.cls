@@ -25,7 +25,7 @@ public class ChannelPartnerHandler_Test {
         
         List<Account> accountList = new List<Account>();
         Account testAccRcd = new Account();
-        testAccRcd.Name = 'Channel Partner Account';
+		testAccRcd.Name = 'Channel Partner Account';
         testAccRcd.BillingCountry = 'India';
         testAccRcd.Phone = '1234567890';
         testAccRcd.Email__c = 'mayur.patel@manras.com';
@@ -36,7 +36,7 @@ public class ChannelPartnerHandler_Test {
         accountList.add(testAccRcd);
         
         Account testAcc = new Account();
-        testAcc.Name = 'Channel Partner Account1';
+		testAcc.Name = 'Channel Partner Account1';
         testAcc.BillingCountry = 'India';
         testAcc.Phone = '4569825678';
         testAcc.Email__c = 'tanu@manras.com';
@@ -94,14 +94,14 @@ public class ChannelPartnerHandler_Test {
         testPropertyRcd.Floor__c= '5';
         insert testPropertyRcd;
         
-        
+    
         Suggested_Property__c testSuggPropertyRcd = new Suggested_Property__c();
         testSuggPropertyRcd.Opportunity__c = testOppRcd.Id;
         testSuggPropertyRcd.Unit__c = testPropertyRcd.Id;
         testSuggPropertyRcd.Discount__c = 10;
         insert testSuggPropertyRcd;
         
-        
+
         Booking__c testBookingRcd = new Booking__c();
         testBookingRcd.Primary_Applicant__c = testAccRcd.Id;
         testBookingRcd.Related_Opportunity__c = testOppRcd.Id;
@@ -110,7 +110,7 @@ public class ChannelPartnerHandler_Test {
         insert testBookingRcd;
         
         EmailTemplate emailTemplate = [select Id,Name, Subject, HtmlValue, Body,DeveloperName from EmailTemplate where DeveloperName = 'Rera_Number_Update_Notification' LIMIT 1];
-        
+
         Case caseRcd1=new Case();
         caseRcd1.Subject='Test Case 1';
         caseRcd1.Description='Test Desc';
@@ -123,7 +123,7 @@ public class ChannelPartnerHandler_Test {
         
         //Datetime dateBefore3Days = Datetime.now().addDays(-3);
         //Test.setCreatedDate(caseRcd1.Id, dateBefore3Days); 
-        
+
         Test.startTest();
         ChannelPartnerHandler.sendSmsToCustomerForNewCP(accountList);
         Test.stopTest();

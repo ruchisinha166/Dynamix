@@ -376,7 +376,7 @@
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <textTemplates>
         <name>EMailBody</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>

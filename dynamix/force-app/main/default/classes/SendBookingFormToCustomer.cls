@@ -95,6 +95,7 @@ public class SendBookingFormToCustomer {
                     fileTypeAnnexure = cv1.FileType;
                 }
             }
+            
         }
         //ContentVersion cv = [SELECT title,PathOnClient, FileType,
                                                 //versiondata 

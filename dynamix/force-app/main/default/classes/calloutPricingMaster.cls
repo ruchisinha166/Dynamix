@@ -45,7 +45,7 @@ public with sharing class calloutPricingMaster {
                 }
             }
             if(!pricingPlanIds.isEmpty()){
-                for(Property__c prop:[Select Id,Name,Tower__c,Tower__r.Tower_SAP_Code__c,Property_Price_Slab__c,SAP_Code__c from Property__c where Property_Price_Slab__c IN:pricingPlanIds AND SAP_Code__c != null AND Property_Status__c != 'Booked']){
+                for(Property__c prop:[Select Id,Name,Tower__c,Tower__r.Tower_SAP_Code__c,Property_Price_Slab__c,SAP_Code__c from Property__c where Property_Price_Slab__c IN:pricingPlanIds AND SAP_Code__c != null]){
                     if(prop != null){
                         if(!propertyMap.containsKey(prop.Property_Price_Slab__c)){
                             propertyMap.put(prop.Property_Price_Slab__c,new List<Property__c>{prop});
@@ -203,9 +203,9 @@ public with sharing class calloutPricingMaster {
         request.setEndpoint('callout:SAP_PriceMaster');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
-        request.settimeout(120000);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setBody(jsonString);
+        request.setTimeout(120000);
         List<Pricing_Plan_Components__c> prPlanCompToUpdate = new List<Pricing_Plan_Components__c>();
         Set<String>propertyIds=new Set<String>();
         try {

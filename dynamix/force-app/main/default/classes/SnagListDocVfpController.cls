@@ -13,6 +13,7 @@ Public without Sharing class SnagListDocVfpController {
     public String Error{get;set;}
     public Boolean Task{get;set;}
     Public string CustomerName{get;set;}
+    Public decimal meterReading{get;set;}
     
     Public SnagListDocVfpController(ApexPages.StandardController standardController) {
         mapArea = new Map<String, List<rowWrapper>>();
@@ -22,10 +23,14 @@ Public without Sharing class SnagListDocVfpController {
         Task = false;
         string propertyId = ApexPages.currentPage().getParameters().get('Id');
         SnagType = ApexPages.currentPage().getParameters().get('SnagType');
+        meterReading = decimal.valueof(ApexPages.currentPage().getParameters().get('meterReading'));
         propertyList= [SELECT ID, NAME, Project__c, Snag_Status__c, Flat_Type__c, Project__r.Name, Tower__r.Name,
                        Unit_Type__c,Electric_Meter_Number__c,Electric_Meter_Installed__c,
-                       Electric_Meter_Reading__c,Sub_Snag_Status__c 
+                       Electric_Meter_Reading__c,Sub_Snag_Status__c,
+                       Project__r.Project_Footer__c,Project__r.Project_Header__c
                        FROM PROPERTY__C WHERE id =:propertyId];
+        ProjectFooter = propertyList[0].Project__r.Project_Footer__c;
+        ProjectHeader = propertyList[0].Project__r.Project_Header__c;
         List<Suggested_Property__c> suggestedProperty = [SELECT ID, NAME FROM Suggested_Property__c WHERE UNIT__C =:propertyId];
         if(!suggestedProperty.isEmpty())
         {

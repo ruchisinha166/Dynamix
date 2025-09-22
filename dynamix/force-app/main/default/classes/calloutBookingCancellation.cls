@@ -87,7 +87,7 @@ public class calloutBookingCancellation {
         request.setEndpoint('callout:SAP_BookingCancellation');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setBody(jsonString);
         try {
             response = http.send(request);

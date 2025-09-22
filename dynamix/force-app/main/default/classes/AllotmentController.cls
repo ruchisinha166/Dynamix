@@ -166,7 +166,7 @@ public class AllotmentController{
         if(booking.Project_Name__c != null){
             project = [SELECT Id,Name,Project_Phone__c,Project_Header__c,Project_Footer__c,Postal_Code__c,Builder_Organization__r.name,Project_Email__c,
                        Location__c,Builder_Organization__r.Street__c,Builder_Organization__r.City__c,Builder_Organization__r.State__c,Builder_Organization__r.Country__c,
-                       Sublocation__c,city__c,state__c, RERA_Number__c,CTS_No__c,Survey_No__c,Rera_Date__c,Builder_Organization__r.Account_Name__c,First_Possession_Date__c
+                       Sublocation__c,city__c,state__c, RERA_Number__c,CTS_No__c,Survey_No__c,Rera_Date__c,Builder_Organization__r.Account_Name__c
                        FROM Project__c 
                        WHERE Id =: booking.Project_Name__c]; 
             if(project.Project_Header__c!=null)

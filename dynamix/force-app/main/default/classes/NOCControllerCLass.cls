@@ -24,23 +24,11 @@ public class NOCControllerCLass{
     public Decimal totalAmountRecValue {get;set;}
     public String convertedAmountValue {get;set;}
     public String loanId {get;set;}
-    public String hdfcBank {get;set;}
-    public string iciciBank {get;set;}
-    public string axisBank {get;set;}
-    public string lic {get;set;}
-    public Boolean isStateBankOfIndia {get;set;}
     
     public NOCControllerCLass(ApexPages.StandardController controller){ 
-        isStateBankOfIndia = false;
         currentYear = String.valueOf(Date.today().Year());
         TodayDate = String.valueOf(Date.today().Day()) + '/' + String.valueOf(Date.today().Month()) + '/' + String.valueOf(Date.today().Year());
         System.debug('TodayDate----------->'+TodayDate);
-        
-        hdfcBank = System.Label.HDFC;
-        iciciBank = System.Label.ICICI;
-        axisBank = System.Label.Axis;
-        lic = System.Label.LIC;
-        List<String> stateBankOfIndia = System.Label.SBI.split(',');
         
         sBookingId = ApexPages.CurrentPage().getparameters().get('id');
         loanId = ApexPages.CurrentPage().getparameters().get('loanid');
@@ -73,10 +61,7 @@ public class NOCControllerCLass{
         BankLoanObj = [Select Id,Name,Sanction_Amount__c,Home_LoanInstitution__r.Name from Bank_Loan_Details__c 
                        Where Id=:loanId]; //Booking__c =: sBookingId ORDER BY CreatedDate DESC LIMIT 1];
         System.debug('BankLoanObj----------->'+BankLoanObj);
-        if(stateBankOfIndia.contains(BankLoanObj.Home_LoanInstitution__r.Name)){
-            isStateBankOfIndia = true;
-        }
-        system.debug('isStateBankOfIndia--> '+isStateBankOfIndia);
+        
         builderOrgObj = [Select Id,Name,PIN_Code__c,Branch_Address__c,GST_Bank_Name__c,Bank_Name__c from Builder_Organisation__c Where Id =: projectObj.Builder_Organization__c limit 1];
         System.debug('builderOrgObj----------->'+builderOrgObj);
         

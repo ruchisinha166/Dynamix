@@ -248,12 +248,13 @@
             </styleProperties>
         </fields>
         <fields>
-            <name>Parking_Number</name>
-            <dataType>String</dataType>
-            <fieldText>Parking Number</fieldText>
+            <name>No_Of_Unit</name>
+            <dataType>Number</dataType>
+            <fieldText>No. Of Unit</fieldText>
             <fieldType>InputField</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <scale>0</scale>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -264,13 +265,12 @@
             </styleProperties>
         </fields>
         <fields>
-            <name>No_Of_Unit</name>
-            <dataType>Number</dataType>
-            <fieldText>No. Of Unit</fieldText>
+            <name>Parking_Number</name>
+            <dataType>String</dataType>
+            <fieldText>Parking Number</fieldText>
             <fieldType>InputField</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
-            <scale>0</scale>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>

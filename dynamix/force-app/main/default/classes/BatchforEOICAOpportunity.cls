@@ -41,8 +41,10 @@ public class BatchforEOICAOpportunity implements Database.Batchable<sObject>{
             if(thisProject.Launch_EOI_Period_s_End_Date__c == system.today())
             {
                 EOICA = 'EOI';
-                Subject = Subject.replace('{EOI/CA}','EOI');
-                Subject = Subject.replace('{projectName}',thisProject.Name);
+                Subject = htmlbody.replace('{EOI_CA}','EOI');
+                Subject = plainbody.replace('{EOI_CA}','EOI');
+                Subject = htmlbody.replace('{projectName}',thisProject.Name);
+                Subject = plainbody.replace('{projectName}',thisProject.Name);
                 htmlbody = htmlbody.replace('{EOI_CA}','EOI');
                 plainbody = plainbody.replace('{EOI_CA}','EOI');
                 htmlbody = htmlbody.replace('{projectName}',thisProject.Name);
@@ -57,8 +59,10 @@ public class BatchforEOICAOpportunity implements Database.Batchable<sObject>{
             if(thisProject.Launch_CA_Period_s_End_Date__c == system.today())
             {
                 EOICA = 'CA';
-                Subject = Subject.replace('{EOI/CA}','CA');
-                Subject = Subject.replace('{projectName}',thisProject.Name);
+                Subject = htmlbody.replace('{EOI_CA}','CA');
+                Subject = plainbody.replace('{EOI_CA}','CA');
+                Subject = htmlbody.replace('{projectName}',thisProject.Name);
+                Subject = plainbody.replace('{projectName}',thisProject.Name);
                 htmlbody = htmlbody.replace('{EOI_CA}','CA');
                 plainbody = plainbody.replace('{EOI_CA}','CA');
                 htmlbody = htmlbody.replace('{projectName}',thisProject.Name);
@@ -84,9 +88,7 @@ public class BatchforEOICAOpportunity implements Database.Batchable<sObject>{
             objEmailMessage.status = '3'; // email was sent
             objEmailMessage.RelatedToId = thisProject.id;
             objEmailMessage.fromName = 'Dynamix'; // from name
-            objEmailMessage.FromAddress = thisProject.Project_Email__c;
-            //objEmailMessage.ToAddress = string.valueOf(SMEmail);
-            objEmailMessage.Subject = Subject;
+            objEmailMessage.Subject = 'Email sent to SM Head for '+EOICA;
             objEmailMessage.HtmlBody = htmlbody;
             //objEmailMessage.ToAddress = thisOpportunity.Account.PersonEmail;
             insertEmailMessageList.add(objEmailMessage);

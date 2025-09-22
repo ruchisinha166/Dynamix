@@ -171,7 +171,7 @@ public with sharing class calloutProperty {
         request.setEndpoint('callout:SAP_Inventory');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'text/plain');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setBody(jsonString);
         //List<Pricing_Plan_Components__c> prPlanCompToUpdate = new List<Pricing_Plan_Components__c>();
         Set<String>propertyIds=new Set<String>();

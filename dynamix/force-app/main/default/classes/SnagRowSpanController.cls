@@ -29,6 +29,7 @@ public class SnagRowSpanController{
         Task = false;
         string propertyId = ApexPages.currentPage().getParameters().get('Id');
         system.debug('propertyId--'+propertyId);
+        Set<ID> suggestedPropertyIDSet = New Set<ID> ();
         propertyList= [SELECT ID, NAME, Project__c,Project__r.Skip_Pre_OC__c, Snag_Status__c, Flat_Type__c, Project__r.Name, Tower__r.Name,
                        Unit_Type__c,Electric_Meter_Number__c,Electric_Meter_Installed__c,
                        Electric_Meter_Reading__c,Sub_Snag_Status__c 
@@ -43,9 +44,22 @@ public class SnagRowSpanController{
             meterReading =0;
         }
         List<Suggested_Property__c> suggestedProperty = [SELECT ID, NAME FROM Suggested_Property__c WHERE UNIT__C =:propertyId];
+        for(Suggested_Property__c thisSP:suggestedProperty)
+        {
+            suggestedPropertyIDSet.add(thisSP.id);
+        }
+         system.debug('suggestedProperty--'+suggestedProperty);
         if(!suggestedProperty.isEmpty())
         {
-            LIST<bOOKING__C> BOOKINGlIST = [SELECT ID, NAME,Primary_Applicant_Name_Formulla__c FROM bOOKING__C where Related_Suggested_Property__c =: suggestedProperty[0].id];
+            LIST<bOOKING__C> BOOKINGlIST = [SELECT ID, NAME,Stage__c,Primary_Applicant_Name_Formulla__c FROM bOOKING__C 
+                                            where Related_Suggested_Property__c IN : suggestedPropertyIDSet
+                                            AND Stage__c != 'Booking Cancelled – Refund Pending'
+                                            AND Stage__c != 'Booking Cancelled – Refund Ready'
+                                            AND Stage__c != 'Booking Cancelled -- Refund Done'
+                                            AND Stage__c != 'Terminated'
+                                           ];
+               system.debug('BOOKINGlIST--'+BOOKINGlIST);
+
             if(!BOOKINGlIST.isEmpty())
             {
                 CustomerName = BOOKINGlIST[0].Primary_Applicant_Name_Formulla__c;
@@ -58,10 +72,11 @@ public class SnagRowSpanController{
         system.debug('CustomerName'+CustomerName);
         system.debug('propertyList[0].Snag_Status__c'+propertyList[0].Snag_Status__c);
         if(propertyList[0].Project__r.Skip_Pre_OC__c != true && (propertyList[0].Snag_Status__c == ''|| propertyList[0].Snag_Status__c == null || propertyList[0].Snag_Status__c =='Yet to start' || 
-           (propertyList[0].Snag_Status__c == 'Internal Snagging' && (propertyList[0].Sub_Snag_Status__c  =='Pre OC-Submitted with snags'	||
-                                                                      propertyList[0].Sub_Snag_Status__c =='Snag Initiated'))))
+                                                                 (propertyList[0].Snag_Status__c == 'Internal Snagging' && (propertyList[0].Sub_Snag_Status__c  =='Pre OC-Submitted with snags'	||
+                                                                                                                            propertyList[0].Sub_Snag_Status__c =='Snag Initiated'))))
         {
-            List<Task> taskList = [SELECT ID, whatId, Subject FROM Task WHERE whatId =: propertyId AND Subject =:'Pre-OC FM Unit Inspection task' 
+            List<Task> taskList = [SELECT ID, whatId, Subject FROM Task WHERE whatId =: propertyId AND 
+                                   Subject =:'Pre-OC FM Unit Inspection task'
                                    order By CreatedDate Desc LIMIT 1];
             if(!taskList.isEmpty())
             {system.debug('yes');
@@ -70,8 +85,8 @@ public class SnagRowSpanController{
         }
         if(propertyList[0].Sub_Snag_Status__c == 'Post OC-Submitted with snags' ||
            propertyList[0].Sub_Snag_Status__c ==  'Pre OC-Verified' ||  (propertyList[0].Project__r.Skip_Pre_OC__c == true && propertyList[0].Sub_Snag_Status__c != 'Post OC-Verified'
-                                                                        && propertyList[0].Snag_Status__c != 'Customer Snagging'
-                                                                        &&  propertyList[0].Snag_Status__c !=  'Customer Unit Inspection Scheduled'))
+                                                                         && propertyList[0].Snag_Status__c != 'Customer Snagging'
+                                                                         &&  propertyList[0].Snag_Status__c !=  'Customer Unit Inspection Scheduled'))
         {
             SnagType = 'Post-OC';
             List<Task> taskList = [SELECT ID, whatId, Subject FROM Task WHERE whatId =: propertyId AND Subject =:'Post - OC FM Unit Inspection' 
@@ -142,9 +157,21 @@ public class SnagRowSpanController{
         }
         
         List<Suggested_Property__c> suggestedProperty = [SELECT ID, NAME FROM Suggested_Property__c WHERE UNIT__C =:propertyId];
+        Set<ID> suggestedPropertyIDSet = New Set<ID> ();
+        
         if(!suggestedProperty.isEmpty())
         {
-            LIST<bOOKING__C> BOOKINGlIST = [SELECT ID, NAME,Primary_Applicant_Name_Formulla__c FROM bOOKING__C where Related_Suggested_Property__c =: suggestedProperty[0].id];
+            for(Suggested_Property__c thisSP:suggestedProperty)
+            {
+                suggestedPropertyIDSet.add(thisSP.id);
+            }
+            LIST<bOOKING__C> BOOKINGlIST = [SELECT ID, NAME,Primary_Applicant_Name_Formulla__c 
+                                            FROM bOOKING__C 
+                                            where Related_Suggested_Property__c IN :suggestedPropertyIDSet
+                                            AND Stage__c != 'Booking Cancelled – Refund Pending'
+                                            AND Stage__c != 'Booking Cancelled – Refund Ready'
+                                            AND Stage__c != 'Booking Cancelled -- Refund Done'
+                                            AND Stage__c != 'Terminated'];
             if(!BOOKINGlIST.isEmpty())
             {
                 CustomerName = BOOKINGlIST[0].Primary_Applicant_Name_Formulla__c;
@@ -299,7 +326,7 @@ public class SnagRowSpanController{
                                     FROM PROPERTY__C 
                                     WHERE id =:propertyId];
         
-        propertyList.Electric_Meter_Reading__c = decimal.valueof(meterReading);
+       // propertyList.Electric_Meter_Reading__c = decimal.valueof(meterReading);
         Map<Id,Unit_Snag_Response__c> mapOfUnitSnagResposne = New Map<Id,Unit_Snag_Response__c>();
         List<Task> taskList = [SELECT ID, whatId, Subject FROM Task WHERE whatId =: propertyId AND Subject =:'Pre-OC FM Unit Inspection task' 
                                AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];
@@ -351,215 +378,174 @@ public class SnagRowSpanController{
         }
         generateSnagDoc(propertyId,'Pre-OC',decimal.valueof(meterReading));
     }
-    public Void  saveUnitSnagListForPostOc() {
-        String jsonString =  system.currentPageReference().getParameters().get('SnagDetails');
-        system.debug('jsonString'+jsonString);
-        string propertyId = ApexPages.currentPage().getParameters().get('Id');
-        Property__c  propertyList= [SELECT ID, NAME,Project__c,Flat_Type__c,Project__r.Name,Tower__r.Name,
-                                    Unit_Type__c,Sub_Snag_Status__c, Snag_Status__c,Electric_Meter_Reading__c
-                                    FROM PROPERTY__C 
-                                    WHERE id =:propertyId];
-        
-        propertyList.Electric_Meter_Reading__c = decimal.valueof(meterReading);
-        Map<Id,Unit_Snag_Response__c> mapOfUnitSnagResposne = New Map<Id,Unit_Snag_Response__c>();
-        /*List<Task> taskList = [SELECT ID, whatId, Subject FROM Task WHERE whatId =: propertyId AND Subject =:'Post - OC FM Unit Inspection' 
-AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
-        List<Unit_Snag_Response__c> allUnitSnagList = [SELECT Id, Name, Property__c, Project_Snag__c ,Project_Snag__r.Questions__c,
-                                                       Post_OC_Answers__c,Pre_OC_Answers__c,Pre_OC_End_Date__c,Area__c,Pre_OC_Remarks__c
-                                                       FROM Unit_Snag_Response__c
-                                                       WHERE  
-                                                       Property__c =: propertyId];
-        system.debug('allUnitSnagList----'+allUnitSnagList);
-        Map<id,Unit_Snag_Response__c> mapOfUnitSnag = New Map<id,Unit_Snag_Response__c>();
-        for(Unit_Snag_Response__c usr:allUnitSnagList)
-        {
-            mapOfUnitSnag.put(usr.id,usr);
-        }
-        List<Object> snagDetails = (List<Object>) JSON.deserializeUntyped(jsonString);
-        for (Object detail : snagDetails) {
-            Map<String, Object> detailMap = (Map<String, Object>)detail;
-            if (detailMap.containsKey('recordId')) {
-                String recordId = (String)detailMap.get('recordId');
-                if(mapOfUnitSnag.containsKey(recordId))
-                {
-                    Unit_Snag_Response__c usr= New Unit_Snag_Response__c();
-                    usr.id = (String)detailMap.get('recordId');
-                    //propertyList.Post_OC_Start_Date__c = system.today();
-                    if (detailMap.containsKey('CheckBox')) {
-                        usr.Post_OC_Answers__c= (boolean)detailMap.get('CheckBox');
-                        
-                        System.debug('CheckBox: ' + (boolean)detailMap.get('CheckBox'));
-                    }
-                    if (detailMap.containsKey('remarks')) {
-                        if( (String)detailMap.get('remarks') != '' && (String)detailMap.get('remarks') != null)
-                        {
-                            usr.Post_OC_Remarks__c= (String)detailMap.get('remarks');
-                        }
-                    }
-                    mapOfUnitSnagResposne.put(usr.id,usr);
-                    system.debug('mapOfUnitSnagResposne'+mapOfUnitSnagResposne);
-                }
+    @RemoteAction
+    public STatic String  saveCustomerUnitSnagList(String jsonString,string propertyId, Decimal meterReadingValue,  String fileName )  {
+        try{
+            system.debug('jsonString'+jsonString);
+            system.debug('fileName'+fileName);
+            // system.debug('fileValue'+fileValue);
+            String customerSnagFileName = '';
+            Blob customerSnagFile ;
+            
+            Property__c  propertyList= [SELECT ID, NAME,Project__c,Flat_Type__c,Project__r.Name,Tower__r.Name,Project__r.Project_Email__c,
+                                        Electric_Meter_Reading__c,
+                                        Unit_Type__c,Pre_OC_Start_Date__c,Project__r.FM_Head__r.Name,Project__r.FM_Head__r.email,Sub_Snag_Status__c 
+                                        FROM PROPERTY__C 
+                                        WHERE id =:propertyId];
+            propertyList.Electric_Meter_Reading__c = meterReadingValue;
+            Map<Id,Unit_Snag_Response__c> mapOfUnitSnagResposne = New Map<Id,Unit_Snag_Response__c>();
+            List<Unit_Snag_Response__c> allUnitSnagList = [SELECT Id, Name, Property__c, Project_Snag__c ,Project_Snag__r.Questions__c,
+                                                           Post_OC_Answers__c,Pre_OC_Answers__c,Pre_OC_End_Date__c,Area__c,
+                                                           Pre_OC_Remarks__c,Customer_Inspection_Start_Date__c,
+                                                           Customer_Inspection_End_Date__c, Customer_Inspection_Remarks__c,Customer_Inspection_Answers__c
+                                                           FROM Unit_Snag_Response__c
+                                                           WHERE  
+                                                           Property__c =: propertyId ];
+            system.debug('allUnitSnagList----'+allUnitSnagList);
+            Map<id,Unit_Snag_Response__c> mapOfUnitSnag = New Map<id,Unit_Snag_Response__c>();
+            for(Unit_Snag_Response__c usr:allUnitSnagList)
+            {
+                mapOfUnitSnag.put(usr.id,usr);
             }
-        }
-        if(!mapOfUnitSnagResposne.isEmpty())
-        {
-            update mapOfUnitSnagResposne.values();
-        }
-        generateSnagDoc(propertyId,'Post-OC',decimal.valueof(meterReading));
-    }
-    public Void  saveCustomerUnitSnagList() {
-        String jsonString =  system.currentPageReference().getParameters().get('SnagDetails');
-        String fileName =  system.currentPageReference().getParameters().get('fileName');
-        // String fileValue =  system.currentPageReference().getParameters().get('fileValue');
-        system.debug('jsonString'+jsonString);
-        system.debug('fileName'+fileName);
-        // system.debug('fileValue'+fileValue);
-        string propertyId = ApexPages.currentPage().getParameters().get('Id');
-        Property__c  propertyList= [SELECT ID, NAME,Project__c,Flat_Type__c,Project__r.Name,Tower__r.Name,Project__r.Project_Email__c,
-                                    Electric_Meter_Reading__c,
-                                    Unit_Type__c,Pre_OC_Start_Date__c,Project__r.FM_Head__r.Name,Project__r.FM_Head__r.email,Sub_Snag_Status__c 
-                                    FROM PROPERTY__C 
-                                    WHERE id =:propertyId];
-        propertyList.Electric_Meter_Reading__c = decimal.valueof(meterReading);
-        Map<Id,Unit_Snag_Response__c> mapOfUnitSnagResposne = New Map<Id,Unit_Snag_Response__c>();
-        List<Unit_Snag_Response__c> allUnitSnagList = [SELECT Id, Name, Property__c, Project_Snag__c ,Project_Snag__r.Questions__c,
-                                                       Post_OC_Answers__c,Pre_OC_Answers__c,Pre_OC_End_Date__c,Area__c,
-                                                       Pre_OC_Remarks__c,Customer_Inspection_Start_Date__c,
-                                                       Customer_Inspection_End_Date__c, Customer_Inspection_Remarks__c,Customer_Inspection_Answers__c
-                                                       FROM Unit_Snag_Response__c
-                                                       WHERE  
-                                                       Property__c =: propertyId ];
-        system.debug('allUnitSnagList----'+allUnitSnagList);
-        Map<id,Unit_Snag_Response__c> mapOfUnitSnag = New Map<id,Unit_Snag_Response__c>();
-        for(Unit_Snag_Response__c usr:allUnitSnagList)
-        {
-            mapOfUnitSnag.put(usr.id,usr);
-        }
-        List<Object> snagDetails = (List<Object>) JSON.deserializeUntyped(jsonString);
-        for (Object detail : snagDetails) {
-            Map<String, Object> detailMap = (Map<String, Object>)detail;
-            if (detailMap.containsKey('recordId')) {
-                String recordId = (String)detailMap.get('recordId');
-                if(mapOfUnitSnag.containsKey(recordId))
-                {
-                    Unit_Snag_Response__c usr= New Unit_Snag_Response__c();
-                    usr.id = (String)detailMap.get('recordId');
-                    if (detailMap.containsKey('CheckBox')) {
-                        usr.Customer_Inspection_Answers__c= (boolean)detailMap.get('CheckBox');
-                        System.debug('CheckBox: ' + (boolean)detailMap.get('CheckBox'));
-                    }
-                    if(mapOfUnitSnag.get(recordId).Customer_Inspection_Start_Date__c == null)
+            List<Object> snagDetails = (List<Object>) JSON.deserializeUntyped(jsonString);
+            for (Object detail : snagDetails) {
+                Map<String, Object> detailMap = (Map<String, Object>)detail;
+                if (detailMap.containsKey('recordId')) {
+                    String recordId = (String)detailMap.get('recordId');
+                    if(mapOfUnitSnag.containsKey(recordId))
                     {
-                        usr.Customer_Inspection_Start_Date__c = system.today();
-                    }
-                    if (detailMap.containsKey('remarks')) {
-                        if( (String)detailMap.get('remarks') != '' && (String)detailMap.get('remarks') != null)
-                        {
-                            usr.Customer_Inspection_Remarks__c= (String)detailMap.get('remarks');
+                        Unit_Snag_Response__c usr= New Unit_Snag_Response__c();
+                        usr.id = (String)detailMap.get('recordId');
+                        if (detailMap.containsKey('CheckBox')) {
+                            usr.Customer_Inspection_Answers__c= (boolean)detailMap.get('CheckBox');
+                            System.debug('CheckBox: ' + (boolean)detailMap.get('CheckBox'));
                         }
+                        if(mapOfUnitSnag.get(recordId).Customer_Inspection_Start_Date__c == null)
+                        {
+                            usr.Customer_Inspection_Start_Date__c = system.today();
+                        }
+                        if (detailMap.containsKey('remarks')) {
+                            if( (String)detailMap.get('remarks') != '' && (String)detailMap.get('remarks') != null)
+                            {
+                                usr.Customer_Inspection_Remarks__c= (String)detailMap.get('remarks');
+                            }
+                        }
+                        
+                        mapOfUnitSnagResposne.put(usr.id,usr);
+                        system.debug('mapOfUnitSnagResposne'+mapOfUnitSnagResposne);
                     }
                     
-                    mapOfUnitSnagResposne.put(usr.id,usr);
-                    system.debug('mapOfUnitSnagResposne'+mapOfUnitSnagResposne);
                 }
-                
-            }
-            else
-            {
-                if (detailMap.containsKey('FileName')) {
-                    customerSnagFileName = (String)detailMap.get('FileName');
-                    system.debug('customerSnagFileName'+(String)detailMap.get('FileName'));
-                }
-                if (detailMap.containsKey('FileValue')) {
-                    system.debug('customerSnagFile'+(String)detailMap.get('FileValue'));
-                    String  base64Image = (String)detailMap.get('FileValue');
-                    List<String> parts = base64Image.split(',');
-                    String base64Data = parts[1];
-                    customerSnagFile = EncodingUtil.base64Decode(base64Data);
+                else
+                {
+                    if (detailMap.containsKey('FileName')) {
+                        customerSnagFileName = (String)detailMap.get('FileName');
+                        system.debug('customerSnagFileName'+(String)detailMap.get('FileName'));
+                    }
+                    if (detailMap.containsKey('FileValue')) {
+                        system.debug('customerSnagFile'+(String)detailMap.get('FileValue'));
+                        String  base64Image = (String)detailMap.get('FileValue');
+                        List<String> parts = base64Image.split(',');
+                        String base64Data = parts[1];
+                        customerSnagFile = EncodingUtil.base64Decode(base64Data);
+                    }
                 }
             }
-        }
-        Booking__c booking = [Select Id ,Name,Primary_Applicant__r.Name,
-                              OwnerId, Related_Suggested_Property__r.Unit__r.FM_User__c, 
-                              Related_Suggested_Property__c,Project_Email__c,Unit_Number__c,
-                              Primary_Applicant__r.PersonEmail,Project_Name__r.Name,Project_Name__r.GPS_location__c,
-                              Project_Name__r.Location__c,Project_Name__r.Project_Phone__c, 
-                              Related_Suggested_Property__r.Unit__c,Project_Name__r.Project_Email__c,
-                              Related_Suggested_Property__r.Unit__r.Customer_Unit_Inspection_Scheduled_Date__c
-                              From Booking__c 
-                              Where Related_Suggested_Property__r.Unit__c =: propertyId
-                             ];
-        ContentVersion contentVersion_1 = new ContentVersion(
-            Title='Copy of the Signed Customer Snag List', 
-            PathOnClient =customerSnagFileName,
-            ContentLocation='S',
-            VersionData = customerSnagFile, 
-            origin = 'C',
-            isMajorVersion=false,
-            SObjectType__c = 'Property__c',
-            Document_Type__c = 'Copy of the Signed Customer Snag List'
-        );
-        try{
-            insert contentVersion_1;
-        }
-        catch(DmlException ex){
-            system.debug('Error'+ex.getMessage());
-        }
-        if(contentVersion_1.Id != null)
-        {
-            ContentVersion contentVersion_2 = [SELECT Id, Title, ContentDocumentId 
-                                               FROM ContentVersion WHERE Id = :contentVersion_1.Id LIMIT 1];
-            List<ContentDocumentLink> contentListlink1=new List<ContentDocumentLink>();
-            ContentDocumentLink contentlink1 = new ContentDocumentLink();
-            contentlink1.LinkedEntityId = propertyId;
-            contentlink1.contentdocumentid = contentVersion_2.contentdocumentid;
-            contentlink1.ShareType = 'V';
-            //contentListlink1.add(contentlink1);
+            Booking__c booking = [Select Id ,Name,Primary_Applicant__r.Name,
+                                  OwnerId, Related_Suggested_Property__r.Unit__r.FM_User__c, 
+                                  Related_Suggested_Property__c,Project_Email__c,Unit_Number__c,
+                                  Primary_Applicant__r.PersonEmail,Project_Name__r.Name,Project_Name__r.GPS_location__c,
+                                  Project_Name__r.Location__c,Project_Name__r.Project_Phone__c, 
+                                  Related_Suggested_Property__r.Unit__c,Project_Name__r.Project_Email__c,
+                                  Related_Suggested_Property__r.Unit__r.Customer_Unit_Inspection_Scheduled_Date__c
+                                  From Booking__c 
+                                  Where Related_Suggested_Property__r.Unit__c =: propertyId 
+                                  AND Stage__c != 'Booking Cancelled – Refund Pending'
+                                            AND Stage__c != 'Booking Cancelled – Refund Ready'
+                                            AND Stage__c != 'Booking Cancelled -- Refund Done'
+                                            AND Stage__c != 'Terminated'
+                                  LIMIT 1
+                                 ];
+            ContentVersion contentVersion_1 = new ContentVersion(
+                Title='Copy of the Signed Customer Snag List', 
+                PathOnClient =customerSnagFileName,
+                ContentLocation='S',
+                VersionData = customerSnagFile, 
+                origin = 'C',
+                isMajorVersion=false,
+                SObjectType__c = 'Property__c',
+                Document_Type__c = 'Copy of the Signed Customer Snag List'
+            );
             try{
-                insert contentlink1;   
+                insert contentVersion_1;
             }
             catch(DmlException ex){
                 system.debug('Error'+ex.getMessage());
-            }            
-        }
-        
-        // for save passport on booking      
-        ContentVersion contentVersion_3 = new ContentVersion(
-            Title='Customer Snag List', 
-            PathOnClient =customerSnagFileName,
-            ContentLocation='S',
-            VersionData = customerSnagFile, 
-            origin = 'C',
-            isMajorVersion=false,
-            SObjectType__c = 'Booking__c',
-            Document_Type__c = 'Copy of the Signed Customer Snag List'
-        );
-        try{
-            insert contentVersion_3;
-        }
-        catch(DmlException ex){
-            system.debug('Error'+ex.getMessage());
-        }
-        if(contentVersion_3.Id != null){
-            ContentVersion contentVersion_4 = [SELECT Id, Title, ContentDocumentId 
-                                               FROM ContentVersion WHERE Id = :contentVersion_3.Id LIMIT 1];
-            ContentDocumentLink contentlink2 = new ContentDocumentLink();
-            contentlink2.LinkedEntityId = booking.id;
-            contentlink2.contentdocumentid = contentVersion_4.contentdocumentid;
-            contentlink2.ShareType = 'V';
-            //contentListlink1.add(contentlink2);
+            }
+            if(contentVersion_1.Id != null)
+            {
+                ContentVersion contentVersion_2 = [SELECT Id, Title, ContentDocumentId 
+                                                   FROM ContentVersion WHERE Id = :contentVersion_1.Id LIMIT 1];
+                List<ContentDocumentLink> contentListlink1=new List<ContentDocumentLink>();
+                ContentDocumentLink contentlink1 = new ContentDocumentLink();
+                contentlink1.LinkedEntityId = propertyId;
+                contentlink1.contentdocumentid = contentVersion_2.contentdocumentid;
+                contentlink1.ShareType = 'V';
+                //contentListlink1.add(contentlink1);
+                try{
+                    insert contentlink1;   
+                }
+                catch(DmlException ex){
+                    system.debug('Error'+ex.getMessage());
+                }            
+            }
+            
+            // for save passport on booking      
+            ContentVersion contentVersion_3 = new ContentVersion(
+                Title='Customer Snag List', 
+                PathOnClient =customerSnagFileName,
+                ContentLocation='S',
+                VersionData = customerSnagFile, 
+                origin = 'C',
+                isMajorVersion=false,
+                SObjectType__c = 'Booking__c',
+                Document_Type__c = 'Copy of the Signed Customer Snag List'
+            );
             try{
-                insert contentlink2;
+                insert contentVersion_3;
             }
             catch(DmlException ex){
+                system.debug('Error'+ex.getMessage());
             }
+            if(contentVersion_3.Id != null){
+                ContentVersion contentVersion_4 = [SELECT Id, Title, ContentDocumentId 
+                                                   FROM ContentVersion WHERE Id = :contentVersion_3.Id LIMIT 1];
+                ContentDocumentLink contentlink2 = new ContentDocumentLink();
+                contentlink2.LinkedEntityId = booking.id;
+                contentlink2.contentdocumentid = contentVersion_4.contentdocumentid;
+                contentlink2.ShareType = 'V';
+                //contentListlink1.add(contentlink2);
+                try{
+                    insert contentlink2;
+                }
+                catch(DmlException ex){
+                }
+            }
+            //insert contentListlink1;
+            if(!mapOfUnitSnagResposne.isEmpty())
+            {
+                update mapOfUnitSnagResposne.values();
+            }
+            generateSnagDoc(propertyId,'Customer',meterReadingValue);
+            
+            return 'Success';
         }
-        //insert contentListlink1;
-        if(!mapOfUnitSnagResposne.isEmpty())
+        catch(Exception Ex)
         {
-            update mapOfUnitSnagResposne.values();
+            system.debug('Error'+Ex.getMessage()+ex.getLineNumber());
+            String error = 'Error'+Ex.getMessage();
+            Return error;
         }
-        generateSnagDoc(propertyId,'Customer',decimal.valueof(meterReading));
         
     }
     
@@ -572,11 +558,13 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                                     Unit_Type__c,Pre_OC_Start_Date__c,Project__r.FM_Head__r.Name,Project__r.FM_Head__r.email,Sub_Snag_Status__c 
                                     FROM PROPERTY__C 
                                     WHERE id =:propertyId];
+        CustomNotificationType notificationType = [SELECT Id, DeveloperName FROM CustomNotificationType WHERE DeveloperName='Booking_Form_Notification']; 
         List<EmailMessage> insertEmailMessageList = New List<EmailMessage>();
         Blob body; 
         PageReference ref = Page.SnagListDoc;
         ref.getParameters().put('id',propertyId);
         ref.getParameters().put('SnagType',SnagType);
+        ref.getParameters().put('meterReading',String.valueof(meterReading));
         if(Test.isRunningTest()){
             body = Blob.valueOf('Snag List');
         }
@@ -611,12 +599,16 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
             {
                 if(propertyList != null)
                 {
-                    if(propertyList.Pre_OC_Start_Date__c == null)
+                    
+                    if(propertyList.Pre_OC_Start_Date__c != null)
                     {
-                        propertyList.Pre_OC_Start_Date__c = system.today();
-                        
-                        
+                       
                     }
+                    else
+                    {
+                         propertyList.Pre_OC_Start_Date__c = system.today();
+                    }
+                    
                     propertyList.Snag_Status__c ='Internal Snagging';
                     propertyList.Electric_Meter_Reading__c = meterReading;
                     propertyList.Sub_Snag_Status__c = 'Pre OC-Submitted with snags' ;
@@ -658,8 +650,11 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                     objEmailMessage.status = '3'; // email was sent
                     objEmailMessage.RelatedToId = propertyList.id;
                     objEmailMessage.fromName = 'Dynamix'; // from name
+                    system.debug('toMailList'+toMailList);
+                    objEmailMessage.ToAddress = String.join(toMailList, ',');
+                    objEmailMessage.FromAddress = owea.Address;
                     objEmailMessage.Subject = 'Email sent to PM for Review of Pre-OC Task';
-                    objEmailMessage.HtmlBody = plainBody;
+                    objEmailMessage.HtmlBody = htmlBody;
                     insertEmailMessageList.add(objEmailMessage);
                     insert insertEmailMessageList;
                     Attachment attachmentEmailMessage = new Attachment( ParentId = insertEmailMessageList[0].Id,                         
@@ -667,15 +662,19 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                                                                        ContentType = 'application/pdf',                         
                                                                        Name = 'SnagList.pdf');
                     insert attachmentEmailMessage;
+                    Set<String> recipientIds = New Set<String> ();
+                    recipientIds.add(propertyList.Project__r.FM_Head__c);
                     //SendEmailWithOrgWideAddress.SendEmail(emailTemplate.Id, htmlBody, plainBody, emailList,null,owea.id);
-                    SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,toMailList,null,true,propertyId,body,'SnagList.pdf',owea.id);
+                    SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,toMailList,null,false,propertyId,body,'SnagList.pdf',owea.id);
+                    String notificationBody ='Hi,\n Snags have been identified for Unit No - '+ propertyList.Name+' in project '+ propertyList.Project__r.Name+'.\nRequest you to kindly look into it and proceed with corrections for the same.';
+                    SendEmailandBellNotificationUtility.SendBellNotification(notificationType.id,Subject,notificationBody,propertyList.id,recipientIds);
                 }
             }
             else
             {	propertyList.Sub_Snag_Status__c = 'Pre OC-Verified' ;
-             	propertyList.Pre_OC_End_Date__c = System.today();
-             	propertyList.Electric_Meter_Reading__c = meterReading;
-             	EmailTemplate emailTemplate = [select Id,Name, Subject, HtmlValue, Body,DeveloperName 
+             propertyList.Pre_OC_End_Date__c = System.today();
+             propertyList.Electric_Meter_Reading__c = meterReading;
+             EmailTemplate emailTemplate = [select Id,Name, Subject, HtmlValue, Body,DeveloperName 
                                             from EmailTemplate 
                                             where Name = 'FM for Succesfully Completion of Pre Oc Task' LIMIT 1];
              
@@ -698,6 +697,8 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                  objEmailMessage.fromName = 'Dynamix'; // from name
                  objEmailMessage.Subject = 'Email sent to FM for succesful completion of Pre-OC Task';
                  objEmailMessage.HtmlBody = plainBody;
+                 objEmailMessage.ToAddress = String.join(toMailList, ',');
+                 objEmailMessage.FromAddress = owea.Address;
                  insertEmailMessageList.add(objEmailMessage);
                  //SendEmailWithOrgWideAddress.SendEmail(emailTemplate.Id, htmlBody, plainBody, emailList,null,owea.id);
                  SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,toMailList,null,true,propertyId,body,'SnagList.pdf',owea.id);
@@ -721,15 +722,19 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                                                               FROM Unit_Snag_Response__c
                                                               WHERE  
                                                               Property__c =: propertyId AND Post_OC_Answers__c != true];
+          system.debug('propertyList.Post_OC_Start_Date__c'+propertyList.Post_OC_Start_Date__c);
             if(!postOCUnitSnagList.isEmpty())
             {
                 propertyList.Sub_Snag_Status__c = 'Post OC-Submitted with snags' ;
                 propertyList.Electric_Meter_Reading__c = meterReading;
-                if(propertyList.Post_OC_Start_Date__c == null)
+               
+                if(propertyList.Post_OC_Start_Date__c != null)
                 {
-                    propertyList.Post_OC_Start_Date__c = system.now();
-                    
-                    
+                   
+                }
+                else
+                {
+                     propertyList.Post_OC_Start_Date__c = system.today();
                 }
                 update propertyList;
             }
@@ -761,7 +766,11 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
         if( SnagType =='Customer')
         {
             Booking__c BookList = [Select Id,Name,Owner.Email, Primary_Applicant__r.PersonEmail From Booking__c
-                                   Where Related_Suggested_Property__r.Unit__c =: propertyId];
+                                   Where Related_Suggested_Property__r.Unit__c =: propertyId
+                                   AND Stage__c != 'Booking Cancelled – Refund Pending'
+                                   AND Stage__c != 'Booking Cancelled – Refund Ready'
+                                   AND Stage__c != 'Booking Cancelled -- Refund Done'
+                                   AND Stage__c != 'Terminated' LIMIT 1];
             
             
             taskId.add(propertyList.id); 
@@ -778,12 +787,15 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                                                              FROM Unit_Snag_Response__c
                                                              WHERE  
                                                              Property__c =: propertyId AND Customer_Inspection_Answers__c != true];
-            if(propertyList.Customer_Inspection_Start_Date__c == null)
+            if(propertyList.Customer_Inspection_Start_Date__c != null)
+            {
+                
+            } 
+            else
             {
                 propertyList.Customer_Inspection_Start_Date__c =system.now();
-                
-                
-            }            if(!preOCUnitSnagList.isEmpty())
+            }
+            if(!preOCUnitSnagList.isEmpty())
             {
                 propertyList.Electric_Meter_Reading__c = meterReading;
                 propertyList.Snag_Status__c ='Customer Snagging';
@@ -823,7 +835,7 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                     String htmlBody = emailTemplate.HtmlValue;
                     String plainBody = emailTemplate.Body;
                     String Subject = emailTemplate.Subject;
-                     Subject = Subject.replace('{!Property__c.Name}', propertyList.Name);
+                    Subject = Subject.replace('{!Property__c.Name}', propertyList.Name);
                     plainBody = plainBody.replace('{!Property__c.Name}', propertyList.Name);
                     plainBody = plainBody.replace('{projectName}', propertyList.Project__r.Name);
                     //  htmlBody = htmlBody.replace('{userName}', propertyList.Project__r.FM_Head__r.Name);
@@ -836,19 +848,84 @@ AND STATUS != 'Completed' order By CreatedDate Desc LIMIT 1];*/
                     objEmailMessage.fromName = 'Dynamix'; // from name
                     objEmailMessage.Subject = 'Email sent to CRM Head and FM Head for Customer found Snag';
                     objEmailMessage.HtmlBody = plainBody;
+                    objEmailMessage.ToAddress = String.join(emailList, ',');
+                    //objEmailMessage.FromAddress = owea.Address;
                     insertEmailMessageList.add(objEmailMessage);
-                    CustomNotificationType notificationType = [SELECT Id, DeveloperName FROM CustomNotificationType WHERE DeveloperName='Booking_Form_Notification']; 
-                    SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,emailList,null,true,propertyId,body,null,null);
+                    SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,Subject,htmlBody,plainBody,emailList,null,false,propertyId,body,null,null);
                     SendEmailandBellNotificationUtility.SendBellNotification(notificationType.id,Subject,plainBody,propertyList.id, recipientIds);
                     
                 }
             }
             else
             {
-               propertyList.Electric_Meter_Reading__c = meterReading;
-               propertyList.Customer_Inspection_End_Date__c = system.now();
+                propertyList.Electric_Meter_Reading__c = meterReading;
+                propertyList.Customer_Inspection_End_Date__c = system.now();
                 update propertyList;
             }
+        }
+    }
+    @RemoteAction
+    public static String postOC(String data,string propertyId, Decimal meterReadingValue) {
+        try{
+            System.debug('saving ' + data);
+            // string propertyId = ApexPages.currentPage().getParameters().get('Id');
+            Property__c  propertyList= [SELECT ID, NAME,Project__c,Flat_Type__c,Project__r.Name,Tower__r.Name,
+                                        Unit_Type__c,Sub_Snag_Status__c, Snag_Status__c,Electric_Meter_Reading__c
+                                        FROM PROPERTY__C 
+                                        WHERE id =:propertyId];
+            
+            propertyList.Electric_Meter_Reading__c = meterReadingValue;
+            Map<Id,Unit_Snag_Response__c> mapOfUnitSnagResposne = New Map<Id,Unit_Snag_Response__c>();
+            
+            List<Unit_Snag_Response__c> allUnitSnagList = [SELECT Id, Name, Property__c, Project_Snag__c ,Project_Snag__r.Questions__c,
+                                                           Post_OC_Answers__c,Pre_OC_Answers__c,Pre_OC_End_Date__c,Area__c,Pre_OC_Remarks__c
+                                                           FROM Unit_Snag_Response__c
+                                                           WHERE  
+                                                           Property__c =: propertyId];
+            system.debug('allUnitSnagList----'+allUnitSnagList);
+            Map<id,Unit_Snag_Response__c> mapOfUnitSnag = New Map<id,Unit_Snag_Response__c>();
+            for(Unit_Snag_Response__c usr:allUnitSnagList)
+            {
+                mapOfUnitSnag.put(usr.id,usr);
+            }
+            List<Object> snagDetails = (List<Object>) JSON.deserializeUntyped(data);
+            for (Object detail : snagDetails) {
+                Map<String, Object> detailMap = (Map<String, Object>)detail;
+                if (detailMap.containsKey('recordId')) {
+                    String recordId = (String)detailMap.get('recordId');
+                    if(mapOfUnitSnag.containsKey(recordId))
+                    {
+                        Unit_Snag_Response__c usr= New Unit_Snag_Response__c();
+                        usr.id = (String)detailMap.get('recordId');
+                        //propertyList.Post_OC_Start_Date__c = system.today();
+                        if (detailMap.containsKey('CheckBox')) {
+                            usr.Post_OC_Answers__c= (boolean)detailMap.get('CheckBox');
+                            
+                            System.debug('CheckBox: ' + (boolean)detailMap.get('CheckBox'));
+                        }
+                        if (detailMap.containsKey('remarks')) {
+                            if( (String)detailMap.get('remarks') != '' && (String)detailMap.get('remarks') != null)
+                            {
+                                usr.Post_OC_Remarks__c= (String)detailMap.get('remarks');
+                            }
+                        }
+                        mapOfUnitSnagResposne.put(usr.id,usr);
+                        system.debug('mapOfUnitSnagResposne'+mapOfUnitSnagResposne);
+                    }
+                }
+            }
+            if(!mapOfUnitSnagResposne.isEmpty())
+            {
+                update mapOfUnitSnagResposne.values();
+            }
+            generateSnagDoc(propertyId,'Post-OC',meterReadingValue);
+            return 'Success';
+        }
+        catch(Exception Ex)
+        {
+            system.debug('Error'+Ex.getMessage()+ex.getLineNumber());
+            String error = 'Error'+Ex.getMessage();
+            Return error;
         }
     }
 }

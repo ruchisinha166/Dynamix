@@ -13,6 +13,7 @@ public class CostSheetController {
     public decimal TotalCost{get;set;}
     public Project__c projectobj{get;set;}
     public decimal GST{get;set;}
+    public decimal GSTStamp{get;set;}
     public decimal GstAmount{get;set;}
     public Property__c propertyObj {get;set;} 
     public List<Add_On__c> addonList{get;set;}
@@ -21,6 +22,7 @@ public class CostSheetController {
     public decimal carParking{get;set;}
     
     public decimal totalParkingCharge{get;set;}
+    public Integer paymentPlanMilestoneSize{get;set;}
     public decimal smallParking{get;set;}
     public decimal twowheelerParking{get;set;}
     public decimal shareMoney{get;set;}
@@ -53,6 +55,13 @@ public class CostSheetController {
     public Project__c project{get;set;}
     public list<Pricing_Plan_Components__c> charges{get;set;}
     public Contact cc{get;set;} 
+    public decimal totalAreainsq{get;set;}
+    public decimal totalAreainft{get;set;}
+    public decimal corpusfund{get;set;}
+    public decimal subtotal{get;set;}
+    public decimal stampdu{get;set;}
+    public decimal registrationch{get;set;}
+    public decimal gstAt{get;set;}
     public CostSheetController(){
         
     }
@@ -72,6 +81,8 @@ public class CostSheetController {
         smallParking=0;
         utilitySqM=0;
         totalSqM=0;
+        totalAreainsq=0;
+        totalAreainft=0;
         totalSqF=0;
         stampPer=0;
         totlaAgeement=0;
@@ -85,38 +96,43 @@ public class CostSheetController {
         TotalCharges=0;
         applicableGST=0;
         GST=0;
-        Set<Id>  carParkId = new Set<Id>();
-        Decimal carParkValue = 0;
+        GSTStamp=0;
+        corpusfund=0;
+        subtotal=0;
+        stampdu=0;
+        gstAt=0;
+        registrationch=0;
         
         visiblityVer =false;
         addonMap= new Map<String,decimal>();
         String sPropertyId = ApexPages.CurrentPage().getparameters().get('id');
         visiblityVer = boolean.valueof(ApexPages.CurrentPage().getparameters().get('customp'));
-        suggestedProperty = [SELECT id,Opportunity__r.AccountId,Opportunity__r.Account.salutation, Name, Unit__c,Cost_Sheet_Provided__c, Unit__r.Tower__r.Name,Unit__r.Tower__r.Tower_Number__c, Unit__r.Name, Unit__r.Project__c, Unit__r.Project__r.Name, Unit__r.Floor__c, 
-                             Unit__r.Project__r.Location__c, Unit__r.Property_Price_Slab__c, Unit__r.Flat_Type__c, Unit__r.Project__r.RERA_Number__c, Unit__r.Project__r.No_of_the_Months__c,
-                             Unit__r.RERA_Carpet_Area__c, Unit__r.Deck_Carpet_Area__c, Unit__r.Flower_Bed_Area__c, Unit__r.Total_Area__c,Unit__r.Project__r.Per_Sq_ft_for_the_SMD__c,
-                             Opportunity__r.Name,Opportunity__r.Project__r.name,Opportunity__r.Project__r.Per_Sq_ft_for_the_SMD__c,Opportunity__r.Owner.Name,Opportunity__r.Account.Name,Opportunity__c,Payment_Plan__c, Discount__c, Payment_Plan_Detail__c
+        suggestedProperty = [SELECT id,Opportunity__r.AccountId,Opportunity__r.Account.salutation, Name, Unit__c,
+                             Cost_Sheet_Provided__c, Unit__r.Tower__r.Name,Unit__r.Tower__r.Tower_Number__c, Unit__r.Name, 
+                             Unit__r.Project__c, Unit__r.Project__r.Name, Unit__r.Floor__c, Unit__r.Project__r.Location__c, Unit__r.Project__r.Corpus_Fund_Per_Sq_Ft__c,
+                             Unit__r.Property_Price_Slab__c, Unit__r.Flat_Type__c, Unit__r.Project__r.RERA_Number__c,
+                             unit__r.Proposed_Deck_Area_in_sq_mt__c, Unit__r.RERA_Carpet_Area__c, Unit__r.Deck_Carpet_Area__c, 
+                             Unit__r.Flower_Bed_Area__c, Unit__r.Total_Area__c,unit__r.Deck_Proposed_Area__c,
+                             Unit__r.Project__r.Per_Sq_ft_for_the_SMD__c,Unit__r.Project__r.No_of_the_Months__c,
+                             Opportunity__r.Name,Opportunity__r.Project__r.name,Opportunity__r.Owner.Name,
+                             Opportunity__r.Account.Name,Opportunity__c,Payment_Plan__c, Discount__c, Payment_Plan_Detail__c
                              FROM Suggested_Property__c WHERE Id =: sPropertyId];
         
         cc = [select id,salutation from Contact where AccountId = : suggestedProperty.Opportunity__r.AccountId];
-        addonList= [select id,Opportunity__c,No_Of_Unit__c,Car_Parking__r.Flat_Type__c,Car_Parking__c,Parking_Value__c,Project_Add_On_Charges__r.Parking_Type__c,Project_Add_On_Charges__c,Project_Add_On_Charges__r.name from Add_On__c where Opportunity__c=:suggestedProperty.Opportunity__c AND Suggested_Property__c=:suggestedProperty.Id];
+        addonList= [select id,Opportunity__c,No_Of_Unit__c,Project_Add_On_Charges__r.Parking_Type__c,Project_Add_On_Charges__c,Project_Add_On_Charges__r.name from Add_On__c where Opportunity__c=:suggestedProperty.Opportunity__c];
         opp =[select id,Project__c,Project__r.GST_Applicable__c,Project__r.Name from Opportunity where id=:suggestedProperty.Opportunity__c];
+        System.debug('addonList:'+addonList);
+        if (suggestedProperty != null && suggestedProperty.Unit__c != null && suggestedProperty.Unit__r.Project__c != null && suggestedProperty.Unit__r.Project__r.Corpus_Fund_Per_Sq_Ft__c != null) {
+            corpusfund = suggestedProperty.Unit__r.Project__r.Corpus_Fund_Per_Sq_Ft__c * 500;
+        } else {
+             System.debug('corpusfund:'+corpusfund);
+        }
         if(addonList.size()>0)
         {
             
             for(Add_On__c ad : addonList)
             {
-                carParkId.add(ad.Car_Parking__c);
-                if(ad.Parking_Value__c!=null){
-                    carParkValue+=ad.Parking_Value__c;
-                }
-                else{
-                    carParkValue+=0;
-                }
-                system.debug('carParkValue--'+carParkValue);
-                system.debug('carParkValue--'+ad.Parking_Value__c);
-                
-                /*if(ad.Project_Add_On_Charges__r.Parking_Type__c == 'Large Car Parking')
+                if(ad.Project_Add_On_Charges__r.Parking_Type__c == 'Large Car Parking')
                 {
                     largeParking+=ad.No_Of_Unit__c;
                 }
@@ -126,17 +142,11 @@ public class CostSheetController {
                 }
                 else if(ad.Project_Add_On_Charges__r.Parking_Type__c == 'Car Parking')
                 {
-                    //carParking+=ad.No_Of_Unit__c;
+                    carParking+=ad.No_Of_Unit__c;
                 }
                 else if(ad.Project_Add_On_Charges__r.Parking_Type__c == 'Two Wheeler Parking')
                 {
                     twowheelerParking+=ad.No_Of_Unit__c;
-                }*/
-                if(ad.Car_Parking__r.Flat_Type__c == 'CAR PARKING'){
-                    carParking+=1;
-                }
-                else if(ad.Car_Parking__r.Flat_Type__c == 'BIKE PARKING'){
-                    twowheelerParking+=1;
                 }
                 addonMap.put(ad.Project_Add_On_Charges__r.name,ad.No_Of_Unit__c);
             }
@@ -146,7 +156,7 @@ public class CostSheetController {
         }
         if(suggestedProperty.Unit__r.Project__c!=null)
         {                      
-            projectobj = [select id,RERA_Number__c,Builder_Organization__c,Per_Sq_ft_for_the_SMD__c from Project__c  where id=:suggestedProperty.Unit__r.Project__c];
+            projectobj = [select id,RERA_Number__c,Builder_Organization__c from Project__c  where id=:suggestedProperty.Unit__r.Project__c];
             if(projectobj.Builder_Organization__c !=null )  
             {
                 builderOrg = [select id,Name,Account_Name__c,GST_Account_Name__c,IFSC_Code__c,Bank_Account_Number__c,Bank_Name__c,Branch_Address__c,Branch_Name__c,GST_Bank_Account_Number__c,GST_Bank_Name__c,
@@ -155,22 +165,26 @@ public class CostSheetController {
         }
         if(suggestedProperty.Unit__c!=null)
         {
-            propertyObj = [select Id,Total_Area__c,Proposed_Utility_Area_in_sq_mt__c,Proposed_Deck_Area_in_sq_mt__c,Utility_Area_in_sqmtr__c,Enclosed_Balcony_in_sqmtr__c,RERA_Carpet_Area_in_sqmtr__c,Deck_Carpet_Area__c,Deck_Carpet_Area_c_in_sqmtr__c,Property_Area_in_sqft__c,Utility_Area__c,Enclosed_balcony__c,Property_Area_in_sqmtr__c,Name,Floor__c,RERA_Carpet_Area__c,Property_Area__c from Property__c where Id =: suggestedProperty.Unit__c];
+            propertyObj = [select Id,Total_Area__c,Proposed_Utility_Area__c,Deck_Proposed_Area__c,Proposed_Deck_Area_in_sq_mt__c,Proposed_Utility_Area_in_sq_mt__c,Utility_Area_in_sqmtr__c,Enclosed_Balcony_in_sqmtr__c,RERA_Carpet_Area_in_sqmtr__c,Deck_Carpet_Area__c,Deck_Carpet_Area_c_in_sqmtr__c,Property_Area_in_sqft__c,Utility_Area__c,Enclosed_balcony__c,Property_Area_in_sqmtr__c,Name,Floor__c,RERA_Carpet_Area__c,Property_Area__c from Property__c where Id =: suggestedProperty.Unit__c];
         }
         totalSqM =propertyObj.RERA_Carpet_Area_in_sqmtr__c+propertyObj.Utility_Area_in_sqmtr__c+propertyObj.Enclosed_Balcony_in_sqmtr__c+propertyObj.Deck_Carpet_Area_c_in_sqmtr__c;
+        
+        totalAreainsq = propertyObj.Proposed_Deck_Area_in_sq_mt__c+propertyObj.Proposed_Utility_Area_in_sq_mt__c+propertyObj.RERA_Carpet_Area_in_sqmtr__c;
+        
         system.debug('propertyObj.RERA_Carpet_Area__c=='+propertyObj.RERA_Carpet_Area__c);
         system.debug('propertyObj.Utility_Area__c=='+propertyObj.Utility_Area__c);
-        if(propertyObj.Utility_Area__c!=null)
+        if(propertyObj.Proposed_Utility_Area__c!=null)
         {
-            utility=propertyObj.Utility_Area__c;
+            utility=propertyObj.Proposed_Utility_Area__c;
+            //utility=propertyObj.Utility_Area__c;
         }
         if(propertyObj.Enclosed_balcony__c!=null)
         {
             enclosedbalcony=propertyObj.Enclosed_balcony__c;
         }        
-        if(propertyObj.Deck_Carpet_Area__c!=null)
+        if(propertyObj.Deck_Proposed_Area__c!=null)
         {
-            deckarea=propertyObj.Deck_Carpet_Area__c;
+            deckarea=propertyObj.Deck_Proposed_Area__c;
         }
         if(propertyObj.RERA_Carpet_Area__c!=null)
         {
@@ -180,6 +194,9 @@ public class CostSheetController {
         {
             totalSqf =utility+enclosedbalcony;
         }
+        
+        totalAreainft = deckarea+utility+propertyObj.RERA_Carpet_Area__c;
+        
         system.debug('builderOrg =='+builderOrg );  
         view = 'No Preferred View';
         parking = 'No Parking';
@@ -227,6 +244,7 @@ public class CostSheetController {
         
         if(priceInfo.chargeGroupMap.containsKey('Stamp Duty')){
             stampDuty = priceInfo.chargeGroupMap.get('Stamp Duty');
+            stampdu  = priceInfo.chargeGroupMap.get('Stamp Duty');
             
         }
         if(priceInfo.chargeGroupMap.containsKey('Registration Charge')){
@@ -245,11 +263,11 @@ public class CostSheetController {
         {
             for(Price_Details__c pd : pdList)
             {
-                /*if((addonMap.containsKey(pd.name)) && pd.name.containsIgnoreCase('Wheeler'))
+                if((addonMap.containsKey(pd.name)) && pd.name.containsIgnoreCase('Wheeler'))
                 {
                     totalParkingCharge = totalParkingCharge+(addonMap.get(pd.name)*pd.Amount__c);
-                }*/
-                if((addonMap.containsKey(pd.name)) && pd.name.containsIgnoreCase('Large car parking'))
+                }
+                else if((addonMap.containsKey(pd.name)) && pd.name.containsIgnoreCase('Large car parking'))
                 {
                     totalParkingCharge = totalParkingCharge + (addonMap.get(pd.name)*pd.Amount__c);
                 }   
@@ -261,17 +279,7 @@ public class CostSheetController {
             }
         }
         system.debug('flatCost220 '+ flatCost);
-        System.debug('carParkValue'+carParkValue);
-        if(carParkValue >0)
-        {
-          flatCost =  flatCost+carParkValue;
-        }
-        // totlaAgeement =flatCost+carParkValue;
-        totlaAgeement = flatCost;
-        if(carParkValue >0)
-        {
-            stampDuty = (totlaAgeement * stampPer)/100;
-        }
+        totlaAgeement =flatCost;
         if(opp.Project__r.GST_Applicable__c==true)
         {
             for(Pricing_Plan_Components__c p :PricingPlan)
@@ -299,7 +307,37 @@ public class CostSheetController {
         else
         {
             GstAmount =0;
-        }     
+        } 
+        if(opp.Project__r.name == 'Aldeia de Goa'){
+        if(opp.Project__r.GST_Applicable__c==true)
+        {
+            for(Pricing_Plan_Components__c p :PricingPlan)
+            {
+                if(p.Name == 'Stamp Duty'){
+                    if(p.GST_Treatment__c == 'Standard')
+                    {
+                        if(stampDuty > 4500000){
+                            GSTStamp = 5;
+                        }
+                        else {
+                            GSTStamp = 1;
+                        }
+                        GstAmount = (stampDuty*gst)/100;
+                    }
+                    else{
+                        GSTStamp = Decimal.valueOf(p.GST_Treatment__c.substringBefore('%'));
+                        //GST = 9;
+                        GstAmount = (stampDuty*GSTStamp)/100;
+                    }
+                }
+            }
+            
+        }
+        /*else
+        {
+            GstAmount =0;
+        }  */ 
+    }
         String unitName;
         if(suggestedProperty.Unit__r.Name.length() < 4)
         {
@@ -355,13 +393,27 @@ public class CostSheetController {
         // {
         //totalcount =totalcount.Substring(0,totalcount.length()-4);
         // }
+       // stampdu = (totlaAgeement*GSTStamp)/100;
+        gstAt = (totlaAgeement*GST)/100;
+        registrationch = (totlaAgeement*3)/100;
         TotalCharges =TotalCharges +otherChargeGST;
-        TotalCost = totlaAgeement + StampDuty + RegistrationCharge + GstAmount;
+        if(opp.Project__r.name != 'Aldeia de Goa')
+        {        TotalCost = totlaAgeement + StampDuty + RegistrationCharge + GstAmount;
+         
+         
+        }
+        else if(opp.Project__r.name == 'Aldeia de Goa')
+        {
+            TotalCost = totlaAgeement + StampDuty + gstAt + registrationch;
+        }
+       
         List<ContentDocumentLink> cDLLst = [SELECT Id FROM ContentDocumentLink WHERE LinkedEntityId =: suggestedProperty.Opportunity__c];
         
         costSheetNo = suggestedProperty.Unit__r.Tower__r.Name.left(3).toUpperCase() + '/' + unitName  + '/' + suggestedProperty.Name.right(4) + cDLLst.size();
         paymentPlans = (List<Payment_Plan_Milestones__c>)JSON.deserialize(suggestedProperty.Payment_Plan_Detail__c, List<Payment_Plan_Milestones__c>.class);
         system.debug('==> paymentPlans ' + paymentPlans );
+         system.debug('==> paymentPlans ' + paymentPlans.size() );
+        paymentPlanMilestoneSize = paymentPlans.size() +1;
         if(suggestedProperty.Opportunity__r.Project__r.name <> null)
         {
             project = [select Id,Name,Builder_Organization__r.name,Project_Header__c,Project_Footer__c,Postal_Code__c,Location__c,Sublocation__c,City__c,State__c,Project_Email__c,Project_Phone__c from Project__c where Id =:suggestedProperty.Opportunity__r.Project__c ];
@@ -386,12 +438,12 @@ public class CostSheetController {
                 update updateSuggProperty;
             }
         }
+        subtotal = corpusfund + 20000 + 5000;
         //for update opportunity fields
         if(suggestedProperty.Opportunity__c!=null){
             Opportunity updateOppRcd=new Opportunity(Id=suggestedProperty.Opportunity__c);
             updateOppRcd.No_of_Parking_s_Spots_Required__c=largeParking+smallParking+carParking+twowheelerParking;
             updateOppRcd.Apartment_Number__c=suggestedProperty.Unit__r.Name;
-            updateOppRcd.Stamp_Duty_Amount__c = StampDuty;
             update updateOppRcd;
         }
         

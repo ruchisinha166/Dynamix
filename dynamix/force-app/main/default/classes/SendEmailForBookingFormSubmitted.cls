@@ -185,6 +185,7 @@ public class SendEmailForBookingFormSubmitted {
             }
         }
         //for Send SMS
+        SMS_Template_Id__mdt smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS Booking Form Submit' Limit 1];
         EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS Booking Form Submit' Limit 1];
         if(smsEmailTemp!=null && bookingRcd.Primary_Applicant__r.PersonMobilePhone!=null){
             String templateBody=smsEmailTemp.HtmlValue;
@@ -193,7 +194,12 @@ public class SendEmailForBookingFormSubmitted {
             templateBody = templateBody.replace('{{{Booking__c.Booking_Owner_Email__c}}}',bookingRcd.Owner.Email);
             templateBody=templateBody.stripHtmlTags();
             System.debug('templateBody:'+templateBody);
-            SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+            //SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+            if(!test.isRunningTest())
+            {
+                SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
+                
+            }
         }
         
     }

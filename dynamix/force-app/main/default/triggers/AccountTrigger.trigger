@@ -3,7 +3,7 @@ trigger AccountTrigger on Account (after insert,after update, before insert, bef
     if(trigger.isafter && trigger.isinsert)
     {
         AccountTriggerHandler.insertContacts(trigger.new);
-        //ChannelPartnerHandler.sendSmsToCustomerForNewCP(trigger.new);
+        ChannelPartnerHandler.sendSmsToCustomerForNewCP(trigger.new);
     }
     if(Trigger.isAfter && (Trigger.isInsert || Trigger.isUpdate)){
         AccountTriggerHandler.updateBookingDraftTaskStatus(Trigger.new);

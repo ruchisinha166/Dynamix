@@ -410,6 +410,7 @@
                         <elementReference>Booking.Handover_of_Possession_Letter__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -427,6 +428,7 @@
                         <elementReference>Booking.Handover_of_NDC__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -444,6 +446,7 @@
                         <elementReference>Booking.Handover_of_Car_Park_Allotment_Letter__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -461,6 +464,7 @@
                         <elementReference>Booking.Signature_on_No_claims_certificate__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -478,6 +482,7 @@
                         <elementReference>Booking.Signature_on_Society_Formation_Document__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -495,6 +500,7 @@
                         <elementReference>Booking.Handover_of_any_other_marketing_vouchers__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -512,6 +518,7 @@
                         <elementReference>Booking.Electric_meter_Transfer_Centificate_Hand__c</elementReference>
                     </defaultValue>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <styleProperties>
                         <verticalAlignment>

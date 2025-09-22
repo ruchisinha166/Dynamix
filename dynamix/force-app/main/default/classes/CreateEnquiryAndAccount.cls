@@ -211,7 +211,7 @@ ChannelPartnerId =accountListMap.get(request.enquiryMap.get('ChannelPartnerId'))
                         //if(CheckValue == True)
                         //{
                            // thisEnq.Primary_Mobile_Number__c = thisEnq.Primary_Mobile_Number_Text__c;
-                            //enqObject.Primary_Mobile_Number_Text__c = enqObject.Primary_Mobile_Number__c.substring(0, 2)  + '******'+ enqObject.Primary_Mobile_Number__c.substring(10);
+                           // enqObject.Primary_Mobile_Number_Text__c = enqObject.Primary_Mobile_Number__c.substring(0, 2)  + '******'+ enqObject.Primary_Mobile_Number__c.substring(10);
                             
                         //}
                     }

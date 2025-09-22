@@ -36,7 +36,6 @@
             </value>
         </inputParameters>
         <nameSegment>GenerateRefundletter</nameSegment>
-        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -51,40 +50,10 @@
         </connector>
         <flowTransactionModel>NewTransaction</flowTransactionModel>
         <nameSegment>PaymentReceiptNumber</nameSegment>
-        <offset>0</offset>
         <outputParameters>
             <assignToReference>ReceiptNumber</assignToReference>
             <name>output</name>
         </outputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>PaymentProcessHandler</name>
-        <label>PaymentProcessHandler</label>
-        <locationX>1128</locationX>
-        <locationY>2222</locationY>
-        <actionName>PaymentProcessHandler</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>amount</name>
-            <value>
-                <elementReference>Amount</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>bookingId</name>
-            <value>
-                <elementReference>Get_Booking_Record.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>PaymentId</name>
-            <value>
-                <elementReference>PaymentId</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>PaymentProcessHandler</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -477,7 +446,6 @@
         <label>Create Payment Record</label>
         <locationX>1128</locationX>
         <locationY>1406</locationY>
-        <assignRecordIdToReference>PaymentId</assignRecordIdToReference>
         <connector>
             <targetReference>UploadAttachment</targetReference>
         </connector>
@@ -572,6 +540,7 @@
             </value>
         </inputAssignments>
         <object>Payment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
         <name>Get_Booking_Record</name>
@@ -802,9 +771,6 @@
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
-        <connector>
-            <targetReference>PaymentProcessHandler</targetReference>
-        </connector>
         <fields>
             <name>PaymentAddedMessage</name>
             <fieldText>&lt;p&gt;Payment has been added.&lt;/p&gt;</fieldText>
@@ -838,7 +804,6 @@
             <dataType>String</dataType>
             <fieldText>Mode of Payment</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -855,7 +820,6 @@
             <dataType>String</dataType>
             <fieldText>Payment Category</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -872,7 +836,6 @@
             <dataType>String</dataType>
             <fieldText>Refund Type</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -898,7 +861,6 @@
             <dataType>Date</dataType>
             <fieldText>Payment Date</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -914,7 +876,6 @@
             <dataType>Currency</dataType>
             <fieldText>Amount</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <scale>2</scale>
             <styleProperties>
@@ -931,7 +892,6 @@
             <dataType>String</dataType>
             <fieldText>Cheque/ Transaction/ Challan Number</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -946,7 +906,6 @@
             <name>Payment_Description</name>
             <fieldText>Payment Description</fieldText>
             <fieldType>LargeTextArea</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1012,7 +971,6 @@
             <dataType>String</dataType>
             <fieldText>Bank Branch</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1038,7 +996,6 @@
             <dataType>Date</dataType>
             <fieldText>Cheque Date</fieldText>
             <fieldType>InputField</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1065,7 +1022,6 @@
             <dataType>String</dataType>
             <fieldText>Cheque Status</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1092,7 +1048,6 @@
             <dataType>String</dataType>
             <fieldText>Paid By</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -1179,20 +1134,13 @@
             <targetReference>Get_Booking_Record</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>fileId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>PaymentId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>ReceiptNumber</name>

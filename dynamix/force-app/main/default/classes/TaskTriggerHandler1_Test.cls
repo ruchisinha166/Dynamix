@@ -7,8 +7,8 @@ public class TaskTriggerHandler1_Test {
         System.assert(bhs.size()==1);
         List<Task> task=[select id from Task];
         System.assert(task.size()==0);
-
-       Profile pId = [select Id,Name From Profile Where Name = 'System Administrator' Limit 1];
+        
+        Profile pId = [select Id,Name From Profile Where Name = 'System Administrator' Limit 1];
         String uniqueUserName = 'standarduser' + DateTime.now().getTime() + '@testorg.com';
         User testUserRcd1 = new User();
         testUserRcd1.FirstName = 'Mayur1';
@@ -52,7 +52,22 @@ public class TaskTriggerHandler1_Test {
             projectObject.Project_Head__c = testUserRcd1.Id;
             projectObject.Site_Head__c = testUserRcd1.id;
             insert projectObject;
+         
+             Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
+            pricingPlanObject.Name = 'Pricing Plan Test';
+            pricingPlanObject.Project__c = projectObject.Id;
+            insert pricingPlanObject;
             
+            Property__c propertyObject = new Property__c();
+            propertyObject.Name = 'test property';
+            propertyObject.Project__c = projectObject.Id;
+            propertyObject.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject.Floor__c= '5';
+            propertyObject.FM_User__c = testUserRcd1.Id;
+            insert propertyObject;
+
+            
+           
             Campaign testCampRcd=new Campaign();
             testCampRcd.Name='test Campaign';
             testCampRcd.Project__c=projectObject.Id;
@@ -71,6 +86,24 @@ public class TaskTriggerHandler1_Test {
             testEnqRcd.Primary_Mobile_Number__c='1234567890';
             testEnqRcd.OwnerId=testUserRcd1.Id;
             insert testEnqRcd;
+            
+            Task_Target__c tasktarget = new Task_Target__c();
+            tasktarget.Month__c =System.now().format('MMMMM');
+            tasktarget.User__c = testUserRcd1.Id;
+            tasktarget.Year__c = String.valueof(System.today().year());
+            tasktarget.Number_of_Targets_Achievement__c = null;
+            tasktarget.X1st_Week__c = 0;
+            tasktarget.X2nd_Week__c =null;
+            tasktarget.X3rd_Week__c = null;
+            tasktarget.X4th_Week__c = null;
+            tasktarget.X5th_Week__c =null;
+            tasktarget.Project__c = projectObject.Id;
+            tasktarget.Number_of_Connected_Call__c = 0;
+            tasktarget.No_of_Walk_ins__c = 0;
+            tasktarget.No_of_Follow_Ups__c =0;
+            tasktarget.Number_of_Targets__c = 100;
+            tasktarget.Type__c = 'Unique Outbound';
+            insert tasktarget;
             
             test.startTest();
             Task thisTask = New Task();
@@ -98,6 +131,8 @@ public class TaskTriggerHandler1_Test {
     }
     @isTest
     public static void eTestMethod7(){
+        List<BusinessHours> bhs=[select id from BusinessHours where IsDefault=true];
+        
         Profile pId = [select Id,Name From Profile Where Name = 'System Administrator' Limit 1];
         String uniqueUserName = 'standarduser' + DateTime.now().getTime() + '@testorg.com';
         User testUserRcd1 = new User();
@@ -114,30 +149,23 @@ public class TaskTriggerHandler1_Test {
         testUserRcd1.LocaleSidKey='en_US';
         testUserRcd1.TimeZoneSidKey='America/Los_Angeles';
         insert testUserRcd1;
+         Id ChargesId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Charges').getRecordTypeId();
+        Id parkingId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Parking').getRecordTypeId();
+        Id preferredLocationId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Preferred Location').getRecordTypeId();
         
         System.runAs(testUserRcd1){
             
-            Id PersonRecId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId();
+            RecordType channelPartnerRecordType = [SELECT Id, Name FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'Channel_Partner' LIMIT 1];
             
             Account accountObject = new Account();
-            accountObject.FirstName = 'test';
-            accountObject.LastName = 'Account';
+            accountObject.Name = 'Channel partner';
             accountObject.BillingCountry = 'India';
             accountObject.Phone = '455546565';
-            accountObject.RecordTypeId = PersonRecId;
-            accountObject.PersonEmail = 'dynamix.project@gmail.com';
-            accountObject.Aadhar_No__pc = '458785698547';
-            accountObject.PAN_No__c = 'ABCTY1234D';
-            accountObject.Aadhar_Uploaded__pc = true;
-            accountObject.PAN_Card_Uploaded__pc = true;
-            accountObject.Upload_PAN_Card__c=true;
-            accountObject.PersonMobilePhone='123456'; 
-            try{
-                insert accountObject;
-            }
-            catch(Exception e){
-                System.debug('Exception:'+e);
-            }            
+            accountObject.RecordTypeId = channelPartnerRecordType.Id;
+            accountObject.Email__c ='dynamix.project@gmail.com'; 
+            accountObject.RERA_Number__c = '5657834';
+            accountObject.CP_Firm_Name__c = 'cp Firm';
+            insert accountObject;
             
             Project__c projectObject = new Project__c();
             projectObject.Name = 'Test Project';
@@ -149,6 +177,7 @@ public class TaskTriggerHandler1_Test {
             projectObject.Site_Head__c = testUserRcd1.id;
             insert projectObject;
             
+            Test.startTest();
             Campaign testCampRcd=new Campaign();
             testCampRcd.Name='test Campaign';
             testCampRcd.Project__c=projectObject.Id;
@@ -158,8 +187,8 @@ public class TaskTriggerHandler1_Test {
             testCampRcd.ActualCost=2500000;
             insert testCampRcd;
             
-            Test.startTest();
-             Enquiry__c testEnqRcd=new Enquiry__c();
+            
+            Enquiry__c testEnqRcd=new Enquiry__c();
             testEnqRcd.Project__c=projectObject.Id;
             testEnqRcd.Contact_Person__c=accountObject.Id;
             testEnqRcd.Enquiry_Source__c='Hoarding';
@@ -173,23 +202,79 @@ public class TaskTriggerHandler1_Test {
             testEnqRcd1.Country_Code__c='+91';
             testEnqRcd.Primary_Mobile_Number__c='7894567890';
             try{
-               // insert testEnqRcd;
+                // insert testEnqRcd;
             }
             catch(Exception e){
                 System.debug('Exception:'+e);
             }
             
+            Channel_Partner_Project__c CPP = new Channel_Partner_Project__c();
+            CPP.Unique_Outbound_Meeting_Date__c = System.today();
+            CPP.Unique_Inbound_Meeting_Date__c = System.today();
+            CPP.Channel_Partner__c = accountObject.Id;
+            CPP.Project__c = projectObject.Id;
+            insert CPP;
+            
+            Task_Target__c tasktarget = new Task_Target__c();
+            tasktarget.Month__c =System.now().format('MMMMM');
+            tasktarget.User__c = testUserRcd1.Id;
+            tasktarget.Year__c = String.valueof(System.today().year());
+            tasktarget.Number_of_Targets_Achievement__c = null;
+            tasktarget.X1st_Week__c = 0;
+            tasktarget.X2nd_Week__c =null;
+            tasktarget.X3rd_Week__c = null;
+            tasktarget.X4th_Week__c = null;
+            tasktarget.X5th_Week__c =null;
+            tasktarget.Project__c = projectObject.Id;
+            tasktarget.Number_of_Connected_Call__c = 0;
+            tasktarget.No_of_Walk_ins__c = 0;
+            tasktarget.No_of_Follow_Ups__c =0;
+            tasktarget.Number_of_Targets__c = 100;
+            tasktarget.Type__c = 'Unique Outbound';
+            
+            insert tasktarget;
+            
+            String Key = tasktarget.Month__c+'-'+tasktarget.Year__c+'-'+String.valueOf(tasktarget.Project__c)+'-'+String.valueOf(tasktarget.User__c)+'-'+tasktarget.Type__c;
+            //tasktarget.Type__c = 'Event';
+            //update tasktarget;
+            
             List<Task> taskList = new List<Task>();
             Task task2 = new Task();
-            task2.WhatId = testEnqRcd.Id;
+            task2.WhatId = accountObject.Id;
             task2.Exotel_CTI__Virtual_Number__c = '02241598344';
+            task2.ActivityDate = System.today();
+            task2.Task_Target__c = tasktarget.Id;
+            task2.Project__c = projectObject.Id;
+            task2.OwnerId = testUserRcd1.Id;
+            task2.Subject = 'Outbound Meeting';
+            taskList.add(task2);
            
+            TaskTriggerHandler1.calculateTargetForChannelPartnerMeetings(taskList);
             Test.stopTest();
             
         }
     }
-     @isTest
+    @isTest
     public static void Primarymobilenull(){
+        EmailTemplate emailTemplate = [select Id,Name, Subject, HtmlValue, Body,DeveloperName 
+                                       from EmailTemplate 
+                                       where Name = 'FM Pre OC Review Task' LIMIT 1];
+        EmailTemplate emailTemplateForPostOC = [select Id,Name, Subject, HtmlValue, Body,DeveloperName 
+                                                from EmailTemplate 
+                                                where DeveloperName = 'Post_OC_FM_Task_Due_Date' LIMIT 1];
+        
+        
+        SMS_Template_Id__mdt smsTemplateForConnectedCalls = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS For Connected Call' Limit 1];
+        EmailTemplate smsEmailTempForConnectedCalls = [select Id,Name, Subject, HtmlValue, Body,DeveloperName from EmailTemplate where Name = 'SMS For Connected Call' LIMIT 1];
+        SMS_Template_Id__mdt smsTemplateForClientMissedTheCall = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS Sent Customer Missed the Call' Limit 1];
+        EmailTemplate smsEmailTemp = [select Id,Name, Subject, HtmlValue, Body,DeveloperName from EmailTemplate where Name = 'SMS For a Missed Call form an Existing Enquiry' LIMIT 1];
+        EmailTemplate smsEmailTempForClientMissedTheCall = [select Id,Name, Subject, HtmlValue, Body,DeveloperName from EmailTemplate where Name = 'SMS Sent Customer Missed the Call' LIMIT 1];
+        List<BusinessHours> bhs=[select id from BusinessHours where IsDefault=true];
+        
+        Id ChargesId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Charges').getRecordTypeId();
+        Id parkingId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Parking').getRecordTypeId();
+        Id preferredLocationId = Schema.SObjectType.Project_Add_On_Charges__c.getRecordTypeInfosByName().get('Preferred Location').getRecordTypeId();
+        
         Profile pId = [select Id,Name From Profile Where Name = 'System Administrator' Limit 1];
         String uniqueUserName = 'standarduser' + DateTime.now().getTime() + '@testorg.com';
         User testUserRcd1 = new User();
@@ -234,6 +319,7 @@ public class TaskTriggerHandler1_Test {
             projectObject.Configuration__c ='1 BHK';
             projectObject.Project_Head__c = testUserRcd1.Id;
             projectObject.Site_Head__c = testUserRcd1.id;
+            projectObject.FM_Head__c = testUserRcd1.id;
             insert projectObject;
             
             List<Campaign> testCampaigns = new List<Campaign>();
@@ -244,7 +330,25 @@ public class TaskTriggerHandler1_Test {
             testCampRcd.StartDate=System.today();
             testCampRcd.EndDate=System.today()+15;
             testCampRcd.ActualCost=2500000;
-             insert testCampRcd;
+            insert testCampRcd;
+            
+            Task_Target__c tasktarget = new Task_Target__c();
+            tasktarget.Month__c =System.now().format('MMMMM');
+            tasktarget.User__c = testUserRcd1.Id;
+            tasktarget.Year__c = String.valueof(System.today().year());
+            tasktarget.Number_of_Targets_Achievement__c = null;
+            tasktarget.X1st_Week__c = 0;
+            tasktarget.X2nd_Week__c =null;
+            tasktarget.X3rd_Week__c = null;
+            tasktarget.X4th_Week__c = null;
+            tasktarget.X5th_Week__c =null;
+            tasktarget.Project__c = projectObject.Id;
+            tasktarget.Number_of_Connected_Call__c = 0;
+            tasktarget.No_of_Walk_ins__c = 0;
+            tasktarget.No_of_Follow_Ups__c =0;
+            tasktarget.Number_of_Targets__c = 100;
+            tasktarget.Type__c = 'Unique Outbound';
+            insert tasktarget;
             
             Test.startTest();
             Enquiry__c testEnqRcd=new Enquiry__c();
@@ -261,7 +365,7 @@ public class TaskTriggerHandler1_Test {
             testEnqRcd1.Country_Code__c='+91';
             testEnqRcd.Primary_Mobile_Number__c='7894567890';
             try{
-               // insert testEnqRcd;
+                // insert testEnqRcd;
             }
             catch(Exception e){
                 System.debug('Exception:'+e);
@@ -270,8 +374,221 @@ public class TaskTriggerHandler1_Test {
             List<Task> taskLists = new List<Task>();
             Task task1 = new Task();
             task1.WhatId = testEnqRcd.Id;
-            TaskTriggerHandler1.method();
             
+            Opportunity oppoObject = new Opportunity();
+            oppoObject.AccountId = accountObject.Id;
+            oppoObject.Name = 'test Opportunity';
+            oppoObject.StageName = 'Site Visit';
+            oppoObject.CloseDate = System.Today()+3;
+            oppoObject.Project__c = projectObject.Id;
+            oppoObject.Walk_in_Source__c = 'Radio';
+            insert oppoObject;
+            
+            //TaskTriggerHandler1.method();
+            Pricing_Plan__c pricingPlanObject = new Pricing_Plan__c();
+            pricingPlanObject.Name = 'Pricing Plan Test';
+            pricingPlanObject.Project__c = projectObject.Id;
+            insert pricingPlanObject;
+            
+            Property__c propertyObject = new Property__c();
+            propertyObject.Name = 'test property';
+            propertyObject.Project__c = projectObject.Id;
+            propertyObject.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject.Floor__c= '5';
+            propertyObject.FM_User__c = testUserRcd1.Id;
+            insert propertyObject;
+            
+            Property__c propertyObject1 = new Property__c();
+            propertyObject1.Name = 'test property3';
+            propertyObject1.Project__c = projectObject.Id;
+            propertyObject1.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject1.Floor__c= '2';
+            insert propertyObject1;
+            
+            Property__c propertyObject2 = new Property__c();
+            propertyObject2.Name = 'test property1';
+            propertyObject2.Project__c = projectObject.Id;
+            propertyObject2.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject2.Floor__c= '3';
+            insert propertyObject2;
+            
+            Property__c propertyObject3 = new Property__c();
+            propertyObject3.Name = 'test property2';
+            propertyObject3.Project__c = projectObject.Id;
+            propertyObject3.Property_Price_Slab__c = pricingPlanObject.Id;
+            propertyObject3.Floor__c= '4';
+            insert propertyObject3;
+            
+            Suggested_Property__c suggestedProperty = new Suggested_Property__c();
+            suggestedProperty.Opportunity__c = oppoObject.Id;
+            suggestedProperty.Unit__c = propertyObject.Id;
+            suggestedProperty.Discount__c = 10;
+            insert suggestedProperty;
+            
+            Project_Add_On_Charges__c projectAddbject= new Project_Add_On_Charges__c();
+            projectAddbject.Charge_Type__c = 'Fixed';
+            projectAddbject.Charge_Group__c = 'Floor Rise';
+            projectAddbject.Is_Optional__c = false;
+            projectAddbject.RecordTypeId = ChargesId;
+            projectAddbject.Project__c = projectObject.Id;
+            projectAddbject.Name = 'Basic Price';
+            insert projectAddbject;
+            
+            Project_Add_On_Charges__c projectAddbject2 = new Project_Add_On_Charges__c();
+            projectAddbject2.Charge_Type__c = 'Fixed';
+            projectAddbject2.Charge_Group__c = 'Stamp Duty';
+            projectAddbject2.Is_Optional__c = false;
+            projectAddbject2.RecordTypeId = ChargesId;
+            projectAddbject2.Project__c = projectObject.Id;
+            projectAddbject2.Name = 'Stamp Duty';
+            insert projectAddbject2;
+            
+            Project_Add_On_Charges__c projectAddbject3 = new Project_Add_On_Charges__c();
+            projectAddbject3.Charge_Type__c = 'Fixed';
+            projectAddbject3.Charge_Group__c = 'Registration Charge';
+            projectAddbject3.Is_Optional__c = false;
+            projectAddbject3.RecordTypeId = ChargesId;
+            projectAddbject3.Project__c = projectObject.Id; 
+            projectAddbject3.Name = 'Registration Charge';
+            insert projectAddbject3;
+            
+            Project_Add_On_Charges__c projectAddbject1 = new Project_Add_On_Charges__c();
+            projectAddbject1.Charge_Type__c = 'Fixed';
+            projectAddbject1.Charge_Group__c = 'Agreement';
+            projectAddbject1.Is_Optional__c = false;
+            projectAddbject1.RecordTypeId = parkingId;
+            projectAddbject1.Project__c = projectObject.Id;
+            projectAddbject1.Name = 'Stilt';
+            insert projectAddbject1;
+            
+            Add_On__c addOn = new Add_On__c();
+            addOn.Opportunity__c = oppoObject.Id;
+            addOn.Project_Add_On_Charges__c = projectAddbject1.Id;
+            insert addOn;
+            
+            Property_Add_On__c propertyAddOn = new Property_Add_On__c();
+            propertyAddOn.Project_Add_On__c = projectAddbject1.Id;
+            propertyAddOn.Property__c = propertyObject.Id;
+            propertyAddOn.Is_Included__c = true;
+            insert propertyAddOn;
+            
+            Payment_Plan__c paymentPlan = new Payment_Plan__c();
+            paymentPlan.Name = 'Test23';
+            paymentPlan.Project__c = projectObject.Id;
+            insert paymentPlan;
+            
+            Project_Progress__c testProjProgRcd=new Project_Progress__c();
+            testProjProgRcd.Name='Test project progress';
+            testProjProgRcd.Project__c=projectObject.Id;
+            testProjProgRcd.Stage_Type__c='Booking';
+            testProjProgRcd.Stage__c='Completion';
+            testProjProgRcd.Progress_Status__c='In Progress';
+            insert testProjProgRcd;
+            
+            Payment_Plan_Milestones__c paymentMilestoneObject = new Payment_Plan_Milestones__c();
+            paymentMilestoneObject.Name = 'Test';
+            paymentMilestoneObject.Payment_Plan__c = paymentPlan.Id;
+            paymentMilestoneObject.Milestone_Activation__c = 'Booking Date';
+            paymentMilestoneObject.Sequence_No__c = 1;
+            paymentMilestoneObject.Milestone_age__c = 100;
+            paymentMilestoneObject.Days_after_Booking__c = 2;
+            paymentMilestoneObject.Project_Progress__c=testProjProgRcd.Id;
+            insert paymentMilestoneObject;
+            
+            Pricing_Plan_Components__c planComponentObject2 = new Pricing_Plan_Components__c();
+            planComponentObject2.Name = 'Stamp Charges';
+            planComponentObject2.GST_Treatment__c = 'Standard';
+            planComponentObject2.Project_Add_On_Charges__c = projectAddbject2.Id;
+            planComponentObject2.Price_Lumpsum__c  = 200;
+            planComponentObject2.Pricing_Plan__c = propertyObject.Property_Price_Slab__c;
+            insert planComponentObject2;
+            
+            Pricing_Plan_Components__c planComponentObject3 = new Pricing_Plan_Components__c();
+            planComponentObject3.Name = 'Registration Charge';
+            planComponentObject3.GST_Treatment__c = 'Standard';
+            planComponentObject3.Project_Add_On_Charges__c = projectAddbject3.Id;
+            planComponentObject3.Price_Lumpsum__c  = 200;
+            planComponentObject3.Pricing_Plan__c = propertyObject.Property_Price_Slab__c;
+            insert planComponentObject3;
+            
+            Pricing_Plan_Components__c planComponentObject1 = new Pricing_Plan_Components__c();
+            planComponentObject1.Name = 'Stilt';
+            planComponentObject1.GST_Treatment__c = 'Standard';
+            planComponentObject1.Project_Add_On_Charges__c = projectAddbject1.Id;
+            planComponentObject1.Price_Lumpsum__c  = 200;
+            planComponentObject1.Pricing_Plan__c = propertyObject.Property_Price_Slab__c;
+            insert planComponentObject1;
+            
+            Booking__c booking = new Booking__c();
+            booking.Primary_Applicant__c = accountObject.Id;
+            booking.Related_Opportunity__c = oppoObject.Id;
+            booking.Related_Suggested_Property__c = suggestedProperty.Id;
+            booking.Project_Name__c = projectObject.Id;
+            booking.Sales_Manager__c = testUserRcd1.Id;
+            //booking.OwnerId = testUserRcd1.Id;
+            booking.Primary_Secondary_info_Updated__c = false;
+            booking.Shared_SDR_Letter__c = false;
+            booking.Date_of_First_Disbursement__c = Date.today();
+            booking.Amount_of_First_Disbursement__c = 43;
+            booking.Cancellation_Approval_Status__c = 'Approved';
+            booking.Booking_Cancellation__c = false;
+            booking.Welcome_Email_Checker__c = false;
+            booking.Cancellation_Checkbox__c = false;
+            booking.Cancellation_Requested_Status__c = 'Cancellation Confirmed';
+            booking.Cancellation_Approval_Status__c = 'Submitted';
+            booking.Source_of_Finance__c = 'Self Funded';
+            insert booking;
+               
+           /* Task taskRM = new Task();
+            taskRM.WhatId = propertyObject.Id;
+            taskRM.ActivityDate = System.today().addDays(5);
+            taskRM.OwnerId = testUserRcd1.Id;
+            taskRM.Subject = 'FM Customer Unit Inspection Task';
+            insert taskRM;
+            taskRM.ActivityDate = System.today().addDays(5);
+            taskRM.Status = 'Completed';
+            try{
+                update taskRM;
+            }
+            Catch(Exception ex)
+            {
+                
+            }
+            
+            Task taskDST = new Task();
+            taskDST.WhatId = propertyObject.Id;
+            taskDST.ActivityDate = System.today();
+            taskDST.OwnerId = testUserRcd1.Id;
+            taskDST.Subject = 'Post - OC FM Unit Inspection';
+            insert taskDST;
+            taskDST.ActivityDate = System.today().addDays(5);
+            update taskDST;
+           /* taskDST.Status = 'Completed';
+            update taskDST;
+            Task taskPreFM = new Task();
+            taskPreFM.WhatId = propertyObject.Id;
+            taskPreFM.ActivityDate = System.today().addDays(5);
+            taskPreFM.OwnerId = testUserRcd1.Id;
+            taskPreFM.Subject = 'Pre-OC FM Review Task';
+            insert taskPreFM;
+            
+            Task updateTaskPreFM = new Task();
+            updateTaskPreFM.Status = 'Completed';
+            updateTaskPreFM.id = taskPreFM.id;
+            update updateTaskPreFM;
+            
+            Task taskDCT = new Task();
+            taskDCT.WhatId = propertyObject.Id;
+            taskDCT.ActivityDate = System.today().addDays(5);
+            taskDCT.OwnerId = testUserRcd1.Id;
+            taskDCT.Subject = 'Deep Cleaning Task';
+            insert taskDCT;
+            
+            Task updateTaskDCT = new Task();
+            updateTaskDCT.Status = 'Completed';
+            updateTaskDCT.id = taskDCT.id;
+            update updateTaskDCT;*/
+            TaskTriggerHandler1.method();
             TaskTriggerHandler1.setAndValidateDueDate(taskLists);
             Test.stopTest();
             

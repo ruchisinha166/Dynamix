@@ -88,7 +88,7 @@ public with sharing class calloutPaymentMilestone {
                                                 jsonGenerator1.writeStringField('MILESTONE_DATE',milestone.Invoice_Date__c!=null?String.valueOf(milestone.Invoice_Date__c.day()+'.'+milestone.Invoice_Date__c.month()+'.'+milestone.Invoice_Date__c.year()):'');
                                          	}
                                          	jsonGenerator1.writeStringField('MILESTONE_DESC',milestone.Name!=null?milestone.Name:'');
-                                         	jsonGenerator1.writeStringField('PERCENTAGE',milestone.Milestone_age__c!=null?string.valueOf(milestone.Milestone_age__c.setScale(2)):'');
+                                         	jsonGenerator1.writeStringField('PERCENTAGE',milestone.Milestone_age__c!=null?string.valueOf(milestone.Milestone_age__c):'');
                                          	jsonGenerator1.writeStringField('AMOUNT',milestone.Milestone_Amount1__c!=null?string.valueOf(milestone.Milestone_Amount1__c.setScale(2)):'');
                                             if(milestone.Sequence_No__c == 1){
                                                  jsonGenerator1.writeStringField('PAYMENT_TERM','Z030');
@@ -182,7 +182,7 @@ public with sharing class calloutPaymentMilestone {
         request.setEndpoint('callout:SAP_PaymentMilestone');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization', System.Label.AuthorizationHeader);
+        request.setHeader('Authorization', 'Basic UzAwMjQzMDI0NDA6Umlja3lAOTk2OQ==');
         request.setBody(jsonString);
         
         try {

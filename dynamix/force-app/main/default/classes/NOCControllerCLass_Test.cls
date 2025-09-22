@@ -41,19 +41,6 @@ public class NOCControllerCLass_Test {
             accountObject.PersonMobilePhone = '4546657324';
             insert accountObject;
             
-            Account accountObject2 = new Account();
-            accountObject2.FirstName = 'test';
-            accountObject2.LastName = 'Account2';
-            accountObject2.BillingCountry = 'India';
-            accountObject2.Phone = '9555465655';
-            accountObject2.RecordTypeId = PersonRecId;
-            accountObject2.PersonEmail = 'dynamix2.project@gmail.com';
-            accountObject2.Aadhar_No__pc = '765885698547';
-            accountObject2.PAN_No__c = 'ABXDY1234D';
-            accountObject2.Aadhar_Uploaded__pc = true;
-            accountObject2.PAN_Card_Uploaded__pc = true;
-            accountObject2.PersonMobilePhone = '9546657324';
-            insert accountObject2;
             
             Builder_Organisation__c builderorg = new Builder_Organisation__c();
             builderorg.Name = 'test builder ';
@@ -245,16 +232,10 @@ public class NOCControllerCLass_Test {
             insert booking;
             
             Co_Applicant__c coapplicant = New Co_Applicant__c();
-            coapplicant.Role__c = 'Primary';
+            coapplicant.Role__c = 'Co-Applicant';
             coapplicant.Account__c = accountObject.Id;
             coapplicant.Booking__c = booking.Id;
             Insert coapplicant;
-            
-            Co_Applicant__c coapplicant1 = New Co_Applicant__c();
-            coapplicant1.Role__c = 'Co-Applicant';
-            coapplicant1.Account__c = accountObject2.Id;
-            coapplicant1.Booking__c = booking.Id;
-            Insert coapplicant1;
             
             Booking_Line_Items__c bookingLineObjects = new Booking_Line_Items__c();
             bookingLineObjects.Booking__c = booking.Id;

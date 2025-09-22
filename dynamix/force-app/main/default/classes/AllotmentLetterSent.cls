@@ -85,15 +85,21 @@ public class AllotmentLetterSent {
             }
         }
         //for Send SMS
+        SMS_Template_Id__mdt smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS Allotment Letter Sent' Limit 1];
+
         EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS Allotment Letter Sent' Limit 1];
-        if(smsEmailTemp!=null && bookingRcd.Primary_Applicant__r.PersonMobilePhone!=null){
+        if(smsEmailTemp!=null && bookingRcd.Primary_Applicant__r.PersonMobilePhone!=null && smsTemplate !=null){
             String templateBody=smsEmailTemp.HtmlValue;
             templateBody=templateBody.stripHtmlTags();
             String mobileNumber=bookingRcd.Primary_Applicant__r.PersonMobilePhone;
             templateBody = templateBody.replace('{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}', bookingRcd.Primary_Applicant_Name_Formulla__c);
             templateBody = templateBody.replace('{{{Booking__c.Name}}}', bookingRcd.Name);
             templateBody = templateBody.replace('{{{Booking__c.Project_Name_Formulla__c}}}', bookingRcd.Project_Name__r.Name);
-            SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+            //SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+            if(!test.isRunningTest())
+            {
+                SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
+            }
         }
     }
     public class Request {

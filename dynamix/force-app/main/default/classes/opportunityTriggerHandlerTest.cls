@@ -1,5 +1,5 @@
 @isTest
-public class opportunityTriggerHandlerTest{
+public class opportunityTriggerHandlerTest {
     
     @isTest 
     public static void method1(){
@@ -20,11 +20,14 @@ public class opportunityTriggerHandlerTest{
         Account accountObject1 = new Account();
         accountObject1.name = 'test';
         accountObject1.recordtypeId = '0125g000000d990AAA';
+        
         accountObject1.CP_Firm_Name__c = 'India';
         accountObject1.Phone = '4555465654';
         accountObject1.Email__c = 'dynamt.project@gmail.com';
         accountObject1.Firm_Type__c = 'Proprietor';
+
         accountObject1.RERA_Number__c = 'wre546';
+        
         insert accountObject1;
         
         Project__c projectObject = new Project__c();
@@ -70,20 +73,12 @@ public class opportunityTriggerHandlerTest{
         oppoObject.Carpet_Area_in_sq_mts__c = 89.77;
         oppoObject.Email_Id__c = 'TEst@gmail.com';
         oppoObject.Phone__c = '8987676568';
-        oppoObject.EOI_CA_stage__c ='Cancelled';
-        oppoObject.EOI_Refund_Payment_Status__c = 'Initiated';
         oppoObject.Project__c = projectObject.Id;
         oppoObject.Sales_Manager__c = testUserRcd1.Id;
         oppoObject.Date_of_Site_Visit__c = Date.newInstance(2023, 10, 17);
         oppoObject.Walk_in_Source__c = 'Referred by Existing Customer';
         oppoObject.EOI_CA__c = 'EOI';
-        oppoObject.Refund_Instrument_Number__c = '32343';
-        oppoObject.Refund_Amount1__c = 213214;
-        oppoObject.Refund_Bank__c = 'HDFC';
-        oppoObject.Refund_Date__c = system.today()-5;
-        oppoObject.Refund_Handover_Date__c = system.today()-10;
         insert oppoObject;
-        
         list<opportunity> oppList = new List<opportunity>();
         oppList.add(oppoObject);
         
@@ -99,16 +94,12 @@ public class opportunityTriggerHandlerTest{
         oppoObject2.Source_of_Funding__c = '';
         oppoObject2.Carpet_Area_in_sq_mts__c = 89.77;
         oppoObject2.Email_Id__c = 'TEst@gmail.com';
-        oppoObject2.EOI_CA_stage__c ='Cancelled';
-        oppoObject2.EOI_Refund_Payment_Status__c = 'Initiated';
         oppoObject2.Phone__c = '8987676568';
         oppoObject2.Project__c = projectObject.Id;
         oppoObject2.Sales_Manager__c = testUserRcd1.Id;
-        oppoObject2.EOI_CA__c = 'EOI';
         oppoObject2.Date_of_Site_Visit__c = Date.newInstance(2023, 10, 17);
         oppoObject2.Walk_in_Source__c = 'Referred by Existing Customer';
         insert oppoObject2;
-        
         Map<id,opportunity> oppOldMap = new Map<id,Opportunity>();
         oppOldMap.put(oppoObject2.id, oppoObject2);
         
@@ -127,24 +118,11 @@ public class opportunityTriggerHandlerTest{
         
         Test.startTest();
         OpportunityTriggerHandler.countOpportunityAndAddOnTaskTarget(oppList);
-        OpportunityTriggerHandler.populatePhoneOnOpportunity(oppList);
-        OpportunityTriggerHandler.populateCloseDate(oppList);
-        OpportunityTriggerHandler.updateEoiCaOpportunityRefundStatus(oppList);
         Test.stoptest();
     }
     
     @isTest
     public static void method2(){
-        RecordType channelPartnerRecordType = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND Name = 'Channel Partner' LIMIT 1];
-        Account testAccRcd = new Account();
-        testAccRcd.Name = 'Channel Partner Account';
-        testAccRcd.BillingCountry = 'India';
-        testAccRcd.Phone = '1234567890';
-        testAccRcd.Email__c = 'mayur.patel@manras.com';
-        testAccRcd.RERA_Number__c = '123456789';
-        testAccRcd.RecordTypeId = channelPartnerRecordType.Id;
-        insert testAccRcd;
-        
         Account accountObject = new Account();
         accountObject.FirstName = 'test';
         accountObject.LastName = 'Account';
@@ -193,7 +171,6 @@ public class opportunityTriggerHandlerTest{
         
         Opportunity oppoObject = new Opportunity();
         oppoObject.AccountId = accountObject.Id;
-        oppoObject.Channel_Partner__c = testAccRcd.id;
         oppoObject.Name = 'test Opportunity';
         oppoObject.StageName = 'Site Visit';
         oppoObject.CloseDate = System.Today()+3;
@@ -221,15 +198,21 @@ public class opportunityTriggerHandlerTest{
         Map<id,opportunity> oppOldMap = new Map<id,Opportunity>();
         oppOldMap.put(oppoObject.id, oppoObject);
         
+        // Create a ProcessInstance for each Opportunity (assuming that Process Builder/Flow handles approvals)
         ProcessInstance processInstance1 = new ProcessInstance();
         processInstance1.TargetObjectId = oppoObject.Id;
-        
+        //insert processInstance1;
+        // Create ProcessInstanceStep records for the ProcessInstances
         ProcessInstanceStep step1 = new ProcessInstanceStep();
         step1.ProcessInstanceId = processInstance1.Id;
         step1.StepStatus = 'Approved'; // Set to 'Approved'
+        // Don't set the comments field to simulate a null value
+      //  insert step1;
         
         test.startTest();
         OpportunityTriggerHandler.makeCommentMandatory(oppList ,oppOldMap);
         test.stopTest();
+        
+        
     }
 }

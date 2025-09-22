@@ -27,7 +27,7 @@
             <assignToReference>ReminingMilestoneAmount</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>$Record.Milestone_Amount1__c</elementReference>
+                <elementReference>$Record.Remaining_Milestone_Amount__c</elementReference>
             </value>
         </assignmentItems>
         <connector>

@@ -520,7 +520,7 @@
             <targetReference>Get_Project_Progress_record</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>contentDocIds</name>
         <dataType>String</dataType>

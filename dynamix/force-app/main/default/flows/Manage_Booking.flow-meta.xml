@@ -20,16 +20,13 @@
     <actionCalls>
         <name>Generate_NOC1</name>
         <label>Generate NOC</label>
-        <locationX>2822</locationX>
-        <locationY>1514</locationY>
+        <locationX>2690</locationX>
+        <locationY>674</locationY>
         <actionName>GenerateNOCClass</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Update_Bank_Loan_Record</targetReference>
+            <targetReference>Updaet_Booking</targetReference>
         </connector>
-        <faultConnector>
-            <targetReference>Fault_Screen_1</targetReference>
-        </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>bookingId</name>
@@ -40,7 +37,7 @@
         <inputParameters>
             <name>loanId</name>
             <value>
-                <elementReference>Get_Selected_Loan_Details.Id</elementReference>
+                <elementReference>Get_Booking.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>GenerateNOCClass</nameSegment>
@@ -49,7 +46,7 @@
     <actionCalls>
         <name>Generate_Possession_Letter_Document</name>
         <label>Generate Possession Letter Document</label>
-        <locationX>5594</locationX>
+        <locationX>4274</locationX>
         <locationY>674</locationY>
         <actionName>GeneratePossessionLetter</actionName>
         <actionType>apex</actionType>
@@ -66,7 +63,7 @@
     <actionCalls>
         <name>GenerateROC</name>
         <label>GenerateROC</label>
-        <locationX>4538</locationX>
+        <locationX>3218</locationX>
         <locationY>1106</locationY>
         <actionName>GenerateROCClass</actionName>
         <actionType>apex</actionType>
@@ -85,86 +82,6 @@
     </actionCalls>
     <apiVersion>51.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <assignments>
-        <name>Assign_Axis_Name</name>
-        <label>Assign Axis Name</label>
-        <locationX>3482</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>SelectedLoanDetailsName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Label.Axis</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Get_Selected_Loan_Details</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_HDFC_Name</name>
-        <label>Assign HDFC Name</label>
-        <locationX>2954</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>SelectedLoanDetailsName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Label.HDFC</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Get_Selected_Loan_Details</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_ICICI_Name</name>
-        <label>Assign ICICI Name</label>
-        <locationX>3218</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>SelectedLoanDetailsName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Label.ICICI</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Get_Selected_Loan_Details</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_LIC_Name</name>
-        <label>Assign LIC Name</label>
-        <locationX>3746</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>SelectedLoanDetailsName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Label.LIC</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Get_Selected_Loan_Details</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_SBI_Name</name>
-        <label>Assign SBI Name</label>
-        <locationX>2690</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>SelectedLoanDetailsName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Get_Selected_Loan_Details</targetReference>
-        </connector>
-    </assignments>
     <choices>
         <name>AddDiscount</name>
         <choiceText>Discount</choiceText>
@@ -281,7 +198,7 @@
     <decisions>
         <name>Action_Type</name>
         <label>Action Type</label>
-        <locationX>3152</locationX>
+        <locationX>2492</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -468,7 +385,7 @@
     <decisions>
         <name>Agreement_Shared_Date_Is_Not_Null</name>
         <label>Agreement Shared Date Is Not Null</label>
-        <locationX>4670</locationX>
+        <locationX>3350</locationX>
         <locationY>998</locationY>
         <defaultConnector>
             <targetReference>screen1</targetReference>
@@ -488,91 +405,6 @@
                 <targetReference>GenerateROC</targetReference>
             </connector>
             <label>Shared Date Is Not Null</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Check_Bank_Loan_Institution</name>
-        <label>Check Bank Loan Institution</label>
-        <locationX>3350</locationX>
-        <locationY>890</locationY>
-        <defaultConnector>
-            <targetReference>Selected_Bank_Is_not_from_5_banks</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>SBI</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>$Label.SBI</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <elementReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_SBI_Name</targetReference>
-            </connector>
-            <label>SBI</label>
-        </rules>
-        <rules>
-            <name>HDFC</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.HDFC</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_HDFC_Name</targetReference>
-            </connector>
-            <label>HDFC</label>
-        </rules>
-        <rules>
-            <name>ICICI</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.ICICI</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_ICICI_Name</targetReference>
-            </connector>
-            <label>ICICI</label>
-        </rules>
-        <rules>
-            <name>Axis</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.Axis</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Axis_Name</targetReference>
-            </connector>
-            <label>Axis</label>
-        </rules>
-        <rules>
-            <name>LIC</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.LIC</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_LIC_Name</targetReference>
-            </connector>
-            <label>LIC</label>
         </rules>
     </decisions>
     <decisions>
@@ -601,34 +433,9 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Check_Loan_Status</name>
-        <label>Check Loan Status</label>
-        <locationX>3350</locationX>
-        <locationY>1406</locationY>
-        <defaultConnector>
-            <targetReference>Loan_Status_is_not_sanctioned</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Not Sanctioned</defaultConnectorLabel>
-        <rules>
-            <name>If_Sanctioned</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Selected_Loan_Details.Loan_Status__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Sanctioned</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Generate_NOC1</targetReference>
-            </connector>
-            <label>If Sanctioned</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Handover_of_NDC</name>
         <label>Handover of NDC</label>
-        <locationX>5726</locationX>
+        <locationX>4406</locationX>
         <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Error</targetReference>
@@ -653,7 +460,7 @@
     <decisions>
         <name>If_Partener_Funded_is_True</name>
         <label>If Partener Funded is True</label>
-        <locationX>4868</locationX>
+        <locationX>3548</locationX>
         <locationY>890</locationY>
         <defaultConnector>
             <targetReference>Fasle</targetReference>
@@ -678,7 +485,7 @@
     <decisions>
         <name>If_Project_IS_NOt_null</name>
         <label>If Project IS NOt null</label>
-        <locationX>5099</locationX>
+        <locationX>3779</locationX>
         <locationY>674</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -700,7 +507,7 @@
     <decisions>
         <name>If_Rehgistration_Is_Complete</name>
         <label>If Registration Is Complete</label>
-        <locationX>3812</locationX>
+        <locationX>2822</locationX>
         <locationY>566</locationY>
         <defaultConnector>
             <targetReference>SCreen</targetReference>
@@ -717,7 +524,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Bank_loan_Details</targetReference>
+                <targetReference>Generate_NOC1</targetReference>
             </connector>
             <label>Registration Is Complete</label>
         </rules>
@@ -750,30 +557,9 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Bank_loan_Details</name>
-        <label>Get Bank loan Details</label>
-        <locationX>3350</locationX>
-        <locationY>674</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Select_Bank_Loan</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Booking__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Booking.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Bank_Loan_Details__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_Booking</name>
         <label>Get Booking</label>
-        <locationX>3152</locationX>
+        <locationX>2492</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -794,7 +580,7 @@
     <recordLookups>
         <name>Get_Booking_0</name>
         <label>Get Booking</label>
-        <locationX>5099</locationX>
+        <locationX>3779</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -815,7 +601,7 @@
     <recordLookups>
         <name>Get_Current_User</name>
         <label>Get Current User</label>
-        <locationX>3152</locationX>
+        <locationX>2492</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -836,7 +622,7 @@
     <recordLookups>
         <name>Get_Project</name>
         <label>Get Project</label>
-        <locationX>4868</locationX>
+        <locationX>3548</locationX>
         <locationY>782</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -854,65 +640,34 @@
         <object>Project__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Selected_Loan_Details</name>
-        <label>Get Selected Loan Details</label>
-        <locationX>3350</locationX>
-        <locationY>1298</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Check_Loan_Status</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Bank_Loan_Data.firstSelectedRow.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Home_loan_institution_Name__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>SelectedLoanDetailsName</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Bank_Loan_Details__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordUpdates>
-        <name>Update_Bank_Loan_Record</name>
-        <label>Update Bank Loan Record</label>
-        <locationX>2822</locationX>
-        <locationY>1622</locationY>
+        <name>Updaet_Booking</name>
+        <label>Updaet Booking</label>
+        <locationX>2690</locationX>
+        <locationY>782</locationY>
         <connector>
-            <targetReference>Update_Booking1</targetReference>
+            <targetReference>noca</targetReference>
         </connector>
-        <faultConnector>
-            <targetReference>Fault_Screen_2</targetReference>
-        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Selected_Loan_Details.Id</elementReference>
+                <elementReference>recordId</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Bank_NOC_Date__c</field>
+            <field>NOC_Uploaded_Date__c</field>
             <value>
                 <elementReference>TODAY</elementReference>
             </value>
         </inputAssignments>
-        <object>Bank_Loan_Details__c</object>
+        <object>Booking__c</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Booking</name>
         <label>Update Booking</label>
-        <locationX>4538</locationX>
+        <locationX>3218</locationX>
         <locationY>1214</locationY>
         <connector>
             <targetReference>ROC1</targetReference>
@@ -933,37 +688,10 @@
         </inputAssignments>
         <object>Booking__c</object>
     </recordUpdates>
-    <recordUpdates>
-        <name>Update_Booking1</name>
-        <label>Update Booking</label>
-        <locationX>2822</locationX>
-        <locationY>1730</locationY>
-        <connector>
-            <targetReference>NOC_Success_Screen</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>Fault_Screen_3</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>NOC_Uploaded_Date__c</field>
-            <value>
-                <elementReference>TODAY</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Booking__c</object>
-    </recordUpdates>
     <screens>
         <name>Error</name>
         <label>Error</label>
-        <locationX>5858</locationX>
+        <locationX>4538</locationX>
         <locationY>674</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1012,7 +740,7 @@
     <screens>
         <name>Fasle</name>
         <label>Fasle</label>
-        <locationX>5066</locationX>
+        <locationX>3746</locationX>
         <locationY>998</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1035,105 +763,9 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Fault_Screen_1</name>
-        <label>Fault Screen 1</label>
-        <locationX>3614</locationX>
-        <locationY>1622</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>FaultMessage1</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;Error While generating NOC - {!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Fault_Screen_2</name>
-        <label>Fault Screen 2</label>
-        <locationX>3350</locationX>
-        <locationY>1730</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>FaultMessage2</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;Error While &lt;/strong&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;updating &lt;/strong&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;Loan Record - {!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Fault_Screen_3</name>
-        <label>Fault Screen 3</label>
-        <locationX>3086</locationX>
-        <locationY>1838</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>FaultMessage3</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;Error While &lt;/strong&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;updating&lt;/strong&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt; booking- {!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Loan_Status_is_not_sanctioned</name>
-        <label>Loan Status is not sanctioned</label>
-        <locationX>3878</locationX>
-        <locationY>1514</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>Not_Sanctioned</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255); font-size: 16px;&quot;&gt;Loan Status is not Sanctioned for the selected Bank Loan Record.&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>Manage_Booking</name>
         <label>Manage Booking</label>
-        <locationX>3152</locationX>
+        <locationX>2492</locationX>
         <locationY>242</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1173,16 +805,16 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>NOC_Success_Screen</name>
-        <label>NOC Success Screen</label>
-        <locationX>2822</locationX>
-        <locationY>1838</locationY>
+        <name>noca</name>
+        <label>noca</label>
+        <locationX>2690</locationX>
+        <locationY>890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
-            <name>successMessage</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NOC Has Been Generated Successfully.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <name>NOc11</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NOC Has Been Generated.&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1200,7 +832,7 @@
     <screens>
         <name>ROC1</name>
         <label>ROC</label>
-        <locationX>4538</locationX>
+        <locationX>3218</locationX>
         <locationY>1322</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1225,7 +857,7 @@
     <screens>
         <name>SCreen</name>
         <label>SCreen</label>
-        <locationX>4274</locationX>
+        <locationX>2954</locationX>
         <locationY>674</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1250,7 +882,7 @@
     <screens>
         <name>screen1</name>
         <label>screen</label>
-        <locationX>4802</locationX>
+        <locationX>3482</locationX>
         <locationY>1106</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1272,108 +904,8 @@
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
-    <screens>
-        <name>Select_Bank_Loan</name>
-        <label>Select Bank Loan</label>
-        <locationX>3350</locationX>
-        <locationY>782</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Check_Bank_Loan_Institution</targetReference>
-        </connector>
-        <fields>
-            <name>Bank_Loan_Data</name>
-            <dataTypeMappings>
-                <typeName>T</typeName>
-                <typeValue>Bank_Loan_Details__c</typeValue>
-            </dataTypeMappings>
-            <extensionName>flowruntime:datatable</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Data Table</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectionMode</name>
-                <value>
-                    <stringValue>SINGLE_SELECT</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>minRowSelection</name>
-                <value>
-                    <numberValue>1.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>tableData</name>
-                <value>
-                    <elementReference>Get_Bank_loan_Details</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>isShowSearchBar</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>maxRowSelection</name>
-                <value>
-                    <numberValue>1.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>columns</name>
-                <value>
-                    <stringValue>[{&quot;apiName&quot;:&quot;Name&quot;,&quot;guid&quot;:&quot;column-4b45&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Bank Loan Details  Name&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Loan_Status__c&quot;,&quot;guid&quot;:&quot;column-e814&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Loan Status&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Home_loan_institution_Name__c&quot;,&quot;guid&quot;:&quot;column-69fb&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Home loan institution Name&quot;,&quot;type&quot;:&quot;customRichText&quot;}]</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Selected_Bank_Is_not_from_5_banks</name>
-        <label>Selected Bank Is not from 5 banks</label>
-        <locationX>4010</locationX>
-        <locationY>998</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>BankNotAvailable</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;System Can&apos;t generate NOC for {!Bank_Loan_Data.firstSelectedRow.Home_LoanInstitution__r.Name}. Please Upload manually.&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <start>
-        <locationX>3026</locationX>
+        <locationX>2366</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Current_User</targetReference>
@@ -1499,13 +1031,6 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>SelectedLoanDetailsName</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
 </Flow>

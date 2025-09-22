@@ -56,6 +56,7 @@ public class TaskTargetTriggerHandlerTest {
 
         Test.startTest();
         TaskTargetTriggerHandler.duplicate(new List<Task_Target__c>{testTaskTarget2});
+        TaskTargetTriggerHandler.method();
         Test.stopTest();
 
     }

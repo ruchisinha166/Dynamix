@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Send_Demand_Letter_To_Customer</name>
         <label>Send Demand Letter To Customer</label>
-        <locationX>176</locationX>
-        <locationY>398</locationY>
+        <locationX>50</locationX>
+        <locationY>866</locationY>
         <actionName>SendDemandLetterrToCustomer</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -20,13 +20,51 @@
         <inputParameters>
             <name>contentVersionId</name>
             <value>
-                <elementReference>demandLetterList</elementReference>
+                <elementReference>Select_Demand.firstSelectedRow.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>SendDemandLetterrToCustomer</nameSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_All_Demand_Ids</name>
+        <label>Assign All Demand Ids</label>
+        <locationX>138</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>demandIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Iterate_all_Demands.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_all_Demands</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_If_demand_exists_or_not</name>
+        <label>Check If demand exists or not?</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_All_related_demands</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Iterate_all_Demands</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <dynamicChoiceSets>
         <name>demandLetterList</name>
         <dataType>String</dataType>
@@ -47,6 +85,20 @@
     <environments>Default</environments>
     <interviewLabel>Send Demand To Customer {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Send Demand To Customer</label>
+    <loops>
+        <name>Iterate_all_Demands</name>
+        <label>Iterate all Demands</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <collectionReference>Get_All_related_demands</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_All_Demand_Ids</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Get_Demand_Letters</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -67,31 +119,59 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Invoice_Documents</name>
-        <label>Get Invoice Documents</label>
-        <locationX>176</locationX>
-        <locationY>158</locationY>
+        <name>Get_All_related_demands</name>
+        <label>Get All related demands</label>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_If_demand_exists_or_not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Booking__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Sap_Demand_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Cancelled</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Demand__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Demand_Letters</name>
+        <label>Get Demand Letters</label>
+        <locationX>50</locationX>
+        <locationY>650</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Select_Demand_Screen</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>LinkedId__c</field>
-            <operator>EqualTo</operator>
+            <field>LinkedEntityId</field>
+            <operator>In</operator>
             <value>
-                <elementReference>recordId</elementReference>
+                <elementReference>demandIds</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>ContentVersion</object>
+        <object>ContentDocumentLink</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
         <name>Demand_Letter_Shared_Scr</name>
         <label>Demand Letter Shared Scr</label>
-        <locationX>176</locationX>
-        <locationY>518</locationY>
+        <locationX>50</locationX>
+        <locationY>974</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -115,8 +195,8 @@
     <screens>
         <name>Select_Demand_Screen</name>
         <label>Select Demand Screen</label>
-        <locationX>176</locationX>
-        <locationY>278</locationY>
+        <locationX>50</locationX>
+        <locationY>758</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -125,11 +205,45 @@
         </connector>
         <fields>
             <name>Select_Demand</name>
-            <choiceReferences>demandLetterList</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Select Demand</fieldText>
-            <fieldType>RadioButtons</fieldType>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>ContentVersion</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Select_Demand</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectionMode</name>
+                <value>
+                    <stringValue>MULTI_SELECT</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>Get_Demand_Letters</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>columns</name>
+                <value>
+                    <stringValue>[{&quot;apiName&quot;:&quot;Title&quot;,&quot;guid&quot;:&quot;column-32cc&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Title&quot;,&quot;type&quot;:&quot;text&quot;}]</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -143,13 +257,20 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Invoice_Documents</targetReference>
+            <targetReference>Get_All_related_demands</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>InvalidDraft</status>
+    <variables>
+        <name>demandIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

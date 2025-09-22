@@ -155,6 +155,7 @@ public with sharing class ReceiptPosting {
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Authorization', 'Basic UzAwMjQ1MjI3MDM6Um9kcmlAMjAyMw==');
+        request.setTimeout(120000);
         request.setBody(jsonString);
         List<Pricing_Plan_Components__c> prPlanCompToUpdate = new List<Pricing_Plan_Components__c>();
         Set<String>propertyIds=new Set<String>();

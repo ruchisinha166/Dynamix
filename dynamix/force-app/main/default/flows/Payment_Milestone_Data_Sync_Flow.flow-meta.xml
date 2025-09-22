@@ -61,7 +61,7 @@
     <decisions>
         <name>Check_If_Booking_is_Exposed_To_SAP</name>
         <label>Check If Booking is Exposed To SAP</label>
-        <locationX>1339</locationX>
+        <locationX>1394</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -144,8 +144,8 @@
     <decisions>
         <name>Check_the_Field_Changes_to_trigger_API</name>
         <label>Check the Field Changes to trigger API</label>
-        <locationX>1172</locationX>
-        <locationY>755</locationY>
+        <locationX>1403</locationX>
+        <locationY>539</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Specific_Field_Update</name>
@@ -164,8 +164,15 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Sap_Code__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Copy_1_of_Check_If_Booking_on_Payment_Milestone_Exist</targetReference>
+                <targetReference>Copy_1_of_Get_Related_Data_Sync</targetReference>
             </connector>
             <label>Specific Field Update</label>
         </rules>
@@ -205,8 +212,8 @@
     <decisions>
         <name>Copy_1_of_Check_if_Pending_Data_Sync_Exists</name>
         <label>Check if Pending Data Sync Exists</label>
-        <locationX>1359</locationX>
-        <locationY>647</locationY>
+        <locationX>1172</locationX>
+        <locationY>755</locationY>
         <defaultConnectorLabel>Exists</defaultConnectorLabel>
         <rules>
             <name>Copy_1_of_Not_Exist</name>
@@ -219,7 +226,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Check_the_Field_Changes_to_trigger_API</targetReference>
+                <targetReference>Copy_1_of_Check_If_Booking_on_Payment_Milestone_Exist</targetReference>
             </connector>
             <label>Not Exist</label>
         </rules>
@@ -227,10 +234,10 @@
     <decisions>
         <name>Insert_or_Update</name>
         <label>Insert or Update</label>
-        <locationX>869</locationX>
+        <locationX>891</locationX>
         <locationY>431</locationY>
         <defaultConnector>
-            <targetReference>Copy_1_of_Get_Related_Data_Sync</targetReference>
+            <targetReference>Check_the_Field_Changes_to_trigger_API</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Update</defaultConnectorLabel>
         <rules>
@@ -359,8 +366,8 @@
     <recordLookups>
         <name>Copy_1_of_Get_Related_Data_Sync</name>
         <label>Copy 1 of Get Related Data Sync</label>
-        <locationX>1359</locationX>
-        <locationY>539</locationY>
+        <locationX>1172</locationX>
+        <locationY>647</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_1_of_Check_if_Pending_Data_Sync_Exists</targetReference>
@@ -455,22 +462,14 @@
         <object>Booking__c</object>
     </recordUpdates>
     <start>
-        <locationX>1213</locationX>
+        <locationX>1268</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_If_Booking_is_Exposed_To_SAP</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Deletion_SAP_Exposed__c</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
         <object>Payment_Milestones__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
 </Flow>

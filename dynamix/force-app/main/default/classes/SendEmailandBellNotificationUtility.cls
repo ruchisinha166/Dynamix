@@ -48,7 +48,7 @@ public With Sharing class SendEmailandBellNotificationUtility {
             mail.setHtmlBody(htmlBody);
             mail.setPlainTextBody(plainBody);
             mail.setSaveAsActivity(isSaveAsActivity);
-            if(contentVersionId != null){
+            if(contentVersionId != '' && contentVersionId != null){
                 mail.setEntityAttachments(new List<String>{contentVersionId});
             }
             if(targetRecordId!=''){

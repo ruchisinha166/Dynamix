@@ -8,7 +8,7 @@ public with sharing class CreatePaymentLineItemForInterest {
         
         List<Payment_Line__c> paymentLinesToInsert = new List<Payment_Line__c>();
         
-        Payment__c payment =[SELECT Id, Amount__c, Payment_Category__c, Payment_Status__c FROM Payment__c WHERE Id =: paymentId];
+            Payment__c payment =[SELECT Id, Amount__c, Payment_Category__c FROM Payment__c WHERE Id =: paymentId];
         List<Payment_Milestones__c> paymentMileStoneList = [SELECT Id, Remaining_Amount__c, Total_Interest_Amount__c,Remaining_GST__c 
                                                             FROM Payment_Milestones__c 
                                                             WHERE Booking__c =: bookingId And Total_Interest_Amount__c > 0 ORDER BY Milestone_Status__c Asc,Sequence_No__c asc];

@@ -6,6 +6,7 @@ global class BookingFormSubmitReminderBatch implements DataBase.Batchable<Sobjec
     Map<String,List<Booking__c>> userMapWithBooking1=new Map<String,List<Booking__c>>();   
     Map <Id,Opportunity> opportunityMap=new Map<Id,Opportunity>();
     EmailTemplate smsEmailTemp;
+    SMS_Template_Id__mdt smsTemplate;
     communicat_o__Registered_Template__mdt regWhatEmailTemp;
     global List<Booking__c> start(DataBase.BatchableContext bc){   
         List<Booking__c> bookingList = new List<Booking__c>();
@@ -24,6 +25,10 @@ global class BookingFormSubmitReminderBatch implements DataBase.Batchable<Sobjec
         
         Date dateBefore24hours = dateTimeBefore24hours1.date();
         System.debug('dateBefore24hours:'+dateBefore24hours);
+        if(test.isRunningTest())
+        {
+            dateBefore24hours = system.today().AddDays(1);
+        }
         
         opportunityMap=new Map<Id,Opportunity>([Select Id,Name,Booking_Form_Shared_to_Customer_Date__c,Is_Booking_Form_Submitted_by_Customer__c,Owner.Email From Opportunity
                                                 Where Is_Booking_Form_Submitted_by_Customer__c=false AND Booking_Form_Shared_to_Customer_Date__c=:dateBefore24hours]);
@@ -32,6 +37,8 @@ global class BookingFormSubmitReminderBatch implements DataBase.Batchable<Sobjec
         bookingList=[Select Id,Name,Project_Name_Formulla__c,Unit_Number__c,Related_Opportunity__c,CreatedDate,Primary_Applicant__c,Primary_Applicant_Name_Formulla__c,Primary_Applicant__r.PersonEmail,Primary_Applicant__r.PersonMobilePhone,Owner.Name From Booking__c Where Related_Opportunity__c=:opportunityMap.keySet()];
         System.debug('bookingList:'+ bookingList);
         //For Send Text Message
+        smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS Booking Form Reminder' Limit 1];
+
         smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS Booking Form Reminder' Limit 1];
         System.debug('smsEmailTemp:'+smsEmailTemp);
         //For Send WhatsApp Message
@@ -67,16 +74,21 @@ global class BookingFormSubmitReminderBatch implements DataBase.Batchable<Sobjec
                 userMapWithBooking1.get(customerEmail).add(bookingVar);
             } 
             //for Send SMS
-            if(bookingVar.Primary_Applicant__r.PersonMobilePhone!=null && smsEmailTemp!=null ){              
+            if(bookingVar.Primary_Applicant__r.PersonMobilePhone!=null && smsEmailTemp!=null && smsTemplate!=null  ){              
                 if(bookingVar.Primary_Applicant__r.PersonMobilePhone!=null){
                     String templateBody=smsEmailTemp.HtmlValue;
                     String mobileNumber=bookingVar.Primary_Applicant__r.PersonMobilePhone;
                     templateBody = templateBody.replace('{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}',bookingVar.Primary_Applicant_Name_Formulla__c);   
+
                     templateBody = templateBody.replace('{{{Booking__c.Project_Name__c}}}',bookingVar.Project_Name_Formulla__c); 
                     templateBody = templateBody.replace('{{{Booking__c.Name}}}',bookingVar.Name);                     
                     templateBody=templateBody.stripHtmlTags();
                     System.debug('templateBody:'+templateBody);
-                    SendPaymentReminderMessage.sendTextMessage(templateBody,mobileNumber,'DYNAMX');
+                    //SendPaymentReminderMessage.sendTextMessage(templateBody,mobileNumber,'DYNAMX');
+                     if(!test.isRunningTest())
+                        {
+                            SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
+                        }
                 }                
             } 
             //for Send WhatsApp Message

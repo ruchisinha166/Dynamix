@@ -7,21 +7,7 @@ public class TaskTriggerHandler {
         if(PreventRecursionClass.i != 2){
             System.debug('Number of Queries used in sendEmailToRMCRMWhenWelcomeCallTaskCreated1: ' + Limits.getQueries());
             PreventRecursionClass.i++; 
-            /*EmailTemplate emailTemplate = [Select Id,Subject,Description,HtmlValue,DeveloperName,Body from EmailTemplate where DeveloperName = 'Welcome_Call_Letter_Task_Created' limit 1];
-System.debug('emailTemplate'+emailTemplate);
-String CRMHeadUserName = Label.CRM_Head_User;
-System.debug('CRMHeadUserName'+CRMHeadUserName);
-User CRMHeadRoleObjUser = [Select Id,Name,Email From User Where UserName =: CRMHeadUserName AND UserRoleId =: [select id,Name,DeveloperName from UserRole where DeveloperName =: 'CRM_Head'].Id AND isActive =: true Limit 1];
-System.debug('CRMHeadRoleObjUser'+CRMHeadRoleObjUser);
-List<String> addresses = new List<String>();
-addresses.add(CRMHeadRoleObjUser.Email);
-System.debug('addresses'+addresses);
-//For Send WhatsApp Message
-communicat_o__Registered_Template__mdt regWhatEmailTemp=[Select Id,QualifiedApiName,label From communicat_o__Registered_Template__mdt Where label=:'WhatsApp Welcome Letter Sent' Limit 1];
-// System.debug('regWhatEmailTemp:'+regWhatEmailTemp);
-//for Send SMS
-EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS Welcome Letter Sent' Limit 1];*/
-            Set<Id> setOfBookIds = new Set<Id>();
+                 Set<Id> setOfBookIds = new Set<Id>();
             for(Task taskObj : taskList){
                 if(taskObj.WhatId != null)
                 {
@@ -49,6 +35,8 @@ EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Na
                 // System.debug('regWhatEmailTemp:'+regWhatEmailTemp);
                 //for Send SMS
                 EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS Welcome Letter Sent' Limit 1];
+                SMS_Template_Id__mdt smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS Welcome Letter Sent' Limit 1];
+
                 System.debug('setOfBookIds'+setOfBookIds);
                 Map<Id,Booking__c> mapIdToBooking = new Map<Id,Booking__c>();
                 
@@ -129,7 +117,8 @@ null
                                     }
                                 }
                                 //for Send SMS
-                                if(smsEmailTemp!=null && bookingObj.Customer_Mobile_No__c!=null){
+                                //
+                                if(smsEmailTemp!=null && smsTemplate !=null && bookingObj.Customer_Mobile_No__c!=null){
                                     String templateBody=smsEmailTemp.HtmlValue;
                                     String mobileNumber=bookingObj.Customer_Mobile_No__c;
                                     templateBody = templateBody.replace('{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}',bookingObj.Primary_Applicant__r.Name);
@@ -138,7 +127,9 @@ null
                                     templateBody=templateBody.stripHtmlTags();
                                     System.debug('templateBody:'+templateBody);
                                     if(!test.isRunningTest())
-                                        SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+                                        //SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+                                        SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
+
                                 }
                             }
                         }
@@ -202,21 +193,7 @@ null
         if(!PreventRecursionClass.taskflag7){
             PreventRecursionClass.taskflag7 = true;
             System.debug('Number of Queries used in sendEmailToRMCRMSharedSDRLetter1: ' + Limits.getQueries());
-            /* EmailTemplate emailTemplate = [Select Id,Subject,Description,HtmlValue,DeveloperName,Body from EmailTemplate where DeveloperName = 'SDR_Letter_Sent_To_Customer' limit 1];
-String CRMHeadUserName = Label.CRM_Head_User;
-User CRMHeadRoleObjUser = [Select Id,Name,Email From User Where UserName =: CRMHeadUserName AND UserRoleId =: [select id,Name,DeveloperName from UserRole where DeveloperName =: 'CRM_Head'].Id AND isActive =: true Limit 1];
-
-List<String> addresses = new List<String>();
-addresses.add(CRMHeadRoleObjUser.Email);
-
-//For Send WhatsApp Message
-
-
-communicat_o__Registered_Template__mdt regWhatEmailTemp=[Select Id,QualifiedApiName,label From communicat_o__Registered_Template__mdt Where label=:'WhatsApp SDR Letter Sent Email' Limit 1];
-System.debug('regWhatEmailTemp:'+regWhatEmailTemp);
-//for Send SMS
-EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS SDR Letter Sent Email' Limit 1];*/
-            Set<Id> setOfBookIds = new Set<Id>();
+                Set<Id> setOfBookIds = new Set<Id>();
             for(Task taskObj : taskList){
                 //setOfBookIds.add(taskObj.whatId);
                 if(taskObj.WhatId != null)
@@ -247,6 +224,8 @@ EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Na
                 System.debug('regWhatEmailTemp:'+regWhatEmailTemp);
                 //for Send SMS
                 EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Name='SMS SDR Letter Sent Email' Limit 1];
+                SMS_Template_Id__mdt smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS SDR Letter Sent Email' Limit 1];
+
                 mapIdToBooking = new Map<Id,Booking__c>([Select Id,Name,OwnerId,Unit_Number__c,Project_Name_Formulla__c,Customer_Mobile_No__c,Primary_Applicant__c,Primary_Applicant__r.Name From Booking__c where Id in: setOfBookIds]);
                 
                 if(!mapIdToBooking.isEmpty()){
@@ -268,14 +247,7 @@ EmailTemplate smsEmailTemp=[Select Id,Name,HtmlValue From EmailTemplate Where Na
                                     htmlBody = htmlBody.replace('{!Name}', bookingObj.Name);
                                     htmlBody = htmlBody.replace('{!Unit}', bookingObj.Unit_Number__c);
                                     htmlBody = htmlBody.replace('{!Project}', bookingObj.Project_Name_Formulla__c);
-                                    
-                                    /* SendEmailandBellNotificationUtility.SendEmail(
-String.valueOf(emailTemplate.Id),
-htmlBody,
-'',
-addresses,
-null
-);*/
+                                 
                                     
                                     SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,
                                                                                    emailTemplate.Subject, 
@@ -304,7 +276,7 @@ null
                                     }
                                     //for Send SMS
                                     
-                                    if(smsEmailTemp!=null && bookingObj.Customer_Mobile_No__c!=null){
+                                    if(smsEmailTemp!=null && smsTemplate != null && bookingObj.Customer_Mobile_No__c!=null){
                                         String templateBody=smsEmailTemp.HtmlValue;
                                         String mobileNumber=bookingObj.Customer_Mobile_No__c;
                                         templateBody = templateBody.replace('{{{Booking__c.Primary_Applicant_Name_Formulla__c}}}',bookingObj.Primary_Applicant__r.Name);
@@ -313,7 +285,7 @@ null
                                         templateBody=templateBody.stripHtmlTags();
                                         System.debug('templateBody:'+templateBody);
                                         if(!test.isRunningTest())
-                                            SendSMSUtility.sendSMS(templateBody,mobileNumber,'DYNAMX');
+                                             SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
                                     }
                                 }
                             }
@@ -380,14 +352,7 @@ null
                             }
                             htmlBody = htmlBody.replace('{!Unit}', bookingObj.Unit_Number__c);
                             htmlBody = htmlBody.replace('{!Project}', bookingObj.Project_Name_Formulla__c);
-                            
-                            /*  SendEmailandBellNotificationUtility.SendEmail(
-String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_RM').Id),
-htmlBody,
-'',
-addresses1,
-null
-);*/
+                          
                             SendEmailandBellNotificationUtility.SendEmail3(String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_RM').Id),
                                                                            String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_RM').Subject), 
                                                                            htmlBody, 
@@ -500,13 +465,7 @@ null
                                     htmlBody1 = htmlBody1.replace('{!Unit}', bookingObj.Unit_Number__c);
                                     htmlBody1 = htmlBody1.replace('{!Project}', bookingObj.Project_Name_Formulla__c);
                                     htmlBody1 = htmlBody1.replace('{!checkListDetails}',checkListDetails);
-                                    /* SendEmailandBellNotificationUtility.SendEmail(
-String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_SM').Id),
-htmlBody1,
-'',
-addresses2,
-null
-);*/
+                
                                     SendEmailandBellNotificationUtility.SendEmail3( String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_SM').Id),
                                                                                    String.valueOf(mapNameToEmailTemp.get('Welcome_Call_Task_Rejected_SM').Subject), 
                                                                                    htmlBody1, 
@@ -532,13 +491,6 @@ null
         if(!PreventRecursionClass.taskflag1){
             PreventRecursionClass.taskflag1 = true;
             System.debug('Number of Queries used in sendEmailWHenDraftAgreementComplete1: ' + Limits.getQueries());
-            /*EmailTemplate emailTemplate = [Select Id,Subject,Description,HtmlValue,DeveloperName,Body from EmailTemplate where DeveloperName = 'Draft_Agreement_Task_Completed' limit 1];
-UserRole CRMHeadRoleObj = [select id,Name,DeveloperName from UserRole where DeveloperName =: 'CRM_Head'];
-String CRMHeadUserName = Label.CRM_Head_User;
-User CRMHeadRoleObjUser = [Select Id,Name,Email From User Where UserName =: CRMHeadUserName AND UserRoleId =: CRMHeadRoleObj.Id AND isActive =: true Limit 1];
-
-List<String> addresses = new List<String>();
-addresses.add(CRMHeadRoleObjUser.Email);*/
             
             Set<Id> setOfBookIds = new Set<Id>();
             for(Task taskObj : taskList){
@@ -577,14 +529,7 @@ addresses.add(CRMHeadRoleObjUser.Email);*/
                                     htmlBody = htmlBody.replace('{!Name}', bookingObj.Name);
                                     htmlBody = htmlBody.replace('{!Unit}', bookingObj.Unit_Number__c);
                                     htmlBody = htmlBody.replace('{!Project}', bookingObj.Project_Name_Formulla__c);
-                                    
-                                    /*  SendEmailandBellNotificationUtility.SendEmail(
-String.valueOf(emailTemplate.Id),
-htmlBody,
-'',
-addresses,
-null
-);*/
+                               
                                     SendEmailandBellNotificationUtility.SendEmail3(emailTemplate.Id,
                                                                                    emailTemplate.Subject, 
                                                                                    htmlBody, 
@@ -1237,12 +1182,15 @@ null
         Set<Id> EnquiryId = New Set<Id> ();
         for(Task thisTask :TaskList)
         {
-            String sObjName = thisTask.WhatID.getSObjectType().getDescribe().getName();
-            if(sObjName == 'Enquiry__c' && thisTask.Status == 'Completed')
+            if(thisTask.WhatID != null)
+                
             {
-                EnquiryId.add(thisTask.WhatID);
+                String sObjName = thisTask.WhatID.getSObjectType().getDescribe().getName();
+                if(sObjName == 'Enquiry__c' && thisTask.Status == 'Completed')
+                {
+                    EnquiryId.add(thisTask.WhatID);
+                }
             }
-            
         }
         if(!EnquiryId.IsEmpty())
         {
@@ -1346,7 +1294,7 @@ null
                 {
                     thisTask.Description.addError('Comments is mandatory while marking Status as Complete');
                 }
-                if(oldMap == null)
+                /*if(oldMap == null)
                 {
                     
                 }
@@ -1356,7 +1304,7 @@ null
                     {
                         thisTask.ReminderDateTime.addError('ReminderDateTime should be completed before marking Status as Completed.');
                     }
-                }
+                }*/
                 
             }
         }
@@ -1384,7 +1332,7 @@ null
                 notContactedTaskMap.put(taskRecord.WhatId, notContactedTaskMap.get(taskRecord.WhatId)+1);
             }
         }
-        
+        if(!EnquiryId.isEmpty()){
         
         List<Enquiry__c> enquiryList = [SELECT id, Contact_Person__c, Stage__c 
                                         FROM Enquiry__c 
@@ -1442,16 +1390,6 @@ null
                        }
                        updateEnquiryMap.put(newEnquiry.id,newEnquiry);
                    }
-                /*else if(!notContactedTaskMap.isEmpty() &&  taskRecord.Call_Status__c == 'Not Connected' )
-{ 
-if(notContactedTaskMap.ContainsKey(taskRecord.WhatId)){ 
-if(notContactedTaskMap.get(taskRecord.WhatId) >=6)
-{
-newEnquiry.Stage__c = 'Junk';
-updateEnquiryMap.put(newEnquiry.id,newEnquiry);
-}
-}
-}*/
                 if(taskRecord.EventId__c != null && taskRecord.EventId__c != '')
                 {
                     Event thisEvent = New Event();
@@ -1470,7 +1408,7 @@ updateEnquiryMap.put(newEnquiry.id,newEnquiry);
         if(!updateEventList.IsEmpty()){
             update updateEventList;
         }
-        
+        }
         
     }
     public Static Void updateLastCallDetails(List<Task> taskList)

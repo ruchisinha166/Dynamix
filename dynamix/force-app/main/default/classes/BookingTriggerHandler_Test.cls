@@ -67,8 +67,8 @@ public class BookingTriggerHandler_Test{
             propertyObject.Project__c = projectObject.Id;
             propertyObject.Property_Price_Slab__c = pricingPlanObject.Id;
             propertyObject.Floor__c= '5';
-            propertyObject.Flat_Type__c = 'CAR PARKING';
-            propertyObject.Property_Status__c = 'Allotted';
+            propertyObject.Flat_Type__c = '2 BHK';
+            propertyObject.Property_Status__c = 'Available';
             insert propertyObject;
             
             Property__c propertyObject1 = new Property__c();
@@ -226,7 +226,7 @@ public class BookingTriggerHandler_Test{
             paymnt.Payment_Type__c = 'NEFT/ RTGS/ IMPS';
             paymnt.Receipt_No__c = '21314';
             Insert paymnt;
-            
+                        
             EOI_CA_Payment__c testEOI = new EOI_CA_Payment__c();
             testEOI.Opportunity__c = oppoObject.id;
             insert testEOI;

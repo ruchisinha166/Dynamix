@@ -168,7 +168,7 @@ public class ContentDocumentTriggerHandler {
             PreventRecursionClass.flag4 = true;
             Set<id> setOfContentDocumentIds = new Set<id>();
             for(contentversion cv : listOfContentDocumentLink) {
-                setOfContentDocumentIds.add(cv.contentdocumentid); 
+                setOfContentDocumentIds.add(cv.contentdocumentid);
             }
             ContentDocument conDocObj = [Select Id,ParentId From ContentDocument Where Id In : setOfContentDocumentIds limit 1];
             System.debug('conDocObj'+conDocObj);
@@ -215,7 +215,7 @@ public class ContentDocumentTriggerHandler {
                                 Task SDRTask = mapBookingIdToSDRTask.get(bookObj.Id);
                                 SDRTask.Status = 'Challan Received';
                                 listOfSDRTasksToUpdate.add(SDRTask);
-                                  
+                                
                                 String htmlBody = emailTemplate.HtmlValue;
                                 addresses.add(bookObj.OwnerId);
                                 SendEmailandBellNotificationUtility.SendEmail(
@@ -269,11 +269,12 @@ public class ContentDocumentTriggerHandler {
                         }
                     }
                 } 
-            } 
+            }
             if(!listOfBooking.isEmpty()){
                 System.debug('listOfBooking update');
                 update listOfBooking;
             }
         }
     }
+    
 }

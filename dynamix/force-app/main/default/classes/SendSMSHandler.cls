@@ -7,10 +7,10 @@ public class SendSMSHandler {
         }
         list<Opportunity> requestWrapperList = [Select id,Name , Project__r.Name ,Sales_Manager__r.Phone From opportunity where id IN : oppids LIMIT 1  ];
         List<EmailMessage> insertEmailMessageList = new List<EmailMessage>();
-
+        SMS_Template_Id__mdt smsTemplate = [Select Id, SMS_Template__c, External_Template_Id__c From SMS_Template_Id__mdt Where MasterLabel='SMS for New Opportunity to Sales Manager' Limit 1];
         EmailTemplate smsEmailTemp = [SELECT Id, Name, Subject, HtmlValue, Body, DeveloperName FROM EmailTemplate WHERE Name = 'SMS for New Opportunity to Sales Manager' LIMIT 1];
 
-        if (smsEmailTemp != null && !requestWrapperList.isEmpty() && requestWrapperList[0].Sales_Manager__r.Phone != null) {
+        if (smsEmailTemp != null && smsTemplate!=null && !requestWrapperList.isEmpty() && requestWrapperList[0].Sales_Manager__r.Phone != null) {
             String templateBody = smsEmailTemp.HtmlValue;
             templateBody = templateBody.stripHtmlTags();
             String sfdcBaseURL = URL.getSalesforceBaseUrl().toExternalForm();
@@ -19,7 +19,13 @@ public class SendSMSHandler {
             templateBody = templateBody.replace('{{accountName}}', requestWrapperList[0].Name);
             templateBody = templateBody.replace('{{projectName}}', requestWrapperList[0].Project__r.Name);
             templateBody = templateBody.replace('{{opportunityLink}}', '{{3}}');
-            SendSMSUtility.sendSMS(templateBody, mobileNumber, 'DYNAMX');
+            if(!Test.isRunningTest())
+            {
+                //SendSMSUtility.sendSMS(templateBody, mobileNumber, 'DYNAMX'); 
+                SendSMSUtility.sendSMSMethod(templateBody,mobileNumber,'DYNAMX',smsTemplate.External_Template_Id__c);
+                
+            }
+           
             EmailMessage objEmailMessage = new EmailMessage();
             objEmailMessage.Status = '3'; // email was sent
             objEmailMessage.RelatedToId = requestWrapperList[0].id;

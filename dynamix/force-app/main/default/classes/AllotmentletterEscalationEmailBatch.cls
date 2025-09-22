@@ -14,7 +14,7 @@ global class AllotmentletterEscalationEmailBatch implements DataBase.Batchable<S
         
         DateTime currentDateTime1= currentDateTime.addMinutes(-10);
         System.debug('currentDateTime1:'+currentDateTime1);
-         
+        
         //get Business Hour Id
         Id businessHourId = [SELECT Id FROM BusinessHours WHERE IsDefault = true].Id;
         Integer hours = 48;

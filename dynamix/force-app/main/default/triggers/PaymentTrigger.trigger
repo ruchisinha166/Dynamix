@@ -4,9 +4,6 @@ trigger PaymentTrigger on Payment__c (after insert,after update) {
     }
     for(Payment__c pay : Trigger.new)
     {
-        //system.debug('===> pay ' + pay);
-        //system.debug('===> pay.Credit_Note_Reason__c ' + pay.Credit_Note_Reason__c.containsIgnoreCase('Interest')); 
-        //system.debug('===> pay.Payment_Status__c ' + pay.Payment_Status__c); 
         if(Trigger.isInsert){
             
             if(pay.Credit_Note_Reason__c!='' && pay.Credit_Note_Reason__c!=null){

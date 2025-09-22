@@ -237,6 +237,8 @@ private class calloutBookingCreation_Test {
         req.bookingIds = buk.Id;
         reqList.add(req);
         
+        
+        
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new callOutBookingCreationTestMock());
         calloutBookingCreation.getBooking(reqList);
