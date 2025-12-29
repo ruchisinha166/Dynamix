@@ -1,0 +1,1061 @@
+public class BookingTriggerHandlerNew {
+   /* public static void assignBrokerageLadder(List<Booking__c> newBookings) {
+        if (newBookings.isEmpty()) return;
+        
+        Set<Id> projectIds = new Set<Id>();
+        Set<Id> channelPartnerIds = new Set<Id>();
+        Set<Date> bookingDates = new Set<Date>();
+        
+        for (Booking__c bk : newBookings) {
+            if (bk.Project_Name__c != null) {
+                System.debug(bk.Project_Name__c);
+                projectIds.add(bk.Project_Name__c);
+            }
+            if (bk.Channel_Partner__c != null) {
+                System.debug(bk.Channel_Partner__c);
+                channelPartnerIds.add(bk.Channel_Partner__c);
+            }
+            if (bk.Booking_Date__c != null) {
+                System.debug(bk.Booking_Date__c);
+                bookingDates.add(bk.Booking_Date__c);
+            }
+        }
+        
+        if (projectIds.isEmpty() || bookingDates.isEmpty()) return;
+        
+        System.debug(projectIds);
+        List<Brokerage_Ladder__c> ladders = [
+            SELECT Id, Start_Date__c, End_Date__c, Project__c, Active__c,
+            Percentage__c, Ladder_Type__c, Project_Details__c, RecordType.Name,
+            Channel_Partner__c
+            FROM Brokerage_Ladder__c
+            WHERE
+            (
+                Project__c IN :projectIds
+                OR (
+                    RecordType.Name IN ('AOP', 'MOU')
+                    AND Channel_Partner__c != NULL
+                )
+            )
+            AND RecordType.Name NOT IN ('NRI', 'Kicker')
+            AND Active__c = TRUE
+            
+        ];
+        
+        System.debug('37===>'+ ladders);
+        
+        // 🔹 Separate AOP ladders
+        List<Brokerage_Ladder__c> aopLadders = new List<Brokerage_Ladder__c>();
+        List<Brokerage_Ladder__c> otherLadders = new List<Brokerage_Ladder__c>();
+        List<Brokerage_Ladder__c> mouLadders = new List<Brokerage_Ladder__c>();
+		List<Brokerage_Ladder__c> launchSustenanceLadders = new List<Brokerage_Ladder__c>();
+
+        for (Brokerage_Ladder__c bl : ladders) {
+            if (bl.RecordType.Name == 'AOP') {
+                System.debug('45 ==> AOP');
+                aopLadders.add(bl);
+            } 
+            else {
+                System.debug('45 ==> other');
+                otherLadders.add(bl);
+            }
+        }
+        
+        Map<Id, List<Map<String, Object>>> aopProjectDetailsMap = new Map<Id, List<Map<String, Object>>>();
+        
+        for (Brokerage_Ladder__c bl : aopLadders) {
+            if (String.isNotBlank(bl.Project_Details__c)) {
+                try {
+                    Object parsed = JSON.deserializeUntyped(bl.Project_Details__c);
+                    List<Object> projList = new List<Object>();
+                    
+                    if (parsed instanceof List<Object>) {
+                        projList = (List<Object>) parsed;
+                    } else if (parsed instanceof Map<String, Object>) {
+                        projList.add(parsed);
+                    }
+                    
+                    List<Map<String, Object>> projDetails = new List<Map<String, Object>>();
+                    for (Object obj : projList) {
+                        projDetails.add((Map<String, Object>) obj);
+                    }
+                    
+                    aopProjectDetailsMap.put(bl.Id, projDetails);
+                    System.debug('aopProjectDetailsMap==>'+aopProjectDetailsMap);
+                } catch (Exception e) {
+                    System.debug('⚠️ JSON parse error in Ladder: ' + bl.Id + ' => ' + e.getMessage());
+                }
+            }
+        }
+        
+        // 🔹 Assign ladders to bookings
+        for (Booking__c bk : newBookings) {
+            if (bk.Booking_Date__c == null || bk.Project_Name__c == null) continue;
+            Boolean assigned = false;
+            
+            // Step 1️⃣: Try AOP ladders first
+            for (Brokerage_Ladder__c bl : aopLadders) {
+                system.debug('86'+bk.Booking_Date__c);
+                system.debug('86'+bl.Start_Date__c);
+                system.debug('86'+bl.End_Date__c);
+                if (bk.Booking_Date__c >= bl.Start_Date__c &&
+                    bk.Booking_Date__c <= bl.End_Date__c &&
+                    aopProjectDetailsMap.containsKey(bl.Id)) {
+                        System.debug('aopProjectDetailsMap==>'+aopProjectDetailsMap);
+                        for (Map<String, Object> projMap : aopProjectDetailsMap.get(bl.Id)) {
+                            System.debug('93');
+                            String projIdFromJson = (String) projMap.get('Id');
+                            System.debug('95');
+                            if (projIdFromJson != null && bk.Project_Name__c != null &&
+                                projIdFromJson.startsWith(String.valueOf(bk.Project_Name__c).substring(0, 15))) {
+                                    System.debug('98');
+                                    
+                                    //  Determine if Channel Partner is required based on Ladder Type
+                                    Boolean isChannelPartnerRequired = false;
+                                    String recordTypeName = bl.RecordType.Name;
+                                    Boolean isChannelPartnerdirect = false;
+                                    if (recordTypeName == 'Kicker' || recordTypeName == 'NRI' ||
+                                        recordTypeName == 'Launch' || recordTypeName == 'Sustenance' ||
+                                        recordTypeName == 'AOP') {
+                                            isChannelPartnerRequired = true;
+                                            system.debug('110');
+                                        } else if (recordTypeName == 'MOU') {
+                                            if (bk.Channel_Partner__c == null) {
+                                                System.debug('MOU Direct Case for Booking: ' + bk.Id);
+                                                isChannelPartnerdirect = true;
+                                            } else {
+                                                System.debug('MOU Indirect Case for Booking: ' + bk.Id);
+                                                isChannelPartnerRequired = true;
+                                            }
+                                        }
+                                    
+                                    //  Match condition based on requirement
+                                    if (!isChannelPartnerRequired || bl.Channel_Partner__c == bk.Channel_Partner__c) {
+                                        System.debug('101');
+                                        bk.Brokerage_Ladder__c = bl.Id;
+                                        bk.Brokerage_Percentage__c = bl.Percentage__c;
+                                        assigned = true;
+                                        System.debug('✅ AOP Ladder Matched for Booking ' + bk.Id + ' -> Ladder ' + bl.Id);
+                                        break;
+                                    }
+                                    if(bk.Channel_Partner__c == null && isChannelPartnerdirect == true){
+                                        bk.Brokerage_Ladder__c = bl.Id;
+                                        bk.Brokerage_Percentage__c = bl.Percentage__c; 
+                                    }
+                                }
+                        }
+                    }
+                if (assigned) break;
+            }
+            
+            //️ If AOP not matched, try Launch/Sustenance ladders
+            if (!assigned) {
+                System.debug('116');
+                for (Brokerage_Ladder__c bl : otherLadders) {
+                    System.debug('118'+bk.Booking_Date__c);
+                    System.debug('118'+bl.Start_Date__c);
+                    System.debug('118'+bl.End_Date__c);
+                    System.debug('118'+bk.Booking_Date__c);
+                    System.debug('118'+bl.Project__c);
+                    System.debug('118'+bk.Project_Name__c);
+                    if (bk.Booking_Date__c >= bl.Start_Date__c &&
+                        bk.Booking_Date__c <= bl.End_Date__c &&
+                        bl.Project__c == bk.Project_Name__c) {
+                            System.debug('122');
+                            System.debug('122' + bl.Channel_Partner__c);
+                            System.debug('124' + bk.Channel_Partner__c);
+                            System.debug('124' + bl.Id);
+                            
+                            // 🧩 Determine if Channel Partner is required based on Ladder Type
+                            Boolean isChannelPartnerRequired = false;
+                            Boolean isChannelPartnerDirect = false;
+                            String recordTypeName = bl.RecordType.Name;
+                            system.debug('recordTypeName--> '+recordTypeName);
+                            if (recordTypeName == 'Kicker' || recordTypeName == 'NRI' ||
+                                recordTypeName == 'Launch' || recordTypeName == 'Sustenance' ||
+                                recordTypeName == 'AOP') {
+                                    isChannelPartnerRequired = true;
+                                } else if (recordTypeName == 'MOU') {
+                                    if (bk.Channel_Partner__c == null) {
+                                        System.debug('MOU Direct Case for Booking: ' + bk.Id);
+                                        isChannelPartnerDirect = true;
+                                    } else {
+                                        System.debug('MOU Indirect Case for Booking: ' + bk.Id);
+                                        isChannelPartnerRequired = true;
+                                    }
+                                }
+                            
+                            //  Match condition based on requirement
+                            if (isChannelPartnerRequired || bl.Channel_Partner__c == bk.Channel_Partner__c) {
+                                bk.Brokerage_Ladder__c = bl.Id;
+                                bk.Brokerage_Percentage__c = bl.Percentage__c;
+                                assigned = true;
+                                System.debug('127');
+                                System.debug('Non-AOP Ladder Matched for Booking ' + bk.Id + ' -> Ladder ' + bl.Id);
+                                break;
+                            }
+                            if(bk.Channel_Partner__c == null && isChannelPartnerDirect ==true){
+                                bk.Brokerage_Ladder__c = bl.Id;
+                                bk.Brokerage_Percentage__c = bl.Percentage__c;
+                                assigned = true;
+                            }
+                        }
+                }
+            }
+            
+            if (!assigned) {
+                System.debug('No Ladder matched for Booking ' + bk.Id);
+            }
+        }
+    }*/
+    
+    public static void assignBrokerageLadder(List<Booking__c> newBookings) {
+
+    if (newBookings.isEmpty()) return;
+
+    Set<Id> projectIds = new Set<Id>();
+    Set<Id> channelPartnerIds = new Set<Id>();
+    Set<Date> bookingDates = new Set<Date>();
+
+    for (Booking__c bk : newBookings) {
+        if (bk.Project_Name__c != null) projectIds.add(bk.Project_Name__c);
+        if (bk.Channel_Partner__c != null) channelPartnerIds.add(bk.Channel_Partner__c);
+        if (bk.Booking_Date__c != null) bookingDates.add(bk.Booking_Date__c);
+    }
+
+    if (projectIds.isEmpty() || bookingDates.isEmpty()) return;
+
+    List<Brokerage_Ladder__c> ladders = [
+        SELECT Id, Start_Date__c, End_Date__c, Project__c, Active__c,
+               Percentage__c, Ladder_Type__c, Project_Details__c,
+               RecordType.Name, Channel_Partner__c
+        FROM Brokerage_Ladder__c
+        WHERE (
+                Project__c IN :projectIds
+                OR (RecordType.Name IN ('AOP','MOU') AND Channel_Partner__c != NULL)
+              )
+          AND RecordType.Name NOT IN ('NRI','Kicker')
+          AND Active__c = TRUE
+    ];
+
+    /* ------------------ SEPARATE LADDERS ------------------ */
+
+    List<Brokerage_Ladder__c> aopLadders = new List<Brokerage_Ladder__c>();
+    List<Brokerage_Ladder__c> mouLadders = new List<Brokerage_Ladder__c>();
+    List<Brokerage_Ladder__c> launchSustenanceLadders = new List<Brokerage_Ladder__c>();
+
+    for (Brokerage_Ladder__c bl : ladders) {
+        if (bl.RecordType.Name == 'AOP') {
+            aopLadders.add(bl);
+        } else if (bl.RecordType.Name == 'MOU') {
+            mouLadders.add(bl);
+        } else if (bl.RecordType.Name == 'Launch' || bl.RecordType.Name == 'Sustenance') {
+            launchSustenanceLadders.add(bl);
+        }
+    }
+
+    /* ------------------ AOP PROJECT JSON MAP ------------------ */
+
+    Map<Id, List<Map<String, Object>>> aopProjectDetailsMap = new Map<Id, List<Map<String, Object>>>();
+
+    for (Brokerage_Ladder__c bl : aopLadders) {
+        if (String.isNotBlank(bl.Project_Details__c)) {
+            try {
+                Object parsed = JSON.deserializeUntyped(bl.Project_Details__c);
+                List<Object> projList = new List<Object>();
+
+                if (parsed instanceof List<Object>) {
+                    projList = (List<Object>) parsed;
+                } else if (parsed instanceof Map<String, Object>) {
+                    projList.add(parsed);
+                }
+
+                List<Map<String, Object>> projDetails = new List<Map<String, Object>>();
+                for (Object obj : projList) {
+                    projDetails.add((Map<String, Object>) obj);
+                }
+
+                aopProjectDetailsMap.put(bl.Id, projDetails);
+
+            } catch (Exception e) {
+                System.debug('JSON Parse Error AOP Ladder ' + bl.Id);
+            }
+        }
+    }
+
+    /* ------------------ ASSIGN LADDERS ------------------ */
+
+    for (Booking__c bk : newBookings) {
+
+        if (bk.Booking_Date__c == null || bk.Project_Name__c == null) continue;
+        Boolean assigned = false;
+
+        /* ========== 1️⃣ AOP PRIORITY ========== */
+        for (Brokerage_Ladder__c bl : aopLadders) {
+
+            if (bk.Booking_Date__c >= bl.Start_Date__c &&
+                bk.Booking_Date__c <= bl.End_Date__c &&
+                aopProjectDetailsMap.containsKey(bl.Id)) {
+
+                for (Map<String, Object> projMap : aopProjectDetailsMap.get(bl.Id)) {
+
+                    String projIdFromJson = (String) projMap.get('Id');
+
+                    if (projIdFromJson != null &&
+                        projIdFromJson.startsWith(String.valueOf(bk.Project_Name__c).substring(0,15))) {
+
+                        if (bl.Channel_Partner__c == null ||
+                            bl.Channel_Partner__c == bk.Channel_Partner__c) {
+
+                            bk.Brokerage_Ladder__c = bl.Id;
+                            bk.Brokerage_Percentage__c = bl.Percentage__c;
+                            assigned = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (assigned) break;
+        }
+
+        /* ========== 2️⃣ MOU PRIORITY (CP + PROJECT MATCH) ========== */
+        if (!assigned) {
+            for (Brokerage_Ladder__c bl : mouLadders) {
+
+                if (bk.Booking_Date__c >= bl.Start_Date__c &&
+                    bk.Booking_Date__c <= bl.End_Date__c &&
+                    bl.Project__c == bk.Project_Name__c &&
+                    bl.Channel_Partner__c != null &&
+                    bl.Channel_Partner__c == bk.Channel_Partner__c) {
+
+                    bk.Brokerage_Ladder__c = bl.Id;
+                    bk.Brokerage_Percentage__c = bl.Percentage__c;
+                    assigned = true;
+
+                    System.debug('✅ MOU PRIORITY APPLIED ' + bk.Id);
+                    break;
+                }
+            }
+        }
+
+        /* ========== 3️⃣ LAUNCH / SUSTENANCE ========== */
+        if (!assigned) {
+            for (Brokerage_Ladder__c bl : launchSustenanceLadders) {
+
+                if (bk.Booking_Date__c >= bl.Start_Date__c &&
+                    bk.Booking_Date__c <= bl.End_Date__c &&
+                    bl.Project__c == bk.Project_Name__c) {
+
+                    if (bl.Channel_Partner__c == null ||
+                        bl.Channel_Partner__c == bk.Channel_Partner__c) {
+
+                        bk.Brokerage_Ladder__c = bl.Id;
+                        bk.Brokerage_Percentage__c = bl.Percentage__c;
+                        assigned = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!assigned) {
+            System.debug('❌ No Ladder matched for Booking ' + bk.Id);
+        }
+    }
+}
+
+    public static void updateBrokerage(List<Booking__c> newBookings) {
+        if (newBookings.isEmpty()) return;
+        Set<Id> channelPartnerIds = new Set<Id>();
+        Set<Id> projectIds = new Set<Id>();
+        Set<Id> ladderIds = new Set<Id>();
+        Set<Id> PrimaryApplicant = new Set<Id>();
+        Set<Id> bookingIds = new Set<Id>();
+        Set<Id> bookingprojectIds = new Set<Id>();
+        map <id,decimal> agreementMap  = new map <id,decimal> ();
+        
+        for (Booking__c bk : newBookings) {
+            
+            if (bk.Channel_Partner__c != null) {
+                
+                channelPartnerIds.add(bk.Channel_Partner__c);
+            }
+            if (bk.Project_Name__c != null) {
+                projectIds.add(bk.Project_Name__c);
+                bookingprojectIds.add(bk.Project_Name__c);
+            }
+            if (bk.Brokerage_Ladder__c != null) {
+                ladderIds.add(bk.Brokerage_Ladder__c);
+                system.debug(bk.Brokerage_Ladder__c);
+            }
+            if(bk.Agreement_Value__c != null){
+                agreementMap.put(bk.id,bk.Agreement_Value__c);
+            }
+            if (bk.Primary_Applicant__c != null) {
+                PrimaryApplicant.add(bk.Primary_Applicant__c);
+            }
+            if (bk.Id != null){
+                bookingIds.add(bk.Id);
+            } 
+        }
+        system.debug('33');
+        //if (channelPartnerIds.isEmpty() || projectIds.isEmpty() || ladderIds.isEmpty()) {
+        if ( projectIds.isEmpty() || ladderIds.isEmpty()) {
+            return;
+        }
+        
+        Map<Id, Booking__c> bookingWithApplicantMap = new Map<Id, Booking__c>(
+            [SELECT Id, Agreement_Value__c, Channel_Partner__c, Project_Name__c,Project_Name__r.MOU_Document_Uploaded__c, Brokerage_Ladder__c, Related_Opportunity__r.Walk_in_Source__c,
+             Primary_Applicant__r.NRI__c
+             FROM Booking__c
+             WHERE Id IN :bookingIds]
+        );
+        
+        Map<String, Integer> cpProjectBookingCount = new Map<String, Integer>();
+        Map<String, Decimal> cpProjectAgreementSum = new Map<String, Decimal>();
+        
+        /*
+if (!channelPartnerIds.isEmpty() && !projectIds.isEmpty()) {
+system.debug('Channel_Partner__c'+ channelPartnerIds);
+system.debug('Project_Name__c'+ projectIds);
+List<AggregateResult> aggResults = [
+SELECT 
+Channel_Partner__c cpId,  
+Project_Name__c projId, 
+COUNT(Id) cnt, 
+SUM(Agreement_Value__c) totalAgreement
+FROM Booking__c
+WHERE 
+Channel_Partner__c IN :channelPartnerIds
+AND Project_Name__c IN :projectIds
+AND Stage__c NOT IN (
+'Terminated',
+'Booking Cancelled – Refund Pending',
+'Booking Cancelled – Refund Ready',
+'Booking Cancelled -- Refund Done',
+'Cancellation Initiated'
+)
+GROUP BY Channel_Partner__c, Project_Name__c
+];
+
+
+for (AggregateResult ar : aggResults) {
+String key = String.valueOf(ar.get('cpId')) + '-' + String.valueOf(ar.get('projId'));
+system.debug('256==>'+ar.get('cnt'));
+cpProjectBookingCount.put(key, (Integer) ar.get('cnt'));
+system.debug('258==>'+ar.get('totalAgreement'));
+cpProjectAgreementSum.put(key, (Decimal) ar.get('totalAgreement'));
+cpProjectAgreementSum.put(key, (Decimal) ar.get('totalAgreement'));
+}
+}*/
+        
+        String ladderType = 'AOP'; 
+        
+        if (!channelPartnerIds.isEmpty() && !projectIds.isEmpty()) {
+            
+            String baseQuery = 
+                'SELECT Channel_Partner__c cpId, Project_Name__c projId, ' +
+                'COUNT(Id) cnt, SUM(Agreement_Value__c) totalAgreement ' +
+                'FROM Booking__c ' +
+                'WHERE Channel_Partner__c IN :channelPartnerIds ' +
+                'AND Project_Name__c IN :projectIds ' +
+                'AND Stage__c NOT IN (' +
+                '\'Terminated\', ' +
+                '\'Booking Cancelled – Refund Pending\', ' +
+                '\'Booking Cancelled – Refund Ready\', ' +
+                '\'Booking Cancelled -- Refund Done\', ' +
+                '\'Cancellation Initiated\'' +
+                ') ';
+            
+            
+            if (ladderType == 'AOP') {
+                // baseQuery += ' AND Registration_Status__c = \'Completed\' ';
+            }
+            
+            baseQuery += ' GROUP BY Channel_Partner__c, Project_Name__c';
+            List<AggregateResult> aggResults = Database.query(baseQuery);
+            system.debug('310');
+            for (AggregateResult ar : aggResults) {
+                String key = String.valueOf(ar.get('cpId')) + '-' + String.valueOf(ar.get('projId'));
+                system.debug('313');
+                cpProjectBookingCount.put(key, (Integer) ar.get('cnt'));
+                cpProjectAgreementSum.put(key, (Decimal) ar.get('totalAgreement'));
+            }
+        }
+        
+        List<Brokerage_Ladder__c> ladderList = [
+            SELECT Id, Project__c, Percentage__c, RecordType.Name, Brokerage_amount__c, Active__c
+            FROM Brokerage_Ladder__c
+            WHERE Project__c IN :projectIds
+            AND Active__c = TRUE
+            AND RecordType.Name IN ('Sustenance', 'Launch')
+        ];
+        
+        
+        Map<Id, Brokerage_Ladder__c> activeLadderMap = new Map<Id, Brokerage_Ladder__c>();
+        for (Brokerage_Ladder__c ladder : ladderList) {
+            activeLadderMap.put(ladder.Project__c, ladder);
+            ladderIds.add(ladder.Id);
+        }
+        
+        List<Brokerage_Ladder__c> allLadders = [
+            SELECT Id, Percentage__c, RecordType.Name, Brokerage_amount__c, Active__c,
+            Direct_Brokerage_Percentage__c, Indirect_Brokerage_Percentage__c, 
+            Channel_Partner__c, Project_Details__c,Project__c
+            FROM Brokerage_Ladder__c
+            WHERE Project__c IN :projectIds
+            AND Active__c = true
+        ];
+        List<Brokerage_Ladder__c> AOPallLadders = [
+            SELECT Id, Percentage__c, RecordType.Name, Brokerage_amount__c, Active__c,
+            Direct_Brokerage_Percentage__c, Indirect_Brokerage_Percentage__c,
+            Channel_Partner__c, Project_Details__c, Project__c
+            FROM Brokerage_Ladder__c
+            WHERE Active__c = true
+            AND RecordType.Name ='AOP'
+        ];
+        
+        Map<Id, Brokerage_Ladder__c> ladderMap = new Map<Id, Brokerage_Ladder__c>();
+        Map<Id, Brokerage_Ladder__c> aopLadders      = new Map<Id, Brokerage_Ladder__c>();
+        Map<Id, Brokerage_Ladder__c> activeNriLadders      = new Map<Id, Brokerage_Ladder__c>();
+        Map<Id, Brokerage_Ladder__c> activeKickerLadders   = new Map<Id, Brokerage_Ladder__c>();
+        List<Brokerage_Ladder__c>    activeMouLadders    = new List<Brokerage_Ladder__c>();
+        for (Brokerage_Ladder__c bl : AOPallLadders) {
+            if (bl.RecordType.Name == 'AOP') {
+                system.debug('261');
+            	ladderMap.put(bl.Id, bl);
+                aopLadders.put(bl.Id, bl);
+            }  
+        }
+        for (Brokerage_Ladder__c bl : allLadders) {
+            if (bl.RecordType.Name == 'Launch' || bl.RecordType.Name =='Sustenance') {
+                system.debug('133');
+                ladderMap.put(bl.Id, bl);
+                
+            }  if (bl.RecordType.Name == 'NRI') {
+                system.debug('139');
+                activeNriLadders.put(bl.Id, bl);
+            }  if (bl.RecordType.Name == 'Kicker') {
+                system.debug('142');
+                activeKickerLadders.put(bl.Id, bl);
+            }  if (bl.RecordType.Name == 'MOU') {
+                system.debug('145');
+                activeMouLadders.add(bl);
+                ladderMap.put(bl.Id, bl);
+            }
+        }
+        
+        Map<String, Brokerage_Ladder__c> mouLadderMap = new Map<String, Brokerage_Ladder__c>();
+        for (Brokerage_Ladder__c mouLadder : activeMouLadders) {
+            if (mouLadder.Channel_Partner__c != null && mouLadder.Project__c != null) {
+                String key = mouLadder.Project__c;
+                system.debug('101');
+                mouLadderMap.put(key, mouLadder);
+            }
+        }
+        
+        system.debug('110');
+        Map<Id, List<Ladder_Band__c>> ladderBandMap = new Map<Id, List<Ladder_Band__c>>();
+        for (Ladder_Band__c band : [
+            SELECT Id, Minimum_Number__c, Maximum_Number__c, Additional_Brokerage__c,Brokerage_Ladder__r.RecordType.Name, Brokerage_Ladder__c,Maximum_revenue__c,Minimum_revenue__c
+            FROM Ladder_Band__c
+            WHERE Brokerage_Ladder__c IN :ladderIds
+            ORDER BY Minimum_Number__c ASC
+        ]) {
+            if (!ladderBandMap.containsKey(band.Brokerage_Ladder__c) && band.Brokerage_Ladder__r.RecordType.Name != 'MOU') {
+                
+                ladderBandMap.put(band.Brokerage_Ladder__c, new List<Ladder_Band__c>());
+            }
+            if (ladderBandMap.containsKey(band.Brokerage_Ladder__c)) {
+                
+                ladderBandMap.get(band.Brokerage_Ladder__c).add(band);
+            }
+        }
+        
+        List<Booking__c> bookingUpdates = new List<Booking__c>();
+        List<Channel_Partner_Brokrage__c> cpInserts = new List<Channel_Partner_Brokrage__c>();
+        
+        Map<String, Channel_Partner_Brokrage__c> existingCPMap = new Map<String, Channel_Partner_Brokrage__c>();
+        for (Channel_Partner_Brokrage__c cp : [
+            SELECT Id, Booking__c, Channel_Partner__c, Project__c, Brokerage_Ladder__c
+            FROM Channel_Partner_Brokrage__c
+            WHERE Booking__c IN :bookingIds
+        ]) {
+            String key = cp.Booking__c + '-' + cp.Channel_Partner__c + '-' + cp.Project__c + '-' + cp.Brokerage_Ladder__c;
+            existingCPMap.put(key, cp);
+        }
+        
+        
+        for (Booking__c bk : newBookings) {
+            if (bk.Channel_Partner__c == null || bk.Project_Name__c == null || bk.Brokerage_Ladder__c == null) {
+                
+            }
+            
+            
+            String cpProjKey = String.valueOf(bk.Channel_Partner__c) + '-' + String.valueOf(bk.Project_Name__c);
+            if (!cpProjectBookingCount.containsKey(cpProjKey)) {
+                
+            }
+            
+            Integer totalBookings = cpProjectBookingCount.get(cpProjKey);
+            Decimal totalbookingSum = 0;
+            
+            if (bk.Agreement_Value__c != null) {
+                totalbookingSum = cpProjectAgreementSum .get(cpProjKey);
+            }
+            
+            Decimal ladderBasePct = 0;
+            String recordTypeName = '';
+            
+            if(bk.Brokerage_Ladder__c != null && 
+               aopLadders.containsKey(bk.Brokerage_Ladder__c) &&
+               aopLadders.get(bk.Brokerage_Ladder__c).RecordTypeId != null){
+                   
+                   recordTypeName = aopLadders.get(bk.Brokerage_Ladder__c).RecordType.Name;
+               }
+            
+            // Default to Non-AOP if value is still blank
+            Boolean isAOP = (recordTypeName == 'AOP');
+            
+            if(isAOP){
+                // Fetch AOP ladder percentage safely
+                if(aopLadders.containsKey(bk.Brokerage_Ladder__c) && 
+                   aopLadders.get(bk.Brokerage_Ladder__c).Percentage__c != null){
+                       ladderBasePct = aopLadders.get(bk.Brokerage_Ladder__c).Percentage__c;
+                       system.debug('458');
+                   }
+            } else {
+                // Fetch non-AOP ladder percentage safely
+                if(ladderMap.containsKey(bk.Brokerage_Ladder__c) && 
+                   ladderMap.get(bk.Brokerage_Ladder__c).Percentage__c != null){
+                       ladderBasePct = ladderMap.get(bk.Brokerage_Ladder__c).Percentage__c;
+                   }
+            }
+            
+            
+            
+            
+            Decimal bandPct = 0;
+            Id matchedBandId;
+            boolean noBandMatch = false ;
+            Id matchedBandIdforAOP;
+            boolean IsActiveSustenanceRecord = false;
+            if (ladderBandMap.containsKey(bk.Brokerage_Ladder__c)) {
+                system.debug('476' +ladderBandMap.get(bk.Brokerage_Ladder__c));
+                for (Ladder_Band__c band : ladderBandMap.get(bk.Brokerage_Ladder__c)) {
+                    system.debug('646');
+                    system.debug('646'+band.Maximum_revenue__c);
+                    system.debug('646'+band.Minimum_revenue__c);
+                    if(band.Minimum_Number__c != null && band.Maximum_Number__c != null){
+                        system.debug('totalBookings'+totalBookings);
+                        system.debug('band.Minimum_Number__c'+band.Minimum_Number__c);
+                        system.debug('band.Maximum_Number__c'+band.Maximum_Number__c);
+                        if (totalBookings >= band.Minimum_Number__c && totalBookings <= band.Maximum_Number__c) {
+                            bandPct = (band.Additional_Brokerage__c != null) ? band.Additional_Brokerage__c : 0;
+                            matchedBandId = band.Id;
+                            break; 
+                        } else{
+                            system.debug('487');
+                            noBandMatch = true ;
+                            bandPct = 0;
+                        } 
+                    }
+                    if(band.Maximum_revenue__c != null && band.Minimum_revenue__c != null){
+                        system.debug('664');
+                         system.debug('646'+totalbookingSum);
+                        system.debug('646'+band.Maximum_revenue__c);
+                    system.debug('646'+band.Minimum_revenue__c);
+                        if (totalbookingSum >= band.Minimum_revenue__c && totalbookingSum <= band.Maximum_revenue__c) {
+                            bandPct = (band.Additional_Brokerage__c != null) ? band.Additional_Brokerage__c : 0;
+                            matchedBandIdforAOP = band.Id;
+                            
+                            break; 
+                        }else{
+                            noBandMatch = true ;
+                            bandPct =  0;
+                        } if(totalbookingSum == 0){
+                            system.debug('494');
+                             noBandMatch = true ;
+                            bandPct =  0;
+                            
+                        }  
+                    }
+                    
+                }
+            }
+            
+            
+            else{
+                system.debug('678');
+                
+                Brokerage_Ladder__c ladderRec = ladderMap.get(bk.Brokerage_Ladder__c);
+                if (ladderRec != null) {
+                    
+                    if (ladderRec.RecordType.Name == 'Sustenance' || activeMouLadders.size() > 0) {
+                        
+                        IsActiveSustenanceRecord = true;
+                    }
+                } else {
+                    noBandMatch = true ;
+                    system.debug('232 Ladder not found for booking: ' + bk.Id + ' ladderId: ' + bk.Brokerage_Ladder__c);
+                }
+                
+            }
+            system.debug('ladderBasePct=>'+ladderBasePct);
+            system.debug('bandPct=>'+bandPct);
+            Decimal totalBrokeragePct = ladderBasePct + bandPct;
+            system.debug('totalBrokeragePct=>'+totalBrokeragePct);
+            bookingUpdates.add(new Booking__c(
+                Id = bk.Id,
+                Brokerage_Percentage__c = totalBrokeragePct
+            ));
+            
+            
+            if (matchedBandId != null || matchedBandIdforAOP != null || IsActiveSustenanceRecord == true  || noBandMatch == true) {
+                
+                String cpKey = bk.Id + '-' + bk.Channel_Partner__c + '-' + bk.Project_Name__c + '-' + bk.Brokerage_Ladder__c;
+                System.debug('536'+cpKey);
+                if (!existingCPMap.containsKey(cpKey) && bk.Agreement_Value__c != null && bk.Agreement_Value__c != 0) {
+                    System.debug('538');
+                    Decimal agreementval = agreementMap.get(bk.id);
+                    System.debug('540' +agreementval);
+                    Decimal bookingAmount = (bk.Agreement_Value__c != null) ? bk.Agreement_Value__c : 0;
+                    Decimal totalBrokerageAmt = bookingAmount * (totalBrokeragePct / 100);
+                    if(bk.Agreement_Value__c != null && bk.Agreement_Value__c != 0){
+                        System.debug('544');
+                        Boolean isNRI = false;
+                        if (bookingWithApplicantMap.containsKey(bk.Id) &&
+                            bookingWithApplicantMap.get(bk.Id).Primary_Applicant__r != null &&
+                            bookingWithApplicantMap.get(bk.Id).Primary_Applicant__r.NRI__c == true) {
+                                isNRI = true;
+                                
+                            }  
+                        system.debug('552');
+                        system.debug(bookingWithApplicantMap.containsKey(bk.Id));
+                        system.debug(bookingWithApplicantMap.get(bk.Id).Project_Name__r.MOU_Document_Uploaded__c);
+                        system.debug(bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r.Walk_in_Source__c);
+                        
+                        if (
+                            bookingWithApplicantMap.containsKey(bk.Id) &&
+                            bookingWithApplicantMap.get(bk.Id).Project_Name__r != null &&
+                            bookingWithApplicantMap.get(bk.Id).Project_Name__r.MOU_Document_Uploaded__c == true &&
+                            bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r != null &&
+                            String.isNotBlank(bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r.Walk_in_Source__c) &&
+                            bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r.Walk_in_Source__c == 'Channel Partner'
+                        ) {
+                            
+                            system.debug('566');
+                            String mouKey = bk.Project_Name__c;
+                            
+                            if (mouLadderMap.containsKey(mouKey)) {
+                                system.debug('570');
+                                Brokerage_Ladder__c mouLadder = mouLadderMap.get(mouKey);
+                                Brokerage_Ladder__c launchLadder = activeLadderMap.get(bk.Project_Name__c);
+                                Decimal bookingagreementAmount = (bk.Agreement_Value__c != null) ? bk.Agreement_Value__c : 0;
+                                Decimal mouPct = (mouLadder.Indirect_Brokerage_Percentage__c != null) ? mouLadder.Indirect_Brokerage_Percentage__c : 0;
+                                Decimal mouAmt = bookingagreementAmount * (mouPct / 100);
+                                String cpKeyMou =  bk.Project_Name__c;
+                                if (!existingCPMap.containsKey(cpKeyMou)) {
+                                    system.debug('229');
+                                    system.debug('579');
+                                    cpInserts.add(new Channel_Partner_Brokrage__c(
+                                        Channel_Partner__c         = mouLadder.Channel_Partner__c,
+                                        Booking__c                 = bk.Id,
+                                        Brokerage_Ladder__c        = mouLadder.Id,
+                                        Project__c                 = bk.Project_Name__c,
+                                        Total_Brokerage__c         = mouPct,
+                                        Total_Brokerage_Amount__c  = mouAmt,
+                                        Type__c                    = 'MOU'
+                                    ));
+                                }
+                                
+                                
+                                
+                                if (activeLadderMap.containsKey(cpKeyMou) ) {
+                                    system.debug('594');
+                                    Brokerage_Ladder__c MOUactiveLadder = activeLadderMap.get(cpKeyMou);
+                                    Decimal MPct = (MOUactiveLadder.Percentage__c != null) ? MOUactiveLadder.Percentage__c : 0;
+                                    system.debug('597');
+                                    Decimal bookingAmountm = (bk.Agreement_Value__c != null) ? bk.Agreement_Value__c : 0;
+                                    Decimal MAmt = bookingAmountm * (MOUPct / 100);
+                                    if(activeLadderMap.get(bk.Project_Name__c).RecordType.Name == 'Sustenance'){
+                                        system.debug('595');
+                                        cpInserts.add(new Channel_Partner_Brokrage__c(
+                                            Channel_Partner__c         = bk.Channel_Partner__c,
+                                            Booking__c                 = bk.Id,
+                                            Brokerage_Ladder__c        = MOUactiveLadder.Id,
+                                            Project__c                 = bk.Project_Name__c,
+                                            Ladder_Band__c             = matchedBandId,
+                                            Total_Brokerage__c         = MPct,
+                                            Total_Brokerage_Amount__c  = MAmt,
+                                            Type__c                    = MOUactiveLadder.RecordType.Name
+                                        ));
+                                        
+                                        
+                                        
+                                    }
+                                    system.debug('516===>'+activeKickerLadders);
+                                    
+                                    if(bk.Channel_Partner__c != bk.Brokerage_ladder__r.Channel_Partner__c && bk.Brokerage_ladder__r.Channel_Partner__c != null){
+                                        if (launchLadder != null && launchLadder.Id != null) {
+                                            for (Ladder_Band__c band : ladderBandMap.get(launchLadder.Id)) {
+                                                if (band.Minimum_Number__c != null && band.Maximum_Number__c != null &&
+                                                    totalBookings >= band.Minimum_Number__c && totalBookings <= band.Maximum_Number__c) {
+                                                        
+                                                        bandPct = (band.Additional_Brokerage__c != null) ? band.Additional_Brokerage__c : 0;
+                                                        matchedBandId = band.Id;
+                                                        break;
+                                                    }
+                                                
+                                                
+                                            }
+                                            Brokerage_Ladder__c activeLadder = activeLadderMap.get(cpKeyMou);
+                                            Decimal nriPct = (activeLadder.Percentage__c != null) ? activeLadder.Percentage__c : 0;
+                                            Decimal nriAmt = bookingAmount * (nriPct / 100);
+                                            
+                                            if(ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'MOU' ){
+                                                cpInserts.add(new Channel_Partner_Brokrage__c(
+                                                    Channel_Partner__c         = bk.Channel_Partner__c,
+                                                    Booking__c                 = bk.Id,
+                                                    Brokerage_Ladder__c        = activeLadder.Id,
+                                                    Project__c                 = bk.Project_Name__c,
+                                                    Ladder_Band__c             = matchedBandId,
+                                                    Total_Brokerage__c         = nriPct,
+                                                    Total_Brokerage_Amount__c  = nriAmt,
+                                                    Type__c                    = activeLadder.RecordType.Name
+                                                ));
+                                            }
+                                            
+                                        }  
+                                        
+                                    }
+                                    
+                                }
+                                bookingUpdates.add(new Booking__c(
+                                    Id = bk.Id,
+                                    Is_MOU_Active__c = true
+                                ));
+                            }
+                            
+                        }
+                        
+                        if (
+                            bookingWithApplicantMap.containsKey(bk.Id) &&
+                            bookingWithApplicantMap.get(bk.Id).Project_Name__r != null &&
+                            bookingWithApplicantMap.get(bk.Id).Project_Name__r.MOU_Document_Uploaded__c == true &&
+                            bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r != null &&
+                            String.isNotBlank(bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r.Walk_in_Source__c) &&
+                            bookingWithApplicantMap.get(bk.Id).Related_Opportunity__r.Walk_in_Source__c != 'Channel Partner'
+                        ) {
+                            system.debug('line 303');
+                            String mouKey = bk.Project_Name__c;
+                            if (mouLadderMap.containsKey(mouKey)) {
+                                system.debug('line 259');
+                                Brokerage_Ladder__c mouLadder = mouLadderMap.get(mouKey);
+                                Decimal bookingagreementAmount = (bk.Agreement_Value__c != null) ? bk.Agreement_Value__c : 0;
+                                Decimal mouPct = (mouLadder.Direct_Brokerage_Percentage__c != null) ? mouLadder.Direct_Brokerage_Percentage__c : 0;
+                                Decimal mouAmt = bookingagreementAmount * (mouPct / 100);
+                                
+                                String cpKeyMou = bk.Project_Name__c;
+                                if (!existingCPMap.containsKey(cpKeyMou)) {
+                                    system.debug('line 267');
+                                    cpInserts.add(new Channel_Partner_Brokrage__c(
+                                        Channel_Partner__c         = mouLadder.Channel_Partner__c,
+                                        Booking__c                 = bk.Id,
+                                        Brokerage_Ladder__c        = mouLadder.Id,
+                                        Project__c                 = bk.Project_Name__c,
+                                        Total_Brokerage__c         = mouPct,
+                                        Total_Brokerage_Amount__c  = mouAmt,
+                                        Type__c                    = 'MOU'
+                                    ));
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                        
+                        if (isNRI) {
+                            system.debug('601'+isNRI);
+                            system.debug('602'+activeNriLadders.values());
+                            for (Brokerage_Ladder__c nriLadder : activeNriLadders.values()) {
+                                system.debug('nriLadder==>' +nriLadder);
+                                Decimal nriPct = (nriLadder.Percentage__c != null) ? nriLadder.Percentage__c : 0;
+                                Decimal nriAmt = bookingAmount * (nriPct / 100);
+                                system.debug('nriPct==>' +nriPct);
+                                system.debug('bk.Id==>' +bk.Id);
+                                system.debug('bk.Project_Name__c==>' +bk.Project_Name__c);
+                                system.debug('nriLadder.Id==>' +nriLadder.Id);
+                                String cpKey1 = bk.Id + '-'  + '-' + bk.Project_Name__c + '-' + nriLadder.Id;
+                                if (!existingCPMap.containsKey(cpKey1)) {
+                                    system.debug('470');
+                                    if(nriLadder.Percentage__c != null && nriLadder.Brokerage_amount__c == null){
+                                        system.debug('472');
+                                        cpInserts.add(new Channel_Partner_Brokrage__c(
+                                            Channel_Partner__c         = bk.Channel_Partner__c,
+                                            Booking__c                 = bk.Id,
+                                            Brokerage_Ladder__c        = nriLadder.Id,
+                                            Project__c                 = bk.Project_Name__c,
+                                            Total_Brokerage__c         = nriPct,
+                                            Total_Brokerage_Amount__c  = nriAmt,
+                                            Type__c                    = 'NRI'
+                                        ));
+                                    }
+                                    if(nriLadder.Percentage__c == null && nriLadder.Brokerage_amount__c != null){
+                                        system.debug('line 176' +ladderMap.containsKey(bk.Brokerage_Ladder__c));
+                                        system.debug('line 176' +ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'AOP');
+                                        cpInserts.add(new Channel_Partner_Brokrage__c(
+                                            Channel_Partner__c         = bk.Channel_Partner__c,
+                                            Booking__c                 = bk.Id,
+                                            Brokerage_Ladder__c        = nriLadder.Id,
+                                            Project__c                 = bk.Project_Name__c,
+                                            Total_Brokerage_Amount__c  = nriLadder.Brokerage_amount__c,
+                                            Type__c                    = 'NRI'
+                                        ));
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        if (activeKickerLadders != null && activeKickerLadders.size() > 0) {
+                            system.debug('line 651');
+                            for (Brokerage_Ladder__c nriLadder : activeKickerLadders.values()) {
+                                system.debug('nriLadder==>' +nriLadder);
+                                Decimal nriPct = (nriLadder.Percentage__c != null) ? nriLadder.Percentage__c : 0;
+                                Decimal nriAmt = bookingAmount * (nriPct / 100);
+                                
+                                String cpKey1 = bk.Id + '-'  + '-' + bk.Project_Name__c + '-' + nriLadder.Id;
+                                if (!existingCPMap.containsKey(cpKey1) && ladderMap != null &&
+    !ladderMap.isEmpty() &&
+    bk.Brokerage_Ladder__c != null ) {
+                                    system.debug('cpKey1==>' +cpKey1);
+                                    if(nriLadder.Percentage__c != null && nriLadder.Brokerage_amount__c == null && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'Sustenance'){
+                                        system.debug('line 173');
+                                        cpInserts.add(new Channel_Partner_Brokrage__c(
+                                            Channel_Partner__c         = bk.Channel_Partner__c,
+                                            Booking__c                 = bk.Id,
+                                            Brokerage_Ladder__c        = nriLadder.Id,
+                                            Project__c                 = bk.Project_Name__c,
+                                            Total_Brokerage__c         = nriPct,
+                                            Total_Brokerage_Amount__c  = nriAmt,
+                                            Type__c                    = 'Kicker'
+                                        ));
+                                    }
+                                    system.debug(nriLadder.Percentage__c);
+                                    system.debug(nriLadder.Brokerage_amount__c);
+        							system.debug('bk.Brokerage_Ladder__c' +bk.Brokerage_Ladder__c);
+        							system.debug('ladderMap' +ladderMap);
+                                    system.debug(ladderMap.get(bk.Brokerage_Ladder__c));
+                                    system.debug(ladderMap.get(bk.Brokerage_Ladder__c));
+                                    if(nriLadder.Percentage__c == null && nriLadder.Brokerage_amount__c != null && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'Sustenance'){
+                                        cpInserts.add(new Channel_Partner_Brokrage__c(
+                                            Channel_Partner__c         = bk.Channel_Partner__c,
+                                            Booking__c                 = bk.Id,
+                                            Brokerage_Ladder__c        = nriLadder.Id,
+                                            Project__c                 = bk.Project_Name__c,
+                                            Total_Brokerage_Amount__c  = nriLadder.Brokerage_amount__c,
+                                            Type__c                    = 'Kicker'
+                                        ));
+                                    }
+                                    if(nriLadder.Percentage__c != null && nriLadder.Brokerage_amount__c == null && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'MOU' ){
+                                        if(bk.Channel_Partner__c != null){
+                                            cpInserts.add(new Channel_Partner_Brokrage__c(
+                                                Channel_Partner__c         = bk.Channel_Partner__c,
+                                                Booking__c                 = bk.Id,
+                                                Brokerage_Ladder__c        = nriLadder.Id,
+                                                Project__c                 = bk.Project_Name__c,
+                                                Total_Brokerage__c         = nriPct,
+                                                Total_Brokerage_Amount__c  = nriAmt,
+                                                Type__c                    = 'Kicker'
+                                            ));
+                                        }
+                                    }
+                                    if(nriLadder.Percentage__c == null && nriLadder.Brokerage_amount__c != null && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'MOU'){
+                                        if(bk.Channel_Partner__c != null){
+                                            cpInserts.add(new Channel_Partner_Brokrage__c(
+                                                Channel_Partner__c         = bk.Channel_Partner__c,
+                                                Booking__c                 = bk.Id,
+                                                Brokerage_Ladder__c        = nriLadder.Id,
+                                                Project__c                 = bk.Project_Name__c,
+                                                Total_Brokerage_Amount__c  = nriLadder.Brokerage_amount__c,
+                                                Type__c                    = 'Kicker'
+                                            ));
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        if (ladderMap.containsKey(bk.Brokerage_Ladder__c) && 
+                            ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'Sustenance' && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name != 'MOU') {
+                                system.debug('534');
+                                Channel_Partner_Brokrage__c cpRecord = new Channel_Partner_Brokrage__c(
+                                    Channel_Partner__c         = bk.Channel_Partner__c,
+                                    Booking__c                 = bk.Id,
+                                    Brokerage_Ladder__c        = bk.Brokerage_Ladder__c,
+                                    Project__c                 = bk.Project_Name__c,
+                                    Total_Brokerage__c         = totalBrokeragePct,
+                                    Total_Brokerage_Amount__c  = totalBrokerageAmt,
+                                    Type__c                    = ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name
+                                );
+                                cpInserts.add(cpRecord);
+                            }
+                        
+                        
+                        
+                        if (ladderMap.containsKey(bk.Brokerage_Ladder__c) && 
+                            ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name == 'Launch' && ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name != 'MOU') {
+                                system.debug('534');
+                                Channel_Partner_Brokrage__c cpRecord = new Channel_Partner_Brokrage__c(
+                                    Channel_Partner__c         = bk.Channel_Partner__c,
+                                    Booking__c                 = bk.Id,
+                                    Brokerage_Ladder__c        = bk.Brokerage_Ladder__c,
+                                    Project__c                 = bk.Project_Name__c,
+                                    Ladder_Band__c             = matchedBandId,
+                                    Total_Brokerage__c         = totalBrokeragePct,
+                                    Total_Brokerage_Amount__c  = totalBrokerageAmt,
+                                    Type__c                    = ladderMap.get(bk.Brokerage_Ladder__c).RecordType.Name
+                                );
+                                cpInserts.add(cpRecord);
+                            }
+                        
+                        
+                        if (aopLadders.containsKey(bk.Brokerage_Ladder__c) && 
+                            aopLadders.get(bk.Brokerage_Ladder__c).RecordType.Name == 'AOP'){
+                                system.debug('647==>'+aopLadders.get(bk.Brokerage_Ladder__c).RecordType.Name);
+                                system.debug('totalBrokeragePct==>'+totalBrokeragePct);
+                                system.debug('totalBrokerageAmt==>'+totalBrokerageAmt);
+                                system.debug('aopLadders'+aopLadders);
+                                Decimal percentageValue = aopLadders.get(bk.Brokerage_Ladder__c).Percentage__c;
+                                System.debug('Percentage: ' + percentageValue);
+                                Decimal nriPct = (percentageValue != null) ? percentageValue : 0;
+                                Decimal nriAmt = bookingAmount * (nriPct / 100);
+                                
+                                Channel_Partner_Brokrage__c cpRecord = new Channel_Partner_Brokrage__c(
+                                    Channel_Partner__c         = bk.Channel_Partner__c,
+                                    Booking__c                 = bk.Id,
+                                    Brokerage_Ladder__c        = bk.Brokerage_Ladder__c,
+                                    Project__c                 = bk.Project_Name__c,
+                                    Ladder_Band__c             = matchedBandIdforAOP,
+                                    Total_Brokerage__c         = totalBrokeragePct,
+                                    Total_Brokerage_Amount__c  = totalBrokerageAmt,
+                                    Type__c                    = aopLadders.get(bk.Brokerage_Ladder__c).RecordType.Name
+                                );
+                                cpInserts.add(cpRecord);
+                                
+                            }
+                    }
+                }
+            }
+            
+            
+            
+            if (!cpInserts.isEmpty()) {
+                
+                insert cpInserts;
+            }
+        }
+    }
+}
