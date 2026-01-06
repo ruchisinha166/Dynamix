@@ -1,0 +1,39 @@
+trigger BookingTriggerNew1 on Booking__c (before insert,  before update, after insert, after update) {
+    Boolean checkCondition = Boolean.valueOf(System.Label.Booking_Trigger);
+    if (!checkCondition) return;
+	  if (Trigger.isBefore && Trigger.isInsert) {
+        System.debug('Before Insert: assign brokerage ladder');
+        BookingTriggerHandlerNew.assignBrokerageLadder(Trigger.new);
+    }
+
+    if (Trigger.isBefore && Trigger.isUpdate) {
+        System.debug('Before Update: assign brokerage ladder');
+        for (Booking__c bk : Trigger.new) {
+            Booking__c oldBk = Trigger.oldMap.get(bk.Id);
+            if (oldbk.Brokerage_ladder__c == null) {
+                //BookingTriggerHandlerNew.assignBrokerageLadder(Trigger.new);
+            }
+        }
+    }
+
+
+    if (Trigger.isAfter && Trigger.isInsert) {
+        System.debug('After Insert: update brokerage');
+        BookingTriggerHandlerNew.updateBrokerage(Trigger.new);
+    }
+
+ if (Trigger.isAfter && Trigger.isUpdate) {
+        System.debug('After Update: update brokerage only if Agreement_Value__c changed');
+        List<Booking__c> changedBookings = new List<Booking__c>();
+        for (Booking__c bk : Trigger.new) {
+            Booking__c oldBk = Trigger.oldMap.get(bk.Id);
+		 if (bk.Agreement_Value__c != oldBk.Agreement_Value__c) {
+                changedBookings.add(bk);
+            }
+        }
+
+        if (!changedBookings.isEmpty()) {
+            BookingTriggerHandlerNew.updateBrokerage(changedBookings);
+        }
+    }
+}
